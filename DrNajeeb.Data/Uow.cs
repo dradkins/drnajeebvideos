@@ -47,6 +47,7 @@ namespace DrNajeeb.Data
         public IRepository<CategoryVideo> _CategoryVideos { get { return GetStandardRepo<CategoryVideo>(); } }
         public IRepository<UserFavoriteVideo> _Favorites { get { return GetStandardRepo<UserFavoriteVideo>(); } }
         public IRepository<UserVideoHistory> _UserVideoHistory { get { return GetStandardRepo<UserVideoHistory>(); } }
+        public IRepository<SupportMessage> _SupportMessages { get { return GetStandardRepo<SupportMessage>(); } }
 
 
         #endregion

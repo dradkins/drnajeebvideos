@@ -94,6 +94,12 @@
     <Compile Include="Subscription.cs">
       <DependentUpon>DrNajeebEF.tt</DependentUpon>
     </Compile>
+    <Compile Include="SupportMessage.cs">
+      <DependentUpon>DrNajeebEF.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>DrNajeebEF.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserFavoriteVideo.cs">
       <DependentUpon>DrNajeebEF.tt</DependentUpon>
     </Compile>

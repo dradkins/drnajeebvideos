@@ -45,6 +45,10 @@
                 templateUrl: "/app/views/login.html",
                 controller: "LoginController"
             })
+            .when("/support", {
+                templateUrl: "/app/views/support.html",
+                controller: "SupportController"
+            })
             .when("/categories/:categoryId/:categoryName/videos", {
                 templateUrl: "/app/views/CategoryVideos.html",
                 controller: "CategoryVideoController"

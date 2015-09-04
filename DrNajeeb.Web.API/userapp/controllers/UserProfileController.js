@@ -125,6 +125,8 @@
 
         /***** Admin support section *******/
 
+        $scope.messages = [];
+
         $scope.support = {
             subject: "",
             message: "",
@@ -143,16 +145,31 @@
         };
 
         var onMessageSend = function (data) {
-            $scope.support.subject = "";
             $scope.support.message = "";
-            $scope.form.$setPristine(true)
-            toastr.info(data);
+            $scope.form.$setPristine(true);
+            $scope.messages.push(data);
+            toastr.info("your message received successfully. Thanks for you valuable feedback, we will contact you as soon as possible");
         }
 
         var onMessageError = function (error) {
             console.log(error);
-            toastr.error("Unable to send message at this time");
+            toastr.error("unable to send message at this time");
         }
+
+        var loadMessages = function () {
+            SuportService.getMessages().then(onMessagesArrive, onMessagesArriveError);
+        }
+
+        var onMessagesArrive = function (data) {
+            $scope.messages = data;
+        }
+
+        var onMessagesArriveError = function (error) {
+            console.log(error);
+            toastr.error("unable to fetch old messages");
+        }
+
+        loadMessages();
 
         /***** End admin support section *****/
     };

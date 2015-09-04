@@ -12,6 +12,13 @@
         }
 
 
+        SuportService.getMessages = function () {
+            return $http.get("/api/support/loadUserMessages")
+                        .then(function (response) {
+                            return response.data;
+                        });
+        }
+
         return SuportService;
     }
 

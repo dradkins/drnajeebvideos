@@ -36,6 +36,8 @@ namespace DrNajeeb.EF
             this.Subscriptions1 = new HashSet<Subscription>();
             this.Subscriptions2 = new HashSet<Subscription>();
             this.Subscriptions3 = new HashSet<Subscription>();
+            this.SupportMessages = new HashSet<SupportMessage>();
+            this.SupportMessages1 = new HashSet<SupportMessage>();
             this.UserFavoriteVideos = new HashSet<UserFavoriteVideo>();
             this.UserVideoHistories = new HashSet<UserVideoHistory>();
             this.Videos = new HashSet<Video>();
@@ -104,6 +106,8 @@ namespace DrNajeeb.EF
         public virtual ICollection<Subscription> Subscriptions1 { get; set; }
         public virtual ICollection<Subscription> Subscriptions2 { get; set; }
         public virtual ICollection<Subscription> Subscriptions3 { get; set; }
+        public virtual ICollection<SupportMessage> SupportMessages { get; set; }
+        public virtual ICollection<SupportMessage> SupportMessages1 { get; set; }
         public virtual ICollection<UserFavoriteVideo> UserFavoriteVideos { get; set; }
         public virtual ICollection<UserVideoHistory> UserVideoHistories { get; set; }
         public virtual ICollection<Video> Videos { get; set; }

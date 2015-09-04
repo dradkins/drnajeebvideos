@@ -42,5 +42,17 @@ namespace DrNajeeb.Web.API.Models
     {
         public string Subject { get; set; }
         public string Message { get; set; }
+        public string ToUserId { get; set; }
+    }
+
+    public class UserMessagesModel
+    {
+        public int Id { get; set; }
+        public DateTime MessageDateTime { get; set; }
+        public string MessageText { get; set; }
+        public bool IsRead { get; set; }
+        public bool IsFromAdmin { get; set; }
+        public bool IsFromUser { get; set; }
+        public string ReplierName { get; set; }
     }
 }

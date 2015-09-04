@@ -254,6 +254,7 @@
     <Compile Include="Helpers\Helpers.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminSupportModels.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CategorySortingModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
@@ -273,6 +274,7 @@
     <Content Include="app\controllers\CategoryVideoController.js" />
     <Content Include="app\controllers\DashboardController.js" />
     <Content Include="app\controllers\LoginController.js" />
+    <Content Include="app\controllers\SupportController.js" />
     <Content Include="app\directives\passwordValidator.js" />
     <Content Include="app\directives\searchBar.js" />
     <Content Include="app\interceptors\interceptors.js" />
@@ -280,11 +282,15 @@
     <Content Include="app\services\DashboardService.js" />
     <Content Include="app\services\FormEncodeService.js" />
     <Content Include="app\services\OAuthService.js" />
+    <Content Include="app\services\SupportService.js" />
     <Content Include="app\views\categoryvideos.html" />
     <Content Include="app\views\dashboard.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\navigation_left.html" />
     <Content Include="app\views\navigation_upper.html" />
+    <Content Include="app\views\support.html" />
+    <Content Include="Content\images\user_frontend_mini.png" />
+    <Content Include="Content\images\user_mini.jpg" />
     <Content Include="userapp\views\privacy-policy.html" />
     <Content Include="userapp\views\terms-and-conditions.html" />
     <Content Include="Content\class-animation.css" />
