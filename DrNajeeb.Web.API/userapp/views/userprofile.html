@@ -1,0 +1,204 @@
+﻿<!-- Before Adding Main Content -->
+<div id="theme-wrapper">
+    <nav ng-include="'/userapp/views/navigation_upper.html'"></nav>
+    <div id="page-wrapper" class="container">
+        <div class="row">
+            <nav ng-include="'/userapp/views/navigation_left.html'"></nav>
+            <div id="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- End Before Adding Main Content -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ol class="breadcrumb">
+                                    <li><a href="">Home</a></li>
+                                    <li class="active"><span>User Profile</span></li>
+                                </ol>
+
+                                <h1>User Profile</h1>
+                            </div>
+                        </div>
+                        <div class="row" id="user-profile">
+                            <div class="col-lg-3 col-md-4 col-sm-4">
+                                <div class="main-box clearfix">
+                                    <header class="main-box-header clearfix">
+                                        <h2>My Account</h2>
+                                    </header>
+
+                                    <div class="main-box-body clearfix">
+                                        <img style="width:159px; height:159px;" src="../../Content/images/user_frontend.png" class="profile-img img-responsive center-block img-rounded" />
+
+                                        <div class="profile-since">
+                                            Member
+                                        </div>
+
+                                        <div class="profile-details" ng-show="showPasswordDiv">
+                                            <h4 class="text-center">Change Password</h4>
+                                            <form name="changePasswordForm" ng-submit="changePassword(changePasswordForm)">
+                                                <div class="form-group">
+                                                    <label>Current Password</label>
+                                                    <input type="password" class="form-control input-sm" ng-model="changePasswordModel.oldPassword" required />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>New Password</label>
+                                                    <input type="password" class="form-control" ng-model="changePasswordModel.newPassword" required />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Confirm New Password</label>
+                                                    <input type="password" class="form-control" ng-model="changePasswordModel.confirmPassword" required />
+                                                </div>
+                                                <div class="form-group pull-right">
+                                                    <button type="submit" value="Change" class="btn btn-primary">
+                                                        Change
+                                                    </button>
+                                                    <button type="reset" class="btn btn-danger" value="Reset">Reset</button>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </form>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="profile-message-btn center-block text-center">
+                                            <a href="" class="btn btn-success" ng-click="showPasswordDiv=!showPasswordDiv">
+                                                <i class="fa fa-lock"></i>
+                                                Change Password
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-9 col-md-8 col-sm-8">
+                                <div class="main-box clearfix">
+                                    <div class="tabs-wrapper profile-tabs">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a showtab="" data-target="#tab-history" data-toggle="tab">My History</a>
+                                            </li>
+                                            <li>
+                                                <a showtab="" data-target="#tab-admin-support" data-toggle="tab">Contact Support Team</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content">
+
+                                            <div class="tab-pane fade in active" id="tab-history">
+
+                                                <!--<div>-->
+                                                    <header class="main-box-header clearfix">
+                                                        <h2 class="pull-left">Videos History</h2>
+
+                                                        <div class="filter-block pull-right">
+                                                            <div class="pull-left">
+                                                                <form class="form-inline" ng-submit="search()" role="form">
+                                                                    <div class="form-group">
+                                                                        <input type="text" class="form-control input-sm" ng-model="pagingInfo.search" placeholder="Search...">
+                                                                        <button type="submit" class="btn btn-info btn-sm">
+                                                                            <i class="fa fa-search fa-lg"></i> Search
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <div class="table-responsive clearfix">
+                                                        <table class="table table-hover">
+                                                            <thead>
+                                                                <tr class="headRow">
+                                                                    <th>#</th>
+                                                                    <th>Name</th>
+                                                                    <th>Duration</th>
+                                                                    <th>Category</th>
+                                                                    <th>&nbsp;</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="video in videos | filter: pagingInfo.search">
+                                                                    <td>
+                                                                        <img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:50px; height:50px;" />
+                                                                    </td>
+                                                                    <td class="mobScreenTableDisNon">{{video.name}}</td>
+                                                                    <td class="mobScreenTableDisNon">{{video.duration}} Min.</td>
+                                                                    <td class="mobScreenTableDisNon">
+                                                                        <span ng-repeat="cat in video.categories">
+                                                                            {{cat.name}}<br />
+                                                                        </span>
+                                                                    </td>
+                                                                    <td class="mobScreenTableDisNon">
+                                                                        <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
+                                                                            Watch Now <i class="fa fa-arrow-circle-o-right"></i>
+                                                                        </button>
+                                                                        <button class="btn btn-warning" ng-click="addToFavorites(video)" title="Add To Favorites" ng-if="!video.isFavoriteVideo">
+                                                                            <i class="fa fa-heart-o text-danger"></i>
+                                                                        </button>
+                                                                        <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Favorites" ng-if="video.isFavoriteVideo">
+                                                                            <i class="fa fa-heart-o"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                    <td class="mobScreenTable">
+                                                                        <div class="mobScreenDiv" style="width:100%;">
+                                                                            <div class="row"><p class="col-xs-10 col-lg-10 col-md-10 col-sm-10 ng-binding">{{video.name}}</p><i class="fa fa-arrow-circle-o-right fa-2x col-xs-2 col-lg-2 col-md-2 col-sm-2" ng-click="showVideo(video)"></i></div>
+                                                                            <p>{{video.duration}} Min.</p>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <pagination total-items="pagingInfo.totalItems"
+                                                                ng-model="pagingInfo.page"
+                                                                max-size="10"
+                                                                boundary-links="true"
+                                                                rotate="false"
+                                                                class="pagination-sm pull-right"
+                                                                ng-change="selectPage(pagingInfo.page)"
+                                                                items-per-page="pagingInfo.itemsPerPage"
+                                                                num-pages="numPages">
+                                                    </pagination>
+                                                <!--</div>
+                                                <div ng-if="videos.length <= 0">
+                                                    <span>You didn't watch any video yet!</span>
+                                                </div>-->
+                                            </div>
+
+                                            <div class="tab-pane fade" id="tab-admin-support">
+                                                <form name="supportForm" ng-submit="sendMessage(supportForm)">
+                                                    <div class="form-group">
+                                                        <label>Subject</label>
+                                                        <input type="text" class="form-control input-sm" ng-model="support.subject" required />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Message</label>
+                                                        <textarea class="form-control" ng-model="support.message" required />
+                                                    </div>
+                                                    <div class="form-group pull-right">
+                                                        <button type="submit" value="Change" class="btn btn-primary">
+                                                            Send
+                                                        </button>
+                                                        <button type="reset" class="btn btn-danger" value="Reset">Reset</button>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- After Adding Main Content -->
+                    </div>
+                </div>
+
+                <footer id="footer-bar" class="row">
+                    <p id="footer-copyright" class="col-xs-12">
+                        Copyright © 2015 Dr. Najeeb Lectures. All Rights Reserved.
+                    </p>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End After Adding Main Content -->

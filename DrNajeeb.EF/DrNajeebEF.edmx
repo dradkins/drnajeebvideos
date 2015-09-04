@@ -1,0 +1,2060 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DrNajeebLecturesDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FullName" Type="varchar(max)" />
+          <Property Name="IsPasswordReset" Type="bit" Nullable="false" />
+          <Property Name="IsAllowMobileVideos" Type="bit" Nullable="false" />
+          <Property Name="IsParentalControl" Type="bit" Nullable="false" />
+          <Property Name="ParentalControlPin" Type="varchar(max)" />
+          <Property Name="IsFilterByIP" Type="bit" Nullable="false" />
+          <Property Name="NoOfConcurentViews" Type="int" Nullable="false" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="SubscriptionId" Type="int" />
+          <Property Name="IsActiveUSer" Type="bit" Nullable="false" />
+          <Property Name="CurrentViews" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="SubscriptionDate" Type="datetime" />
+          <Property Name="ExpirationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CategoriesInSubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="SubscriptionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="IsShowOnFrontPage" Type="bit" Nullable="false" />
+          <Property Name="ImageURL" Type="nvarchar(max)" />
+          <Property Name="SEOName" Type="nvarchar(max)" />
+          <Property Name="CategoryURL" Type="nvarchar(max)" />
+          <Property Name="DisplayOrder" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="CategoryVideos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="VideoId" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="DisplayOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="Countries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" />
+          <Property Name="CountryCode" Type="varchar(max)" />
+          <Property Name="FlagImage" Type="nvarchar(max)" />
+          <Property Name="ISO2Name" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="IpAddressFilters">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IpAddress" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Subscriptions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="TimeDuration" Type="int" />
+          <Property Name="GatewayId" Type="nvarchar(max)" />
+          <Property Name="GatewayURL" Type="nvarchar(max)" />
+          <Property Name="IsActiveSubscription" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="UserFavoriteVideos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="VideoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserVideoHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WatchDateTime" Type="datetime" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="VideoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Videos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="ReleaseYear" Type="int" Nullable="false" />
+          <Property Name="DateLive" Type="date" Nullable="false" />
+          <Property Name="BackgroundColor" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="ThumbnailURL" Type="nvarchar(max)" />
+          <Property Name="PreviewURL" Type="nvarchar(max)" />
+          <Property Name="SpecialFeatureURL" Type="nvarchar(max)" />
+          <Property Name="BackgroundImageURL" Type="nvarchar(max)" />
+          <Property Name="VideoPlayerImageURL" Type="nvarchar(max)" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="IsFeatured" Type="bit" Nullable="false" />
+          <Property Name="IsMatureContent" Type="bit" Nullable="false" />
+          <Property Name="IsShowInPromo" Type="bit" Nullable="false" />
+          <Property Name="StandardVideoId" Type="nvarchar(max)" />
+          <Property Name="FastVideoId" Type="nvarchar(max)" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK__AspNetUse__Count__47DBAE45">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Count__48CFD27E">
+          <End Role="Countries" Type="Self.Countries" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Creat__49C3F6B7">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUsers1" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers1">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Creat__4AB81AF0">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUsers1" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers1">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Subsc__4BAC3F29">
+          <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Subsc__4CA06362">
+          <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Updat__4D94879B">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUsers1" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers1">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Updat__4E88ABD4">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUsers1" Type="Self.AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers1">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Categorie__Categ__4F7CD00D">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoriesInSubscription" Type="Self.CategoriesInSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoriesInSubscription">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Categorie__Categ__5070F446">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoriesInSubscription" Type="Self.CategoriesInSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoriesInSubscription">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Categorie__Subsc__5165187F">
+          <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="1" />
+          <End Role="CategoriesInSubscription" Type="Self.CategoriesInSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoriesInSubscription">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Categorie__Subsc__52593CB8">
+          <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="1" />
+          <End Role="CategoriesInSubscription" Type="Self.CategoriesInSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoriesInSubscription">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Create__534D60F1">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Create__5441852A">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Update__5535A963">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Update__5629CD9C">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Categ__571DF1D5">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Categ__5812160E">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Creat__59063A47">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Creat__59FA5E80">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Video__5AEE82B9">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Video__5BE2A6F2">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IpAddress__Creat__5CD6CB2B">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="IpAddressFilters" Type="Self.IpAddressFilters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IpAddressFilters">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IpAddress__Creat__5DCAEF64">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="IpAddressFilters" Type="Self.IpAddressFilters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IpAddressFilters">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IpAddress__UserI__5EBF139D">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="IpAddressFilters" Type="Self.IpAddressFilters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IpAddressFilters">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IpAddress__UserI__5FB337D6">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="IpAddressFilters" Type="Self.IpAddressFilters" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IpAddressFilters">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__Creat__60A75C0F">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscriptions">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__Creat__619B8048">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscriptions">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__Updat__628FA481">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscriptions">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__Updat__6383C8BA">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscriptions">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserFavor__UserI__6477ECF3">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="UserFavoriteVideos" Type="Self.UserFavoriteVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserFavoriteVideos">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserFavor__Video__656C112C">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="1" />
+          <End Role="UserFavoriteVideos" Type="Self.UserFavoriteVideos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserFavoriteVideos">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserVideo__UserI__66603565">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="UserVideoHistory" Type="Self.UserVideoHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserVideoHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserVideo__Video__6754599E">
+          <End Role="Videos" Type="Self.Videos" Multiplicity="1" />
+          <End Role="UserVideoHistory" Type="Self.UserVideoHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserVideoHistory">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__CreatedB__68487DD7">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Videos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__CreatedB__693CA210">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Videos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__UpdatedB__6A30C649">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Videos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__UpdatedB__6B24EA82">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Videos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DrNajeebLecturesDBModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoriesInSubscription" EntityType="Self.CategoriesInSubscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryVideos" EntityType="Self.CategoryVideos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IpAddressFilters" EntityType="Self.IpAddressFilters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subscriptions" EntityType="Self.Subscriptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserFavoriteVideos" EntityType="Self.UserFavoriteVideos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserVideoHistory" EntityType="Self.UserVideoHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AspNetUse__Count__47DBAE45" Association="Self.FK__AspNetUse__Count__47DBAE45">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Count__48CFD27E" Association="Self.FK__AspNetUse__Count__48CFD27E">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Creat__49C3F6B7" Association="Self.FK__AspNetUse__Creat__49C3F6B7">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUsers1" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Creat__4AB81AF0" Association="Self.FK__AspNetUse__Creat__4AB81AF0">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUsers1" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Subsc__4BAC3F29" Association="Self.FK__AspNetUse__Subsc__4BAC3F29">
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Subsc__4CA06362" Association="Self.FK__AspNetUse__Subsc__4CA06362">
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Updat__4D94879B" Association="Self.FK__AspNetUse__Updat__4D94879B">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUsers1" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Updat__4E88ABD4" Association="Self.FK__AspNetUse__Updat__4E88ABD4">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUsers1" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Categorie__Categ__4F7CD00D" Association="Self.FK__Categorie__Categ__4F7CD00D">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoriesInSubscription" EntitySet="CategoriesInSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Categorie__Categ__5070F446" Association="Self.FK__Categorie__Categ__5070F446">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoriesInSubscription" EntitySet="CategoriesInSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Categorie__Subsc__5165187F" Association="Self.FK__Categorie__Subsc__5165187F">
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+            <End Role="CategoriesInSubscription" EntitySet="CategoriesInSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Categorie__Subsc__52593CB8" Association="Self.FK__Categorie__Subsc__52593CB8">
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+            <End Role="CategoriesInSubscription" EntitySet="CategoriesInSubscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Create__534D60F1" Association="Self.FK__Category__Create__534D60F1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Create__5441852A" Association="Self.FK__Category__Create__5441852A">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Update__5535A963" Association="Self.FK__Category__Update__5535A963">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Update__5629CD9C" Association="Self.FK__Category__Update__5629CD9C">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Category" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Categ__571DF1D5" Association="Self.FK__CategoryV__Categ__571DF1D5">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Categ__5812160E" Association="Self.FK__CategoryV__Categ__5812160E">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Creat__59063A47" Association="Self.FK__CategoryV__Creat__59063A47">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Creat__59FA5E80" Association="Self.FK__CategoryV__Creat__59FA5E80">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Video__5AEE82B9" Association="Self.FK__CategoryV__Video__5AEE82B9">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Video__5BE2A6F2" Association="Self.FK__CategoryV__Video__5BE2A6F2">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IpAddress__Creat__5CD6CB2B" Association="Self.FK__IpAddress__Creat__5CD6CB2B">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IpAddress__Creat__5DCAEF64" Association="Self.FK__IpAddress__Creat__5DCAEF64">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IpAddress__UserI__5EBF139D" Association="Self.FK__IpAddress__UserI__5EBF139D">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IpAddress__UserI__5FB337D6" Association="Self.FK__IpAddress__UserI__5FB337D6">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__Creat__60A75C0F" Association="Self.FK__Subscript__Creat__60A75C0F">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__Creat__619B8048" Association="Self.FK__Subscript__Creat__619B8048">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__Updat__628FA481" Association="Self.FK__Subscript__Updat__628FA481">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__Updat__6383C8BA" Association="Self.FK__Subscript__Updat__6383C8BA">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserFavor__UserI__6477ECF3" Association="Self.FK__UserFavor__UserI__6477ECF3">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserFavoriteVideos" EntitySet="UserFavoriteVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserFavor__Video__656C112C" Association="Self.FK__UserFavor__Video__656C112C">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="UserFavoriteVideos" EntitySet="UserFavoriteVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserVideo__UserI__66603565" Association="Self.FK__UserVideo__UserI__66603565">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserVideoHistory" EntitySet="UserVideoHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserVideo__Video__6754599E" Association="Self.FK__UserVideo__Video__6754599E">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="UserVideoHistory" EntitySet="UserVideoHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__CreatedB__68487DD7" Association="Self.FK__Videos__CreatedB__68487DD7">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__CreatedB__693CA210" Association="Self.FK__Videos__CreatedB__693CA210">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__UpdatedB__6A30C649" Association="Self.FK__Videos__UpdatedB__6A30C649">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__UpdatedB__6B24EA82" Association="Self.FK__Videos__UpdatedB__6B24EA82">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DrNajeebLecturesDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsPasswordReset" Type="Boolean" Nullable="false" />
+          <Property Name="IsAllowMobileVideos" Type="Boolean" Nullable="false" />
+          <Property Name="IsParentalControl" Type="Boolean" Nullable="false" />
+          <Property Name="ParentalControlPin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IsFilterByIP" Type="Boolean" Nullable="false" />
+          <Property Name="NoOfConcurentViews" Type="Int32" Nullable="false" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="SubscriptionId" Type="Int32" />
+          <Property Name="IsActiveUSer" Type="Boolean" Nullable="false" />
+          <Property Name="CurrentViews" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SubscriptionDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__AspNetUse__Count__47DBAE45" FromRole="AspNetUsers" ToRole="Countries" />
+          <NavigationProperty Name="Country1" Relationship="Self.FK__AspNetUse__Count__48CFD27E" FromRole="AspNetUsers" ToRole="Countries" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="Self.FK__AspNetUse__Creat__49C3F6B7" FromRole="AspNetUsers" ToRole="AspNetUsers1" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK__AspNetUse__Creat__49C3F6B7" FromRole="AspNetUsers1" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers11" Relationship="Self.FK__AspNetUse__Creat__4AB81AF0" FromRole="AspNetUsers" ToRole="AspNetUsers1" />
+          <NavigationProperty Name="AspNetUser2" Relationship="Self.FK__AspNetUse__Creat__4AB81AF0" FromRole="AspNetUsers1" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Subscription" Relationship="Self.FK__AspNetUse__Subsc__4BAC3F29" FromRole="AspNetUsers" ToRole="Subscriptions" />
+          <NavigationProperty Name="Subscription1" Relationship="Self.FK__AspNetUse__Subsc__4CA06362" FromRole="AspNetUsers" ToRole="Subscriptions" />
+          <NavigationProperty Name="AspNetUsers12" Relationship="Self.FK__AspNetUse__Updat__4D94879B" FromRole="AspNetUsers" ToRole="AspNetUsers1" />
+          <NavigationProperty Name="AspNetUser3" Relationship="Self.FK__AspNetUse__Updat__4D94879B" FromRole="AspNetUsers1" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers13" Relationship="Self.FK__AspNetUse__Updat__4E88ABD4" FromRole="AspNetUsers" ToRole="AspNetUsers1" />
+          <NavigationProperty Name="AspNetUser4" Relationship="Self.FK__AspNetUse__Updat__4E88ABD4" FromRole="AspNetUsers1" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK__Category__Create__534D60F1" FromRole="AspNetUsers" ToRole="Category" />
+          <NavigationProperty Name="Categories1" Relationship="Self.FK__Category__Create__5441852A" FromRole="AspNetUsers" ToRole="Category" />
+          <NavigationProperty Name="Categories2" Relationship="Self.FK__Category__Update__5535A963" FromRole="AspNetUsers" ToRole="Category" />
+          <NavigationProperty Name="Categories3" Relationship="Self.FK__Category__Update__5629CD9C" FromRole="AspNetUsers" ToRole="Category" />
+          <NavigationProperty Name="CategoryVideos" Relationship="Self.FK__CategoryV__Creat__59063A47" FromRole="AspNetUsers" ToRole="CategoryVideos" />
+          <NavigationProperty Name="CategoryVideos1" Relationship="Self.FK__CategoryV__Creat__59FA5E80" FromRole="AspNetUsers" ToRole="CategoryVideos" />
+          <NavigationProperty Name="IpAddressFilters" Relationship="Self.FK__IpAddress__Creat__5CD6CB2B" FromRole="AspNetUsers" ToRole="IpAddressFilters" />
+          <NavigationProperty Name="IpAddressFilters1" Relationship="Self.FK__IpAddress__Creat__5DCAEF64" FromRole="AspNetUsers" ToRole="IpAddressFilters" />
+          <NavigationProperty Name="IpAddressFilters2" Relationship="Self.FK__IpAddress__UserI__5EBF139D" FromRole="AspNetUsers" ToRole="IpAddressFilters" />
+          <NavigationProperty Name="IpAddressFilters3" Relationship="Self.FK__IpAddress__UserI__5FB337D6" FromRole="AspNetUsers" ToRole="IpAddressFilters" />
+          <NavigationProperty Name="Subscriptions" Relationship="Self.FK__Subscript__Creat__60A75C0F" FromRole="AspNetUsers" ToRole="Subscriptions" />
+          <NavigationProperty Name="Subscriptions1" Relationship="Self.FK__Subscript__Creat__619B8048" FromRole="AspNetUsers" ToRole="Subscriptions" />
+          <NavigationProperty Name="Subscriptions2" Relationship="Self.FK__Subscript__Updat__628FA481" FromRole="AspNetUsers" ToRole="Subscriptions" />
+          <NavigationProperty Name="Subscriptions3" Relationship="Self.FK__Subscript__Updat__6383C8BA" FromRole="AspNetUsers" ToRole="Subscriptions" />
+          <NavigationProperty Name="UserFavoriteVideos" Relationship="Self.FK__UserFavor__UserI__6477ECF3" FromRole="AspNetUsers" ToRole="UserFavoriteVideos" />
+          <NavigationProperty Name="UserVideoHistories" Relationship="Self.FK__UserVideo__UserI__66603565" FromRole="AspNetUsers" ToRole="UserVideoHistory" />
+          <NavigationProperty Name="Videos" Relationship="Self.FK__Videos__CreatedB__68487DD7" FromRole="AspNetUsers" ToRole="Videos" />
+          <NavigationProperty Name="Videos1" Relationship="Self.FK__Videos__CreatedB__693CA210" FromRole="AspNetUsers" ToRole="Videos" />
+          <NavigationProperty Name="Videos2" Relationship="Self.FK__Videos__UpdatedB__6A30C649" FromRole="AspNetUsers" ToRole="Videos" />
+          <NavigationProperty Name="Videos3" Relationship="Self.FK__Videos__UpdatedB__6B24EA82" FromRole="AspNetUsers" ToRole="Videos" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="CategoriesInSubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="SubscriptionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Categorie__Categ__4F7CD00D" FromRole="CategoriesInSubscription" ToRole="Category" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK__Categorie__Categ__5070F446" FromRole="CategoriesInSubscription" ToRole="Category" />
+          <NavigationProperty Name="Subscription" Relationship="Self.FK__Categorie__Subsc__5165187F" FromRole="CategoriesInSubscription" ToRole="Subscriptions" />
+          <NavigationProperty Name="Subscription1" Relationship="Self.FK__Categorie__Subsc__52593CB8" FromRole="CategoriesInSubscription" ToRole="Subscriptions" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsShowOnFrontPage" Type="Boolean" Nullable="false" />
+          <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SEOName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__Category__Create__534D60F1" FromRole="Category" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK__Category__Create__5441852A" FromRole="Category" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser2" Relationship="Self.FK__Category__Update__5535A963" FromRole="Category" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser3" Relationship="Self.FK__Category__Update__5629CD9C" FromRole="Category" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CategoriesInSubscriptions" Relationship="Self.FK__Categorie__Categ__4F7CD00D" FromRole="Category" ToRole="CategoriesInSubscription" />
+          <NavigationProperty Name="CategoriesInSubscriptions1" Relationship="Self.FK__Categorie__Categ__5070F446" FromRole="Category" ToRole="CategoriesInSubscription" />
+          <NavigationProperty Name="CategoryVideos" Relationship="Self.FK__CategoryV__Categ__571DF1D5" FromRole="Category" ToRole="CategoryVideos" />
+          <NavigationProperty Name="CategoryVideos1" Relationship="Self.FK__CategoryV__Categ__5812160E" FromRole="Category" ToRole="CategoryVideos" />
+        </EntityType>
+        <EntityType Name="CategoryVideo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="VideoId" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayOrder" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__CategoryV__Creat__59063A47" FromRole="CategoryVideos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK__CategoryV__Creat__59FA5E80" FromRole="CategoryVideos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__CategoryV__Categ__571DF1D5" FromRole="CategoryVideos" ToRole="Category" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK__CategoryV__Categ__5812160E" FromRole="CategoryVideos" ToRole="Category" />
+          <NavigationProperty Name="Video" Relationship="Self.FK__CategoryV__Video__5AEE82B9" FromRole="CategoryVideos" ToRole="Videos" />
+          <NavigationProperty Name="Video1" Relationship="Self.FK__CategoryV__Video__5BE2A6F2" FromRole="CategoryVideos" ToRole="Videos" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CountryCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FlagImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ISO2Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK__AspNetUse__Count__47DBAE45" FromRole="Countries" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="Self.FK__AspNetUse__Count__48CFD27E" FromRole="Countries" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="IpAddressFilter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IpAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__IpAddress__Creat__5CD6CB2B" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK__IpAddress__Creat__5DCAEF64" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser2" Relationship="Self.FK__IpAddress__UserI__5EBF139D" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser3" Relationship="Self.FK__IpAddress__UserI__5FB337D6" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="Subscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="TimeDuration" Type="Int32" />
+          <Property Name="GatewayId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GatewayURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActiveSubscription" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK__AspNetUse__Subsc__4BAC3F29" FromRole="Subscriptions" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="Self.FK__AspNetUse__Subsc__4CA06362" FromRole="Subscriptions" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__Subscript__Creat__60A75C0F" FromRole="Subscriptions" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK__Subscript__Creat__619B8048" FromRole="Subscriptions" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser2" Relationship="Self.FK__Subscript__Updat__628FA481" FromRole="Subscriptions" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser3" Relationship="Self.FK__Subscript__Updat__6383C8BA" FromRole="Subscriptions" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CategoriesInSubscriptions" Relationship="Self.FK__Categorie__Subsc__5165187F" FromRole="Subscriptions" ToRole="CategoriesInSubscription" />
+          <NavigationProperty Name="CategoriesInSubscriptions1" Relationship="Self.FK__Categorie__Subsc__52593CB8" FromRole="Subscriptions" ToRole="CategoriesInSubscription" />
+        </EntityType>
+        <EntityType Name="UserFavoriteVideo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="VideoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__UserFavor__UserI__6477ECF3" FromRole="UserFavoriteVideos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Video" Relationship="Self.FK__UserFavor__Video__656C112C" FromRole="UserFavoriteVideos" ToRole="Videos" />
+        </EntityType>
+        <EntityType Name="UserVideoHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WatchDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="VideoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__UserVideo__UserI__66603565" FromRole="UserVideoHistory" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Video" Relationship="Self.FK__UserVideo__Video__6754599E" FromRole="UserVideoHistory" ToRole="Videos" />
+        </EntityType>
+        <EntityType Name="Video">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <Property Name="ReleaseYear" Type="Int32" Nullable="false" />
+          <Property Name="DateLive" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BackgroundColor" Type="String" MaxLength="7" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ThumbnailURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PreviewURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SpecialFeatureURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BackgroundImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VideoPlayerImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="IsFeatured" Type="Boolean" Nullable="false" />
+          <Property Name="IsMatureContent" Type="Boolean" Nullable="false" />
+          <Property Name="IsShowInPromo" Type="Boolean" Nullable="false" />
+          <Property Name="StandardVideoId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FastVideoId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__Videos__CreatedB__68487DD7" FromRole="Videos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser1" Relationship="Self.FK__Videos__CreatedB__693CA210" FromRole="Videos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser2" Relationship="Self.FK__Videos__UpdatedB__6A30C649" FromRole="Videos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser3" Relationship="Self.FK__Videos__UpdatedB__6B24EA82" FromRole="Videos" ToRole="AspNetUsers" />
+          <NavigationProperty Name="CategoryVideos" Relationship="Self.FK__CategoryV__Video__5AEE82B9" FromRole="Videos" ToRole="CategoryVideos" />
+          <NavigationProperty Name="CategoryVideos1" Relationship="Self.FK__CategoryV__Video__5BE2A6F2" FromRole="Videos" ToRole="CategoryVideos" />
+          <NavigationProperty Name="UserFavoriteVideos" Relationship="Self.FK__UserFavor__Video__656C112C" FromRole="Videos" ToRole="UserFavoriteVideos" />
+          <NavigationProperty Name="UserVideoHistories" Relationship="Self.FK__UserVideo__Video__6754599E" FromRole="Videos" ToRole="UserVideoHistory" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Count__47DBAE45">
+          <End Role="Countries" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Count__48CFD27E">
+          <End Role="Countries" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Countries">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Creat__49C3F6B7">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="AspNetUsers1" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers1">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Creat__4AB81AF0">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="AspNetUsers1" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers1">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Subsc__4BAC3F29">
+          <End Role="Subscriptions" Type="Self.Subscription" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Subsc__4CA06362">
+          <End Role="Subscriptions" Type="Self.Subscription" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Updat__4D94879B">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="AspNetUsers1" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers1">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AspNetUse__Updat__4E88ABD4">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="AspNetUsers1" Type="Self.AspNetUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUsers1">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Create__534D60F1">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Create__5441852A">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Update__5535A963">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Category__Update__5629CD9C">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Creat__59063A47">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Creat__59FA5E80">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IpAddress__Creat__5CD6CB2B">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="IpAddressFilters" Type="Self.IpAddressFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IpAddressFilters">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IpAddress__Creat__5DCAEF64">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="IpAddressFilters" Type="Self.IpAddressFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IpAddressFilters">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IpAddress__UserI__5EBF139D">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="IpAddressFilters" Type="Self.IpAddressFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IpAddressFilters">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IpAddress__UserI__5FB337D6">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="IpAddressFilters" Type="Self.IpAddressFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IpAddressFilters">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__Creat__60A75C0F">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Subscriptions" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscriptions">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__Creat__619B8048">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Subscriptions" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscriptions">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__Updat__628FA481">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Subscriptions" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscriptions">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Subscript__Updat__6383C8BA">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Subscriptions" Type="Self.Subscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Subscriptions">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserFavor__UserI__6477ECF3">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="UserFavoriteVideos" Type="Self.UserFavoriteVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserFavoriteVideos">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserVideo__UserI__66603565">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="UserVideoHistory" Type="Self.UserVideoHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserVideoHistory">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__CreatedB__68487DD7">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__CreatedB__693CA210">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__UpdatedB__6A30C649">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Videos__UpdatedB__6B24EA82">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="Videos" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Videos">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Categorie__Categ__4F7CD00D">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoriesInSubscription" Type="Self.CategoriesInSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoriesInSubscription">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Categorie__Categ__5070F446">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoriesInSubscription" Type="Self.CategoriesInSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoriesInSubscription">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Categorie__Subsc__5165187F">
+          <End Role="Subscriptions" Type="Self.Subscription" Multiplicity="1" />
+          <End Role="CategoriesInSubscription" Type="Self.CategoriesInSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoriesInSubscription">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Categorie__Subsc__52593CB8">
+          <End Role="Subscriptions" Type="Self.Subscription" Multiplicity="1" />
+          <End Role="CategoriesInSubscription" Type="Self.CategoriesInSubscription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subscriptions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoriesInSubscription">
+              <PropertyRef Name="SubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Categ__571DF1D5">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Categ__5812160E">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Video__5AEE82B9">
+          <End Role="Videos" Type="Self.Video" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CategoryV__Video__5BE2A6F2">
+          <End Role="Videos" Type="Self.Video" Multiplicity="0..1" />
+          <End Role="CategoryVideos" Type="Self.CategoryVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryVideos">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserFavor__Video__656C112C">
+          <End Role="Videos" Type="Self.Video" Multiplicity="1" />
+          <End Role="UserFavoriteVideos" Type="Self.UserFavoriteVideo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserFavoriteVideos">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserVideo__Video__6754599E">
+          <End Role="Videos" Type="Self.Video" Multiplicity="1" />
+          <End Role="UserVideoHistory" Type="Self.UserVideoHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Videos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserVideoHistory">
+              <PropertyRef Name="VideoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DrNajeebLecturesDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="CategoriesInSubscriptions" EntityType="Self.CategoriesInSubscription" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="CategoryVideos" EntityType="Self.CategoryVideo" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="IpAddressFilters" EntityType="Self.IpAddressFilter" />
+          <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
+          <EntitySet Name="UserFavoriteVideos" EntityType="Self.UserFavoriteVideo" />
+          <EntitySet Name="UserVideoHistories" EntityType="Self.UserVideoHistory" />
+          <EntitySet Name="Videos" EntityType="Self.Video" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Count__47DBAE45" Association="Self.FK__AspNetUse__Count__47DBAE45">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Count__48CFD27E" Association="Self.FK__AspNetUse__Count__48CFD27E">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Creat__49C3F6B7" Association="Self.FK__AspNetUse__Creat__49C3F6B7">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUsers1" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Creat__4AB81AF0" Association="Self.FK__AspNetUse__Creat__4AB81AF0">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUsers1" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Subsc__4BAC3F29" Association="Self.FK__AspNetUse__Subsc__4BAC3F29">
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Subsc__4CA06362" Association="Self.FK__AspNetUse__Subsc__4CA06362">
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Updat__4D94879B" Association="Self.FK__AspNetUse__Updat__4D94879B">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUsers1" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AspNetUse__Updat__4E88ABD4" Association="Self.FK__AspNetUse__Updat__4E88ABD4">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUsers1" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Create__534D60F1" Association="Self.FK__Category__Create__534D60F1">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Create__5441852A" Association="Self.FK__Category__Create__5441852A">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Update__5535A963" Association="Self.FK__Category__Update__5535A963">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Category__Update__5629CD9C" Association="Self.FK__Category__Update__5629CD9C">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Category" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Creat__59063A47" Association="Self.FK__CategoryV__Creat__59063A47">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Creat__59FA5E80" Association="Self.FK__CategoryV__Creat__59FA5E80">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IpAddress__Creat__5CD6CB2B" Association="Self.FK__IpAddress__Creat__5CD6CB2B">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IpAddress__Creat__5DCAEF64" Association="Self.FK__IpAddress__Creat__5DCAEF64">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IpAddress__UserI__5EBF139D" Association="Self.FK__IpAddress__UserI__5EBF139D">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IpAddress__UserI__5FB337D6" Association="Self.FK__IpAddress__UserI__5FB337D6">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__Creat__60A75C0F" Association="Self.FK__Subscript__Creat__60A75C0F">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__Creat__619B8048" Association="Self.FK__Subscript__Creat__619B8048">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__Updat__628FA481" Association="Self.FK__Subscript__Updat__628FA481">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Subscript__Updat__6383C8BA" Association="Self.FK__Subscript__Updat__6383C8BA">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserFavor__UserI__6477ECF3" Association="Self.FK__UserFavor__UserI__6477ECF3">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserFavoriteVideos" EntitySet="UserFavoriteVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserVideo__UserI__66603565" Association="Self.FK__UserVideo__UserI__66603565">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserVideoHistory" EntitySet="UserVideoHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__CreatedB__68487DD7" Association="Self.FK__Videos__CreatedB__68487DD7">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__CreatedB__693CA210" Association="Self.FK__Videos__CreatedB__693CA210">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__UpdatedB__6A30C649" Association="Self.FK__Videos__UpdatedB__6A30C649">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Videos__UpdatedB__6B24EA82" Association="Self.FK__Videos__UpdatedB__6B24EA82">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Videos" EntitySet="Videos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Categorie__Categ__4F7CD00D" Association="Self.FK__Categorie__Categ__4F7CD00D">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="CategoriesInSubscription" EntitySet="CategoriesInSubscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Categorie__Categ__5070F446" Association="Self.FK__Categorie__Categ__5070F446">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="CategoriesInSubscription" EntitySet="CategoriesInSubscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Categorie__Subsc__5165187F" Association="Self.FK__Categorie__Subsc__5165187F">
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+            <End Role="CategoriesInSubscription" EntitySet="CategoriesInSubscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Categorie__Subsc__52593CB8" Association="Self.FK__Categorie__Subsc__52593CB8">
+            <End Role="Subscriptions" EntitySet="Subscriptions" />
+            <End Role="CategoriesInSubscription" EntitySet="CategoriesInSubscriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Categ__571DF1D5" Association="Self.FK__CategoryV__Categ__571DF1D5">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Categ__5812160E" Association="Self.FK__CategoryV__Categ__5812160E">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Video__5AEE82B9" Association="Self.FK__CategoryV__Video__5AEE82B9">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CategoryV__Video__5BE2A6F2" Association="Self.FK__CategoryV__Video__5BE2A6F2">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="CategoryVideos" EntitySet="CategoryVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserFavor__Video__656C112C" Association="Self.FK__UserFavor__Video__656C112C">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="UserFavoriteVideos" EntitySet="UserFavoriteVideos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserVideo__Video__6754599E" Association="Self.FK__UserVideo__Video__6754599E">
+            <End Role="Videos" EntitySet="Videos" />
+            <End Role="UserVideoHistory" EntitySet="UserVideoHistories" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DrNajeebLecturesDBModelStoreContainer" CdmEntityContainer="DrNajeebLecturesDBEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="IsPasswordReset" ColumnName="IsPasswordReset" />
+                <ScalarProperty Name="IsAllowMobileVideos" ColumnName="IsAllowMobileVideos" />
+                <ScalarProperty Name="IsParentalControl" ColumnName="IsParentalControl" />
+                <ScalarProperty Name="ParentalControlPin" ColumnName="ParentalControlPin" />
+                <ScalarProperty Name="IsFilterByIP" ColumnName="IsFilterByIP" />
+                <ScalarProperty Name="NoOfConcurentViews" ColumnName="NoOfConcurentViews" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+                <ScalarProperty Name="IsActiveUSer" ColumnName="IsActiveUSer" />
+                <ScalarProperty Name="CurrentViews" ColumnName="CurrentViews" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoriesInSubscriptions">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.CategoriesInSubscription">
+              <MappingFragment StoreEntitySet="CategoriesInSubscription">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="SubscriptionId" ColumnName="SubscriptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsShowOnFrontPage" ColumnName="IsShowOnFrontPage" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="SEOName" ColumnName="SEOName" />
+                <ScalarProperty Name="CategoryURL" ColumnName="CategoryURL" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryVideos">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.CategoryVideo">
+              <MappingFragment StoreEntitySet="CategoryVideos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.Country">
+              <MappingFragment StoreEntitySet="Countries">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="FlagImage" ColumnName="FlagImage" />
+                <ScalarProperty Name="ISO2Name" ColumnName="ISO2Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IpAddressFilters">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.IpAddressFilter">
+              <MappingFragment StoreEntitySet="IpAddressFilters">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subscriptions">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.Subscription">
+              <MappingFragment StoreEntitySet="Subscriptions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="TimeDuration" ColumnName="TimeDuration" />
+                <ScalarProperty Name="GatewayId" ColumnName="GatewayId" />
+                <ScalarProperty Name="GatewayURL" ColumnName="GatewayURL" />
+                <ScalarProperty Name="IsActiveSubscription" ColumnName="IsActiveSubscription" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserFavoriteVideos">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.UserFavoriteVideo">
+              <MappingFragment StoreEntitySet="UserFavoriteVideos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserVideoHistories">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.UserVideoHistory">
+              <MappingFragment StoreEntitySet="UserVideoHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="WatchDateTime" ColumnName="WatchDateTime" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videos">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.Video">
+              <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="ReleaseYear" ColumnName="ReleaseYear" />
+                <ScalarProperty Name="DateLive" ColumnName="DateLive" />
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="ThumbnailURL" ColumnName="ThumbnailURL" />
+                <ScalarProperty Name="PreviewURL" ColumnName="PreviewURL" />
+                <ScalarProperty Name="SpecialFeatureURL" ColumnName="SpecialFeatureURL" />
+                <ScalarProperty Name="BackgroundImageURL" ColumnName="BackgroundImageURL" />
+                <ScalarProperty Name="VideoPlayerImageURL" ColumnName="VideoPlayerImageURL" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="IsFeatured" ColumnName="IsFeatured" />
+                <ScalarProperty Name="IsMatureContent" ColumnName="IsMatureContent" />
+                <ScalarProperty Name="IsShowInPromo" ColumnName="IsShowInPromo" />
+                <ScalarProperty Name="StandardVideoId" ColumnName="StandardVideoId" />
+                <ScalarProperty Name="FastVideoId" ColumnName="FastVideoId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="DrNajeebLecturesDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

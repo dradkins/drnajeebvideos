@@ -1,0 +1,44 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="login-box">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <header id="login-header">
+                            <div id="login-logo">
+                                <img src="/Content/images/logo.png" alt="" />
+                            </div>
+                        </header>
+                        <div id="login-box-inner">
+                            <form role="form" name="registerForm" ng-submit="register(registerForm)">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                        <input class="form-control" type="text" placeholder="Full name" ng-model="registerModel.fullName" ng-minlength="4" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                        <input class="form-control" type="email" placeholder="Email address" ng-model="registerModel.email" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-flag"></i></span>
+                                        <select ng-model="registerModel.countryId" class="form-control" ng-options="country.id as country.name for country in countries" required></select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button type="submit" class="btn btn-success col-xs-12">Register</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
