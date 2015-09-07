@@ -20,8 +20,8 @@
 
             return $http.post("/token", data, config)
                         .then(function (response) {
-                            CurrentUserService.setProfile(username, response.data.access_token);
-                            return username;
+                            CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false);
+                            return response.data.fullName;
                         });
 
         }

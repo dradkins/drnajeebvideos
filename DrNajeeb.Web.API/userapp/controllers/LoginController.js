@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var LoginController = function ($scope, $timeout, $location, Facebook, OAuthService, CurrentUserService, loginRedirect, toastr) {
+    var LoginController = function ($scope, $timeout, $location, $rootScope, Facebook, OAuthService, CurrentUserService, loginRedirect, toastr) {
 
         $scope.username = "";
         $scope.password = "";
@@ -17,7 +17,7 @@
         }
 
         var onLogin = function (data) {
-            toastr.success("Welcome To DrNajeebLectures");
+            toastr.success("Welcome " + data + " to your dashboard");
             loginRedirect.redirectPostLogin();
         }
 
@@ -101,10 +101,12 @@
          * me 
          */
         $scope.me = function () {
-            Facebook.api('/me', function (response) {
+            Facebook.api('/me', { fields: "id,name,picture,email" }, function (response) {
                 /**
                  * Using $scope.$apply since this happens outside angular framework.
                  */
+                console.log(response);
+                $rootScope.facebookProfilePic = response.picture.data.url;
                 $scope.$apply(function () {
                     $scope.user1 = response;
                     var data = {
@@ -119,8 +121,9 @@
 
 
         var onExternalLogin = function (data) {
-            CurrentUserService.setProfile(data.userName, data.access_token)
-            toastr.success("Login successfully,")
+            console.log($rootScope.facebookProfilePic);
+            CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true);
+            toastr.success("Welcome " + data.fullName + " to your dashboard");
             $location.path("/dashboard");
         }
 
@@ -129,6 +132,7 @@
             if (error.status === 404) {
                 CurrentUserService.externalLogin.token = $scope.facebookToken;
                 CurrentUserService.externalLogin.name = $scope.user1.name;
+                CurrentUserService.externalLogin.email = $scope.user1.email;
                 $location.path("/register-external")
             }
             else {
@@ -175,7 +179,7 @@
     }
 
 
-    LoginController.$inject = ["$scope", "$timeout", "$location", "Facebook", "OAuthService", "CurrentUserService", "loginRedirect", "toastr"];
+    LoginController.$inject = ["$scope", "$timeout", "$location","$rootScope", "Facebook", "OAuthService", "CurrentUserService", "loginRedirect", "toastr"];
     app.controller("LoginController", LoginController);
 
 }(angular.module("DrNajeebUser")));

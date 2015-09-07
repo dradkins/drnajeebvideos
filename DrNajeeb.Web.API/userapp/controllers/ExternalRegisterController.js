@@ -40,6 +40,7 @@
             CountryService.getAll().then(onCountries, onError);
             $scope.registerModel.fullName = CurrentUserService.externalLogin.name;
             $scope.registerModel.token = CurrentUserService.externalLogin.token;
+            $scope.registerModel.email = CurrentUserService.externalLogin.email;
         }
 
         var onError = function (error) {

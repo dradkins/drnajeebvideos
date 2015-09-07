@@ -46,7 +46,7 @@ namespace DrNajeeb.Web.API.Controllers
                 //}
 
                 //MailAddress fromAddress = new MailAddress("info@drnajeebvideos.com", "Support Request From " + user.FullName);
-                //MailAddress toAddress = new MailAddress("info@drnajeebvideos.com");
+                //MailAddress toAddress = new MailAddress("support@drnajeelectures.com");
 
                 ////Passing values to smtp object
                 //dynamic message = new MailMessage(fromAddress, toAddress);
@@ -67,6 +67,7 @@ namespace DrNajeeb.Web.API.Controllers
 
                 ////Send email
                 //smtp.Send(message);
+                //return Ok();
 
                 var message = new SupportMessage();
                 message.Active = true;

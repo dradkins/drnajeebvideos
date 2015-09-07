@@ -491,6 +491,7 @@ namespace DrNajeeb.Web.API.Controllers
             JObject token = new JObject(
                 new JProperty("userName", user.UserName),
                 new JProperty("id", user.Id),
+                new JProperty("fullName", user.FullName),
                 new JProperty("access_token", accessToken),
                 new JProperty("token_type", "bearer"),
                 new JProperty("expires_in", TimeSpan.FromDays(365).TotalSeconds.ToString()),
@@ -554,6 +555,7 @@ namespace DrNajeeb.Web.API.Controllers
             JObject token = new JObject(
                 new JProperty("userName", user.UserName),
                 new JProperty("id", user.Id),
+                new JProperty("fullName", user.FullName),
                 new JProperty("access_token", accessToken),
                 new JProperty("token_type", "bearer"),
                 new JProperty("expires_in", TimeSpan.FromDays(365).TotalSeconds.ToString()),

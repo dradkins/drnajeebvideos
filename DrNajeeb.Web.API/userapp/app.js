@@ -90,12 +90,19 @@
     });
 
     app.run(function ($rootScope, $location, CurrentUserService) {
+
         $rootScope.location = $location;
+
         $rootScope.USER_NAME = CurrentUserService.profile.username;
+
+        $rootScope.FULL_NAME = CurrentUserService.profile.fullName;
+
         $rootScope.LOG_OUT = function () {
             CurrentUserService.logout();
         }
         $rootScope.SEARCH_TERM = "";
+        $rootScope.facebookProfilePic = CurrentUserService.profile.profilePic;
+
         $rootScope.SEARC_VIDEO = function () {
             console.log($rootScope.SEARCH_TERM);
             if ($rootScope.SEARCH_TERM && $rootScope.SEARCH_TERM.length > 2) {

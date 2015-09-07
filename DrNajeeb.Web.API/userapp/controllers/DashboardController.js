@@ -1,11 +1,12 @@
 ﻿(function (app) {
 
-    var DashboardController = function ($scope, DashboardService) {
+    var DashboardController = function ($scope, $location, CurrentUserService, DashboardService) {
 
         $scope.favoriteVideos = [];
         $scope.newVideos = [];
         $scope.totalVideos = 0;
         $scope.totalFavorites = 0;
+        $scope.showData = false;
 
         $scope.pagingInfo = {
             page: 1,
@@ -25,20 +26,13 @@
             console.log(error);
         }
 
-        var displayWeather = function () {
-            /* ANIMATED WEATHER */
-            var skycons = new Skycons({ "color": "#03a9f4" });
-            // on Android, a nasty hack is needed: {"resizeClear": true}
-
-            // you can add a canvas by it's ID...s
-            skycons.add("current-weather", Skycons.RAIN);
-
-            // start animation!
-            skycons.play();
-        }
-
         function init() {
-            displayWeather();
+            if (CurrentUserService.profile.isLoggedIn()) {
+                $scope.showData = true;
+            }
+            else {
+                $location.path("/login");
+            }
             DashboardService.getDashboardData($scope.pagingInfo).then(onDashboardData, onError);
         }
 
@@ -46,7 +40,7 @@
 
     };
 
-    DashboardController.$inject = ["$scope", "DashboardService"];
+    DashboardController.$inject = ["$scope", "$location", "CurrentUserService", "DashboardService"];
     app.controller("DashboardController", DashboardController);
 
 }(angular.module("DrNajeebUser")));

@@ -94,9 +94,13 @@
 
         $scope.changePassword = function (form) {
             if (form.$valid) {
-                var re = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
-                if (re.test($scope.changePasswordModel.newPassword) == false) {
-                    toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
+                //var re = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
+                //if (re.test($scope.changePasswordModel.newPassword) == false) {
+                //    toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
+                //    return false;
+                //}
+                if (!($scope.changePasswordModel.newPassword) || $scope.changePasswordModel.newPassword.length < 6 ) {
+                    toastr.warning("Password must contains at least 6 characters");
                     return false;
                 }
                 if ($scope.changePasswordModel.newPassword !== $scope.changePasswordModel.confirmPassword) {
@@ -125,7 +129,7 @@
 
         /***** Admin support section *******/
 
-        $scope.messages = [];
+        //$scope.messages = [];
 
         $scope.support = {
             subject: "",
@@ -146,6 +150,7 @@
 
         var onMessageSend = function (data) {
             $scope.support.message = "";
+            $scope.support.subject = "";
             $scope.form.$setPristine(true);
             $scope.messages.push(data);
             toastr.info("your message received successfully. Thanks for you valuable feedback, we will contact you as soon as possible");
