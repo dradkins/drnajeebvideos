@@ -28,7 +28,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetAll")]
         [HttpGet]
-        public IHttpActionResult GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "Name", bool reverse = false, string search = null)
+        public async Task<IHttpActionResult> GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "Name", bool reverse = false, string search = null)
         {
             try
             {
@@ -45,6 +45,8 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Name.ToLower().Contains(search) ||
                         x.Description.ToLower().Contains(search));
                 }
+
+                var totalVideos=await videos.CountAsync();
 
                 // sorting (done with the System.Linq.Dynamic library available on NuGet)
                 videos = videos.OrderBy(sortBy + (reverse ? " descending" : ""));
@@ -81,7 +83,7 @@ namespace DrNajeeb.Web.API.Controllers
                 // json result
                 var json = new
                 {
-                    count = _Uow._Videos.Count(),
+                    count = totalVideos,
                     data = videosList,
                 };
 
@@ -470,6 +472,7 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
+                var totalVideos = await videos.CountAsync();
                 videos = videos.OrderBy("DateLive");
 
                 // paging
@@ -504,7 +507,7 @@ namespace DrNajeeb.Web.API.Controllers
                 // json result
                 var json = new
                 {
-                    count = _Uow._Videos.Count(x => x.Active == true),
+                    count = totalVideos,
                     data = videosList,
                 };
 
@@ -587,6 +590,7 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
+                var totalVideos = await videos.CountAsync();
                 videos = videos.OrderBy("DateLive");
 
                 // paging
@@ -618,12 +622,12 @@ namespace DrNajeeb.Web.API.Controllers
                     videosList.Add(uvm);
                 });
 
-                var count = await _Uow._Favorites.CountAsync(x => x.UserId == userId);
+                //var count = await _Uow._Favorites.CountAsync(x => x.UserId == userId);
 
                 // json result
                 var json = new
                 {
-                    count = count,
+                    count = totalVideos,
                     data = videosList,
                 };
 
@@ -661,6 +665,7 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
+                var totalVideos = await videos.CountAsync();
                 // paging
                 var videosPaged = await videos.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
 
@@ -690,12 +695,12 @@ namespace DrNajeeb.Web.API.Controllers
                     videosList.Add(uvm);
                 });
 
-                var count = await _Uow._UserVideoHistory.CountAsync(x => x.UserId == userId);
+                //var count = await _Uow._UserVideoHistory.CountAsync(x => x.UserId == userId);
 
                 // json result
                 var json = new
                 {
-                    count = count,
+                    count = totalVideos,
                     data = videosList,
                 };
 

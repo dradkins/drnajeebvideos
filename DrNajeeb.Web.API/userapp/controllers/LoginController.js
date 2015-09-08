@@ -29,6 +29,20 @@
             $scope.facebookLogin = data[0];
         }
 
+
+        /****** Google+ Sigin *********/
+
+        $scope.$on('event:google-plus-signin-success', function (event, authResult) {
+            console.log(authResult);
+        });
+
+        $scope.$on('event:google-plus-signin-failure', function (event, authResult) {
+            toastr.error("unable to login with ")
+        });
+
+        /***** Eng Google+ Signin *******/
+
+
         //function init() {
         //    OAuthService.externalAccounts().then(onExternalAccounts, onError);
         //}
@@ -84,8 +98,6 @@
          */
         $scope.login1 = function () {
             Facebook.login(function (response) {
-                console.log("In Login");
-                console.log(response);
                 if (response.status == 'connected') {
                     $scope.logged = true;
                     $scope.me();
@@ -121,14 +133,12 @@
 
 
         var onExternalLogin = function (data) {
-            console.log($rootScope.facebookProfilePic);
             CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true);
             toastr.success("Welcome " + data.fullName + " to your dashboard");
             $location.path("/dashboard");
         }
 
         var onExternalLoginError = function (error) {
-            console.log(error);
             if (error.status === 404) {
                 CurrentUserService.externalLogin.token = $scope.facebookToken;
                 CurrentUserService.externalLogin.name = $scope.user1.name;

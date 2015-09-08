@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var NewVideosController = function ($scope, $log, $routeParams, $location, VideoService) {
+    var NewVideosController = function ($scope, $log, $routeParams, $rootScope, $location, VideoService) {
 
 
         $scope.videos = [];
@@ -71,6 +71,7 @@
         var loadVideos = function (cat) {
             if ($routeParams.searchTerm) {
                 $scope.pagingInfo.search = $routeParams.searchTerm;
+                $rootScope.SEARCH_TERM = "";
             }
             VideoService.getNewVideos($scope.pagingInfo).then(onVideos, onError);
         }
@@ -84,7 +85,7 @@
 
     };
 
-    NewVideosController.$inject = ["$scope", "$log","$routeParams", "$location", "VideoService"];
+    NewVideosController.$inject = ["$scope", "$log", "$routeParams", "$rootScope", "$location", "VideoService"];
     app.controller("NewVideosController", NewVideosController);
 
 }(angular.module("DrNajeebUser")));

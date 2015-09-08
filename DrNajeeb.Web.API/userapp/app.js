@@ -7,7 +7,8 @@
         "LocalStorageModule",
         "toastr",
         "jcs-autoValidate",
-        "facebook"
+        "facebook",
+        "directive.g+signin"
     ]);
 
     app.config(function ($routeProvider, FacebookProvider) {

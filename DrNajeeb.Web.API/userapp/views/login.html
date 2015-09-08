@@ -31,16 +31,33 @@
                                         </div>
                                     </div>
                                 </form>
-                                <div class="row">
+                                <!--<div class="row">
                                     <div class="col-xs-12">
                                         <p class="social-text">Or login with</p>
+                                    </div>
+                                </div>-->
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12">
+                                        <button type="button" class="btn btn-primary col-xs-12 btn-facebook" data-ng-show="!logged" data-ng-disabled="!facebookReady" data-ng-click="IntentLogin()">
+                                            <i class="fa fa-facebook"></i> Login with facebook
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-12">
-                                        <button type="button" class="btn btn-primary col-xs-12 btn-facebook" data-ng-show="!logged" data-ng-disabled="!facebookReady" data-ng-click="IntentLogin()">
-                                            <i class="fa fa-facebook"></i> Facebook
-                                        </button>
+                                        <div ng-app="directive.g+signin">
+                                            <google-plus-signin clientid="302979971884-sfeu1j75j821vg8vc2blu3d2cam3n5e5.apps.googleusercontent.com"></google-plus-signin>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p class="social-text">
+                                            Not a member?
+                                            <a href="#/register">
+                                                Register now
+                                            </a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -50,12 +67,6 @@
 
                 <div id="login-box-footer">
                     <div class="row">
-                        <div class="col-xs-12">
-                            Don't have an account?
-                            <a href="#/register">
-                                Register now
-                            </a>
-                        </div>
                         <div class="col-xs-12">
                             <div class="col-sm-6 col-xs-12">
                                 <a href="#/terms-and-conditions">

@@ -59,11 +59,11 @@ namespace DrNajeeb.Web.API
                 appId: "168728473460376",
                 appSecret: "aeade8667706c4600a49dfbd6d444f50");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "302979971884-sfeu1j75j821vg8vc2blu3d2cam3n5e5.apps.googleusercontent.com",
+                ClientSecret = "3kqv76_DuEb1PGITf6DyX_iO"
+            });
         }
     }
 }
