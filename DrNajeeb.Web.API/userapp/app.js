@@ -29,6 +29,10 @@
                 templateUrl: "/userapp/views/userdashboard.html",
                 controller: "DashboardController"
             })
+            .when("/front-end", {
+                templateUrl: "/userapp/views/front-end.html",
+                controller: "FrontEndController"
+            })
             .when("/newvideos", {
                 templateUrl: "/userapp/views/newvideos.html",
                 controller: "NewVideosController"

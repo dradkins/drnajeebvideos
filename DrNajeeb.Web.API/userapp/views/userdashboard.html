@@ -22,7 +22,7 @@
 
                         <div class="row">
                             <div class="col-lg-3 col-sm-6 col-xs-12">
-                                <div class="main-box infographic-box colored emerald-bg">
+                                <div class="main-box infographic-box colored emerald-bg" ng-click="goto('/newvideos')">
                                     <i class="fa fa-video-camera"></i>
                                     <span class="headline">Videos</span>
                                     <span class="value">
@@ -44,8 +44,9 @@
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-xs-12">
-                                <div class="main-box infographic-box colored red-bg">
-                                    <i class="fa fa-heart"></i>
+                                <div class="main-box infographic-box colored red-bg" ng-click="goto('/favorites')">
+                                    <i class=" fa fa-heart">
+                                    </i>
                                     <span class="headline">Favorite Videos</span>
                                     <span class="value">
                                         <span class="timer" data-from="83" data-to="8400" data-speed="900" data-refresh-interval="60">

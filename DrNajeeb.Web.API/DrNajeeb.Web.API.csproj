@@ -292,7 +292,9 @@
     <Content Include="Content\images\user_frontend_mini.png" />
     <Content Include="Content\images\user_mini.jpg" />
     <Content Include="Scripts\angular-google-plus.js" />
+    <Content Include="userapp\controllers\FrontEndController.js" />
     <Content Include="userapp\directives\menuHider.js" />
+    <Content Include="userapp\views\front-end.html" />
     <Content Include="userapp\views\privacy-policy.html" />
     <Content Include="userapp\views\terms-and-conditions.html" />
     <Content Include="Content\class-animation.css" />

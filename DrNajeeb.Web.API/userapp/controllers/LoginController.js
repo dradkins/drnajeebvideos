@@ -33,6 +33,12 @@
         /****** Google+ Sigin *********/
 
         $scope.$on('event:google-plus-signin-success', function (event, authResult) {
+            var data = {
+                token: authResult.access_token,
+                provider: "Google"
+            };
+            OAuthService.getGoogleUserInfo(authResult.access_token);
+            //OAuthService.loginExternal(data).then(onExternalLogin, onExternalLoginError);
             console.log(authResult);
         });
 

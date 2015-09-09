@@ -1,6 +1,6 @@
 ﻿(function (module) {
 
-    var RegisterController = function ($scope, $timeout, $location, Facebook, OAuthService, CurrentUserService, CountryService, toastr) {
+    var RegisterController = function ($scope, $timeout, $location, Facebook, OAuthService, CurrentUserService, CountryService, SuportService, toastr) {
 
         $scope.registerModel = {
             email: null,
@@ -11,6 +11,8 @@
             subscriptionId: 2
         }
         $scope.countries = [];
+        $scope.country;
+        $scope.selectedCountry = null;
 
 
         $scope.register = function (form) {
@@ -24,6 +26,7 @@
                     toastr.warning("Password and confirm password not matched.");
                     return false;
                 }
+                $scope.registerModel.countryId = $scope.selectedCountry.id;
                 OAuthService.register($scope.registerModel)
                             .then(onRegister, onRegisterError);
             }
@@ -47,8 +50,23 @@
             }
         }
 
+        var onIpAddress = function (data) {
+            CountryService.getCountryByIP(data).then(function (response) {
+                $scope.country = response;
+                angular.forEach($scope.countries, function (c) {
+                    if (c.isO2Name === $scope.country.country) {
+                        console.log(c);
+                        $scope.selectedCountry = c;
+                        $scope.registerModel.countryId == c.id;
+                        return false;
+                    }
+                })
+            })
+        }
+
         function init() {
             CountryService.getAll().then(onCountries, onError);
+            SuportService.getIpAddress().then(onIpAddress, onError);
         }
 
         var onError = function (error) {
@@ -206,7 +224,7 @@
         init();
     }
 
-    RegisterController.$inject = ["$scope", "$timeout", "$location", "Facebook", "OAuthService", "CurrentUserService", "CountryService", "toastr"];
+    RegisterController.$inject = ["$scope", "$timeout", "$location", "Facebook", "OAuthService", "CurrentUserService", "CountryService", "SuportService", "toastr"];
     module.controller("RegisterController", RegisterController);
 
 }(angular.module("DrNajeebUser")));

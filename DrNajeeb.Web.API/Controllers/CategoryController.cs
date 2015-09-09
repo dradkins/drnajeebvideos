@@ -204,6 +204,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserCategories")]
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IHttpActionResult> GetUserCategories()
         {
             try

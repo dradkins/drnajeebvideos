@@ -712,5 +712,33 @@ namespace DrNajeeb.Web.API.Controllers
             }
 
         }
+
+        [ActionName("GetByCategoryFrontEnd")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetByCategoryFrontEnd(int id)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var videosList = new List<UserVideoModel>();
+                var videos = await _Uow._CategoryVideos
+                    .GetAll(x => x.CategoryId == id)
+                    .Include(x => x.Video)
+                    .OrderBy(x => x.DisplayOrder)
+                    .Select(x => x.Video)
+                    .ToListAsync();
+
+                videos.ForEach(x => videosList.Add(new UserVideoModel
+                {
+                    Name = x.Name,
+                }));
+                return Ok(videosList);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

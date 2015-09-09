@@ -673,8 +673,8 @@ namespace DrNajeeb.Web.API.Controllers
                 else if (provider == "Google")
                 {
                     // not implemented yet
-                    return null;
-                    //verifyTokenEndPoint = string.Format("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}", accessToken);
+                    //return null;
+                    verifyTokenEndPoint = string.Format("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}", accessToken);
                 }
                 else
                 {

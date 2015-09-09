@@ -15,6 +15,10 @@
             totalItems: 0
         };
 
+        $scope.goto = function (url) {
+            $location.path(url);
+        }
+
         var onDashboardData = function (data) {
             $scope.totalVideos = data[0].count;
             $scope.newVideos = data[0].data;

@@ -31,7 +31,8 @@ namespace DrNajeeb.Web.API.Controllers
                 var json = countries.Select(x => new
                 {
                     Id = x.Id,
-                    Name = x.Name
+                    Name = x.Name, 
+                    ISO2Name=x.ISO2Name
                 });
                 return Ok(json);
             }

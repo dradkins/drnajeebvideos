@@ -17,11 +17,11 @@
                                     </button>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-xs-12">
                                     <p class="social-text">Or use a local account</p>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="row">
                                 <div class="col-xs-12">
                                     <form role="form" name="registerForm" ng-submit="register(registerForm)">
@@ -52,7 +52,7 @@
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-flag"></i></span>
-                                                <select ng-model="registerModel.countryId" class="form-control" ng-options="country.id as country.name for country in countries" required></select>
+                                                <select ng-model="selectedCountry" class="form-control" ng-options="country.name for country in countries" required></select>
                                             </div>
                                         </div>
                                         <div class="row">

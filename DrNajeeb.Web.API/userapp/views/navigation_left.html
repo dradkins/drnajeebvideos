@@ -7,7 +7,7 @@
                 <div class="user-box">
                     <span class="name">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                            {{$root.FULL_NAME}}
+                            {{$root.FULL_NAME | limitTo:9}}.
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">

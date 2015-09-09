@@ -107,7 +107,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th></th>
-                                                                <th>Name</th>
+                                                                <th>Title</th>
                                                                 <th>Duration</th>
                                                                 <th>Categories</th>
                                                                 <th>&nbsp;</th>
@@ -129,6 +129,9 @@
                                                                     <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
                                                                         Watch Now <i class="fa fa-arrow-circle-o-right"></i>
                                                                     </button>
+                                                                    <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </a>
                                                                     <button class="btn btn-warning" ng-click="addToFavorites(video)" title="Add To Favorites" ng-if="!video.isFavoriteVideo">
                                                                         <i class="fa fa-heart-o text-danger"></i>
                                                                     </button>
@@ -142,12 +145,16 @@
                                                 </div>
                                                 <pagination total-items="pagingInfo.totalItems"
                                                             ng-model="pagingInfo.page"
-                                                            max-size="10"
+                                                            max-size="5"
                                                             boundary-links="true"
                                                             rotate="false"
                                                             class="pagination-sm pull-right"
                                                             ng-change="selectPage(pagingInfo.page)"
                                                             items-per-page="pagingInfo.itemsPerPage"
+                                                            previous-text="&lsaquo;"
+                                                            next-text="&rsaquo;"
+                                                            first-text="&laquo;"
+                                                            last-text="&raquo;"
                                                             num-pages="numPages">
                                                 </pagination>
                                                 <!--</div>

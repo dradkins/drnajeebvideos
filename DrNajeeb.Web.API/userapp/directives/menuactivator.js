@@ -12,6 +12,7 @@
                 link = angular.element(link);
                 if (/\#(\/[^\/]+)/.exec(link.attr("href"))[1] == value) {
                     link.parent().addClass(className);
+                    window.scrollTo(0, 0);
                 } else {
                     link.parent().removeClass(className);
                 }

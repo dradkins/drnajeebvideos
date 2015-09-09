@@ -49,7 +49,7 @@
                                                 <thead>
                                                     <tr class="headRow">
                                                         <th></th>
-                                                        <th>Name</th>
+                                                        <th>Title</th>
                                                         <th>Duration</th>
                                                         <th>&nbsp;</th>
                                                     </tr>
@@ -67,6 +67,9 @@
                                                                 <button class="btn btn-info" ng-click="showVideo(video)">
                                                                     Watch Now <i class="fa fa-arrow-circle-o-right"></i>
                                                                 </button>
+                                                                <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-primary" target="_self" download="{{video.name}}.mp4">
+                                                                    <i class="fa fa-download"></i>
+                                                                </a>
                                                             </td>
                                                             <td class="mobScreenTable">
                                                                 <div class="mobScreenDiv" style="width:100%;">

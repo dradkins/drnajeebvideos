@@ -53,7 +53,19 @@
                             return response.data;
                         });
         }
-        
+
+        OAuthService.getGoogleUserInfo = function (token) {
+            var url = "https://www.googleapis.com/plus/v1/people/me";
+            var config = {
+                headers: {
+                    "Authorization":"Bearer " + token,
+                }
+            }
+            $http.get(url).then(function (response, config) {
+                console.log(response);
+            })
+        }
+
         return OAuthService;
 
     }

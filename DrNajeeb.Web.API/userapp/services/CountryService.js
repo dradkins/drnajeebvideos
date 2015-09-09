@@ -13,6 +13,13 @@
                         });
         };
 
+        CountryService.getCountryByIP = function (ip) {
+            return $http.get("http://ipinfo.io/"+ip)
+                        .then(function (response) {
+                            return response.data;
+                        });
+        };
+
         return CountryService;
     }
 

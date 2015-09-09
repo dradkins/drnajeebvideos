@@ -22,6 +22,15 @@
 
         };
 
+        LibraryService.getFrontEndVideos = function (id) {
+
+            return $http.get("/api/videos/getByCategoryFrontEnd/" + id)
+                        .then(function (response) {
+                            return response.data;
+                        });
+
+        };
+
         return LibraryService;
 
     }

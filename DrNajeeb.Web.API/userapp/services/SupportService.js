@@ -19,6 +19,13 @@
                         });
         }
 
+        SuportService.getIpAddress = function () {
+            return $http.get("/api/user/getIPAddress")
+                        .then(function (response) {
+                            return response.data;
+                        });
+        }
+
         return SuportService;
     }
 

@@ -4,7 +4,6 @@
     var addToken = function ($q, CurrentUserService) {
 
         var request = function (config) {
-
             if (CurrentUserService.profile.isLoggedIn) {
                 config.headers.Authorization = "Bearer " + CurrentUserService.profile.token;
             }
@@ -27,7 +26,7 @@
 
         var responseError = function (response) {
             if (response.status == 401) {
-                lastPath = $location.path();
+                //lastPath = $location.path();
                 $location.path("/login");
             }
             return $q.reject(response);
