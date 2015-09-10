@@ -39,6 +39,12 @@ namespace DrNajeeb.Web.API.Providers
                 return;
             }
 
+            if (!user.IsActiveUser)
+            {
+                context.SetError("not_active", user.Id);
+                return;
+            }
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,

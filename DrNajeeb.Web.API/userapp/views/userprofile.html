@@ -141,8 +141,17 @@
                                                                     </td>
                                                                     <td class="mobScreenTable">
                                                                         <div class="mobScreenDiv" style="width:100%;">
-                                                                            <div class="row"><p class="col-xs-10 col-lg-10 col-md-10 col-sm-10 ng-binding">{{video.name}}</p><i class="fa fa-arrow-circle-o-right fa-2x col-xs-2 col-lg-2 col-md-2 col-sm-2" ng-click="showVideo(video)"></i></div>
-                                                                            <p>{{video.duration}} Min.</p>
+                                                                               <div class="row">
+                                                            <p style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">{{video.name}}
+                                                            <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span></p>
+                                                            <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
+                                                                <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4"><i class="fa fa-download"></i>
+                                                                </a>
+                                                                <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
+                                                               <i class="fa fa-arrow-circle-o-right"></i>
+                                                            </button>
+                                                          </div>                     
+                                                        </div>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
@@ -199,7 +208,7 @@
                     </div>
                 </div>
 
-                <footer id="footer-bar" class="row">
+                <footer id="footer-bar" class="row footerProfile">
                     <p id="footer-copyright" class="col-xs-12">
                         Copyright © 2015 Dr. Najeeb Lectures. All Rights Reserved.
                     </p>

@@ -1,0 +1,93 @@
+﻿@model DrNajeeb.Web.API.Models.ConfirmCheckoutViewModel
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Dr. Najeeb - User Panel</title>
+
+    <!-- CSS Files -->
+
+    <link href="~/Content/sitecontent/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Content/sitecontent/css/libs/font-awesome.css" />
+
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="~/Content/sitecontent/css/compiled/theme_styles.css" />
+
+    <!-- Favicon -->
+    <link type="image/x-icon" href="favicon.ico" rel="shortcut icon" />
+    <!-- google font libraries -->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+    <!--[if lt IE 9]>
+        <script src="js/html5shiv.js"></script>
+        <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <!-- End CSS Files-->
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="theme-blue-gradient fixed-header fixed-leftmenu">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="login-box">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <header id="login-header">
+                                <div id="login-logo">
+                                    <img src="/Content/images/logo.png" alt="" />
+                                </div>
+                            </header>
+                            <div id="login-box-inner">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="social-text">
+                                                @if (Model.Result == "ERROR")
+                                                {
+                                                    <div class="text-danger">
+                                                        @Model.Message
+                                                    </div>
+                                                }
+                                                else if (Model.Result == "NOT FOUND")
+                                                {
+                                                    <div class="text-warning">
+                                                        @Model.Message
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="text-success">
+                                                        @Model.Message<br />
+                                                        <span>You have been redirected to login page in 5 seconds</span>
+                                                    </div>
+                                                    <script type="text/javascript">
+                                                        (function () {
+                                                            setTimeout(function () {
+                                                                window.location.href = "/";
+                                                            }, 5000)
+                                                        }());
+                                                    </script>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/js/demo.js"></script> <!-- only for demo -->
+    <!-- this page specific scripts -->
+    <script src="~/Scripts/js/moment.min.js"></script>
+    <script src="~/Scripts/js/flot/jquery.flot.min.js"></script>
+    <script src="~/Scripts/js/flot/jquery.flot.resize.min.js"></script>
+</body>
+</html>

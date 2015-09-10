@@ -331,8 +331,12 @@ namespace DrNajeeb.Web.API.Controllers
         [AllowAnonymous]
         public IHttpActionResult GetIPAddress()
         {
-            string userIpAddress = HttpContext.Current.Request.UserHostAddress;
-            return Ok(userIpAddress);
+            var IPAddress = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrEmpty(IPAddress))
+            {
+                IPAddress = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+            }
+            return Ok(IPAddress);
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

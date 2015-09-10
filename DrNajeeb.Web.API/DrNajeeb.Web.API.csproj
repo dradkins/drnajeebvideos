@@ -257,6 +257,7 @@
     <Compile Include="Models\AdminSupportModels.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CategorySortingModel.cs" />
+    <Compile Include="Models\CheckoutViewModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\RoleModel.cs" />
@@ -294,6 +295,7 @@
     <Content Include="Scripts\angular-google-plus.js" />
     <Content Include="userapp\controllers\FrontEndController.js" />
     <Content Include="userapp\directives\menuHider.js" />
+    <Content Include="userapp\views\checkout.html" />
     <Content Include="userapp\views\front-end.html" />
     <Content Include="userapp\views\privacy-policy.html" />
     <Content Include="userapp\views\terms-and-conditions.html" />
@@ -3000,6 +3002,8 @@
     <Content Include="Scripts\lang\jcs-auto-validate_en-us.json" />
     <Content Include="Scripts\lang\jcs-auto-validate_en-gb.json" />
     <Content Include="Scripts\lang\jcs-auto-validate_de-de.json" />
+    <Content Include="Views\Home\Checkout.cshtml" />
+    <Content Include="Views\Home\CompleteCheckout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,9 +22,9 @@
         }
 
         var onRegister = function (data) {
-            CurrentUserService.setProfile(data.userName, data.access_token)
+            //CurrentUserService.setProfile(data.userName, data.access_token)
             toastr.success("Registered successfully,")
-            $location.path("/dashboard");
+            window.location.href = "/home/checkout/" + data;
         }
 
         var onRegisterError = function (error) {

@@ -29,7 +29,7 @@
                 templateUrl: "/userapp/views/userdashboard.html",
                 controller: "DashboardController"
             })
-            .when("/front-end", {
+            .when("/video-library", {
                 templateUrl: "/userapp/views/front-end.html",
                 controller: "FrontEndController"
             })
@@ -81,6 +81,9 @@
                 templateUrl: "/userapp/views/register.html",
                 controller: "RegisterController"
             })
+            .when("/checkout", {
+                templateUrl: "/userapp/views/checkout.html",
+            })
             .when("/register-external", {
                 templateUrl: "/userapp/views/register-external.html",
                 controller: "ExternalRegisterController"
@@ -104,6 +107,7 @@
 
         $rootScope.LOG_OUT = function () {
             CurrentUserService.logout();
+            window.location.reload();
         }
         $rootScope.SEARCH_TERM = "";
         $rootScope.facebookProfilePic = CurrentUserService.profile.profilePic;

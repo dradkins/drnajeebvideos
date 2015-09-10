@@ -1,0 +1,89 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="login-box">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <header id="login-header">
+                            <div id="login-logo">
+                                <img src="/Content/images/logo.png" alt="" />
+                            </div>
+                        </header>
+                        <div id="login-box-inner">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <form action='https://sandbox.2checkout.com/checkout/purchase' method='post'>
+                                        <input type='hidden' name='sid' value='901289655' />
+                                        <input type='hidden' name='mode' value='2CO' />
+                                        <input type='hidden' name='li_0_type' value='product' />
+                                        <input type='hidden' name='li_0_name' value='invoice123' />
+                                        <input type='hidden' name='li_0_price' value='25.99' />
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <input class="form-control" type="text" name='card_holder_name' placeholder="Full name" ng-minlength="4" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                <input class="form-control" type="email" name='email' placeholder="Email address" ng-model="registerModel.email" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                <input type="text" class="form-control" name="phone" placeholder="Enter phone number" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-strikethrough"></i></span>
+                                                <input type="text" name="street_address" class="form-control" placeholder="street address line 1" ng-minlength="6" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-strikethrough"></i></span>
+                                                <input type="text" name="street_address2" class="form-control" placeholder="street address line 2">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-strikethrough"></i></span>
+                                                <input type="text" name="city" class="form-control" placeholder="city" ng-minlength="3" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-strikethrough"></i></span>
+                                                <input type="text" name="state" class="form-control" placeholder="state" ng-minlength="3" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-strikethrough"></i></span>
+                                                <input type="text" name="zip" class="form-control" placeholder="zip code" ng-minlength="3" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-strikethrough"></i></span>
+                                                <input type="text" name="country" class="form-control" placeholder="country" ng-minlength="3" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button name="submit" type="submit" class="btn btn-success col-xs-12">Checkout</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

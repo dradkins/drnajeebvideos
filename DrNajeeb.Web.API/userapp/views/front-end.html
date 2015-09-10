@@ -1,69 +1,138 @@
-﻿<div id="content-wrapper">
-    <div class="row">
-        <div class="col-lg-12">
-            <!-- End Before Adding Main Content -->
+﻿<!-- Before Adding Main Content -->
+<div id="theme-wrapper">
+    
+    <header class="navbar" id="header-navbar">
+        <div class="container">
+            <a href="#/dashboard" id="logo" class="navbar-brand">
+                <img src="/Content/images/logo.png" alt="" class="normal-logo logo-white" />
+            </a>
 
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="main-box feed">
-                        <header class="main-box-header clearfix">
-                            <h2 class="pull-left">Categories</h2>
-                        </header>
+            <div class="clearfix">
+                <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="fa fa-bars"></span>
+                </button>
 
-                        <div class="main-box-body clearfix">
-                            <div class="table-responsive">
-                                <div class="list-group" style="overflow:hidden">
-                                    <a href="" class="list-group-item" ng-class="{active: cat.id==selectedCategory.id}" ng-repeat="cat in categories" ng-click="categorySelected(cat)"
-                                       style="border-top-left-radius:0 !important; border-top-right-radius:0 !important; border-width: 1px; margin-bottom: -2px; overflow:hidden;">
-                                        {{cat.name}}
+                <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+                    <ul class="nav navbar-nav pull-left">
+                        <li>
+                            <a class="btn" id="make-small-nav" menu-hider>
+                                <i class="fa fa-bars"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="page-wrapper" class="container">
+        <div class="row">
+
+            <div id="nav-col">
+                <section id="col-left" class="col-left-nano">
+                    <div id="col-left-inner" class="col-left-nano-content">
+                        <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                    <a href="#/front-end">
+                                        <i class="fa fa-dashboard"></i>
+                                        <span>Video Library</span>
                                     </a>
-                                    <!--<select class="form-control libraryCaMob" ng-model="selectedCategory" style="overflow:hidden" ng-options="cat.name for cat in categories" ng-change="categorySelected(selectedCategory)"></select>-->
+                                </li>
+                                <li class="">
+                                    <a href="#/register">
+                                        <i class="fa fa-sign-in"></i>
+                                        <span>Signup</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <div id="nav-col-submenu"></div>
+            </div>
+
+            <div id="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- End Before Adding Main Content -->
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ol class="breadcrumb">
+                                    <li><a href="">Home</a></li>
+                                    <li class="active"><span>Video Library</span></li>
+                                </ol>
+
+                                <h1>Video Library</h1>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                <div class="main-box feed">
+                                    <header class="main-box-header clearfix">
+                                        <h2 class="pull-left">Categories</h2>
+                                    </header>
+
+                                    <div class="main-box-body clearfix">
+                                        <div class="table-responsive">
+                                            <div class="list-group" style="overflow:hidden">
+                                                <a href="" class="list-group-item" ng-class="{active: cat.id==selectedCategory.id}" ng-repeat="cat in categories" ng-click="categorySelected(cat)"
+                                                   style="border-top-left-radius:0 !important; border-top-right-radius:0 !important; border-width: 1px; margin-bottom: -2px; overflow:hidden;">
+                                                    {{cat.name}}
+                                                </a>
+                                                <!--<select class="form-control libraryCaMob" ng-model="selectedCategory" style="overflow:hidden" ng-options="cat.name for cat in categories" ng-change="categorySelected(selectedCategory)"></select>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                                <div class="main-box clearfix">
+                                    <header class="main-box-header clearfix">
+                                        <h2 class="pull-left">Videos in {{selectedCategory.name}}</h2>
+                                    </header>
+
+                                    <div class="main-box-body clearfix">
+                                        <div class="table-responsive clearfix">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr class="headRow">
+                                                        <th>Title</th>
+                                                        <th>&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="video in videos | filter: search">
+                                                        <td class="mobScreenTableDisNon">{{video.name}}</td>
+                                                        <td>
+                                                            <a href="#/register" class="btn btn-info">
+                                                                Signup now
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- After Adding Main Content -->
                     </div>
                 </div>
 
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                    <div class="main-box clearfix">
-                        <header class="main-box-header clearfix">
-                            <h2 class="pull-left">Videos in {{selectedCategory.name}}</h2>
-                        </header>
-
-                        <div class="main-box-body clearfix">
-                            <div class="table-responsive clearfix">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr class="headRow">
-                                            <th>Title</th>
-                                            <th>&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="video in videos | filter: search">
-                                            <td class="mobScreenTableDisNon">{{video.name}}</td>
-                                            <td>
-                                                <a href="#/register" class="btn btn-info">
-                                                    Signup now
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <footer id="footer-bar" class="row">
+                    <p id="footer-copyright" class="col-xs-12">
+                        Copyright &copy; 2015 Dr. Najeeb Lectures. All Rights Reserved.
+                    </p>
+                </footer>
             </div>
-
-
-            <!-- After Adding Main Content -->
         </div>
     </div>
-
-    <footer id="footer-bar" class="row">
-        <p id="footer-copyright" class="col-xs-12">
-            Copyright © 2015 Dr. Najeeb Lectures. All Rights Reserved.
-        </p>
-    </footer>
 </div>
+<!-- End After Adding Main Content -->

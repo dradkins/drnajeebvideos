@@ -37,7 +37,8 @@
 
         var onRegister = function (data) {
             toastr.success("Registered successfully, Please login with your email and password.")
-            $location.path("/login");
+            window.location.href="/home/checkout/" + data;
+            //$location.path("/login");
         }
 
         var onRegisterError = function (error) {
@@ -51,7 +52,9 @@
         }
 
         var onIpAddress = function (data) {
+            console.log(data);
             CountryService.getCountryByIP(data).then(function (response) {
+                console.log(response);
                 $scope.country = response;
                 angular.forEach($scope.countries, function (c) {
                     if (c.isO2Name === $scope.country.country) {
@@ -66,7 +69,6 @@
 
         function init() {
             CountryService.getAll().then(onCountries, onError);
-            SuportService.getIpAddress().then(onIpAddress, onError);
         }
 
         var onError = function (error) {
@@ -76,6 +78,7 @@
         var onCountries = function (response) {
             $scope.countries = null;
             $scope.countries = response;
+            SuportService.getIpAddress().then(onIpAddress, onError);
         }
 
 

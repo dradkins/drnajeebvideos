@@ -22,7 +22,14 @@
         }
 
         var onError = function (response) {
-            toastr.error(response.data.error_description);
+            if (response.data.error == "not_active") {
+                toastr.error("Payment not made yet please click <a style=\"color:blue\" href=\"/home/checkout/" + response.data.error_description + "\">here</a> to make payement", "", {
+                    allowHtml: true
+                });
+            }
+            else {
+                toastr.error(response.data.error_description);
+            }
         }
 
         var onExternalAccounts = function (data) {
@@ -32,19 +39,19 @@
 
         /****** Google+ Sigin *********/
 
-        $scope.$on('event:google-plus-signin-success', function (event, authResult) {
-            var data = {
-                token: authResult.access_token,
-                provider: "Google"
-            };
-            OAuthService.getGoogleUserInfo(authResult.access_token);
-            //OAuthService.loginExternal(data).then(onExternalLogin, onExternalLoginError);
-            console.log(authResult);
-        });
+        //$scope.$on('event:google-plus-signin-success', function (event, authResult) {
+        //    var data = {
+        //        token: authResult.access_token,
+        //        provider: "Google"
+        //    };
+        //    OAuthService.getGoogleUserInfo(authResult.access_token);
+        //    //OAuthService.loginExternal(data).then(onExternalLogin, onExternalLoginError);
+        //    console.log(authResult);
+        //});
 
-        $scope.$on('event:google-plus-signin-failure', function (event, authResult) {
-            toastr.error("unable to login with ")
-        });
+        //$scope.$on('event:google-plus-signin-failure', function (event, authResult) {
+        //    toastr.error("unable to login with ")
+        //});
 
         /***** Eng Google+ Signin *******/
 
@@ -151,6 +158,13 @@
                 CurrentUserService.externalLogin.email = $scope.user1.email;
                 $location.path("/register-external")
             }
+            if (error.status === 403) {
+                //toastr.error("Payment not made yet please click <a style=\"color:blue\" href=\"/home/checkout/" + response.data.error_description + "\">here</a> to make payement", "", {
+                //    allowHtml: true
+                //});
+                console.log(error);
+                toastr.error("Payment not made yet.")
+            }
             else {
                 toastr.error("Unable to login with facebook, Please use a local account.")
             }
@@ -195,7 +209,7 @@
     }
 
 
-    LoginController.$inject = ["$scope", "$timeout", "$location","$rootScope", "Facebook", "OAuthService", "CurrentUserService", "loginRedirect", "toastr"];
+    LoginController.$inject = ["$scope", "$timeout", "$location", "$rootScope", "Facebook", "OAuthService", "CurrentUserService", "loginRedirect", "toastr"];
     app.controller("LoginController", LoginController);
 
 }(angular.module("DrNajeebUser")));

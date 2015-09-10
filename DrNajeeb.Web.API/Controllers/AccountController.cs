@@ -20,12 +20,13 @@ using DrNajeeb.Data;
 using DrNajeeb.Data.Helpers;
 using System.Data.Entity;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace DrNajeeb.Web.API.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseController
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
@@ -358,7 +359,7 @@ namespace DrNajeeb.Web.API.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok(user.Id);
         }
 
         // POST api/Account/RegisterExternal
@@ -442,7 +443,7 @@ namespace DrNajeeb.Web.API.Controllers
                     CountryId = model.CountryId,
                     CreatedOn = DateTime.UtcNow,
                     CurrentViews = 0,
-                    IsActiveUser = true,
+                    IsActiveUser = false,
                     IsAllowMobileVideos = true,
                     IsFilterByIP = false,
                     IsParentalControl = false,
@@ -475,30 +476,30 @@ namespace DrNajeeb.Web.API.Controllers
                 identity = await UserManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType);
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
                 identity.AddClaims(claims);
-                Authentication.SignIn(identity);
+                //Authentication.SignIn(identity);
             }
 
-            AuthenticationTicket ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
-            var currentUtc = new Microsoft.Owin.Infrastructure.SystemClock().UtcNow;
-            ticket.Properties.IssuedUtc = currentUtc;
-            ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(365));
-            var accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
-            Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            //AuthenticationTicket ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
+            //var currentUtc = new Microsoft.Owin.Infrastructure.SystemClock().UtcNow;
+            //ticket.Properties.IssuedUtc = currentUtc;
+            //ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(365));
+            //var accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+            //Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
 
 
-            // Create the response building a JSON object that mimics exactly the one issued by the default /Token endpoint
-            JObject token = new JObject(
-                new JProperty("userName", user.UserName),
-                new JProperty("id", user.Id),
-                new JProperty("fullName", user.FullName),
-                new JProperty("access_token", accessToken),
-                new JProperty("token_type", "bearer"),
-                new JProperty("expires_in", TimeSpan.FromDays(365).TotalSeconds.ToString()),
-                new JProperty(".issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
-                new JProperty(".expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))
-            );
-            return Ok(token);
+            //// Create the response building a JSON object that mimics exactly the one issued by the default /Token endpoint
+            //JObject token = new JObject(
+            //    new JProperty("userName", user.UserName),
+            //    new JProperty("id", user.Id),
+            //    new JProperty("fullName", user.FullName),
+            //    new JProperty("access_token", accessToken),
+            //    new JProperty("token_type", "bearer"),
+            //    new JProperty("expires_in", TimeSpan.FromDays(365).TotalSeconds.ToString()),
+            //    new JProperty(".issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
+            //    new JProperty(".expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))
+            //);
+            return Ok(user.Id);
         }
 
 
@@ -532,6 +533,13 @@ namespace DrNajeeb.Web.API.Controllers
 
             if (hasRegistered)
             {
+                if (!user.IsActiveUser)
+                {
+                    var response = new HttpResponseMessage(HttpStatusCode.Forbidden);
+
+                    response.ReasonPhrase = user.Id;
+                    return ResponseMessage(response);
+                }
                 identity = await UserManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType);
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
                 identity.AddClaims(claims);
