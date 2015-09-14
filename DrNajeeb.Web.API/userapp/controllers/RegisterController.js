@@ -1,6 +1,6 @@
 ﻿(function (module) {
 
-    var RegisterController = function ($scope, $timeout, $location, Facebook, OAuthService, CurrentUserService, CountryService, SuportService, toastr) {
+    var RegisterController = function ($scope, $timeout, $location, $rootScope, Facebook, OAuthService, CurrentUserService, CountryService, SuportService, toastr) {
 
         $scope.registerModel = {
             email: null,
@@ -151,10 +151,11 @@
          * me 
          */
         $scope.me = function () {
-            Facebook.api('/me', function (response) {
+            Facebook.api('/me', { fields: "id,name,picture,email" }, function (response) {
                 /**
                  * Using $scope.$apply since this happens outside angular framework.
                  */
+                $rootScope.facebookProfilePic = response.picture.data.url;
                 $scope.$apply(function () {
                     $scope.user1 = response;
                     var data = {
@@ -169,8 +170,8 @@
 
 
         var onExternalLogin = function (data) {
-            CurrentUserService.setProfile(data.userName, data.access_token)
-            toastr.success("Login successfully,")
+            CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true);
+            toastr.success("Welcome " + data.fullName);
             $location.path("/dashboard");
         }
 
@@ -227,7 +228,7 @@
         init();
     }
 
-    RegisterController.$inject = ["$scope", "$timeout", "$location", "Facebook", "OAuthService", "CurrentUserService", "CountryService", "SuportService", "toastr"];
+    RegisterController.$inject = ["$scope", "$timeout", "$location", "$rootScope",  "Facebook", "OAuthService", "CurrentUserService", "CountryService", "SuportService", "toastr"];
     module.controller("RegisterController", RegisterController);
 
 }(angular.module("DrNajeebUser")));

@@ -46,7 +46,7 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
-                var totalVideos=await videos.CountAsync();
+                var totalVideos = await videos.CountAsync();
 
                 // sorting (done with the System.Linq.Dynamic library available on NuGet)
                 videos = videos.OrderBy(sortBy + (reverse ? " descending" : ""));
@@ -105,7 +105,7 @@ namespace DrNajeeb.Web.API.Controllers
                 var videosList = new List<VideoModel>();
 
                 var videos = _Uow._CategoryVideos.GetAll(x => x.CategoryId == id)
-                    .OrderBy(x=>x.DisplayOrder)
+                    .OrderBy(x => x.DisplayOrder)
                     .Include(x => x.Video)
                     .Select(x => x.Video);
 
@@ -363,7 +363,7 @@ namespace DrNajeeb.Web.API.Controllers
                 var videos = await _Uow._CategoryVideos
                     .GetAll(x => x.CategoryId == id)
                     .Include(x => x.Video)
-                    .OrderBy(x=>x.DisplayOrder)
+                    .OrderBy(x => x.DisplayOrder)
                     .Select(x => x.Video)
                     .Include(x => x.UserFavoriteVideos)
                     .ToListAsync();
@@ -734,6 +734,26 @@ namespace DrNajeeb.Web.API.Controllers
                     Name = x.Name,
                 }));
                 return Ok(videosList);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [ActionName("SearchVideos")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> SearchVideos(string id)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(id))
+                {
+                    var videos =await _Uow._Videos.GetAll(x => x.Name.Contains(id)).Select(x => x.Name).ToListAsync();
+                    return Ok(videos);
+                }
+                return Ok();
             }
             catch (Exception ex)
             {

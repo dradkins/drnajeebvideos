@@ -12,6 +12,7 @@ using System.Linq.Dynamic;
 using DrNajeeb.Web.API.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.IO;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -337,6 +338,39 @@ namespace DrNajeeb.Web.API.Controllers
                 IPAddress = HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
             }
             return Ok(IPAddress);
+        }
+
+        [ActionName("UploadProfilePic")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UploadProfilePic()
+        {
+            if (HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                var httpPostedFile = HttpContext.Current.Request.Files["file"];
+                using (var reader = new System.IO.BinaryReader(httpPostedFile.InputStream))
+                {
+                    var imageData = reader.ReadBytes(httpPostedFile.ContentLength);
+                    var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                    user.ProfilePicture = Convert.ToBase64String(imageData);
+                    IdentityResult result = await UserManager.UpdateAsync(user);
+                    if (result != null && !result.Succeeded)
+                    {
+                        return GetErrorResult(result);
+                    }
+                    return Ok(user.ProfilePicture);
+                }
+                
+            }
+            return Ok();
+        }
+
+
+        [ActionName("GetUserProfilePicture")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetUserProfilePicture()
+        {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            return Ok(user.ProfilePicture);
         }
 
         private IHttpActionResult GetErrorResult(IdentityResult result)

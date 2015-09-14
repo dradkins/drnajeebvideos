@@ -6,6 +6,7 @@
             link: function (scope, element, attrs) {
                 element.bind('click', function () {
                     element.addClass("active");
+                    $('#search1').focus();
                 });
             }
         };

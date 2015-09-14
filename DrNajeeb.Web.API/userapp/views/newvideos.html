@@ -59,8 +59,8 @@
                                                         <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
                                                             <i class="fa fa-download"></i>
                                                         </a>
-                                                        <button class="btn btn-warning" ng-click="addToFavorites(video)" title="Add To Favorites" ng-if="!video.isFavoriteVideo">
-                                                            <i class="fa  fa-plus text-danger"></i>
+                                                        <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Favorites" ng-if="!video.isFavoriteVideo">
+                                                            <i class="fa  fa-plus"></i>
                                                         </button>
                                                         <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Favorites" ng-if="video.isFavoriteVideo">
                                                             <i class="fa  fa-plus"></i>
@@ -87,7 +87,7 @@
                                     </div>
                                     <pagination total-items="pagingInfo.totalItems"
                                                 ng-model="pagingInfo.page"
-                                                max-size="5"
+                                                max-size="4"
                                                 boundary-links="true"
                                                 rotate="false"
                                                 class="pagination-sm pull-right"
@@ -116,4 +116,14 @@
         </div>
     </div>
 </div>
+
+<script id="template/pagination/pagination.html" type="text/ng-template">
+    <ul class="pagination">
+        <li ng-if="boundaryLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(1)" title="First Page"> <span class="glyphicon glyphicon-fast-backward"></span></a></li>
+        <li ng-if="directionLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(page - 1)" title="Previous Page"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+        <li ng-repeat="page in pages track by $index" ng-class="{active: page.active}"><a href ng-click="selectPage(page.number)">{{page.text}}</a></li>
+        <li ng-if="directionLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(page + 1)" title="Next Page"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+        <li ng-if="boundaryLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(totalPages)" title="Last Page"><span class="glyphicon glyphicon-fast-forward"></span> </a></li>
+    </ul>
+</script>
 <!-- End After Adding Main Content -->

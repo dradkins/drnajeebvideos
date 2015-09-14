@@ -16,8 +16,15 @@
             };
         }
 
+        $scope.register = function () {
+            //$location.path("/register");
+            setTimeout(function () {
+                window.location.reload(true);
+            }, 500);
+        }
+
         var onLogin = function (data) {
-            toastr.success("Welcome " + data + " to your dashboard");
+            toastr.success("Welcome " + data);
             loginRedirect.redirectPostLogin();
         }
 
@@ -130,7 +137,6 @@
                 /**
                  * Using $scope.$apply since this happens outside angular framework.
                  */
-                console.log(response);
                 $rootScope.facebookProfilePic = response.picture.data.url;
                 $scope.$apply(function () {
                     $scope.user1 = response;
@@ -147,7 +153,7 @@
 
         var onExternalLogin = function (data) {
             CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true);
-            toastr.success("Welcome " + data.fullName + " to your dashboard");
+            toastr.success("Welcome " + data.fullName);
             $location.path("/dashboard");
         }
 

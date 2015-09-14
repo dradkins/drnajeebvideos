@@ -30,6 +30,54 @@
     <!-- End CSS Files-->
     @Scripts.Render("~/bundles/modernizr")
 
+    <style type="text/css">
+        #live-search {
+            position: absolute;
+            top: 30%;
+            left: 25%;
+            right: 25%;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /*Live Search styles start*/
+        ul.searchresultspopup {
+            border: #a4bed4 1px solid;
+            margin-top: 0px;
+            padding: 0px;
+            z-index: 99999 !important;
+            position: fixed;
+            background-color: white;
+            /*max-height:200px;*/
+            border-collapse: separate;
+            overflow-y: hidden;
+        }
+
+            ul.searchresultspopup > li {
+                cursor: pointer;
+                padding-left: 1px;
+                text-align: left;
+                list-style: none;
+                line-height: 20px;
+                list-style-image: none;
+                list-style-position: outside;
+                list-style-type: none;
+                text-transform: lowercase;
+            }
+
+            ul.searchresultspopup li.selected, ul.searchresultspopup li:hover {
+                background-color: #ededed;
+            }
+
+            ul.searchresultspopup b {
+                color: blue;
+            }
+
+            ul.searchresultspopup strong {
+                color: green;
+            }
+    </style>
+
 </head>
 <body class="theme-blue-gradient fixed-header fixed-leftmenu">
 
@@ -50,7 +98,7 @@
     <script src="~/Scripts/js/flot/jquery.flot.axislabels.js"></script>
     <script src="~/Scripts/js/skycons.js"></script>
 
-    <script src="https://www.2checkout.com/static/checkout/javascript/direct.min.js"></script>
+    @*<script src="https://www.2checkout.com/static/checkout/javascript/direct.min.js"></script>*@
 
     <!-- theme scripts -->
     <script src="~/Scripts/js/scripts.js"></script>
@@ -63,6 +111,8 @@
     <script src="~/Scripts/jcs-auto-validate.min.js"></script>
     <script src="~/Scripts/angular-facebook.js"></script>
     <script src="~/Scripts/angular-google-plus.js"></script>
+    <script src="~/Scripts/angular-file-upload.js"></script>
+    <script src="~/Scripts/angular-auto-complete.js"></script>
 
     <script src="~/userapp/app.js"></script>
 
@@ -85,7 +135,6 @@
     <script src="~/userapp/controllers/LibraryController.js"></script>
     <script src="~/userapp/controllers/NewVideosController.js"></script>
     <script src="~/userapp/controllers/UserFavoritesController.js"></script>
-    <script src="~/userapp/controllers/UserHistoryController.js"></script>
     <script src="~/userapp/controllers/UserProfileController.js"></script>
     <script src="~/userapp/controllers/VideoController.js"></script>
     <script src="~/userapp/controllers/LoginController.js"></script>

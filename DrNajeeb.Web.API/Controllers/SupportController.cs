@@ -39,14 +39,14 @@ namespace DrNajeeb.Web.API.Controllers
                 SmtpClient smtp = new SmtpClient();
                 if (true)
                 {
-                    smtp.Host = "mail.drnajeebvideos.com";
+                    smtp.Host = "mail.ps-demo.com";
                     smtp.Port = 25;
-                    smtp.Credentials = new NetworkCredential("info@drnajeebvideos.com", "@Dmin123");
+                    smtp.Credentials = new NetworkCredential("info@ps-demo.com", "@Dmin123");
                     smtp.Timeout = 20000;
                 }
 
-                MailAddress fromAddress = new MailAddress("info@drnajeebvideos.com", "Support Request From " + user.FullName);
-                MailAddress toAddress = new MailAddress("support@drnajeelectures.com");
+                MailAddress fromAddress = new MailAddress("info@ps-demo.com", "Support Request From " + user.FullName);
+                MailAddress toAddress = new MailAddress("support@drnajeeblectures.com");
 
                 //Passing values to smtp object
                 dynamic message = new MailMessage(fromAddress, toAddress);

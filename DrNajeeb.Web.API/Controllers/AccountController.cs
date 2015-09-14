@@ -432,10 +432,35 @@ namespace DrNajeeb.Web.API.Controllers
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
                 identity.AddClaims(claims);
                 Authentication.SignIn(identity);
+                if (user.IsActiveUser)
+                {
+                    AuthenticationTicket ticket = new AuthenticationTicket(identity, new AuthenticationProperties());
+                    var currentUtc = new Microsoft.Owin.Infrastructure.SystemClock().UtcNow;
+                    ticket.Properties.IssuedUtc = currentUtc;
+                    ticket.Properties.ExpiresUtc = currentUtc.Add(TimeSpan.FromDays(365));
+                    var accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+                    Request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+
+
+                    // Create the response building a JSON object that mimics exactly the one issued by the default /Token endpoint
+                    JObject token = new JObject(
+                        new JProperty("userName", user.UserName),
+                        new JProperty("id", user.Id),
+                        new JProperty("fullName", user.FullName),
+                        new JProperty("access_token", accessToken),
+                        new JProperty("token_type", "bearer"),
+                        new JProperty("expires_in", TimeSpan.FromDays(365).TotalSeconds.ToString()),
+                        new JProperty(".issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
+                        new JProperty(".expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))
+                    );
+                    return Ok(user.Id);
+                }
             }
             else
             {
-                user = new ApplicationUser() { 
+                user = new ApplicationUser()
+                {
                     Id = Guid.NewGuid().ToString(),
                     UserName = model.Email,
                     Email = model.Email,

@@ -97,7 +97,7 @@ namespace DrNajeeb.Web.API.Providers
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", userName },
-                {"fullName", fullName}
+                {"fullName", fullName},
             };
             return new AuthenticationProperties(data);
         }

@@ -8,7 +8,9 @@
         "toastr",
         "jcs-autoValidate",
         "facebook",
-        "directive.g+signin"
+        "directive.g+signin",
+        "angularFileUpload",
+        "LiveSearch"
     ]);
 
     app.config(function ($routeProvider, FacebookProvider) {
@@ -97,7 +99,7 @@
         .otherwise({ redirectTo: "/dashboard" })
     });
 
-    app.run(function ($rootScope, $location, CurrentUserService) {
+    app.run(function ($rootScope, $location, $http, $q, CurrentUserService) {
 
         $rootScope.location = $location;
 
@@ -105,12 +107,39 @@
 
         $rootScope.FULL_NAME = CurrentUserService.profile.fullName;
 
+        $rootScope.VIDEOS = [];
+
+        $rootScope.UPDATE_VIDEOS = function (typed) {
+            console.log(typed);
+            var defer = $q.defer();
+
+            $http.get("/api/videos/searchVideos/" + typed.query)
+            .success(function (response) {
+                defer.resolve(response);
+            });
+
+            return defer.promise;
+        }
+
+        var isImageGet = false;
+
         $rootScope.LOG_OUT = function () {
             CurrentUserService.logout();
             window.location.reload();
         }
         $rootScope.SEARCH_TERM = "";
         $rootScope.facebookProfilePic = CurrentUserService.profile.profilePic;
+        $rootScope.USER_IMAGE;
+
+        $rootScope.updateUserImage = function () {
+            console.log("Getting user image")
+            $http.get("/api/user/getUserProfilePicture")
+            .success(function (response) {
+                $rootScope.USER_IMAGE = response;
+            });
+        }
+
+        $rootScope.updateUserImage();
 
         $rootScope.SEARC_VIDEO = function () {
             console.log($rootScope.SEARCH_TERM);

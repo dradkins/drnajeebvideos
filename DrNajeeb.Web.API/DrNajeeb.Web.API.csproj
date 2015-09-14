@@ -292,6 +292,8 @@
     <Content Include="app\views\support.html" />
     <Content Include="Content\images\user_frontend_mini.png" />
     <Content Include="Content\images\user_mini.jpg" />
+    <Content Include="Scripts\angular-auto-complete.js" />
+    <Content Include="Scripts\angular-file-upload.js" />
     <Content Include="Scripts\angular-google-plus.js" />
     <Content Include="userapp\controllers\FrontEndController.js" />
     <Content Include="userapp\directives\menuHider.js" />
@@ -623,6 +625,7 @@
     <Content Include="Content\toaster.scss" />
     <None Include="Properties\PublishProfiles\DrNajeeb.pubxml" />
     <Content Include="Scripts\jcs-auto-validate.min.js.map" />
+    <Content Include="Scripts\angular-file-upload.js.map" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\bootstrap.js" />

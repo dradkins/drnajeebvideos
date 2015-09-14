@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var UserProfileController = function ($scope, $location, $log, OAuthService, toastr, VideoService, SuportService) {
+    var UserProfileController = function ($scope, $location, $log, $rootScope, OAuthService, toastr, VideoService, SuportService, FileUploader, CurrentUserService) {
 
         /****** User history section ********/
 
@@ -91,6 +91,8 @@
             confirmPassword: ""
         };
         $scope.showPasswordDiv = false;
+        $scope.showChangeImage = false;
+        $scope.showProgress = false;
 
         $scope.changePassword = function (form) {
             if (form.$valid) {
@@ -125,6 +127,66 @@
         }
 
         /****** End change password section *******/
+
+        /******* Change Image Section ********/
+
+        var uploader = $scope.uploader = new FileUploader({
+            url: window.location.protocol + '//' + window.location.host +
+                 window.location.pathname + 'api/User/UploadProfilePic',
+            headers: {
+                "Authorization": "Bearer " + CurrentUserService.profile.token,
+            }
+        });
+
+        // FILTERS
+
+        uploader.filters.push({
+            name: 'extensionFilter',
+            fn: function (item, options) {
+                var filename = item.name;
+                var extension = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
+                if (extension == "jpg" || extension == "png")
+                    return true;
+                else {
+                    alert('Invalid file format. Please select a file with jpg/png');
+                    return false;
+                }
+            }
+        });
+
+        uploader.filters.push({
+            name: 'sizeFilter',
+            fn: function (item, options) {
+                var fileSize = item.size;
+                fileSize = parseInt(fileSize) / (1024 * 1024);
+                if (fileSize <= 1)
+                    return true;
+                else {
+                    alert('Selected file exceeds the 1MB file size limit. Please choose a new file and try again.');
+                    return false;
+                }
+            }
+        });
+
+        uploader.onAfterAddingFile = function (fileItem) {
+            $scope.showProgress = true;
+        };
+
+        uploader.onErrorItem = function (fileItem, response, status, headers) {
+            $scope.showProgress = false;
+            toastr.error('We were unable to upload your file. Please try again.');
+        };
+
+        uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            $scope.uploader.queue = [];
+            $scope.uploader.progress = 0;
+            $scope.showProgress = false;
+            $scope.showChangeImage = false;
+            $rootScope.updateUserImage();
+            toastr.success('profile picture changed successfully.');
+        };
+
+        /****** End Change Image Section ******/
 
 
         /***** Admin support section *******/
@@ -179,7 +241,7 @@
         /***** End admin support section *****/
     };
 
-    UserProfileController.$inject = ["$scope", "$location", "$log", "OAuthService", "toastr", "VideoService", "SuportService"];
+    UserProfileController.$inject = ["$scope", "$location", "$log", "$rootScope", "OAuthService", "toastr", "VideoService", "SuportService", "FileUploader", "CurrentUserService"];
     app.controller("UserProfileController", UserProfileController);
 
 }(angular.module("DrNajeebUser")));

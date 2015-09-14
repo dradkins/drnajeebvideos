@@ -14,7 +14,7 @@
                 <ul class="nav navbar-nav pull-left">
                     <li>
                         <a class="btn" id="make-small-nav" menu-hider>
-                            <i class="fa fa-bars"></i>
+                            <i class="fa fa-exchange"></i>
                         </a>
                     </li>
                    <!--  <li class="dropdown hidden-xs">
@@ -88,7 +88,12 @@
                         <div class="drowdown-search">
                             <form name="video-search-form" ng-submit="SEARC_VIDEO()">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search..." ng-model="$root.SEARCH_TERM" required>
+                                    <live-search id="search1" type="text"
+                                                 live-search-item-template="{{result}}"
+                                                 live-search-callback="$root.UPDATE_VIDEOS"
+                                                 ng-model="$root.SEARCH_TERM" class="form-control"></live-search>
+                                    <!--<autocomplete class="form-control" ng-model="$root.SEARCH_TERM" data="VIDEOS" on-type="$root.UPDATE_VIDEOS"></autocomplete>
+                                    <input type="text" class="form-control" placeholder="Search..." ng-model="$root.SEARCH_TERM" required>-->
                                     <i class="fa fa-search nav-search-icon"></i>
                                 </div>
                             </form>
@@ -97,7 +102,8 @@
                     </li>
                     <li class="dropdown profile-dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/Content/images/user_frontend.png" ng-if="!$root.facebookProfilePic" />
+                            <img ng-src="data:image/png;base64,{{$root.USER_IMAGE}}" ng-if="$root.USER_IMAGE" />
+                            <img ng-src="/Content/images/user_frontend.png" ng-if="!$root.facebookProfilePic && !$root.USER_IMAGE" />
                             <img ng-src="{{$root.facebookProfilePic}}" ng-if="$root.facebookProfilePic" />
                             <!--<img src="/Content/images/user_frontend.png" />-->
                             <span class="hidden-xs">{{$root.FULL_NAME}}</span> <b class="caret"></b>

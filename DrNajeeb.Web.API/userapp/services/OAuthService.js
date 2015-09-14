@@ -58,7 +58,7 @@
             var url = "https://www.googleapis.com/plus/v1/people/me";
             var config = {
                 headers: {
-                    "Authorization":"Bearer " + token,
+                    "Authorization": "Bearer " + token,
                 }
             }
             $http.get(url).then(function (response, config) {

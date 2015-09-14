@@ -28,7 +28,7 @@ namespace DrNajeeb.Web.API.Models
         public DateTime SubscriptionDate { get; set; }
         public Nullable<DateTime> ExpirationDate { get; set; }
         public bool Active { get; set; }
-        
+        public string ProfilePicture { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

@@ -2,12 +2,15 @@
     <section id="col-left" class="col-left-nano">
         <div id="col-left-inner" class="col-left-nano-content">
             <div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown profile2-dropdown">
-                <img src="/Content/images/user_frontend.png" ng-if="!$root.facebookProfilePic" />
+
+                <img ng-src="data:image/png;base64,{{$root.USER_IMAGE}}" ng-if="$root.USER_IMAGE" />
+                <img ng-src="/Content/images/user_frontend.png" ng-if="!$root.facebookProfilePic && !$root.USER_IMAGE" />
                 <img ng-src="{{$root.facebookProfilePic}}" ng-if="$root.facebookProfilePic" />
+
                 <div class="user-box">
                     <span class="name">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                            {{$root.FULL_NAME | limitTo:9}}.
+                            {{$root.FULL_NAME.substring(0, $root.FULL_NAME.indexOf(' '))}}.
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
@@ -24,8 +27,8 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                 <ul class="nav nav-pills nav-stacked" active-menu="active">
                     <!--<li class="nav-header nav-header-first hidden-sm hidden-xs">
-                        Navigation
-                    </li>-->
+                Navigation
+            </li>-->
                     <li>
                         <a href="#/dashboard">
                             <i class="fa fa-dashboard"></i>
@@ -40,20 +43,20 @@
                     </li>
                     <li>
                         <a href="#/library">
-                            <i class="fa fa-align-center"></i>
+                            <i class="fa fa-film"></i>
                             <span>Video Library</span>
                         </a>
                     </li>
                     <!--<li>
-                        <a href="#/clinicalvideos">
-                            <i class="fa fa-bell"></i>
-                            <span>Clinical Videos</span>
-                            <span class="label label-success pull-right">New</span>
-                        </a>
-                    </li>-->
+                <a href="#/clinicalvideos">
+                    <i class="fa fa-bell"></i>
+                    <span>Clinical Videos</span>
+                    <span class="label label-success pull-right">New</span>
+                </a>
+            </li>-->
                     <li class="">
                         <a href="#/favorites">
-                            <i class="fa fa-heart"></i>
+                            <i class="fa fa-plus"></i>
                             <span>My Playlist</span>
                         </a>
                     </li>
@@ -65,7 +68,7 @@
                     </li>
                     <li class="">
                         <a href="#/support">
-                            <i class="fa fa-ambulance"></i>
+                            <i class="fa fa-envelope"></i>
                             <span>Contact Us</span>
                         </a>
                     </li>

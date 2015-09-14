@@ -27,45 +27,75 @@
                                     </header>
 
                                     <div class="main-box-body clearfix">
-                                        <img src="../../Content/images/user_frontend.png" class="profile-img img-responsive center-block img-rounded" />
+                                        <img style="width:159px; height:159px;" ng-src="data:image/png;base64,{{$root.USER_IMAGE}}" ng-if="$root.USER_IMAGE" class="profile-img img-responsive center-block img-rounded" />
+                                        <img style="width:159px; height:159px;" ng-src="/Content/images/user_frontend.png" ng-if="!$root.facebookProfilePic && !$root.USER_IMAGE" class="profile-img img-responsive center-block img-rounded" />
+                                        <img style="width:159px; height:159px;" ng-src="{{$root.facebookProfilePic}}" ng-if="$root.facebookProfilePic" class="profile-img img-responsive center-block img-rounded" />
 
                                         <div class="profile-since">
-                                            Member
+                                            {{$root.FULL_NAME}}
                                         </div>
 
-                                        <div class="profile-details" ng-show="showPasswordDiv">
-                                            <h4 class="text-center">Change Password</h4>
-                                            <form name="changePasswordForm" ng-submit="changePassword(changePasswordForm)">
+
+                                        <div ng-if="!$root.facebookProfilePic">
+                                            <div class="profile-details" ng-show="showPasswordDiv">
+                                                <h4 class="text-center">Change Password</h4>
+                                                <form name="changePasswordForm" ng-submit="changePassword(changePasswordForm)">
+                                                    <div class="form-group">
+                                                        <label>Current Password</label>
+                                                        <input type="password" class="form-control input-sm" ng-model="changePasswordModel.oldPassword" required />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>New Password</label>
+                                                        <input type="password" class="form-control" ng-model="changePasswordModel.newPassword" required />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Confirm New Password</label>
+                                                        <input type="password" class="form-control" ng-model="changePasswordModel.confirmPassword" required />
+                                                    </div>
+                                                    <div class="form-group pull-right">
+                                                        <button type="submit" value="Change" class="btn btn-primary">
+                                                            Change
+                                                        </button>
+                                                        <button type="reset" class="btn btn-danger" value="Reset">Reset</button>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </form>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="profile-message-btn center-block text-center">
+                                                <a href="" class="btn btn-success" ng-click="showPasswordDiv=!showPasswordDiv">
+                                                    <i class="fa fa-lock"></i>
+                                                    Change Password
+                                                </a>
+                                            </div>
+
+                                            <br />
+
+                                            <div class="profile-details" ng-show="showChangeImage">
+                                                <h4 class="text-center">Change Image</h4>
                                                 <div class="form-group">
-                                                    <label>Current Password</label>
-                                                    <input type="password" class="form-control input-sm" ng-model="changePasswordModel.oldPassword" required />
+                                                    <label>Select Image</label>
+                                                    <input type="file" nv-file-select="" uploader="uploader" type />
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>New Password</label>
-                                                    <input type="password" class="form-control" ng-model="changePasswordModel.newPassword" required />
+                                                <div class="progress" style="">
+                                                    <div class="progress-bar" role="progressbar"
+                                                         ng-style="{ 'width': uploader.progress + '%' }"></div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>Confirm New Password</label>
-                                                    <input type="password" class="form-control" ng-model="changePasswordModel.confirmPassword" required />
-                                                </div>
-                                                <div class="form-group pull-right">
-                                                    <button type="submit" value="Change" class="btn btn-primary">
-                                                        Change
-                                                    </button>
-                                                    <button type="reset" class="btn btn-danger" value="Reset">Reset</button>
-                                                </div>
-                                                <div class="clearfix"></div>
-                                            </form>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <div class="profile-message-btn center-block text-center">
-                                            <a href="" class="btn btn-success" ng-click="showPasswordDiv=!showPasswordDiv">
-                                                <i class="fa fa-lock"></i>
-                                                Change Password
-                                            </a>
+                                                <button type="button" class="btn btn-success btn-s"
+                                                        ng-click="uploader.uploadAll()"
+                                                        ng-disabled="!uploader.getNotUploadedItems().length">
+                                                    <span class="glyphicon glyphicon-upload"></span> Upload
+                                                </button>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="profile-message-btn center-block text-center">
+                                                <a href="" class="btn btn-success" ng-click="showChangeImage=!showChangeImage">
+                                                    <i class="fa fa-lock"></i>
+                                                    Change Image
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
@@ -83,7 +113,7 @@
 
                                         <div class="tab-content">
 
-                                            <div class="tab-pane fade" id="tab-history">
+                                            <div class="tab-pane fade in active" id="tab-history">
 
                                                 <!--<div>-->
                                                 <header class="main-box-header clearfix">
@@ -105,11 +135,11 @@
                                                 <div class="table-responsive clearfix">
                                                     <table class="table table-hover">
                                                         <thead>
-                                                            <tr>
+                                                            <tr class="headRow">
                                                                 <th></th>
                                                                 <th>Title</th>
                                                                 <th>Duration</th>
-                                                                <th>Categories</th>
+                                                                <th>Category</th>
                                                                 <th>&nbsp;</th>
                                                             </tr>
                                                         </thead>
@@ -118,26 +148,44 @@
                                                                 <td>
                                                                     <img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:50px; height:50px;" />
                                                                 </td>
-                                                                <td>{{video.name}}</td>
-                                                                <td>{{video.duration}} Min.</td>
-                                                                <td>
+                                                                <td class="mobScreenTableDisNon">{{video.name}}</td>
+                                                                <td class="mobScreenTableDisNon">{{video.duration}} Min.</td>
+                                                                <td class="mobScreenTableDisNon">
                                                                     <span ng-repeat="cat in video.categories">
                                                                         {{cat.name}}<br />
                                                                     </span>
                                                                 </td>
-                                                                <td>
+                                                                <td class="mobScreenTableDisNon">
                                                                     <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
                                                                         Watch Now <i class="fa fa-arrow-circle-o-right"></i>
                                                                     </button>
                                                                     <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
                                                                         <i class="fa fa-download"></i>
                                                                     </a>
-                                                                    <button class="btn btn-warning" ng-click="addToFavorites(video)" title="Add To Favorites" ng-if="!video.isFavoriteVideo">
-                                                                        <i class="fa  fa-plus text-danger"></i>
+                                                                    <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Favorites" ng-if="!video.isFavoriteVideo">
+                                                                        <i class="fa  fa-plus"></i>
                                                                     </button>
                                                                     <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Favorites" ng-if="video.isFavoriteVideo">
-                                                                        <i class="fa fa-plus"></i>
+                                                                        <i class="fa  fa-plus"></i>
                                                                     </button>
+                                                                </td>
+                                                                <td class="mobScreenTable">
+                                                                    <div class="mobScreenDiv" style="width:100%;">
+                                                                        <div class="row">
+                                                                            <p style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">
+                                                                                {{video.name}}
+                                                                                <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span>
+                                                                            </p>
+                                                                            <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
+                                                                                <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
+                                                                                    <i class="fa fa-download"></i>
+                                                                                </a>
+                                                                                <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
+                                                                                    <i class="fa fa-arrow-circle-o-right"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -163,60 +211,7 @@
                                                 </div>-->
                                             </div>
 
-                                            <div class="tab-pane fade in active" id="tab-admin-support">
-                                                <!--<div class="conversation-wrapper">
-                                                    <div class="conversation-content">
-                                                        <div class="conversation-inner">
-
-                                                            <div ng-repeat="message in messages">
-                                                                <div class="conversation-item item-left clearfix" ng-if="message.isFromUser">
-                                                                    <div class="conversation-user">
-                                                                        <img src="../../Content/images/user_frontend_mini.png" />
-                                                                    </div>
-                                                                    <div class="conversation-body">
-                                                                        <div class="name">
-                                                                            Me.
-                                                                        </div>
-                                                                        <div class="time hidden-xs">
-                                                                            {{message.messageDateTime | date:'medium'}}
-                                                                        </div>
-                                                                        <div class="text">
-                                                                            {{message.messageText}}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="conversation-item item-right clearfix" ng-if="message.isFromAdmin">
-                                                                    <div class="conversation-user">
-                                                                        <img src="../../Content/images/user_mini.jpg" />
-                                                                    </div>
-                                                                    <div class="conversation-body">
-                                                                        <div class="name">
-                                                                            {{message.replierName}}
-                                                                        </div>
-                                                                        <div class="time hidden-xs">
-                                                                            {{message.messageDateTime | date:'medium'}}
-                                                                        </div>
-                                                                        <div class="text">
-                                                                            {{message.messageText}}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="conversation-new-message">
-                                                        <form name="messageForm" ng-submit="sendMessage(messageForm)">
-                                                            <div class="form-group">
-                                                                <textarea class="form-control" rows="2" placeholder="Enter your message..." ng-model="support.message" required></textarea>
-                                                            </div>
-
-                                                            <div class="clearfix">
-                                                                <button type="submit" class="btn btn-success pull-right">Send message</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>-->
-
+                                            <div class="tab-pane fade active" id="tab-admin-support">
                                                 <form name="supportForm" ng-submit="sendMessage(supportForm)">
                                                     <div class="form-group">
                                                         <label>Subject</label>
@@ -246,13 +241,23 @@
                     </div>
                 </div>
 
-                <footer id="footer-bar" class="row">
+                <footer id="footer-bar" class="row footerProfile">
                     <p id="footer-copyright" class="col-xs-12">
-                        Copyright &copy; 2015 Dr. Najeeb Lectures. All Rights Reserved.
+                        Copyright © 2015 Dr. Najeeb Lectures. All Rights Reserved.
                     </p>
                 </footer>
             </div>
         </div>
     </div>
 </div>
+
+<script id="template/pagination/pagination.html" type="text/ng-template">
+    <ul class="pagination">
+        <li ng-if="boundaryLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(1)" title="First Page"> <span class="glyphicon glyphicon-fast-backward"></span></a></li>
+        <li ng-if="directionLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(page - 1)" title="Previous Page"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+        <li ng-repeat="page in pages track by $index" ng-class="{active: page.active}"><a href ng-click="selectPage(page.number)">{{page.text}}</a></li>
+        <li ng-if="directionLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(page + 1)" title="Next Page"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+        <li ng-if="boundaryLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(totalPages)" title="Last Page"><span class="glyphicon glyphicon-fast-forward"></span> </a></li>
+    </ul>
+</script>
 <!-- End After Adding Main Content -->
