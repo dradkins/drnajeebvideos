@@ -26,6 +26,10 @@
 
         var responseError = function (response) {
             if (response.status == 401) {
+                if ($location.path() === '/register') {
+                    return $q.reject(response);
+                }
+                //console.log($location.path());
                 //lastPath = $location.path();
                 $location.path("/login");
             }

@@ -19,11 +19,11 @@
                                     <div class="main-box-body clearfix">
                                         <div class="table-responsive">
                                             <div class="list-group" style="overflow:hidden">
-                                                 <a href="" class="list-group-item" ng-class="{active: cat.id==selectedCategory.id}" ng-repeat="cat in categories" ng-click="categorySelected(cat)" 
-                                               style="border-top-left-radius:0 !important; border-top-right-radius:0 !important; border-width: 1px; margin-bottom: -2px; overflow:hidden;">
-                                                {{cat.name}}
-                                            </a>
-                                            <select class="form-control libraryCaMob" ng-model="selectedCategory" style="overflow:hidden" ng-options="cat.name for cat in categories" ng-change="categorySelected(selectedCategory)"></select>
+                                                <a href="" class="list-group-item" ng-class="{active: cat.id==selectedCategory.id}" ng-repeat="cat in categories" ng-click="categorySelected(cat)"
+                                                   style="border-top-left-radius:0 !important; border-top-right-radius:0 !important; border-width: 1px; margin-bottom: -2px; overflow:hidden;">
+                                                    {{cat.name}}
+                                                </a>
+                                                <select class="form-control libraryCaMob" ng-model="selectedCategory" style="overflow:hidden" ng-options="cat.name for cat in categories" ng-change="categorySelected(selectedCategory)"></select>
                                             </div>
                                         </div>
                                     </div>
@@ -55,41 +55,47 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                         <tr ng-repeat="video in videos | filter: search">
-                                                            <td>
-                                                                <img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:50px; height:50px;" />
-                                                            </td>
-                                                            <td class="mobScreenTableDisNon">{{video.name}}</td>
-                                                            <td class="mobScreenTableDisNon">{{video.duration}} Min.</td>
-                                                            <!-- <td class="mobScreenTableDisNon">{{video.releaseYear}}</td>
-                                                            <td class="mobScreenTableDisNon">{{video.dateLive | date: "dd-MMMM-yyyy"}}</td> -->
-                                                            <td class="mobScreenTableDisNon">
-                                                                <button class="btn btn-info" ng-click="showVideo(video)">
-                                                                    Watch Now <i class="fa fa-arrow-circle-o-right"></i>
-                                                                </button>
-                                                                <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
-                                                                    <i class="fa fa-download"></i>
-                                                                </a>
-                                                                <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Favorites">
-                                                                    <i class="fa  fa-plus"></i>
-                                                        </button>
-                                                            </td>
-                                                            <td class="mobScreenTable">
-                                                                <div class="mobScreenDiv" style="width:100%;">
-                                                                     <div class="row">
-                                                            <p style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">{{video.name}}
-                                                            <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span></p>
-                                                            <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
-                                                                <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4"><i class="fa fa-download"></i>
-                                                                </a>
-                                                                <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
-                                                               <i class="fa fa-arrow-circle-o-right"></i>
+                                                    <tr ng-repeat="video in videos | filter: search">
+                                                        <td>
+                                                            <img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:50px; height:50px;" />
+                                                        </td>
+                                                        <td class="mobScreenTableDisNon">{{video.name}}</td>
+                                                        <td class="mobScreenTableDisNon">{{video.duration}} Min.</td>
+                                                        <!-- <td class="mobScreenTableDisNon">{{video.releaseYear}}</td>
+                                                        <td class="mobScreenTableDisNon">{{video.dateLive | date: "dd-MMMM-yyyy"}}</td> -->
+                                                        <td class="mobScreenTableDisNon">
+                                                            <button class="btn btn-info" ng-click="showVideo(video)">
+                                                                Watch Now <i class="fa fa-arrow-circle-o-right"></i>
                                                             </button>
-                                                          </div>                     
-                                                        </div>
+                                                            <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
+                                                                <i class="fa fa-download"></i>
+                                                            </a>
+                                                            <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Favorites" ng-if="!video.isFavoriteVideo">
+                                                                <i class="fa  fa-plus"></i>
+                                                            </button>
+                                                            <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Favorites" ng-if="video.isFavoriteVideo">
+                                                                <i class="fa  fa-plus"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td class="mobScreenTable">
+                                                            <div class="mobScreenDiv" style="width:100%;">
+                                                                <div class="row">
+                                                                    <p style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">
+                                                                        {{video.name}}
+                                                                        <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span>
+                                                                    </p>
+                                                                    <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
+                                                                        <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
+                                                                            <i class="fa fa-download"></i>
+                                                                        </a>
+                                                                        <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
+                                                                            <i class="fa fa-arrow-circle-o-right"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                            </td>
-                                                        </tr>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>

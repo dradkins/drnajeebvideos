@@ -10,7 +10,7 @@
                 <div class="user-box">
                     <span class="name">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                            {{$root.FULL_NAME.substring(0, $root.FULL_NAME.indexOf(' '))}}.
+                            {{$root.FULL_NAME.substring(0, ($root.FULL_NAME.indexOf(' ') == -1) ? $root.FULL_NAME.length : $root.FULL_NAME.indexOf(' '))}}.
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">

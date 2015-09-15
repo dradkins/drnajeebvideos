@@ -17,15 +17,13 @@
         }
 
         $scope.register = function () {
-            //$location.path("/register");
-            setTimeout(function () {
-                window.location.reload(true);
-            }, 500);
+            window.location.reload(true);
         }
 
         var onLogin = function (data) {
             toastr.success("Welcome " + data);
             loginRedirect.redirectPostLogin();
+            $rootScope.updateUserImage();
         }
 
         var onError = function (response) {
