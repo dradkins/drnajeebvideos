@@ -32,64 +32,64 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var userId = User.Identity.GetUserId();
-                var user = await _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefaultAsync();
+                //var userId = User.Identity.GetUserId();
+                //var user = await _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefaultAsync();
 
-                //Assign the smtp credentials for gmail
-                SmtpClient smtp = new SmtpClient();
-                if (true)
-                {
-                    smtp.Host = "mail.ps-demo.com";
-                    smtp.Port = 25;
-                    smtp.Credentials = new NetworkCredential("info@ps-demo.com", "@Dmin123");
-                    smtp.Timeout = 20000;
-                }
+                ////Assign the smtp credentials for gmail
+                //SmtpClient smtp = new SmtpClient();
+                //if (true)
+                //{
+                //    smtp.Host = "mail.ps-demo.com";
+                //    smtp.Port = 25;
+                //    smtp.Credentials = new NetworkCredential("info@ps-demo.com", "@Dmin123");
+                //    smtp.Timeout = 20000;
+                //}
 
-                MailAddress fromAddress = new MailAddress("info@ps-demo.com", "Support Request From " + user.FullName);
-                MailAddress toAddress = new MailAddress("support@drnajeeblectures.com");
+                //MailAddress fromAddress = new MailAddress("info@ps-demo.com", "Support Request From " + user.FullName);
+                //MailAddress toAddress = new MailAddress("support@drnajeeblectures.com");
 
-                //Passing values to smtp object
-                dynamic message = new MailMessage(fromAddress, toAddress);
-                message.Subject = model.Subject;
+                ////Passing values to smtp object
+                //dynamic message = new MailMessage(fromAddress, toAddress);
+                //message.Subject = model.Subject;
 
-                var sb = new StringBuilder("");
-                sb.Append("<b>From : </b>" + user.Email);
-                sb.Append("<br />");
-                sb.Append("<b>Time : </b>" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
-                sb.Append("<br />");
-                sb.Append("<b>Name : </b>" + user.FullName);
-                sb.Append("<br />");
-                sb.Append("<h3>Message</h3>");
-                sb.Append(model.Message);
-                message.Body = sb.ToString();
-                message.IsBodyHtml = true;
+                //var sb = new StringBuilder("");
+                //sb.Append("<b>From : </b>" + user.Email);
+                //sb.Append("<br />");
+                //sb.Append("<b>Time : </b>" + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                //sb.Append("<br />");
+                //sb.Append("<b>Name : </b>" + user.FullName);
+                //sb.Append("<br />");
+                //sb.Append("<h3>Message</h3>");
+                //sb.Append(model.Message);
+                //message.Body = sb.ToString();
+                //message.IsBodyHtml = true;
 
 
-                //Send email
-                smtp.Send(message);
-                return Ok();
+                ////Send email
+                //smtp.Send(message);
+                //return Ok();
 
-                //var message = new SupportMessage();
-                //message.Active = true;
-                //message.FromUserId = User.Identity.GetUserId();
-                //message.IsFromAdmin = false;
-                //message.IsFromUser = true;
-                //message.IsRead = false;
-                //message.MessageDatetime = DateTime.UtcNow;
-                //message.MessageText = model.Message;
+                var message = new SupportMessage();
+                message.Active = true;
+                message.FromUserId = User.Identity.GetUserId();
+                message.IsFromAdmin = false;
+                message.IsFromUser = true;
+                message.IsRead = false;
+                message.MessageDatetime = DateTime.UtcNow;
+                message.MessageText = model.Message;
 
-                //_Uow._SupportMessages.Add(message);
-                //await _Uow.CommitAsync();
+                _Uow._SupportMessages.Add(message);
+                await _Uow.CommitAsync();
 
-                //var messageModel = new UserMessagesModel();
-                //messageModel.Id = message.Id;
-                //messageModel.IsFromAdmin = message.IsFromAdmin.GetValueOrDefault();
-                //messageModel.IsFromUser = message.IsFromUser.GetValueOrDefault();
-                //messageModel.IsRead = message.IsRead.GetValueOrDefault();
-                //messageModel.MessageDateTime = message.MessageDatetime.GetValueOrDefault();
-                //messageModel.MessageText = message.MessageText;
+                var messageModel = new UserMessagesModel();
+                messageModel.Id = message.Id;
+                messageModel.IsFromAdmin = message.IsFromAdmin.GetValueOrDefault();
+                messageModel.IsFromUser = message.IsFromUser.GetValueOrDefault();
+                messageModel.IsRead = message.IsRead.GetValueOrDefault();
+                messageModel.MessageDateTime = message.MessageDatetime.GetValueOrDefault();
+                messageModel.MessageText = message.MessageText;
 
-                //return Ok(messageModel);
+                return Ok(messageModel);
             }
             catch (Exception ex)
             {

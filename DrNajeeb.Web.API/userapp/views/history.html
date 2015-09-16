@@ -13,14 +13,14 @@
                             <div class="col-lg-12">
                                 <ol class="breadcrumb">
                                     <li><a href="">Home</a></li>
-                                    <li class="active"><span>User Profile</span></li>
+                                    <li class="active"><span>My History</span></li>
                                 </ol>
 
-                                <h1>User Profile</h1>
+                                <h1>My History</h1>
                             </div>
                         </div>
                         <div class="row" id="user-profile">
-                            <div class="col-lg-3 col-md-4 col-sm-4">
+                            <!--<div class="col-lg-3 col-md-4 col-sm-4">
                                 <div class="main-box clearfix">
                                     <header class="main-box-header clearfix">
                                         <h2>My Account</h2>
@@ -97,18 +97,18 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
-                            <div class="col-lg-9 col-md-8 col-sm-8">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="main-box clearfix">
                                     <div class="tabs-wrapper profile-tabs">
                                         <ul class="nav nav-tabs">
                                             <li class="active">
                                                 <a showtab="" data-target="#tab-history" data-toggle="tab">My History</a>
                                             </li>
-                                            <li>
+                                            <!--<li>
                                                 <a showtab="" data-target="#tab-admin-support" data-toggle="tab">Contact Us</a>
-                                            </li>
+                                            </li>-->
                                         </ul>
 
                                         <div class="tab-content">
@@ -146,9 +146,9 @@
                                                         <tbody>
                                                             <tr ng-repeat="video in videos | filter: pagingInfo.search">
                                                                 <td>
-                                                                    <img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:50px; height:50px;" />
+                                                                    <a href="" ng-click="showVideo(video)" title="Watch Now"><img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:60px; height:50px;" /></a>
                                                                 </td>
-                                                                <td class="mobScreenTableDisNon">{{video.name}}</td>
+                                                                <td class="mobScreenTableDisNon"><p ng-click="showVideo(video)" title="Watch Now">{{video.name}}</p></td>
                                                                 <td class="mobScreenTableDisNon">{{video.duration}} Min.</td>
                                                                 <td class="mobScreenTableDisNon">
                                                                     <span ng-repeat="cat in video.categories">
@@ -162,24 +162,24 @@
                                                                     <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
                                                                         <i class="fa fa-download"></i>
                                                                     </a>
-                                                                    <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Favorites" ng-if="!video.isFavoriteVideo">
+                                                                    <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
                                                                         <i class="fa  fa-plus"></i>
                                                                     </button>
-                                                                    <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Favorites" ng-if="video.isFavoriteVideo">
+                                                                    <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
                                                                         <i class="fa  fa-plus"></i>
                                                                     </button>
                                                                 </td>
                                                                 <td class="mobScreenTable">
                                                                     <div class="mobScreenDiv" style="width:100%;">
                                                                         <div class="row">
-                                                                            <p style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">
+                                                                            <p ng-click="showVideo(video)" title="Watch Now" style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">
                                                                                 {{video.name}}
                                                                                 <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span>
                                                                             </p>
                                                                             <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
-                                                                                <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
-                                                                                    <i class="fa fa-download"></i>
-                                                                                </a>
+                                                                              <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
+                                                                              <i class="fa  fa-plus"></i>
+                                                                                </button>
                                                                                 <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
                                                                                     <i class="fa fa-arrow-circle-o-right"></i>
                                                                                 </button>
@@ -211,7 +211,7 @@
                                                 </div>-->
                                             </div>
 
-                                            <div class="tab-pane fade" id="tab-admin-support">
+                                            <!--<div class="tab-pane fade" id="tab-admin-support">
                                                 <form name="supportForm" ng-submit="sendMessage(supportForm)">
                                                     <div class="form-group">
                                                         <label>Subject</label>
@@ -229,7 +229,7 @@
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </form>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
 

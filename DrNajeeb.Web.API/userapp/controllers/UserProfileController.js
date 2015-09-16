@@ -101,6 +101,7 @@
                 //    toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
                 //    return false;
                 //}
+                $scope.passwordForm = form;
                 if (!($scope.changePasswordModel.newPassword) || $scope.changePasswordModel.newPassword.length < 6 ) {
                     toastr.warning("Password must contains at least 6 characters");
                     return false;
@@ -120,6 +121,7 @@
             $scope.changePasswordModel.newPassword = "";
             $scope.changePasswordModel.confirmPassword = "";
             $scope.showPasswordDiv = false;
+            $scope.passwordForm.$setPristine(true);
         }
 
         var onChangePasswordError = function (error) {
@@ -215,7 +217,7 @@
             $scope.support.subject = "";
             $scope.form.$setPristine(true);
             $scope.messages.push(data);
-            toastr.info("your message received successfully. Thanks for you valuable feedback, we will contact you as soon as possible");
+            toastr.info("Your message has been sent successfully. Support team will contact you soon.");
         }
 
         var onMessageError = function (error) {

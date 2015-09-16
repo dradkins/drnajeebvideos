@@ -102,10 +102,10 @@
                                             </li>
 
                                             <li class="clearfix text-center">
-                                                <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Favorites" ng-if="!video.isFavoriteVideo">
+                                                <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
                                                     Add To Playlist <i class="fa  fa-plus"></i>
                                                 </button>
-                                                <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Favorites" ng-if="video.isFavoriteVideo">
+                                                <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
                                                     Remove From Playlist <i class="fa  fa-plus"></i>
                                                 </button>
                                                 <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">

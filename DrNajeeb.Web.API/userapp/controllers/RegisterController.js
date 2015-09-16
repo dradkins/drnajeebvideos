@@ -37,7 +37,11 @@
 
         var onRegister = function (data) {
             toastr.success("Registered successfully, Please login with your email and password.")
-            window.location.href="/home/checkout/" + data;
+            var url = 'https://www.2checkout.com/checkout/spurchase?sid=1432125&quantity=1&product_id=10'
+            toastr.info("you have been redirected to payment page in 5 seconds, please use email address that you have been used for registration to activate your account successfully.")
+            setTimeout(function () {
+                window.location.href = url;
+            }, 5000)
             //$location.path("/login");
         }
 

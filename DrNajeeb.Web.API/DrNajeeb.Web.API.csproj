@@ -276,6 +276,7 @@
     <Content Include="app\controllers\DashboardController.js" />
     <Content Include="app\controllers\LoginController.js" />
     <Content Include="app\controllers\SupportController.js" />
+    <Content Include="app\directives\messagesScroller.js" />
     <Content Include="app\directives\passwordValidator.js" />
     <Content Include="app\directives\searchBar.js" />
     <Content Include="app\interceptors\interceptors.js" />
@@ -297,6 +298,7 @@
     <Content Include="Scripts\angular-google-plus.js" />
     <Content Include="userapp\controllers\FrontEndController.js" />
     <Content Include="userapp\directives\menuHider.js" />
+    <Content Include="userapp\directives\messagesScroller.js" />
     <Content Include="userapp\views\checkout.html" />
     <Content Include="userapp\views\front-end.html" />
     <Content Include="userapp\views\privacy-policy.html" />
