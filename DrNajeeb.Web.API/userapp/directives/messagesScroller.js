@@ -1,67 +1,144 @@
-﻿//(function (app) {
+﻿(function (app) {
 
-//    var messagesScroller = function () {
-//        return {
-//            restrict: 'A',
-//            link: function (scope, element, attrs) {
-//                element.slimScroll({
-//                    height: '340px',
-//                    start: 'bottom'
-//                });
-//            }
-//        };
-//    };
-//    app.directive("messagesScroller", messagesScroller);
+    var messagesScroller = function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.mCustomScrollbar({
+                    theme: "dark",
+                    advanced: { updateOnContentResize: true },
+                    live: true,
+                });
+            }
+        };
+    };
+    app.directive("messagesScroller", messagesScroller);
 
-//}(angular.module("DrNajeebUser")));
+}(angular.module("DrNajeebUser")));
 
-
-angular.module('DrNajeebUser').directive('slimscroll', function () {
+(function (angular, undefined) {
     'use strict';
 
-    return {
-        restrict: 'A',
-        link: function ($scope, $elem, $attr) {
-            var off = [];
-            var option = {};
-
-            var refresh = function () {
-                if ($attr.slimscroll) {
-                    option = $scope.$eval($attr.slimscroll);
-                } else if ($attr.slimscrollOption) {
-                    option = $scope.$eval($attr.slimscrollOption);
-                }
-
-                $($elem).slimScroll({ destroy: true });
-
-                $($elem).slimScroll(option);
-            };
-
-            var registerWatch = function () {
-                if ($attr.slimscroll && !option.noWatch) {
-                    off.push($scope.$watchCollection($attr.slimscroll, refresh));
-                }
-
-                if ($attr.slimscrollWatch) {
-                    off.push($scope.$watchCollection($attr.slimscrollWatch, refresh));
-                }
-
-                if ($attr.slimscrolllistento) {
-                    off.push($scope.$on($attr.slimscrolllistento, refresh));
+    function createActivationState($parse, attr, scope) {
+        function unboundState(initValue) {
+            var activated = initValue;
+            return {
+                getValue: function () {
+                    return activated;
+                },
+                setValue: function (value) {
+                    activated = value;
                 }
             };
+        }
 
-            var destructor = function () {
-                $($elem).slimScroll({ destroy: true });
-                off.forEach(function (unbind) {
-                    unbind();
-                });
-                off = null;
+        function oneWayBindingState(getter, scope) {
+            return {
+                getValue: function () {
+                    return getter(scope);
+                },
+                setValue: function () { }
+            }
+        }
+
+        function twoWayBindingState(getter, setter, scope) {
+            return {
+                getValue: function () {
+                    return getter(scope);
+                },
+                setValue: function (value) {
+                    if (value !== getter(scope)) {
+                        scope.$apply(function () {
+                            setter(scope, value);
+                        });
+                    }
+                }
             };
+        }
 
-            off.push($scope.$on('$destroy', destructor));
+        if (attr !== "") {
+            var getter = $parse(attr);
+            if (getter.assign !== undefined) {
+                return twoWayBindingState(getter, getter.assign, scope);
+            } else {
+                return oneWayBindingState(getter, scope);
+            }
+        } else {
+            return unboundState(true);
+        }
+    }
 
-            registerWatch();
+    function createDirective(module, attrName, direction) {
+        module.directive(attrName, ['$parse', '$window', '$timeout', function ($parse, $window, $timeout) {
+            return {
+                priority: 1,
+                restrict: 'A',
+                link: function (scope, $el, attrs) {
+                    var el = $el[0],
+                        activationState = createActivationState($parse, attrs[attrName], scope);
+
+                    function scrollIfGlued() {
+                        if (activationState.getValue() && !direction.isAttached(el)) {
+                            direction.scroll(el);
+                        }
+                    }
+
+                    scope.$watch(scrollIfGlued);
+
+                    $timeout(scrollIfGlued, 0, false);
+
+                    $window.addEventListener('resize', scrollIfGlued, false);
+
+                    $el.bind('scroll', function () {
+                        activationState.setValue(direction.isAttached(el));
+                    });
+                }
+            };
+        }]);
+    }
+
+    var bottom = {
+        isAttached: function (el) {
+            // + 1 catches off by one errors in chrome
+            return el.scrollTop + el.clientHeight + 1 >= el.scrollHeight;
+        },
+        scroll: function (el) {
+            el.scrollTop = el.scrollHeight;
         }
     };
-});
+
+    var top = {
+        isAttached: function (el) {
+            return el.scrollTop <= 1;
+        },
+        scroll: function (el) {
+            el.scrollTop = 0;
+        }
+    };
+
+    var right = {
+        isAttached: function (el) {
+            return el.scrollLeft + el.clientWidth + 1 >= el.scrollWidth;
+        },
+        scroll: function (el) {
+            el.scrollLeft = el.scrollWidth;
+        }
+    };
+
+    var left = {
+        isAttached: function (el) {
+            return el.scrollLeft <= 1;
+        },
+        scroll: function (el) {
+            el.scrollLeft = 0;
+        }
+    };
+
+    var module = angular.module('DrNajeebUser');
+
+    createDirective(module, 'scrollGlue', bottom);
+    createDirective(module, 'scrollGlueTop', top);
+    createDirective(module, 'scrollGlueBottom', bottom);
+    createDirective(module, 'scrollGlueLeft', left);
+    createDirective(module, 'scrollGlueRight', right);
+}(angular));

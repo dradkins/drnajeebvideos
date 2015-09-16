@@ -14,7 +14,7 @@
                             <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/profile"><i class="fa fa-user"></i>Profile</a></li>
+                            <li ng-if="!$root.facebookProfilePic"><a href="#/profile"><i class="fa fa-user"></i>Profile</a></li>
                             <!-- <li><a href=""><i class="fa fa-envelope-o"></i>Messages</a></li> -->
                             <li><a href="" ng-click="LOG_OUT()"><i class="fa fa-power-off"></i>Logout</a></li>
                         </ul>

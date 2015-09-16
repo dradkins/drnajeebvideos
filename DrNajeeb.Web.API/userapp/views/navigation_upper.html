@@ -10,7 +10,7 @@
                 <span class="fa fa-bars"></span>
             </button>
 
-            <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+            <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs" ng-controller="NotificationsController">
                 <ul class="nav navbar-nav pull-left">
                     <li>
                         <a class="btn" id="make-small-nav" menu-hider>
@@ -109,7 +109,7 @@
                             <span class="hidden-xs">{{$root.FULL_NAME}}</span> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="#/profile"><i class="fa fa-user"></i>Profile</a></li>
+                            <li ng-if="!$root.facebookProfilePic"><a href="#/profile"><i class="fa fa-user"></i>Profile</a></li>
                             <!-- <li><a href=""><i class="fa fa-cog"></i>Settings</a></li>
                             <li><a href=""><i class="fa fa-envelope-o"></i>Messages</a></li> -->
                             <li><a href="" ng-click="LOG_OUT()"><i class="fa fa-power-off"></i>Logout</a></li>

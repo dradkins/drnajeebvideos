@@ -199,6 +199,11 @@
             subject: "",
             message: "",
         };
+
+        $scope.scrollOptions={
+            start:"bottom",
+        };
+
         $scope.form = null;
 
         $scope.sendMessage = function (form) {
@@ -231,6 +236,10 @@
 
         var onMessagesArrive = function (data) {
             $scope.messages = data;
+            //$('.conversation-inner').mCustomScrollbar("scrollTo", 'last', {
+            //    moveDragger: true
+            //});
+            //$('.conversation-inner').mCustomScrollbar('scrollTo', 'last');
         }
 
         var onMessagesArriveError = function (error) {

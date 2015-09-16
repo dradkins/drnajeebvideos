@@ -46,7 +46,7 @@
                                                         <a href="" ng-click="showVideo(video)" title="Watch Now"><img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:60px; height:50px;" /></a>
                                                     </td>
                                                     <td class="mobScreenTableDisNon"><p ng-click="showVideo(video)" title="Watch Now">{{video.name}}</p></td>
-                                                    <td class="mobScreenTableDisNon">{{video.duration}} Min.</td>
+                                                    <td class="mobScreenTableDisNon">{{video.duration}} min.</td>
                                                     <td class="mobScreenTableDisNon">
                                                         <span ng-repeat="cat in video.categories">
                                                             {{cat.name}}<br />
@@ -69,20 +69,22 @@
                                                     <td class="mobScreenTable">
                                                         <div class="mobScreenDiv" style="width:100%;">
                                                             <div class="row">
-                                                            <p ng-click="showVideo(video)" title="Watch Now" style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">{{video.name}}
-                                                            <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span></p>
-                                                            <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
-                                                            	 <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
+                                                                <p ng-click="showVideo(video)" title="Watch Now" style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">
+                                                                    {{video.name}}
+                                                                    <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span>
+                                                                </p>
+                                                                <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
+                                                                    <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
                                                                         <i class="fa  fa-plus"></i>
                                                                     </button>
                                                                     <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
-                                                                <i class="fa  fa-plus"></i>
-                                                            </button>
-	                                                        	<button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
-	                                                           <i class="fa fa-arrow-circle-o-right"></i>
-	                                                        </button>
-                                                          </div>                     
-                                                        </div>
+                                                                        <i class="fa  fa-plus"></i>
+                                                                    </button>
+                                                                    <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
+                                                                        <i class="fa fa-arrow-circle-o-right"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                 </tr>
