@@ -26,7 +26,8 @@
 
         var responseError = function (response) {
             if (response.status == 401) {
-                if ($location.path() === '/register') {
+                console.log($location.path());
+                if ($location.path() == '/register') {
                     return $q.reject(response);
                 }
                 //console.log($location.path());

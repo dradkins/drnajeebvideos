@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var UserProfileController = function ($scope, $location, $log, $rootScope, OAuthService, toastr, VideoService, SuportService, FileUploader, CurrentUserService) {
+    var UserProfileController = function ($scope, $location, $log, $rootScope, OAuthService, toastr, VideoService, SuportService, FileUploader, CurrentUserService, NotificationsService) {
 
         /****** User history section ********/
 
@@ -200,10 +200,6 @@
             message: "",
         };
 
-        $scope.scrollOptions={
-            start:"bottom",
-        };
-
         $scope.form = null;
 
         $scope.sendMessage = function (form) {
@@ -211,6 +207,7 @@
             if (form.$valid) {
                 SuportService.sendMessage($scope.support)
                             .then(onMessageSend, onMessageError);
+                NotificationsService.sendMessage($scope.support.message);
             }
             else {
                 toastr.warning("The data you provided is not valid. Please verify data and send again.")
@@ -236,10 +233,6 @@
 
         var onMessagesArrive = function (data) {
             $scope.messages = data;
-            //$('.conversation-inner').mCustomScrollbar("scrollTo", 'last', {
-            //    moveDragger: true
-            //});
-            //$('.conversation-inner').mCustomScrollbar('scrollTo', 'last');
         }
 
         var onMessagesArriveError = function (error) {
@@ -247,12 +240,22 @@
             toastr.error("unable to fetch old messages");
         }
 
+        $scope.$on("messageReceived", function (event, data) {
+            toastr.info("New message received");
+            $scope.messages.push({
+                messageDateTime: new Date(),
+                messageText: data,
+                isFromAdmin: true,
+                isFromUser: false
+            });
+        })
+
         loadMessages();
 
         /***** End admin support section *****/
     };
 
-    UserProfileController.$inject = ["$scope", "$location", "$log", "$rootScope", "OAuthService", "toastr", "VideoService", "SuportService", "FileUploader", "CurrentUserService"];
+    UserProfileController.$inject = ["$scope", "$location", "$log", "$rootScope", "OAuthService", "toastr", "VideoService", "SuportService", "FileUploader", "CurrentUserService", "NotificationsService"];
     app.controller("UserProfileController", UserProfileController);
 
 }(angular.module("DrNajeebUser")));

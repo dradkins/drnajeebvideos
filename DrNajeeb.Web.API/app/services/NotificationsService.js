@@ -8,18 +8,18 @@
         NotificationsService.connect = function () {
             $.connection.hub.start().done(function () {
                 console.log('connected with server');
-                notificationHub.server.registerClient(CurrentUserService.profile.username);
+                notificationHub.server.registerAdmin(CurrentUserService.profile.username);
             });
         }
 
 
-        NotificationsService.sendMessage = function (message) {
-            notificationHub.server.sendUserMessage(message, CurrentUserService.profile.username);
+        NotificationsService.sendMessage = function (message, toUser) {
+            notificationHub.server.sendMessageReply(message, toUser);
         }
 
-        notificationHub.client.addMessage = function (message) {
-            $rootScope.$broadcast('messageReceived', message);
-            console.log(message);
+        notificationHub.client.messageFromUser = function (message, username) {
+            console.log(username + " : " + message);
+            $rootScope.$broadcast('messageReceived', { message: message, user: username });
         };
 
 
@@ -30,4 +30,4 @@
     NotificationsService.$inject = ["CurrentUserService", "$rootScope"]
     app.factory("NotificationsService", NotificationsService);
 
-}(angular.module("DrNajeebUser")))
+}(angular.module("DrNajeebAdmin")))

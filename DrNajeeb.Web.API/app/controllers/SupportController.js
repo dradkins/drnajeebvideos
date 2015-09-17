@@ -2,7 +2,7 @@
 
 (function (app) {
 
-    var SupportController = function ($scope, SupportService, toastr) {
+    var SupportController = function ($scope, SupportService, toastr, NotificationsService) {
 
         $scope.contactedUsers = [];
         $scope.messages == [];
@@ -38,11 +38,32 @@
                 $scope.support.toUserId = $scope.selectedUser.userId;
                 SupportService.sendMessage($scope.support)
                             .then(onMessageSend, onMessageError);
+                NotificationsService.sendMessage($scope.support.message, $scope.selectedUser.userName);
             }
             else {
                 toastr.warning("The data you provided is not valid. Please verify data and send again.")
             }
         };
+
+        $scope.$on("messageReceived", function (event, data) {
+            toastr.info("New message received");
+            if ($scope.selectedUser && $scope.selectedUser.userName == data.user) {
+                $scope.messages.push({
+                    messageDateTime: new Date(),
+                    messageText: data.message,
+                    isFromAdmin: false,
+                    isFromUser: true
+                });
+            }
+            else {
+                angular.forEach($scope.contactedUsers, function (user) {
+                    if (user.userName == data.user) {
+                        user.totalUnreadMessages += 1;
+                        return false;
+                    }
+                })
+            }
+        });
 
         var onMessageSend = function (data) {
             $scope.support.message = "";
@@ -81,11 +102,16 @@
             SupportService.loadUsers($scope.pagingInfo).then(onUsersLoaded, onUsersLoadingError);
         }
 
+        var init = function () {
+            NotificationsService.connect();
+        }
+
         loadUsers();
+        init();
 
     };
 
-    SupportController.$inject = ["$scope", "SupportService", "toastr"];
+    SupportController.$inject = ["$scope", "SupportService", "toastr", "NotificationsService"];
 
     app.controller("SupportController", SupportController);
 

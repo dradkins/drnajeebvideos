@@ -13,6 +13,7 @@ namespace DrNajeeb.Web.API
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            app.MapSignalR();
         }
     }
 }

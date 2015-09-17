@@ -65,7 +65,8 @@
     <script src="~/Scripts/js/jquery.sparkline.min.js"></script>
     <script src="~/Scripts/js/skycons.js"></script>
     <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
-    <script src="~/Scripts/js/jquery.nanoscroller.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
 
     <!-- theme scripts -->
     <script src="~/Scripts/js/scripts.js"></script>
@@ -106,6 +107,7 @@
     <script src="~/app/services/CurrentUserService.js"></script>
     <script src="~/app/interceptors/interceptors.js"></script>
     <script src="~/app/services/SupportService.js"></script>
+    <script src="~/app/services/NotificationsService.js"></script>
 
     <script src="~/app/controllers/SubscriptionController.js"></script>
     <script src="~/app/controllers/CategoriesController.js"></script>
@@ -115,7 +117,7 @@
     <script src="~/app/controllers/LoginController.js"></script>
     <script src="~/app/controllers/CategoryVideoController.js"></script>
     <script src="~/app/controllers/SupportController.js"></script>
-
+    <script src="~/app/controllers/NotificationsController.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>

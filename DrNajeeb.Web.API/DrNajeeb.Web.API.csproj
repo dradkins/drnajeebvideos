@@ -282,6 +282,7 @@
     <Content Include="app\controllers\CategoryVideoController.js" />
     <Content Include="app\controllers\DashboardController.js" />
     <Content Include="app\controllers\LoginController.js" />
+    <Content Include="app\controllers\NotificationsController.js" />
     <Content Include="app\controllers\SupportController.js" />
     <Content Include="app\directives\messagesScroller.js" />
     <Content Include="app\directives\passwordValidator.js" />
@@ -290,6 +291,7 @@
     <Content Include="app\services\CurrentUserService.js" />
     <Content Include="app\services\DashboardService.js" />
     <Content Include="app\services\FormEncodeService.js" />
+    <Content Include="app\services\NotificationsService.js" />
     <Content Include="app\services\OAuthService.js" />
     <Content Include="app\services\SupportService.js" />
     <Content Include="app\views\categoryvideos.html" />

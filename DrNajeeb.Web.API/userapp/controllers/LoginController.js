@@ -18,6 +18,7 @@
 
         $scope.register = function () {
             window.location.reload(true);
+            //window.location.href = window.location.href;
         }
 
         var onLogin = function (data) {
