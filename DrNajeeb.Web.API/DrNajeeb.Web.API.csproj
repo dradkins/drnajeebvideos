@@ -258,6 +258,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Hubs\ConnectionMapping.cs" />
     <Compile Include="Hubs\NotificationHub.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -275,6 +276,7 @@
     <Compile Include="Models\VideoSortingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Providers\QueryStringOAuthBearerProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -300,6 +302,7 @@
     <Content Include="app\views\navigation_left.html" />
     <Content Include="app\views\navigation_upper.html" />
     <Content Include="app\views\support.html" />
+    <Content Include="Content\images\checkmark-blue.png" />
     <Content Include="Content\images\user_frontend_mini.png" />
     <Content Include="Content\images\user_mini.jpg" />
     <Content Include="Scripts\angular-auto-complete.js" />

@@ -198,7 +198,7 @@ namespace DrNajeeb.Web.API.Controllers
 
                     messagesList.Add(messageModel);
 
-                    
+
                 }
 
                 foreach (var message in messages)
@@ -226,7 +226,7 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var usersModelList = new List<SupportUsersModel>();
-                var users =await  _Uow._SupportMessages.GetAll(x => x.Active == true && x.IsFromAdmin == false)
+                var users = await _Uow._SupportMessages.GetAll(x => x.Active == true && x.IsFromAdmin == false)
                     .OrderByDescending(x => x.MessageDatetime)
                     .Skip((page - 1) * itemsPerPage)
                     .Take(itemsPerPage)
@@ -245,6 +245,23 @@ namespace DrNajeeb.Web.API.Controllers
                 }
 
                 return Ok(usersModelList);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [ActionName("TotalUserNewMesage")]
+        [HttpGet]
+        public async Task<IHttpActionResult> TotalUserNewMessages()
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var totalUnreadMessages = await _Uow._SupportMessages
+                    .CountAsync(x => x.ToUserId == userId && x.IsRead == false);
+                return Ok(totalUnreadMessages);
             }
             catch (Exception ex)
             {

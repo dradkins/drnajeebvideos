@@ -3,6 +3,8 @@
     var NotificationsService = function (CurrentUserService, $rootScope) {
 
         var NotificationsService = {};
+        $.connection.hub.qs = { 'access_token': CurrentUserService.profile.token };
+        $.connection.hub.logging = true;
         var notificationHub = $.connection.notificationHub;
 
         NotificationsService.connect = function () {

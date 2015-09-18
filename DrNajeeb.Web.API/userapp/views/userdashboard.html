@@ -61,7 +61,7 @@
                                     <span class="headline">Customer Support</span>
                                     <span class="value">
                                         <span class="timer" data-from="539" data-to="12526" data-speed="1100" style="font-size:23px">
-                                            Messages
+                                            {{totalUnreadMessages}}
                                         </span>
                                     </span>
                                 </div>
@@ -103,12 +103,60 @@
                             <div class="col-lg-6">
                                 <div class="main-box feed">
                                     <header class="main-box-header clearfix">
-                                        <h2 class="pull-left">My Playlist</h2>
+                                        <h2 class="pull-left">New Features</h2>
                                     </header>
 
                                     <div class="main-box-body clearfix">
                                         <ul>
-                                            <li class="clearfix" ng-repeat="video in favoriteVideos">
+                                            <li class="clearfix">
+                                                <div class="img text-danger">
+                                                    <i class="fa fa-check-circle fa-2x"></i>
+                                                </div>
+                                                <div class="title" style="margin-top:3px; margin-left:41px;">
+                                                    Lifetime member can now download videos.
+                                                </div>
+                                            </li>
+                                            <li class="clearfix">
+                                                <div class="img text-danger">
+                                                    <i class="fa fa-check-circle fa-2x"></i>
+                                                </div>
+                                                <div class="title" style="margin-top:3px; margin-left:41px;">
+                                                    Now you can create playlist for videos.
+                                                </div>
+                                            </li>
+                                            <li class="clearfix">
+                                                <div class="img text-danger">
+                                                    <i class="fa fa-check-circle fa-2x"></i>
+                                                </div>
+                                                <div class="title" style="margin-top:3px; margin-left:41px;">
+                                                    Customer service integrated right in your dashboard.
+                                                </div>
+                                            </li>
+                                            <li class="clearfix">
+                                                <div class="img text-danger">
+                                                    <i class="fa fa-check-circle fa-2x"></i>
+                                                </div>
+                                                <div class="title" style="margin-top:3px; margin-left:41px;">
+                                                    Enjoy fully responsive design across all devices.
+                                                </div>
+                                            </li>
+                                            <li class="clearfix">
+                                                <div class="img text-danger">
+                                                    <i class="fa fa-check-circle fa-2x"></i>
+                                                </div>
+                                                <div class="title" style="margin-top:3px; margin-left:41px;">
+                                                    Clinical medicine videos for lifetime members.
+                                                </div>
+                                            </li>
+                                            <li class="clearfix">
+                                                <div class="img text-danger">
+                                                    <i class="fa fa-check-circle fa-2x"></i>
+                                                </div>
+                                                <div class="title" style="margin-top:3px; margin-left:41px;">
+                                                    New videos every Monday.
+                                                </div>
+                                            </li>
+                                            <!--<li class="clearfix" ng-repeat="video in favoriteVideos">
                                                 <div class="img">
                                                     <img ng-src="{{video.thumbnailURL}}" alt="" />
                                                 </div>
@@ -124,7 +172,7 @@
                                                 <div class="time-ago">
                                                     <i class="fa fa-clock-o"></i> {{video.duration}} min.
                                                 </div>
-                                            </li>
+                                            </li>-->
                                         </ul>
                                     </div>
                                 </div>

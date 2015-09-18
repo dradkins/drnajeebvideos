@@ -26,6 +26,13 @@
                         });
         }
 
+        SuportService.getTotalUnreadMessages = function () {
+            return $http.get("/api/support/TotalUserNewMesage")
+                        .then(function (response) {
+                            return response.data;
+                        });
+        }
+
         return SuportService;
     }
 

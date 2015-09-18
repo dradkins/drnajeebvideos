@@ -7,6 +7,7 @@
         $scope.totalVideos = 0;
         $scope.totalFavorites = 0;
         $scope.showData = false;
+        $scope.totalUnreadMessages = 0;
 
         $scope.pagingInfo = {
             page: 1,
@@ -24,6 +25,7 @@
             $scope.newVideos = data[0].data;
             $scope.totalFavorites = data[1].count;
             $scope.favoriteVideos = data[1].data;
+            $scope.totalUnreadMessages = data[2];
         }
 
         var onError = function (error) {

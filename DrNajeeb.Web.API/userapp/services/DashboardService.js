@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var DashboardService = function ($q, VideoService) {
+    var DashboardService = function ($q, VideoService, SuportService) {
 
         var DashboardService = {};
 
@@ -12,8 +12,12 @@
             return VideoService.getFavoritesVideos(pagingInfo);
         }
 
+        function getTotalUnreadMessages() {
+            return SuportService.getTotalUnreadMessages();
+        }
+
         DashboardService.getDashboardData = function (pagingInfo) {
-            return $q.all([getNewVideos(pagingInfo), getFavoriteVideos(pagingInfo)]).then(function (results) {
+            return $q.all([getNewVideos(pagingInfo), getFavoriteVideos(pagingInfo), getTotalUnreadMessages()]).then(function (results) {
                 return results;
             });
         }
@@ -22,7 +26,7 @@
 
     }
 
-    DashboardService.$inject = ["$q", "VideoService"];
+    DashboardService.$inject = ["$q", "VideoService", "SuportService"];
     app.factory("DashboardService", DashboardService);
 
 }(angular.module("DrNajeebUser")));
