@@ -9,7 +9,6 @@
 
         NotificationsService.connect = function () {
             $.connection.hub.start().done(function () {
-                console.log('connected with server');
                 notificationHub.server.registerClient(CurrentUserService.profile.username);
             });
         }
@@ -21,12 +20,17 @@
 
         notificationHub.client.addMessage = function (message) {
             $rootScope.$broadcast('messageReceived', message);
-            console.log(message);
+        };
+
+        notificationHub.client.logout = function () {
+            CurrentUserService.logout();
+            aler("Your account used for loin to another device.")
+            location.reload(true);
         };
 
 
         return NotificationsService;
-        
+
     };
 
     NotificationsService.$inject = ["CurrentUserService", "$rootScope"]

@@ -10,14 +10,14 @@
             <div class="clearfix">
                 <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="fa fa-bars"></span>
+                    <span class="fa fa-exchange"></span>
                 </button>
 
                 <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
                     <ul class="nav navbar-nav pull-left">
                         <li>
                             <a class="btn" id="make-small-nav" menu-hider>
-                                <i class="fa fa-bars"></i>
+                                <i class="fa fa-exchange"></i>
                             </a>
                         </li>
                     </ul>
@@ -35,15 +35,15 @@
                         <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                             <ul class="nav nav-pills nav-stacked">
                                 <li>
-                                    <a href="#/front-end">
-                                        <i class="fa fa-dashboard"></i>
+                                    <a href="#/video-library">
+                                        <i class="fa fa-film"></i>
                                         <span>Video Library</span>
                                     </a>
                                 </li>
                                 <li class="">
                                     <a href="#/register">
                                         <i class="fa fa-sign-in"></i>
-                                        <span>Signup</span>
+                                        <span>Sign Up</span>
                                     </a>
                                 </li>
                             </ul>
@@ -60,10 +60,10 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <ol class="breadcrumb">
+                                <!--<ol class="breadcrumb">
                                     <li><a href="">Home</a></li>
                                     <li class="active"><span>Video Library</span></li>
-                                </ol>
+                                </ol>-->
 
                                 <h1>Video Library</h1>
                             </div>
@@ -83,7 +83,7 @@
                                                    style="border-top-left-radius:0 !important; border-top-right-radius:0 !important; border-width: 1px; margin-bottom: -2px; overflow:hidden;">
                                                     {{cat.name}}
                                                 </a>
-                                                <!--<select class="form-control libraryCaMob" ng-model="selectedCategory" style="overflow:hidden" ng-options="cat.name for cat in categories" ng-change="categorySelected(selectedCategory)"></select>-->
+                                                <select class="form-control libraryCaMob" ng-model="selectedCategory" style="overflow:hidden" ng-options="cat.name for cat in categories" ng-change="categorySelected(selectedCategory)"></select>
                                             </div>
                                         </div>
                                     </div>
@@ -110,7 +110,7 @@
                                                         <td class="mobScreenTableDisNon">{{video.name}}</td>
                                                         <td>
                                                             <a href="#/register" class="btn btn-info">
-                                                                Signup now
+                                                                Sign Up now
                                                             </a>
                                                         </td>
                                                     </tr>

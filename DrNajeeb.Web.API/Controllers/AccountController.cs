@@ -21,6 +21,8 @@ using DrNajeeb.Data.Helpers;
 using System.Data.Entity;
 using Newtonsoft.Json.Linq;
 using System.Net;
+using DrNajeeb.Web.API.Hubs;
+using System.Linq;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -532,6 +534,7 @@ namespace DrNajeeb.Web.API.Controllers
         [Route("ExternalSignin")]
         public async Task<IHttpActionResult> ExternalSignin(SigninExternalTokenBindingModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -565,6 +568,20 @@ namespace DrNajeeb.Web.API.Controllers
                     response.ReasonPhrase = user.Id;
                     return ResponseMessage(response);
                 }
+
+                //var hub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+                //hub.Clients.All.logout(user.Email);
+
+                //var loggedInUsers = NotificationHub._connections.GetConnections(user.Email);
+                //if (loggedInUsers.Count() > 0)
+                //{
+                //    var hub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+                //    foreach (var connectionId in loggedInUsers)
+                //    {
+                //        hub.Clients.Client(connectionId).logout();
+                //    }
+                //}
+
                 identity = await UserManager.CreateIdentityAsync(user, OAuthDefaults.AuthenticationType);
                 IEnumerable<Claim> claims = externalLogin.GetClaims();
                 identity.AddClaims(claims);

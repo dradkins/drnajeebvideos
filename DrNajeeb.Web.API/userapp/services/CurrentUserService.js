@@ -11,7 +11,7 @@
                 token: "",
                 fullName: "",
                 profilePic: "",
-                isSocialMediaLogin:false,
+                isSocialMediaLogin: false,
                 isLoggedIn: function () {
                     return this.token;
                 },
@@ -42,10 +42,10 @@
             localStorageService.set(USERKEY, angular.toJson(CurrentUserService.profile));
         }
 
-        CurrentUserService.logout = function () {
-            localStorageService.remove(USERKEY);
-            CurrentUserService.setProfile(null, null, null, null, false);
-            $location.path("/login");
+        CurrentUserService.logout = function (email) {
+                localStorageService.remove(USERKEY);
+                CurrentUserService.setProfile(null, null, null, null, false);
+                $location.path("/login");
         }
 
         CurrentUserService.externalLogin = {

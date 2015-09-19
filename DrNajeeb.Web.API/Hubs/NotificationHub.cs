@@ -10,25 +10,17 @@ namespace DrNajeeb.Web.API.Hubs
     [Authorize]
     public class NotificationHub : Hub
     {
-        private static Dictionary<string, dynamic> ConnectedClients = new Dictionary<string, dynamic>();
         private static Dictionary<string, dynamic> ConnectedAdmins = new Dictionary<string, dynamic>();
 
-        private readonly static ConnectionMapping<string> _connections = new ConnectionMapping<string>();
+        public readonly static ConnectionMapping<string> _connections = new ConnectionMapping<string>();
 
 
         public void RegisterClient(string username)
         {
-            lock (ConnectedClients)
-            {
-                if (ConnectedClients.ContainsKey(username))
-                {
-                    ConnectedClients[username] = Clients.Caller;
-                }
-                else
-                {
-                    ConnectedClients.Add(username, Clients.Caller);
-                }
-            }
+            //foreach (var connectionId in _connections.GetConnections(username))
+            //{
+            //    Clients.Client(connectionId).logout();
+            //}
         }
 
         public void RegisterAdmin(string username)
@@ -86,6 +78,11 @@ namespace DrNajeeb.Web.API.Hubs
         public override Task OnConnected()
         {
             string name = Context.User.Identity.Name;
+
+            foreach (var connectionId in _connections.GetConnections(name))
+            {
+                Clients.Client(connectionId).logout();
+            }
 
             _connections.Add(name, Context.ConnectionId);
 

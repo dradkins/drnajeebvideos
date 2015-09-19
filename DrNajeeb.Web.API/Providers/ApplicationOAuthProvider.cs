@@ -10,6 +10,8 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using DrNajeeb.Web.API.Models;
+using DrNajeeb.Web.API.Hubs;
+using Microsoft.AspNet.SignalR;
 
 namespace DrNajeeb.Web.API.Providers
 {
@@ -29,6 +31,21 @@ namespace DrNajeeb.Web.API.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+
+            //var hub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+            //hub.Clients.All.logout(context.UserName);
+
+            //var users = NotificationHub._connections.GetConnections(context.UserName);
+
+            //if (users.Count() > 0)
+            //{
+            //    var hub = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+            //    foreach (var connectionId in users)
+            //    {
+            //        hub.Clients.Client(connectionId).logout();
+            //    }
+            //}
+
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
