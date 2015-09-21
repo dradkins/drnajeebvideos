@@ -349,7 +349,7 @@ namespace DrNajeeb.Web.API.Controllers
                 IsPasswordReset = false,
                 NoOfConcurentViews = 1,
                 SubscriptionDate = DateTime.UtcNow,
-                SubscriptionId = 2,
+                SubscriptionId = model.SubscriptionId,
                 ExpirationDate = DateTime.UtcNow.AddDays(30),
                 Active = true
             };

@@ -18,6 +18,7 @@
             toUserId: null
         };
         $scope.form = null;
+        $scope.sendToAllform = null;
 
 
         $scope.selectPage = function (page) {
@@ -39,6 +40,18 @@
                 SupportService.sendMessage($scope.support)
                             .then(onMessageSend, onMessageError);
                 NotificationsService.sendMessage($scope.support.message, $scope.selectedUser.userName);
+            }
+            else {
+                toastr.warning("The data you provided is not valid. Please verify data and send again.")
+            }
+        };
+
+        $scope.sendMessageToAll = function (form) {
+            $scope.sendToAllform = form;
+            if (form.$valid) {
+                $scope.support.toUserId = null;
+                SupportService.sendMessageToAll($scope.support)
+                            .then(onMessageToAllSend, onMessageToAllError);
             }
             else {
                 toastr.warning("The data you provided is not valid. Please verify data and send again.")
@@ -95,6 +108,18 @@
         var onUsersLoadingError = function (error) {
             console.log(error);
             toastr.error("unable to load users at this time, please try later");
+        }
+
+        var onMessageToAllSend = function () {
+            $scope.support.message = "";
+            $scope.form.$setPristine(true);
+            toastr.info("message sent to all users successfully");
+            NotificationsService.sendMessageToAll($scope.support.message);
+        }
+
+        var onMessageToAllError = function (error) {
+            console.log(error);
+            toastr.error("unable to send message to all users at this time");
         }
 
         var loadUsers = function () {

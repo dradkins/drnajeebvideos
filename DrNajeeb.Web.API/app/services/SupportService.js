@@ -27,6 +27,13 @@
                     });
         }
 
+        SupportService.sendMessageToAll = function (support) {
+            return $http.post("/api/support/sendMessageToAll", support)
+                    .then(function (response) {
+                        return response.data;
+                    });
+        }
+
         return SupportService;
     }
 

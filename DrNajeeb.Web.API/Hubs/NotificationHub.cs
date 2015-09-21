@@ -57,6 +57,12 @@ namespace DrNajeeb.Web.API.Hubs
             //}
         }
 
+
+        public void SendMessageToAll(string notificationMessage)
+        {
+            Clients.All.addMessage(notificationMessage);
+        }
+
         public void SendUserMessage(string notificationMessage, string fromUSer)
         {
             Clients.All.messageFromUser(notificationMessage, fromUSer);

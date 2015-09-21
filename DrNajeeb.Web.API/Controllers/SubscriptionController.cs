@@ -193,5 +193,29 @@ namespace DrNajeeb.Web.API.Controllers
             }
         }
 
+        [ActionName("GetSubscriptionsForUser")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetSubscriptionsForUser()
+        {
+            try
+            {
+                var subscriptions = await _Uow._Subscription
+                    .GetAll(x => x.Active == true && x.IsActiveSubscription == true)
+                    .Select(x => new
+                    {
+                        Name=x.Name,
+                        ProductId=x.GatewayId,
+                        Id=x.Id
+                    })
+                    .ToListAsync();
+                return Ok(subscriptions);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
     }
 }

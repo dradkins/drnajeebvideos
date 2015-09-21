@@ -25,25 +25,25 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="main-box clearfix">
-                                <header class="main-box-header clearfix">
-                                    <h2 class="pull-left">Manage Subscriptions</h2>
+                                    <header class="main-box-header clearfix">
+                                        <h2 class="pull-left">Manage Subscriptions</h2>
 
-                                    <div class="filter-block pull-right">
-                                        <div class="pull-left">
-                                            <form class="form-inline" ng-submit="search()" role="form">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control input-sm" ng-model="pagingInfo.search" placeholder="Search...">
-                                                    <button type="submit" class="btn btn-info btn-sm">
-                                                        <i class="fa fa-search fa-lg"></i> Search
-                                                    </button>
-                                                </div>
-                                            </form>
+                                        <div class="filter-block pull-right">
+                                            <div class="pull-left">
+                                                <form class="form-inline" ng-submit="search()" role="form">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control input-sm" ng-model="pagingInfo.search" placeholder="Search...">
+                                                        <button type="submit" class="btn btn-info btn-sm">
+                                                            <i class="fa fa-search fa-lg"></i> Search
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <button class="btn btn-primary subBtn pull-right" ng-click="addOrEditModal()">
+                                                <i class="fa fa-plus-circle fa-lg"></i> Add subscription
+                                            </button>
                                         </div>
-                                        <button class="btn btn-primary subBtn pull-right" ng-click="addOrEditModal()">
-                                            <i class="fa fa-plus-circle fa-lg"></i> Add subscription
-                                        </button>
-                                    </div>
-                                </header>
+                                    </header>
 
                                     <div class="main-box-body clearfix">
                                         <div class="table-responsive">
@@ -212,75 +212,82 @@
                                                     <button class="btn btn-danger" type="reset">Reset</button>
                                                 </div>-->
                                                 <!--new added code strt-->
-                                <div class="row">
-                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
-                                         <div class="form-group">
-                                                <label for="name">Name</label>
-                                                <input type="text" class="form-control" id="name" placeholder="Enter name" ng-model="subscription.name">
-                                            </div>
-                                    </div>
-                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="description">Description</label>
-                                            <input type="text" class="form-control" id="description" placeholder="Enter name" ng-model="subscription.description">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
-                                        <div class="form-group">
-                                        <label for="price">Price</label>
-                                        <input type="text" class="form-control" id="price" placeholder="Enter name" ng-model="subscription.price">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
-                                         <div class="form-group">
-                                            <label for="startDate">Start Date</label>
-                                            <mydatepicker date-format="dd-MMMM-yyyy">
-                                                <input ng-model="startDate" type="text" class="form-control" />
-                                            </mydatepicker>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
-                                          <div class="form-group">
-                                            <label for="endDate">End Date</label>
-                                            <mydatepicker date-format="dd-MMMM-yyyy">
-                                                <input ng-model="endDate" type="text" class="form-control" />
-                                            </mydatepicker>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="timeDuration">Time Duration (In Days)</label>
-                                            <input type="text" class="form-control" id="timeDuration" placeholder="Enter name" ng-model="subscription.timeDurationInDays">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="gatewayId">Gateway Id</label>
-                                            <input type="text" class="form-control" id="gatewayId" placeholder="Enter name" ng-model="subscription.gatewayId">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label></label>
-                                            <div class="checkbox-nice">
-                                                <input type="checkbox" id="activeSubscription" checked="checked" ng-model="subscription.isActiveSubscription" />
-                                                <label for="activeSubscription">
-                                                    Active Subscription
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--new added code closed-->
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="name">Name</label>
+                                                            <input type="text" class="form-control" id="name" placeholder="Enter name" ng-model="subscription.name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="description">Description</label>
+                                                            <input type="text" class="form-control" id="description" placeholder="Enter name" ng-model="subscription.description">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="price">Price</label>
+                                                            <input type="text" class="form-control" id="price" placeholder="Enter name" ng-model="subscription.price">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="startDate">Start Date</label>
+                                                            <mydatepicker date-format="dd-MMMM-yyyy">
+                                                                <input ng-model="startDate" type="text" class="form-control" />
+                                                            </mydatepicker>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="endDate">End Date</label>
+                                                            <mydatepicker date-format="dd-MMMM-yyyy">
+                                                                <input ng-model="endDate" type="text" class="form-control" />
+                                                            </mydatepicker>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="timeDuration">Time Duration (In Days)</label>
+                                                            <input type="text" class="form-control" id="timeDuration" placeholder="Enter name" ng-model="subscription.timeDurationInDays">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="gatewayId">Gateway Id</label>
+                                                            <input type="text" class="form-control" id="gatewayId" placeholder="Enter name" ng-model="subscription.gatewayId">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-lg-6 col-xs-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label></label>
+                                                            <div class="checkbox-nice">
+                                                                <input type="checkbox" id="activeSubscription" checked="checked" ng-model="subscription.isActiveSubscription" />
+                                                                <label for="activeSubscription">
+                                                                    Active Subscription
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="pull-right">
+                                                        <button class="btn btn-primary" type="submit">OK</button>
+                                                        <button class="btn btn-danger" type="reset">Reset</button>
+                                                    </div>
+                                                </div>
+                                                <!--new added code closed-->
                                             </form>
                                         </div>
                                     </div>

@@ -25,6 +25,10 @@
         };
 
 
+        NotificationsService.sendMessageToAll = function (message) {
+            notificationHub.server.sendMessageToAll(message);
+        }
+
         return NotificationsService;
 
     };

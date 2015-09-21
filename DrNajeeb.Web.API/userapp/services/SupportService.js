@@ -33,6 +33,13 @@
                         });
         }
 
+        SuportService.getSubscriptions = function () {
+            return $http.get("/api/subscription/getSubscriptionsForUser")
+                        .then(function (response) {
+                            return response.data;
+                        });
+        }
+
         return SuportService;
     }
 

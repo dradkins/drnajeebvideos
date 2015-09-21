@@ -8,11 +8,14 @@
             confirmPassword: null,
             fullName: null,
             countryId: null,
-            subscriptionId: 2
+            subscriptionId: null,
         }
         $scope.countries = [];
         $scope.country;
         $scope.selectedCountry = null;
+        $scope.selectedPackage = null;
+        $scope.subscriptions = [];
+        $scope.selectedSubscription = null;
 
 
         $scope.register = function (form) {
@@ -27,6 +30,7 @@
                     return false;
                 }
                 $scope.registerModel.countryId = $scope.selectedCountry.id;
+                $scope.registerModel.subscriptionId = $scope.selectedSubscription.id;
                 OAuthService.register($scope.registerModel)
                             .then(onRegister, onRegisterError);
             }
@@ -36,8 +40,9 @@
         }
 
         var onRegister = function (data) {
-            toastr.success("Registered successfully, Please login with your email and password.")
-            var url = 'https://www.2checkout.com/checkout/spurchase?sid=1432125&quantity=1&product_id=10'
+            toastr.success("Registered successfully, Please login with your email and password.");
+            console.log($scope.selectedSubscription.productId);
+            var url = 'https://www.2checkout.com/checkout/spurchase?sid=1432125&quantity=1&product_id=' + $scope.selectedSubscription.productId;
             toastr.info("you have been redirected to payment page in 5 seconds, please use email address that you have been used for registration to activate your account successfully.")
             setTimeout(function () {
                 window.location.href = url;
@@ -71,8 +76,13 @@
             })
         }
 
+        var onSubscriptions = function (data) {
+            $scope.subscriptions = data;
+        }
+
         function init() {
             CountryService.getAll().then(onCountries, onError);
+            SuportService.getSubscriptions().then(onSubscriptions, onError);
         }
 
         var onError = function (error) {

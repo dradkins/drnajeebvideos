@@ -50,6 +50,12 @@
                                                 <select ng-model="selectedCountry" class="form-control" ng-options="country.name for country in countries" required></select>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-subscript"></i></span>
+                                                <select ng-model="selectedSubscription" class="form-control" ng-options="subscription.name for subscription in subscriptions" required></select>
+                                            </div>
+                                        </div>
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <button type="submit" class="btn btn-success col-xs-12">Signup</button>

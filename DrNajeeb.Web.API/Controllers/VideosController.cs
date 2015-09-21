@@ -750,10 +750,40 @@ namespace DrNajeeb.Web.API.Controllers
             {
                 if (!string.IsNullOrEmpty(id))
                 {
-                    var videos =await _Uow._Videos.GetAll(x => x.Name.Contains(id)).Select(x => x.Name).ToListAsync();
+                    var videos = await _Uow._Videos.GetAll(x => x.Name.Contains(id)).Select(x => x.Name).ToListAsync();
                     return Ok(videos);
                 }
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [ActionName("VideoNotifications")]
+        [HttpGet]
+        public async Task<IHttpActionResult> VideoNotifications()
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var user = await _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefaultAsync();
+                var videosList = new List<UserVideoModel>();
+
+                var videos = _Uow._Videos.GetAll(x => x.CreatedOn > user.CreatedOn)
+                    .Include(x => x.UserVideoHistories.Where(y => y.UserId == userId))
+                    .Where(x => !x.UserVideoHistories.Any(y => y.Id == x.Id));
+
+                foreach (var item in videos)
+                {
+                    videosList.Add(new UserVideoModel
+                    {
+                        Id=item.Id,
+                        Name=item.Name
+                    });
+                }
+                return Ok(videosList);
             }
             catch (Exception ex)
             {
