@@ -314,12 +314,14 @@
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\scroll\jquery.mCustomScrollbar.js" />
     <Content Include="Scripts\scroll\jquery.mCustomScrollbar.min.css" />
+    <Content Include="userapp\controllers\FreeVideosController.js" />
     <Content Include="userapp\controllers\FrontEndController.js" />
     <Content Include="userapp\controllers\NotificationsController.js" />
     <Content Include="userapp\directives\menuHider.js" />
     <Content Include="userapp\directives\messagesScroller.js" />
     <Content Include="userapp\services\NotificationsService.js" />
     <Content Include="userapp\views\checkout.html" />
+    <Content Include="userapp\views\free-videos.html" />
     <Content Include="userapp\views\front-end.html" />
     <Content Include="userapp\views\privacy-policy.html" />
     <Content Include="userapp\views\terms-and-conditions.html" />

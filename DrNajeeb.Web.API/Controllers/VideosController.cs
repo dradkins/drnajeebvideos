@@ -193,6 +193,7 @@ namespace DrNajeeb.Web.API.Controllers
                 video.FastVideoId = model.FastVideoId;
                 video.Active = true;
                 video.CreatedOn = DateTime.UtcNow;
+                video.IsFreeVideo = model.IsFreeVideo;
                 video.ThumbnailURL = @"http://view.vzaar.com/" + model.StandardVideoId + "/thumb";
 
                 if (model.Categories != null && model.Categories.Count > 0)
@@ -214,8 +215,8 @@ namespace DrNajeeb.Web.API.Controllers
                 await _Uow.CommitAsync();
                 var json = new
                 {
-                    Id=video.Id,
-                    Name=video.Name
+                    Id = video.Id,
+                    Name = video.Name
                 };
                 return Ok(json);
             }
@@ -277,7 +278,7 @@ namespace DrNajeeb.Web.API.Controllers
                 video.IsEnabled = model.IsEnabled;
                 video.StandardVideoId = model.StandardVideoId;
                 video.FastVideoId = model.StandardVideoId;
-
+                video.IsFreeVideo = model.IsFreeVideo;
                 if (model.Categories != null && model.Categories.Count > 0)
                 {
                     foreach (var item in model.Categories)
@@ -347,8 +348,17 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var videosCount = await _Uow._Videos.CountAsync(x => x.Active == true);
-                return Ok(videosCount);
+                var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
+                if (_User.IsFreeUser != null && _User.IsFreeUser.Value)
+                {
+                    var videosCount = await _Uow._Videos.CountAsync(x => x.Active == true&&x.IsFreeVideo.Value);
+                    return Ok(videosCount);
+                }
+
+                var videoscount = await _Uow._Videos.CountAsync(x => x.Active == true);
+
+                return Ok(videoscount);
             }
             catch (Exception ex)
             {
@@ -364,16 +374,23 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
                 var videosList = new List<UserVideoModel>();
-                var videos = await _Uow._CategoryVideos
+                var videos = _Uow._CategoryVideos
                     .GetAll(x => x.CategoryId == id)
                     .Include(x => x.Video)
                     .OrderBy(x => x.DisplayOrder)
                     .Select(x => x.Video)
-                    .Include(x => x.UserFavoriteVideos)
-                    .ToListAsync();
+                    .Include(x => x.UserFavoriteVideos);
 
-                videos.ForEach(x => videosList.Add(new UserVideoModel
+                //if (_User.IsFreeUser != null && _User.IsFreeUser.Value)
+                //{
+                //    videos = videos.Where(x => x.IsFreeVideo.Value);
+                //}
+
+                var videoslist = await videos.ToListAsync();
+
+                videoslist.ForEach(x => videosList.Add(new UserVideoModel
                 {
                     BackgroundColor = x.BackgroundColor,
                     DateLive = x.DateLive,
@@ -400,6 +417,7 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
 
                 var videosModel = new UserVideoModel();
                 var video = await _Uow._Videos.GetAll(x => x.Id == id)
@@ -412,6 +430,15 @@ namespace DrNajeeb.Web.API.Controllers
                 {
                     return NotFound();
                 }
+
+                if (_User.IsFreeUser.Value)
+                {
+                    if (!video.IsFreeVideo.Value)
+                    {
+                        return BadRequest();
+                    }
+                }
+
                 videosModel.BackgroundColor = video.BackgroundColor;
                 videosModel.DateLive = video.DateLive;
                 videosModel.Duration = video.Duration;
@@ -461,6 +488,7 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
                 var videosList = new List<UserVideoModel>();
 
                 var videos = _Uow._Videos.GetAll(x => x.Active == true)
@@ -477,8 +505,94 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
-                var totalVideos = await videos.CountAsync();
                 videos = videos.OrderBy("DateLive");
+
+                int totalVideos = 0;
+                totalVideos = await videos.CountAsync();
+
+                //if (_User == null)
+                //{
+                //    return InternalServerError();
+                //}
+
+                //if (_User.IsFreeUser != null && _User.IsFreeUser.Value)
+                //{
+                //    videos = videos.Where(x => x.IsFreeVideo.Value);
+                //    totalVideos = await videos.CountAsync(x => x.IsFreeVideo.Value);
+                //}
+
+                // paging
+                var videosPaged = await videos.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
+
+                videosPaged.ForEach(x =>
+                {
+                    var uvm = new UserVideoModel();
+                    uvm.BackgroundColor = x.BackgroundColor;
+                    uvm.DateLive = x.DateLive;
+                    uvm.Duration = x.Duration;
+                    uvm.Id = x.Id;
+                    uvm.Name = x.Name;
+                    uvm.ReleaseYear = x.ReleaseYear;
+                    uvm.VzaarVideoId = x.StandardVideoId;
+                    uvm.ThumbnailURL = x.ThumbnailURL;
+                    uvm.IsFavoriteVideo = (x.UserFavoriteVideos != null && x.UserFavoriteVideos.Any(y => y.VideoId == x.Id && y.UserId == userId));
+                    if (x.CategoryVideos != null && x.CategoryVideos.Count > 0)
+                    {
+                        x.CategoryVideos.ToList().ForEach(y =>
+                        {
+                            uvm.Categories.Add(new UserCategoryModel
+                            {
+                                Id = y.Category.Id,
+                                Name = y.Category.Name
+                            });
+                        });
+                    }
+                    videosList.Add(uvm);
+                });
+
+                // json result
+                var json = new
+                {
+                    count = totalVideos,
+                    data = videosList,
+                };
+
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [ActionName("getUserFreeVideo")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetUserFreeVideo(int page = 1, int itemsPerPage = 20, string search = null)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
+                var videosList = new List<UserVideoModel>();
+
+                var videos = _Uow._Videos.GetAll(x => x.Active == true && x.IsFreeVideo==true)
+                    .Include(x => x.UserFavoriteVideos)
+                    .Include(x => x.CategoryVideos)
+                    .Include(x => x.CategoryVideos.Select(y => y.Category));
+
+                // searching
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    search = search.ToLower();
+                    videos = videos.Where(x =>
+                        x.Name.ToLower().Contains(search) ||
+                        x.Description.ToLower().Contains(search));
+                }
+
+                videos = videos.OrderBy("DateLive");
+
+                int totalVideos = 0;
+                totalVideos = await videos.CountAsync();
 
                 // paging
                 var videosPaged = await videos.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
@@ -556,6 +670,7 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
                 var favoriteVideo = await _Uow._Favorites.GetAsync(x => x.UserId == userId && x.VideoId == id);
                 if (favoriteVideo == null)
                 {
@@ -578,6 +693,7 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
                 var videosList = new List<UserVideoModel>();
 
                 var videos = _Uow._Favorites.GetAll(x => x.UserId == userId)
@@ -595,8 +711,16 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
-                var totalVideos = await videos.CountAsync();
                 videos = videos.OrderBy("DateLive");
+
+                int totalVideos = 0;
+                totalVideos = await videos.CountAsync();
+
+                //if (_User.IsFreeUser != null && _User.IsFreeUser.Value)
+                //{
+                //    videos = videos.Where(x => x.IsFreeVideo.Value);
+                //    totalVideos = await videos.CountAsync(x => x.IsFreeVideo.Value);
+                //}
 
                 // paging
                 var videosPaged = await videos.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
@@ -652,6 +776,7 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
                 var videosList = new List<UserVideoModel>();
 
                 var videos = _Uow._UserVideoHistory.GetAll(x => x.UserId == userId)
@@ -670,7 +795,15 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
-                var totalVideos = await videos.CountAsync();
+                int totalVideos = 0;
+                totalVideos = await videos.CountAsync();
+
+                //if (_User.IsFreeUser != null && _User.IsFreeUser.Value)
+                //{
+                //    videos = videos.Where(x => x.IsFreeVideo.Value);
+                //    totalVideos = await videos.CountAsync(x => x.IsFreeVideo.Value);
+                //}
+
                 // paging
                 var videosPaged = await videos.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
 
@@ -726,15 +859,22 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
                 var videosList = new List<UserVideoModel>();
-                var videos = await _Uow._CategoryVideos
+                var videos = _Uow._CategoryVideos
                     .GetAll(x => x.CategoryId == id)
                     .Include(x => x.Video)
                     .OrderBy(x => x.DisplayOrder)
-                    .Select(x => x.Video)
-                    .ToListAsync();
+                    .Select(x => x.Video);
 
-                videos.ForEach(x => videosList.Add(new UserVideoModel
+                //if (_User.IsFreeUser != null && _User.IsFreeUser.Value)
+                //{
+                //    videos = videos.Where(x => x.IsFreeVideo == true);
+                //}
+
+                var videosToList = await videos.ToListAsync();
+
+                videosToList.ForEach(x => videosList.Add(new UserVideoModel
                 {
                     Name = x.Name,
                 }));
@@ -753,10 +893,18 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
+                var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
                 if (!string.IsNullOrEmpty(id))
                 {
-                    var videos = await _Uow._Videos.GetAll(x => x.Name.Contains(id)).Select(x => x.Name).ToListAsync();
-                    return Ok(videos);
+                    if (_User.IsFreeUser != null && _User.IsFreeUser.Value)
+                    {
+                        var videos = await _Uow._Videos.GetAll(x => x.Name.Contains(id) && x.IsFreeVideo == true).Select(x => x.Name).ToListAsync();
+                        return Ok(videos);
+                    }
+
+                    var vides = await _Uow._Videos.GetAll(x => x.Name.Contains(id)).Select(x => x.Name).ToListAsync();
+                    return Ok(vides);
                 }
                 return Ok();
             }
@@ -784,8 +932,8 @@ namespace DrNajeeb.Web.API.Controllers
                 {
                     videosList.Add(new UserVideoModel
                     {
-                        Id=item.Id,
-                        Name=item.Name
+                        Id = item.Id,
+                        Name = item.Name
                     });
                 }
                 return Ok(videosList);

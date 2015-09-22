@@ -78,6 +78,7 @@ namespace DrNajeeb.EF
         public Nullable<System.DateTime> SubscriptionDate { get; set; }
         public Nullable<System.DateTime> ExpirationDate { get; set; }
         public string ProfilePicture { get; set; }
+        public Nullable<bool> IsFreeUser { get; set; }
     
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }

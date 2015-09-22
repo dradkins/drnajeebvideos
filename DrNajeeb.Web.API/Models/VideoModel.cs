@@ -24,6 +24,8 @@ namespace DrNajeeb.Web.API.Models
         public string StandardVideoId { get; set; }
         public string FastVideoId { get; set; }
         public List<int> Categories { get; set; }
+        public Nullable<bool> IsFreeVideo { get; set; }
+
 
     }
 }

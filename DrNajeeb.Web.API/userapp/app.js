@@ -96,6 +96,10 @@
             .when("/privacy-policy", {
                 templateUrl: "/userapp/views/privacy-policy.html"
             })
+            .when("/free-videos", {
+                templateUrl: "/userapp/views/free-videos.html",
+                controller:"FreeVideosController"
+            })
         .otherwise({ redirectTo: "/dashboard" })
     });
 
@@ -106,6 +110,8 @@
         $rootScope.USER_NAME = CurrentUserService.profile.username;
 
         $rootScope.FULL_NAME = CurrentUserService.profile.fullName;
+
+        $rootScope.isFreeUser = CurrentUserService.profile.isFreeUser;
 
         $rootScope.VIDEOS = [];
 

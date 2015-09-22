@@ -20,7 +20,8 @@
 
             return $http.post("/token", data, config)
                         .then(function (response) {
-                            CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false);
+                            var isFreeUser = (response.data.isFreeUser === "True")
+                            CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false, isFreeUser);
                             return response.data.fullName;
                         });
 

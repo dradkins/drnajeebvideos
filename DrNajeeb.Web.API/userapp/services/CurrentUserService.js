@@ -11,6 +11,7 @@
                 token: "",
                 fullName: "",
                 profilePic: "",
+                isFreeUser: false,
                 isSocialMediaLogin: false,
                 isLoggedIn: function () {
                     return this.token;
@@ -24,18 +25,20 @@
                 user.fullName = currentUser.fullName;
                 user.profilePic = currentUser.profilePic;
                 user.isSocialMediaLogin = currentUser.isSocialMediaLogin;
+                user.isFreeUser = currentUser.isFreeUser;
             }
             return user;
         }
 
         CurrentUserService.profile = initialize();
 
-        CurrentUserService.setProfile = function (username, token, fullName, profilePic, isSocialMediaLogin) {
+        CurrentUserService.setProfile = function (username, token, fullName, profilePic, isSocialMediaLogin, isFreeUser) {
             CurrentUserService.profile.username = username;
             CurrentUserService.profile.token = token;
             CurrentUserService.profile.fullName = fullName;
             CurrentUserService.profile.profilePic = profilePic;
             CurrentUserService.profile.isSocialMediaLogin = isSocialMediaLogin;
+            CurrentUserService.profile.isFreeUser = isFreeUser;
             $rootScope.USER_NAME = username;
             $rootScope.FULL_NAME = fullName;
             $rootScope.facebookProfilePic = profilePic;
@@ -43,9 +46,9 @@
         }
 
         CurrentUserService.logout = function (email) {
-                localStorageService.remove(USERKEY);
-                CurrentUserService.setProfile(null, null, null, null, false);
-                $location.path("/login");
+            localStorageService.remove(USERKEY);
+            CurrentUserService.setProfile(null, null, null, null, false);
+            $location.path("/login");
         }
 
         CurrentUserService.externalLogin = {

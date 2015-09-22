@@ -70,6 +70,7 @@ namespace DrNajeeb.Web.API.Controllers
                 if (user != null)
                 {
                     user.IsActiveUSer = true;
+                    user.IsFreeUser = false;
                     _UOW._Users.Update(user);
                     await _UOW.CommitAsync();
 

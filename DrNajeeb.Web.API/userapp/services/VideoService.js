@@ -18,6 +18,13 @@
                    });
         };
 
+        VideoService.getFreeVideos = function (pagingInfo) {
+            return $http.get("/api/videos/getUserFreeVideo/", { params: pagingInfo })
+                   .then(function (response) {
+                       return response.data;
+                   });
+        };
+
         VideoService.addToFavorites = function (videoId) {
             return $http.post("/api/videos/addUserVideoToFavorite/", { videoId: videoId, userId: "" })
                    .then(function (response) {

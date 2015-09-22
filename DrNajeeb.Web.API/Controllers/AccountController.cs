@@ -270,7 +270,7 @@ namespace DrNajeeb.Web.API.Controllers
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.FullName);
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
@@ -327,30 +327,18 @@ namespace DrNajeeb.Web.API.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("RegisterAllUsers")]
-        public async Task<IHttpActionResult> RegisterAllUsers()
+        public async Task<IHttpActionResult> RegisterAllUsers(int id)
         {
             var identityResult = new List<IdentityResult>();
 
-            string physicalPath = @"~\Content\drnajeeb-data.xlsx";
-            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
-            System.Data.OleDb.OleDbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter();
-            System.Data.DataSet ds = new System.Data.DataSet();
+            string physicalPath = @"~/Content/drnajeebdata1.txt";
             String strNewPath = HttpContext.Current.Server.MapPath(physicalPath);
-            String connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strNewPath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
-            String query = "SELECT * FROM [Sheet1$]"; // You can use any different queries to get the data from the excel sheet
-            System.Data.OleDb.OleDbConnection conn = new System.Data.OleDb.OleDbConnection(connString);
-            if (conn.State == System.Data.ConnectionState.Closed)
-                conn.Open();
             try
             {
-                System.Data.DataTable dt = new System.Data.DataTable();
-                cmd = new System.Data.OleDb.OleDbCommand(query, conn);
-                da = new System.Data.OleDb.OleDbDataAdapter(cmd);
-                da.Fill(dt);
-                //Console.WriteLine(dt.Rows.Count);
-                foreach (System.Data.DataRow row in dt.Rows)
+                var emails = System.IO.File.ReadLines(strNewPath).OrderBy(x => x).Skip(100 * id).Take(100);
+                foreach (var email1 in emails)
                 {
-                    var email = row[0].ToString();
+                    var email = System.Text.RegularExpressions.Regex.Replace(email1, @"\s+", "");
                     var user = new ApplicationUser()
                     {
                         UserName = email,
@@ -380,15 +368,9 @@ namespace DrNajeeb.Web.API.Controllers
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Exception Msg 
-
-            }
-            finally
-            {
-                da.Dispose();
-                conn.Close();
+                return InternalServerError(ex);
             }
             return Ok();
         }
@@ -411,7 +393,7 @@ namespace DrNajeeb.Web.API.Controllers
                 CountryId = model.CountryId,
                 CreatedOn = DateTime.UtcNow,
                 CurrentViews = 0,
-                IsActiveUser = false,
+                IsActiveUser = true,
                 IsAllowMobileVideos = true,
                 IsFilterByIP = false,
                 IsParentalControl = false,
@@ -420,7 +402,8 @@ namespace DrNajeeb.Web.API.Controllers
                 SubscriptionDate = DateTime.UtcNow,
                 SubscriptionId = model.SubscriptionId,
                 ExpirationDate = DateTime.UtcNow.AddDays(30),
-                Active = true
+                Active = true,
+                IsFreeUser=true
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -539,7 +522,7 @@ namespace DrNajeeb.Web.API.Controllers
                     CountryId = model.CountryId,
                     CreatedOn = DateTime.UtcNow,
                     CurrentViews = 0,
-                    IsActiveUser = false,
+                    IsActiveUser = true,
                     IsAllowMobileVideos = true,
                     IsFilterByIP = false,
                     IsParentalControl = false,
@@ -548,7 +531,8 @@ namespace DrNajeeb.Web.API.Controllers
                     SubscriptionDate = DateTime.UtcNow,
                     SubscriptionId = 2,
                     ExpirationDate = DateTime.UtcNow.AddDays(30),
-                    Active = true
+                    Active = true,
+                    IsFreeUser=true
                 };
 
                 result = await UserManager.CreateAsync(user);
@@ -673,6 +657,7 @@ namespace DrNajeeb.Web.API.Controllers
             // Create the response building a JSON object that mimics exactly the one issued by the default /Token endpoint
             JObject token = new JObject(
                 new JProperty("userName", user.UserName),
+                new JProperty("isFreeUser", user.IsFreeUser),
                 new JProperty("id", user.Id),
                 new JProperty("fullName", user.FullName),
                 new JProperty("access_token", accessToken),

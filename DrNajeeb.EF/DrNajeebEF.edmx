@@ -74,6 +74,7 @@
           <Property Name="SubscriptionDate" Type="datetime" />
           <Property Name="ExpirationDate" Type="datetime" />
           <Property Name="ProfilePicture" Type="nvarchar(max)" />
+          <Property Name="IsFreeUser" Type="bit" />
         </EntityType>
         <EntityType Name="CategoriesInSubscription">
           <Key>
@@ -205,6 +206,7 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsFreeVideo" Type="bit" />
         </EntityType>
         <EntityType Name="SupportMessages">
           <Key>
@@ -1019,6 +1021,7 @@
           <Property Name="SubscriptionDate" Type="DateTime" Precision="3" />
           <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
           <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsFreeUser" Type="Boolean" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="Country" Relationship="Self.FK__AspNetUse__Count__47DBAE45" FromRole="AspNetUsers" ToRole="Countries" />
@@ -1223,6 +1226,7 @@
           <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsFreeVideo" Type="Boolean" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK__Videos__CreatedB__68487DD7" FromRole="Videos" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser1" Relationship="Self.FK__Videos__CreatedB__693CA210" FromRole="Videos" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser2" Relationship="Self.FK__Videos__UpdatedB__6A30C649" FromRole="Videos" ToRole="AspNetUsers" />
@@ -2016,6 +2020,7 @@
                 <ScalarProperty Name="SubscriptionDate" ColumnName="SubscriptionDate" />
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="IsFreeUser" ColumnName="IsFreeUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2157,6 +2162,7 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="IsFreeVideo" ColumnName="IsFreeVideo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

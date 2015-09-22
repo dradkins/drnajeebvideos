@@ -14,7 +14,8 @@
             isEnabled: true,
             standardVideoId: null,
             fastVideoId: null,
-            categories:[]
+            categories:[],
+            isFreeVideo:false,
         };
 
         $scope.pagingInfo = {
@@ -112,7 +113,7 @@
 
 
 
-    var AddOrEditVideoController = function ($scope, $modalInstance, $filter, VideoService, CategoriesService, video, NotificationService) {
+    var AddOrEditVideoController = function ($scope, $modalInstance, $filter, VideoService, CategoriesService, video, NotificationsService) {
 
         $scope.video = video;
         $scope.categories = [];
@@ -160,7 +161,7 @@
             }
             else {
                 VideoService.addVideo($scope.video).then(function (response) {
-                    NotificationService.newVideoAdded(response.id, response.name);
+                    NotificationsService.newVideoAdded(response.id, response.name);
                     $modalInstance.close();
                 })
             }
@@ -171,7 +172,7 @@
         };
     }
 
-    AddOrEditVideoController.$inject = ["$scope", "$modalInstance", "$filter", "VideoService","CategoriesService", "video", "NotificationService"]
+    AddOrEditVideoController.$inject = ["$scope", "$modalInstance", "$filter", "VideoService","CategoriesService", "video", "NotificationsService"]
 
 
     app.controller("VideosController", VideosController);

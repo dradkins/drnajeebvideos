@@ -1,0 +1,135 @@
+﻿<!-- Before Adding Main Content -->
+<div id="theme-wrapper">
+    <nav ng-include="'/userapp/views/navigation_upper.html'"></nav>
+    <div id="page-wrapper" class="container">
+        <div class="row">
+            <nav ng-include="'/userapp/views/navigation_left.html'"></nav>
+            <div id="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- End Before Adding Main Content -->
+
+                        <div class="col-md-12 col-xs-12">
+                            <div class="main-box clearfix">
+                                <header class="main-box-header clearfix">
+                                    <h2 class="pull-left">New Videos</h2>
+
+                                    <div class="filter-block pull-right">
+                                        <div class="pull-left">
+                                            <form class="form-inline" ng-submit="search()" role="form">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control input-sm" ng-model="pagingInfo.search" placeholder="Search...">
+                                                    <button type="submit" class="btn btn-info btn-sm">
+                                                        <i class="fa fa-search fa-lg"></i> Search
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </header>
+
+                                <div class="main-box-body clearfix">
+                                    <div class="table-responsive clearfix">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr class="headRow">
+                                                    <th></th>
+                                                    <th>Title</th>
+                                                    <th>Duration</th>
+                                                    <th>Category</th>
+                                                    <th>&nbsp;</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="video in videos | filter: pagingInfo.search">
+                                                    <td>
+                                                        <a href="" ng-click="showVideo(video)" title="Watch Now"><img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:60px; height:50px;" /></a>
+                                                    </td>
+                                                    <td class="mobScreenTableDisNon"><p ng-click="showVideo(video)" title="Watch Now">{{video.name}}</p></td>
+                                                    <td class="mobScreenTableDisNon">{{video.duration}} min.</td>
+                                                    <td class="mobScreenTableDisNon">
+                                                        <span ng-repeat="cat in video.categories">
+                                                            {{cat.name}}<br />
+                                                        </span>
+                                                    </td>
+                                                    <td class="mobScreenTableDisNon">
+                                                        <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
+                                                            Play Now <i class="fa fa-arrow-circle-o-right"></i>
+                                                        </button>
+                                                        <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
+                                                        <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
+                                                            <i class="fa  fa-plus"></i>
+                                                        </button>
+                                                        <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
+                                                            <i class="fa  fa-plus"></i>
+                                                        </button>
+                                                    </td>
+                                                    <td class="mobScreenTable">
+                                                        <div class="mobScreenDiv" style="width:100%;">
+                                                            <div class="row">
+                                                                <p ng-click="showVideo(video)" title="Watch Now" style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">
+                                                                    {{video.name}}
+                                                                    <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span>
+                                                                </p>
+                                                                <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
+                                                                    <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
+                                                                        <i class="fa  fa-plus"></i>
+                                                                    </button>
+                                                                    <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
+                                                                        <i class="fa  fa-plus"></i>
+                                                                    </button>
+                                                                    <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
+                                                                        <i class="fa fa-arrow-circle-o-right"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <pagination total-items="pagingInfo.totalItems"
+                                                ng-model="pagingInfo.page"
+                                                max-size="4"
+                                                boundary-links="true"
+                                                rotate="false"
+                                                class="pagination-sm pull-right"
+                                                ng-change="selectPage(pagingInfo.page)"
+                                                items-per-page="pagingInfo.itemsPerPage"
+                                                previous-text="&lsaquo;"
+                                                next-text="&rsaquo;"
+                                                first-text="&laquo;"
+                                                last-text="&raquo;"
+                                                num-pages="numPages">
+                                    </pagination>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- After Adding Main Content -->
+                    </div>
+                </div>
+
+                <footer id="footer-bar" class="row">
+                    <p id="footer-copyright" class="col-xs-12">
+                        Copyright © 2015 Dr. Najeeb Lectures. All Rights Reserved.
+                    </p>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="template/pagination/pagination.html" type="text/ng-template">
+    <ul class="pagination">
+        <li ng-if="boundaryLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(1)" title="First Page"> <span class="glyphicon glyphicon-fast-backward"></span></a></li>
+        <li ng-if="directionLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(page - 1)" title="Previous Page"><span class="glyphicon glyphicon-step-backward"></span></a></li>
+        <li ng-repeat="page in pages track by $index" ng-class="{active: page.active}"><a href ng-click="selectPage(page.number)">{{page.text}}</a></li>
+        <li ng-if="directionLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(page + 1)" title="Next Page"><span class="glyphicon glyphicon-step-forward"></span></a></li>
+        <li ng-if="boundaryLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(totalPages)" title="Last Page"><span class="glyphicon glyphicon-fast-forward"></span> </a></li>
+    </ul>
+</script>
+<!-- End After Adding Main Content -->
