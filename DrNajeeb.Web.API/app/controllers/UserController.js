@@ -22,8 +22,8 @@
         $scope.pagingInfo = {
             page: 1,
             itemsPerPage: 20,
-            sortBy: 'fullName',
-            reverse: false,
+            sortBy: 'createdOn',
+            reverse: true,
             search: '',
             totalItems: 0
         };

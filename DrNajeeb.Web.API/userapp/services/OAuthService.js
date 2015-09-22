@@ -66,6 +66,14 @@
             })
         }
 
+
+        //OAuthService.setFullName = function (fullNameModel) {
+        //    return $http.post("/api/account/setFullName", fullNameModel)
+        //                .then(function (response) {
+        //                    CurrentUserService.profile.fullName
+        //                });
+        //}
+
         return OAuthService;
 
     }

@@ -324,6 +324,75 @@ namespace DrNajeeb.Web.API.Controllers
             return logins;
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("RegisterAllUsers")]
+        public async Task<IHttpActionResult> RegisterAllUsers()
+        {
+            var identityResult = new List<IdentityResult>();
+
+            string physicalPath = @"~\";
+            System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
+            System.Data.OleDb.OleDbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter();
+            System.Data.DataSet ds = new System.Data.DataSet();
+            String strNewPath = physicalPath; //HttpContext.Current.Server.MapPath(physicalPath);
+            String connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strNewPath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+            String query = "SELECT * FROM [Sheet1$]"; // You can use any different queries to get the data from the excel sheet
+            System.Data.OleDb.OleDbConnection conn = new System.Data.OleDb.OleDbConnection(connString);
+            if (conn.State == System.Data.ConnectionState.Closed)
+                conn.Open();
+            try
+            {
+                System.Data.DataTable dt = new System.Data.DataTable();
+                cmd = new System.Data.OleDb.OleDbCommand(query, conn);
+                da = new System.Data.OleDb.OleDbDataAdapter(cmd);
+                da.Fill(dt);
+                //Console.WriteLine(dt.Rows.Count);
+                foreach (System.Data.DataRow row in dt.Rows)
+                {
+                    var email = row[0].ToString();
+                    var user = new ApplicationUser()
+                    {
+                        UserName = email,
+                        Email = email,
+                        FullName = "",
+                        CountryId = 418,
+                        CreatedOn = DateTime.UtcNow,
+                        CurrentViews = 0,
+                        IsActiveUser = true,
+                        IsAllowMobileVideos = true,
+                        IsFilterByIP = false,
+                        IsParentalControl = false,
+                        IsPasswordReset = false,
+                        NoOfConcurentViews = 1,
+                        SubscriptionDate = DateTime.UtcNow,
+                        SubscriptionId = 1,
+                        ExpirationDate = null,
+                        Active = true
+                    };
+
+                    IdentityResult result = await UserManager.CreateAsync(user, email);
+
+                    if (!result.Succeeded)
+                    {
+                        identityResult.Add(result);
+                        //return GetErrorResult(result);
+                    }
+                }
+            }
+            catch
+            {
+                // Exception Msg 
+
+            }
+            finally
+            {
+                da.Dispose();
+                conn.Close();
+            }
+            return Ok();
+        }
+
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -342,7 +411,7 @@ namespace DrNajeeb.Web.API.Controllers
                 CountryId = model.CountryId,
                 CreatedOn = DateTime.UtcNow,
                 CurrentViews = 0,
-                IsActiveUser = true,
+                IsActiveUser = false,
                 IsAllowMobileVideos = true,
                 IsFilterByIP = false,
                 IsParentalControl = false,

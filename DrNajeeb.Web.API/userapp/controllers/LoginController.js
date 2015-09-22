@@ -6,6 +6,7 @@
         $scope.password = "";
         $scope.user = CurrentUserService.profile;
         $scope.facebookLogin;
+        //$scope.fullName = null;
 
         $scope.login = function (form) {
             if (form.$valid) {
@@ -18,14 +19,31 @@
 
         $scope.register = function () {
             window.location.reload(true);
-            //window.location.href = window.location.href;
+        }
+
+        $scope.setFullName = function (form) {
+            if (form.$valid) {
+                OAuthService.setFullName({ fullName: $scope.fullName })
+                    .then(onNameEnterSuccess, onError);
+                form.$setPristine(true)
+            };
         }
 
         var onLogin = function (data) {
+            //if (!data) {
+            //    $scope.showEnterFullName = true;
+            //    return false;
+            //}
             toastr.success("Welcome " + data);
             loginRedirect.redirectPostLogin();
             $rootScope.updateUserImage();
         }
+
+        //var onNameEnterSuccess = function () {
+        //    toastr.success("Welcome " + data);
+        //    loginRedirect.redirectPostLogin();
+        //    $rootScope.updateUserImage();
+        //}
 
         var onError = function (response) {
             if (response.data.error == "not_active") {
