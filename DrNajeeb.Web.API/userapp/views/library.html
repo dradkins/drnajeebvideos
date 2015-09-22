@@ -61,9 +61,12 @@
                                                         </td>
                                                         <td class="mobScreenTableDisNon"><p ng-click="showVideo(video)" title="Watch Now">{{video.name}}</p></td>
                                                         <td class="mobScreenTableDisNon">{{video.duration}} min.</td>
-                                                        <!-- <td class="mobScreenTableDisNon">{{video.releaseYear}}</td>
-                <td class="mobScreenTableDisNon">{{video.dateLive | date: "dd-MMMM-yyyy"}}</td> -->
-                                                        <td class="mobScreenTableDisNon">
+                                                        <td ng-if="$root.isFreeUser">
+                                                            <a href="" class="btn btn-primary">
+                                                                <i class="fa fa-signal">Signup Now</i>
+                                                            </a>
+                                                        </td>
+                                                        <td class="mobScreenTableDisNon" ng-if="!$root.isFreeUser">
                                                             <button class="btn btn-info" ng-click="showVideo(video)">
                                                                 Play Now <i class="fa fa-arrow-circle-o-right"></i>
                                                             </button>
@@ -77,7 +80,7 @@
                                                                 <i class="fa  fa-plus"></i>
                                                             </button>
                                                         </td>
-                                                        <td class="mobScreenTable">
+                                                        <td class="mobScreenTable" ng-if="!$root.isFreeUser">
                                                             <div class="mobScreenDiv" style="width:100%;">
                                                                 <div class="row">
                                                                     <p ng-click="showVideo(video)" title="Watch Now" style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">
