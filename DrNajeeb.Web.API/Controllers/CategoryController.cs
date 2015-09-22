@@ -25,7 +25,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetAll")]
         [HttpGet]
-        public IHttpActionResult GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "Name", bool reverse = false, string search = null)
+        public IHttpActionResult GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "DisplayOrder", bool reverse = false, string search = null)
         {
             try
             {

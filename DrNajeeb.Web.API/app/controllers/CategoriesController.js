@@ -17,7 +17,7 @@
         $scope.pagingInfo = {
             page: 1,
             itemsPerPage: 50,
-            sortBy: 'name',
+            sortBy: 'displayOrder',
             reverse: false,
             search: '',
             totalItems: 0
