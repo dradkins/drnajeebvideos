@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var VideoController = function ($scope, $routeParams, $sce, VideoService) {
+    var VideoController = function ($scope, $routeParams, $sce, VideoService, toastr) {
 
         $scope.video = null;
         $scope.videoId = null;
@@ -33,6 +33,10 @@
         }
 
         var onError = function (error) {
+            if (error.status == 400) {
+                toastr.error("you are not allowed to view this video")
+                window.history.back();
+            }
             console.log(error);
         }
 
@@ -46,7 +50,7 @@
 
     };
 
-    VideoController.$inject = ["$scope", "$routeParams", "$sce", "VideoService"];
+    VideoController.$inject = ["$scope", "$routeParams", "$sce", "VideoService", "toastr"];
     app.controller("VideoController", VideoController);
 
 }(angular.module("DrNajeebUser")));
