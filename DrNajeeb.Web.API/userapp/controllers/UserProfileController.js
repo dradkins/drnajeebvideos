@@ -236,6 +236,9 @@
         }
 
         var onMessagesArriveError = function (error) {
+            if (error.status == 401) {
+                return;
+            }
             console.log(error);
             toastr.error("unable to fetch old messages");
         }
