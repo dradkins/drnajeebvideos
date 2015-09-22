@@ -23,6 +23,12 @@ namespace DrNajeeb.Web.API.Hubs
             //}
         }
 
+
+        public void SendNewVideoNotification(int videoId, string name)
+        {
+            Clients.All.newVideoUploaded(videoId, name);
+        }
+
         public void RegisterAdmin(string username)
         {
             lock (ConnectedAdmins)

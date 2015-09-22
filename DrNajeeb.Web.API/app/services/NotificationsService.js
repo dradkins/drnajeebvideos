@@ -29,6 +29,10 @@
             notificationHub.server.sendMessageToAll(message);
         }
 
+        NotificationsService.newVideoAdded = function (id, name) {
+            notificationHub.server.sendNewVideoNotification(id, name);
+        }
+
         return NotificationsService;
 
     };

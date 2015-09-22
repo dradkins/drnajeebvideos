@@ -212,7 +212,12 @@ namespace DrNajeeb.Web.API.Controllers
 
                 _Uow._Videos.Add(video);
                 await _Uow.CommitAsync();
-                return Ok();
+                var json = new
+                {
+                    Id=video.Id,
+                    Name=video.Name
+                };
+                return Ok(json);
             }
             catch (Exception ex)
             {

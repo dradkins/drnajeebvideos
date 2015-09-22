@@ -14,6 +14,10 @@
             VideoService.removeFromFavorites(video.id).then(onFavoritesRemove, onError);
         }
 
+        $scope.backToLibrary = function () {
+            window.history.back();
+        }
+
         var onFavoritesAdd = function (data) {
             $scope.video.isFavoriteVideo = true;
         }
@@ -35,6 +39,8 @@
         function init() {
             var videoId = $routeParams.videoId;
             VideoService.getVideo(videoId).then(onVideo, onError);
+            setTimeout(window.scrollTo(0, 0), 100);
+            window.scrollTo(0, 0);
         }
         init();
 

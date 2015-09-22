@@ -54,7 +54,7 @@
                                                     </td>
                                                     <td class="mobScreenTableDisNon">
                                                         <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
-                                                            Watch Now <i class="fa fa-arrow-circle-o-right"></i>
+                                                            Play Now <i class="fa fa-arrow-circle-o-right"></i>
                                                         </button>
                                                         <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
                                                             <i class="fa fa-download"></i>
@@ -71,10 +71,11 @@
                                                                     <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span>
                                                                 </p>
                                                                 <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
-                                                                    <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
+                                                                    <!--<button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
                                                                         <i class="fa  fa-plus"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
+                                                                    </button>-->
+                                                                    <!--ng-if="video.isFavoriteVideo"-->
+                                                                    <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" >
                                                                         <i class="fa  fa-plus"></i>
                                                                     </button>
                                                                     <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">

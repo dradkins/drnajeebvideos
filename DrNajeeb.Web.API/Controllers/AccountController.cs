@@ -331,11 +331,11 @@ namespace DrNajeeb.Web.API.Controllers
         {
             var identityResult = new List<IdentityResult>();
 
-            string physicalPath = @"~\";
+            string physicalPath = @"~\Content\drnajeeb-data.xlsx";
             System.Data.OleDb.OleDbCommand cmd = new System.Data.OleDb.OleDbCommand();
             System.Data.OleDb.OleDbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter();
             System.Data.DataSet ds = new System.Data.DataSet();
-            String strNewPath = physicalPath; //HttpContext.Current.Server.MapPath(physicalPath);
+            String strNewPath = HttpContext.Current.Server.MapPath(physicalPath);
             String connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + strNewPath + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
             String query = "SELECT * FROM [Sheet1$]"; // You can use any different queries to get the data from the excel sheet
             System.Data.OleDb.OleDbConnection conn = new System.Data.OleDb.OleDbConnection(connString);

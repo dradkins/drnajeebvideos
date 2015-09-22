@@ -43,6 +43,33 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="dropdown hidden-xs">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-video-camera"></i>
+                            <span class="count" ng-if="videoNotifications.length > 0">{{videoNotifications.length}}</span>
+                        </a>
+                        <ul class="dropdown-menu notifications-list">
+                            <li class="pointer">
+                                <div class="pointer-inner">
+                                    <div class="arrow"></div>
+                                </div>
+                            </li>
+                            <li class="item-header">There are {{videoNotifications.length}} new videos uploaded</li>
+                            <li class="item" ng-repeat="vn in videoNotifications">
+                                <a href="#/video/{{vn.videoId}}">
+                                    <i class="fa fa-comment"></i>
+                                    <span class="content">{{vn.name}}</span>
+                                    <!--<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>-->
+                                </a>
+                            </li>
+                            <li class="item-footer">
+                                <a href="#/support">
+                                    Show all messages
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <!--<li class="dropdown hidden-xs">
                         <a class="btn dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>

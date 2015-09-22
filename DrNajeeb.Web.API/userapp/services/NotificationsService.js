@@ -22,9 +22,13 @@
             $rootScope.$broadcast('messageReceived', message);
         };
 
+        notificationHub.client.newVideoUploaded = function (videoId, name) {
+            $rootScope.$broadcast('newVideoUploaded', { videoId: videoId, name: name });
+        };
+
         notificationHub.client.logout = function () {
             CurrentUserService.logout();
-            aler("Your account used for loin to another device.")
+            alert("You have been logged out from your account. Someone else is using your account.")
             location.reload(true);
         };
 

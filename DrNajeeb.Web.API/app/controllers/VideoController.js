@@ -112,7 +112,7 @@
 
 
 
-    var AddOrEditVideoController = function ($scope, $modalInstance, $filter, VideoService, CategoriesService, video) {
+    var AddOrEditVideoController = function ($scope, $modalInstance, $filter, VideoService, CategoriesService, video, NotificationService) {
 
         $scope.video = video;
         $scope.categories = [];
@@ -160,6 +160,7 @@
             }
             else {
                 VideoService.addVideo($scope.video).then(function (response) {
+                    NotificationService.newVideoAdded(response.id, response.name);
                     $modalInstance.close();
                 })
             }
@@ -170,7 +171,7 @@
         };
     }
 
-    AddOrEditVideoController.$inject = ["$scope", "$modalInstance", "$filter", "VideoService","CategoriesService", "video"]
+    AddOrEditVideoController.$inject = ["$scope", "$modalInstance", "$filter", "VideoService","CategoriesService", "video", "NotificationService"]
 
 
     app.controller("VideosController", VideosController);
