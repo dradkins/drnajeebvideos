@@ -15,7 +15,7 @@
             standardVideoId: null,
             fastVideoId: null,
             categories:[],
-            isFreeVideo:false,
+            isFreeVideo: false,
         };
 
         $scope.pagingInfo = {

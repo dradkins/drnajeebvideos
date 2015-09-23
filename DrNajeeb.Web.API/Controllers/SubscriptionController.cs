@@ -206,7 +206,8 @@ namespace DrNajeeb.Web.API.Controllers
                     {
                         Name=x.Name,
                         ProductId=x.GatewayId,
-                        Id=x.Id
+                        Id=x.Id,
+                        Price=x.Price
                     })
                     .ToListAsync();
                 return Ok(subscriptions);

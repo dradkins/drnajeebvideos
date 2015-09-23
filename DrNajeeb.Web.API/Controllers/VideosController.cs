@@ -278,7 +278,7 @@ namespace DrNajeeb.Web.API.Controllers
                 video.IsEnabled = model.IsEnabled;
                 video.StandardVideoId = model.StandardVideoId;
                 video.FastVideoId = model.StandardVideoId;
-                video.IsFreeVideo = model.IsFreeVideo;
+                video.IsFreeVideo = model.IsFreeVideo ?? false;
                 if (model.Categories != null && model.Categories.Count > 0)
                 {
                     foreach (var item in model.Categories)

@@ -100,6 +100,10 @@
                 templateUrl: "/userapp/views/free-videos.html",
                 controller:"FreeVideosController"
             })
+            .when("/packages", {
+                templateUrl: "/userapp/views/packages.html",
+                controller: "PackagesController"
+            })
         .otherwise({ redirectTo: "/dashboard" })
     });
 
