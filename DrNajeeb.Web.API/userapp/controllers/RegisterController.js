@@ -41,12 +41,17 @@
 
         var onRegister = function (data) {
             toastr.success("Registered successfully, Please login with your email and password.");
-            console.log($scope.selectedSubscription.productId);
-            var url = 'https://www.2checkout.com/checkout/spurchase?sid=1432125&quantity=1&product_id=' + $scope.selectedSubscription.productId;
-            toastr.info("you have been redirected to payment page in 5 seconds, please use email address that you have been used for registration to activate your account successfully.")
-            setTimeout(function () {
-                window.location.href = url;
-            }, 5000)
+            if ($location.path() == '/free-register') {
+                $location.path("/login");
+                return false;
+            }
+            else {
+                var url = 'https://www.2checkout.com/checkout/spurchase?sid=1432125&quantity=1&product_id=' + $scope.selectedSubscription.productId;
+                toastr.info("you have been redirected to payment page in 5 seconds, please use email address that you have been used for registration to activate your account successfully.")
+                setTimeout(function () {
+                    window.location.href = url;
+                }, 5000)
+            }
             //$location.path("/login");
         }
 
@@ -77,7 +82,24 @@
         }
 
         var onSubscriptions = function (data) {
-            $scope.subscriptions = data;
+            if ($location.path() == '/free-register') {
+                $scope.subscriptions = data;
+                angular.forEach($scope.subscriptions, function (item) {
+                    if (item.name == "Free Subscription") {
+                        $scope.selectedSubscription = item;
+                        return false;
+                    }
+                })
+                return false;
+            }
+            else {
+                angular.forEach(data, function (item) {
+                    if (item.name != "Free Subscription") {
+                        $scope.subscriptions.push(item);
+                    }
+                })
+                $scope.selectedSubscription = $scope.subscriptions[0];
+            }
         }
 
         function init() {
@@ -242,7 +264,7 @@
         init();
     }
 
-    RegisterController.$inject = ["$scope", "$timeout", "$location", "$rootScope",  "Facebook", "OAuthService", "CurrentUserService", "CountryService", "SuportService", "toastr"];
+    RegisterController.$inject = ["$scope", "$timeout", "$location", "$rootScope", "Facebook", "OAuthService", "CurrentUserService", "CountryService", "SuportService", "toastr"];
     module.controller("RegisterController", RegisterController);
 
 }(angular.module("DrNajeebUser")));

@@ -37,7 +37,7 @@
                     </li>
                     <li class="" ng-if="$root.isFreeUser">
                         <a href="#/free-videos">
-                            <i class="fa fa-video-camera"></i>
+                            <i class="fa fa-file-video-o"></i>
                             <span>Free Videos</span>
                         </a>
                     </li>
@@ -75,11 +75,17 @@
                     <li class="">
                         <a href="#/support">
                             <i class="fa fa-envelope"></i>
-                            <span>Cutomer Support</span>
+                            <span>Customer Support</span>
                         </a>
                     </li>
                     <li class="nav-header hidden-sm hidden-xs">
                         Settings
+                    </li>
+                    <li class="" ng-if="$root.isFreeUser">
+                        <a href="#/packages">
+                            <i class="fa fa-file-video-o"></i>
+                            <span>Update To Pro</span>
+                        </a>
                     </li>
                     <li class="" ng-if="!$root.facebookProfilePic">
                         <a href="#/profile">

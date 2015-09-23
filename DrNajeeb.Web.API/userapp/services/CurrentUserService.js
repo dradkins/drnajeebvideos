@@ -42,6 +42,7 @@
             $rootScope.USER_NAME = username;
             $rootScope.FULL_NAME = fullName;
             $rootScope.facebookProfilePic = profilePic;
+            $rootScope.isFreeUser = isFreeUser;
             localStorageService.set(USERKEY, angular.toJson(CurrentUserService.profile));
         }
 

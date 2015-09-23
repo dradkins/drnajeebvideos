@@ -83,6 +83,10 @@
                 templateUrl: "/userapp/views/register.html",
                 controller: "RegisterController"
             })
+            .when("/free-register", {
+                templateUrl: "/userapp/views/free-register.html",
+                controller: "RegisterController"
+            })
             .when("/checkout", {
                 templateUrl: "/userapp/views/checkout.html",
             })
