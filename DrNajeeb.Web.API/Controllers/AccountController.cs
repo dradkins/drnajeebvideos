@@ -393,7 +393,7 @@ namespace DrNajeeb.Web.API.Controllers
                 CountryId = model.CountryId,
                 CreatedOn = DateTime.UtcNow,
                 CurrentViews = 0,
-                IsActiveUser = true,
+                IsActiveUser = model.IsFreeUser,
                 IsAllowMobileVideos = true,
                 IsFilterByIP = false,
                 IsParentalControl = false,

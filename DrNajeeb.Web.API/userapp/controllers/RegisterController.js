@@ -9,6 +9,7 @@
             fullName: null,
             countryId: null,
             subscriptionId: null,
+            isFreeUser: false
         }
         $scope.countries = [];
         $scope.country;
@@ -31,6 +32,9 @@
                 }
                 $scope.registerModel.countryId = $scope.selectedCountry.id;
                 $scope.registerModel.subscriptionId = $scope.selectedSubscription.id;
+                if ($location.path() == '/free-register') {
+                    $scope.registerModel.isFreeUser = true;
+                }
                 OAuthService.register($scope.registerModel)
                             .then(onRegister, onRegisterError);
             }

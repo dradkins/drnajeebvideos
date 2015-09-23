@@ -57,6 +57,10 @@
             name: null,
         };
 
+        CurrentUserService.clearLocal = function () {
+            localStorageService.remove(USERKEY);
+        }
+
         return CurrentUserService;
     }
 

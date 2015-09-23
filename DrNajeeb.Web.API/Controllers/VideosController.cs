@@ -505,7 +505,7 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
-                videos = videos.OrderBy("DateLive");
+                videos = videos.OrderBy("DateLive descending");
 
                 int totalVideos = 0;
                 totalVideos = await videos.CountAsync();

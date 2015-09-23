@@ -20,6 +20,7 @@
 
             return $http.post("/token", data, config)
                         .then(function (response) {
+                            console.log(response);
                             var isFreeUser = (response.data.isFreeUser === "True")
                             CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false, isFreeUser);
                             return response.data.fullName;
@@ -68,12 +69,17 @@
         }
 
 
-        //OAuthService.setFullName = function (fullNameModel) {
-        //    return $http.post("/api/account/setFullName", fullNameModel)
-        //                .then(function (response) {
-        //                    CurrentUserService.profile.fullName
-        //                });
-        //}
+        OAuthService.setFullName = function (fullNameModel) {
+            return $http.post("/api/user/setFullName", fullNameModel)
+                        .then(function (response) {
+                            var uname = CurrentUserService.profile.username;
+                            var atoken = CurrentUserService.profile.token;
+                            var fullName = fullNameModel.fullName;
+                            var freeUser=CurrentUserService.profile.isFreeUser;
+                            CurrentUserService.clearLocal();
+                            CurrentUserService.setProfile(uname, atoken, fullName, null, false,freeUser);
+                        });
+        }
 
         return OAuthService;
 

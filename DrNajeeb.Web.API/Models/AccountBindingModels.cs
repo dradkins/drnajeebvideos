@@ -90,6 +90,10 @@ namespace DrNajeeb.Web.API.Models
         [Required]
         [Display(Name = "Subscription")]
         public int SubscriptionId { get; set; }
+
+        [Required]
+        [Display(Name="IsFreeUser")]
+        public bool IsFreeUser { get; set; }
     }
 
     public class RegisterExternalBindingModel

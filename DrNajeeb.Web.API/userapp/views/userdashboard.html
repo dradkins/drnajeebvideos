@@ -126,7 +126,8 @@
                             <div class="col-lg-6">
                                 <div class="main-box feed">
                                     <header class="main-box-header clearfix">
-                                        <h2 class="pull-left">New Features</h2>
+                                        <h2 class="pull-left" ng-if="!$root.isFreeUser">New Features</h2>
+                                        <h2 class="pull-left" ng-if="$root.isFreeUser">Upgrade now to access these features</h2>
                                     </header>
 
                                     <div class="main-box-body clearfix">

@@ -401,5 +401,25 @@ namespace DrNajeeb.Web.API.Controllers
 
             return null;
         }
+
+        [ActionName("SetFullName")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> SetFullName(SetFullNameViewModel model)
+        {
+            try
+            {
+                var userId=User.Identity.GetUserId();
+                var user = await _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefaultAsync();
+                user.FullName = model.FullName;
+                _Uow._Users.Update(user);
+                await _Uow.CommitAsync();
+                return Ok(model.FullName);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

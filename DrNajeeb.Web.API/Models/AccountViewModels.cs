@@ -14,6 +14,11 @@ namespace DrNajeeb.Web.API.Models
         public string State { get; set; }
     }
 
+    public class SetFullNameViewModel
+    {
+        public string FullName { get; set; }
+    }
+
     public class ManageInfoViewModel
     {
         public string LocalLoginProvider { get; set; }
