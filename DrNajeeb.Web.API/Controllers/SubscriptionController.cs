@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Data.Entity;
 using System.Linq.Dynamic;
+using Microsoft.AspNet.Identity;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -27,7 +28,7 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var subscriptionList=new List<SubscriptionModel>();
+                var subscriptionList = new List<SubscriptionModel>();
                 var subscriptions = _Uow._Subscription.GetAll(x => x.Active == true);
 
                 // searching
@@ -48,7 +49,8 @@ namespace DrNajeeb.Web.API.Controllers
                 var subscriptionsPaged = await subscriptions.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
 
                 //Converting to modal object
-                subscriptionsPaged.ForEach(x=>{
+                subscriptionsPaged.ForEach(x =>
+                {
                     subscriptionList.Add(new SubscriptionModel
                     {
                         Description = x.Description,
@@ -204,10 +206,10 @@ namespace DrNajeeb.Web.API.Controllers
                     .GetAll(x => x.Active == true && x.IsActiveSubscription == true)
                     .Select(x => new
                     {
-                        Name=x.Name,
-                        ProductId=x.GatewayId,
-                        Id=x.Id,
-                        Price=x.Price
+                        Name = x.Name,
+                        ProductId = x.GatewayId,
+                        Id = x.Id,
+                        Price = x.Price
                     })
                     .ToListAsync();
                 return Ok(subscriptions);
@@ -218,5 +220,30 @@ namespace DrNajeeb.Web.API.Controllers
             }
         }
 
+
+        [ActionName("GetUserSubscriptionDetails")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetUserSubscriptionDetails()
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var userSubscription = await _Uow._Users
+                    .GetAll(x => x.Id == userId)
+                    .Include(x => x.Subscription)
+                    .Select(x => new
+                    {
+                        Name = x.Subscription.Name,
+                        Description=x.Subscription.Description
+                    })
+                .FirstOrDefaultAsync();
+                return Ok(userSubscription);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

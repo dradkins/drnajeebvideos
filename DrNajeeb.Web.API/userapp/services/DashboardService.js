@@ -12,12 +12,16 @@
             return VideoService.getFavoritesVideos(pagingInfo);
         }
 
+        function getPackage() {
+            return SuportService.getUserPackage();
+        }
+
         function getTotalUnreadMessages() {
             return SuportService.getTotalUnreadMessages();
         }
 
         DashboardService.getDashboardData = function (pagingInfo) {
-            return $q.all([getNewVideos(pagingInfo), getFavoriteVideos(pagingInfo), getTotalUnreadMessages()]).then(function (results) {
+            return $q.all([getNewVideos(pagingInfo), getFavoriteVideos(pagingInfo), getTotalUnreadMessages(), getPackage()]).then(function (results) {
                 return results;
             });
         }

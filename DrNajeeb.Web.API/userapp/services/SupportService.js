@@ -40,6 +40,13 @@
                         });
         }
 
+        SuportService.getUserPackage = function () {
+            return $http.get("/api/subscription/getUserSubscriptionDetails")
+                        .then(function (response) {
+                            return response.data;
+                        });
+        }
+
         return SuportService;
     }
 
