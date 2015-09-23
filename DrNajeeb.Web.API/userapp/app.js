@@ -121,6 +121,8 @@
 
         $rootScope.isFreeUser = CurrentUserService.profile.isFreeUser;
 
+        $root.showDownloadOption = false;
+
         $rootScope.VIDEOS = [];
 
         $rootScope.UPDATE_VIDEOS = function (typed) {

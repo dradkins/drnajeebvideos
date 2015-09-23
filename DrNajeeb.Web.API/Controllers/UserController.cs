@@ -128,7 +128,25 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var user = new ApplicationUser() { UserName = model.EmailAddress, Email = model.EmailAddress };
+                var user = new ApplicationUser()
+                {
+                    UserName = model.EmailAddress,
+                    Email = model.EmailAddress,
+                    Active = true,
+                    CountryId = (model.CountryID.HasValue) ? model.CountryID.Value : 418,
+                    CreatedOn = DateTime.UtcNow,
+                    CurrentViews = 0,
+                    FullName = model.FullName,
+                    IsActiveUser = model.IsActiveUser,
+                    IsAllowMobileVideos = true,
+                    IsFilterByIP = model.IsFilterByIP,
+                    IsParentalControl = false,
+                    IsPasswordReset = model.IsPasswordReset,
+                    NoOfConcurentViews = model.NoOfConcurrentViews,
+                    SubscriptionId = model.SubscriptionID.Value,
+                    IsFreeUser=false,
+                    SubscriptionDate=DateTime.UtcNow,
+                };
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -137,17 +155,6 @@ namespace DrNajeeb.Web.API.Controllers
                     return GetErrorResult(result);
                 }
                 var currentUser = await _Uow._Users.GetAll(x => x.Id == user.Id).FirstOrDefaultAsync();
-                currentUser.Active = true;
-                currentUser.CountryId = model.CountryID;
-                currentUser.CreatedOn = DateTime.UtcNow;
-                currentUser.FullName = model.FullName;
-                currentUser.IsActiveUSer = model.IsActiveUser;
-                currentUser.IsAllowMobileVideos = true;
-                currentUser.IsFilterByIP = model.IsFilterByIP;
-                currentUser.IsParentalControl = false;
-                currentUser.IsPasswordReset = model.IsPasswordReset;
-                currentUser.NoOfConcurentViews = model.NoOfConcurrentViews;
-                currentUser.SubscriptionId = model.SubscriptionID;
 
                 if (currentUser.IsFilterByIP)
                 {
@@ -359,7 +366,7 @@ namespace DrNajeeb.Web.API.Controllers
                     }
                     return Ok(user.ProfilePicture);
                 }
-                
+
             }
             return Ok();
         }
@@ -409,7 +416,7 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var userId=User.Identity.GetUserId();
+                var userId = User.Identity.GetUserId();
                 var user = await _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefaultAsync();
                 user.FullName = model.FullName;
                 _Uow._Users.Update(user);

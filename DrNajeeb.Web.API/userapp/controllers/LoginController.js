@@ -168,7 +168,7 @@
 
 
         var onExternalLogin = function (data) {
-            CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true, data.isFreeUser);
+            CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true, data.isFreeUser, data.showDownloadOption);
             toastr.success("Welcome " + data.fullName);
             $location.path("/dashboard");
         }

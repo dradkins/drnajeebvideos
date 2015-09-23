@@ -270,7 +270,7 @@ namespace DrNajeeb.Web.API.Controllers
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value);
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
@@ -403,7 +403,7 @@ namespace DrNajeeb.Web.API.Controllers
                 SubscriptionId = model.SubscriptionId,
                 ExpirationDate = DateTime.UtcNow.AddDays(30),
                 Active = true,
-                IsFreeUser=true
+                IsFreeUser = true
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -500,10 +500,12 @@ namespace DrNajeeb.Web.API.Controllers
                     // Create the response building a JSON object that mimics exactly the one issued by the default /Token endpoint
                     JObject token = new JObject(
                         new JProperty("userName", user.UserName),
+                        new JProperty("isFreeUser", user.IsFreeUser),
                         new JProperty("id", user.Id),
                         new JProperty("fullName", user.FullName),
                         new JProperty("access_token", accessToken),
                         new JProperty("token_type", "bearer"),
+                        new JProperty("showDownloadOption", (user.SubscriptionId == 1)),
                         new JProperty("expires_in", TimeSpan.FromDays(365).TotalSeconds.ToString()),
                         new JProperty(".issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
                         new JProperty(".expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))
@@ -532,7 +534,7 @@ namespace DrNajeeb.Web.API.Controllers
                     SubscriptionId = 2,
                     ExpirationDate = DateTime.UtcNow.AddDays(30),
                     Active = true,
-                    IsFreeUser=true
+                    IsFreeUser = true
                 };
 
                 result = await UserManager.CreateAsync(user);
@@ -662,6 +664,7 @@ namespace DrNajeeb.Web.API.Controllers
                 new JProperty("fullName", user.FullName),
                 new JProperty("access_token", accessToken),
                 new JProperty("token_type", "bearer"),
+                new JProperty("showDownloadOption", (user.SubscriptionId == 1)),
                 new JProperty("expires_in", TimeSpan.FromDays(365).TotalSeconds.ToString()),
                 new JProperty(".issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
                 new JProperty(".expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))

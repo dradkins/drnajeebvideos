@@ -27,7 +27,7 @@
         var responseError = function (response) {
             if (response.status == 401) {
                 console.log($location.path());
-                if ($location.path() == '/register' || $location.path() == '/free-register') {
+                if ($location.path() == '/register' || $location.path() == '/free-register' || $location.path() == '/video-library') {
                     return $q.reject(response);
                 }
                 //console.log($location.path());

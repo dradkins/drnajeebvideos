@@ -67,7 +67,7 @@ namespace DrNajeeb.Web.API.Providers
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value);
+            AuthenticationProperties properties = CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
@@ -109,13 +109,14 @@ namespace DrNajeeb.Web.API.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, string fullName, bool isFreeUser)
+        public static AuthenticationProperties CreateProperties(string userName, string fullName, bool isFreeUser, int subId)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", userName },
                 {"fullName", fullName},
                 {"isFreeUser", (isFreeUser)?"True":"False"},
+                {"showDownloadOption", (subId==1)?"True":"False"},
             };
             return new AuthenticationProperties(data);
         }

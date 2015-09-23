@@ -22,7 +22,8 @@
                         .then(function (response) {
                             console.log(response);
                             var isFreeUser = (response.data.isFreeUser === "True")
-                            CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false, isFreeUser);
+                            var showDownloadOption = (response.data.showDownloadOption === "True")
+                            CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false, isFreeUser, showDownloadOption);
                             return response.data.fullName;
                         });
 
@@ -75,9 +76,10 @@
                             var uname = CurrentUserService.profile.username;
                             var atoken = CurrentUserService.profile.token;
                             var fullName = fullNameModel.fullName;
-                            var freeUser=CurrentUserService.profile.isFreeUser;
+                            var freeUser = CurrentUserService.profile.isFreeUser;
+                            var showDownloadOption = CurrentUserService.profile.showDownloadOption;
                             CurrentUserService.clearLocal();
-                            CurrentUserService.setProfile(uname, atoken, fullName, null, false,freeUser);
+                            CurrentUserService.setProfile(uname, atoken, fullName, null, false, freeUser, showDownloadOption);
                         });
         }
 
