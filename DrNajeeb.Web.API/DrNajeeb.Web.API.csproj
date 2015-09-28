@@ -321,6 +321,7 @@
     <Content Include="userapp\directives\menuHider.js" />
     <Content Include="userapp\directives\messagesScroller.js" />
     <Content Include="userapp\services\NotificationsService.js" />
+    <Content Include="userapp\services\PoolingService.js" />
     <Content Include="userapp\views\checkout.html" />
     <Content Include="userapp\views\free-register.html" />
     <Content Include="userapp\views\free-videos.html" />

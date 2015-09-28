@@ -27,6 +27,8 @@ namespace DrNajeeb.Contract
         IRepository<UserFavoriteVideo> _Favorites { get; }
         IRepository<UserVideoHistory> _UserVideoHistory { get; }
         IRepository<SupportMessage> _SupportMessages { get; }
+        IRepository<LoggedInTracking> _LoggedInTracking { get; }
+
 
         #endregion
     }

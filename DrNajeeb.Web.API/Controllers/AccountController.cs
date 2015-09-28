@@ -23,6 +23,7 @@ using Newtonsoft.Json.Linq;
 using System.Net;
 using DrNajeeb.Web.API.Hubs;
 using System.Linq;
+using DrNajeeb.Contract;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -33,8 +34,9 @@ namespace DrNajeeb.Web.API.Controllers
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
 
-        public AccountController()
+        public AccountController(IUow uow)
         {
+            _Uow = uow;
         }
 
         public AccountController(ApplicationUserManager userManager, ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
@@ -510,6 +512,15 @@ namespace DrNajeeb.Web.API.Controllers
                         new JProperty(".issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
                         new JProperty(".expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))
                     );
+
+                    //_Uow._LoggedInTracking.Add(new EF.LoggedInTracking
+                    //{
+                    //    DateTimeLoggedIn = DateTime.UtcNow,
+                    //    Token = accessToken,
+                    //    UserId = user.Id
+                    //});
+                    //await _Uow.CommitAsync();
+
                     return Ok(user.Id);
                 }
             }
@@ -669,6 +680,15 @@ namespace DrNajeeb.Web.API.Controllers
                 new JProperty(".issued", currentUtc.ToString("ddd, dd MMM yyyy HH':'mm':'ss 'GMT'")),
                 new JProperty(".expires", currentUtc.Add(TimeSpan.FromDays(365)).ToString("ddd, dd MMM yyyy HH:mm:ss 'GMT'"))
             );
+
+            //_Uow._LoggedInTracking.Add(new EF.LoggedInTracking
+            //{
+            //    DateTimeLoggedIn = DateTime.UtcNow,
+            //    Token = accessToken,
+            //    UserId = user.Id
+            //});
+            //await _Uow.CommitAsync();
+
             return Ok(token);
         }
 

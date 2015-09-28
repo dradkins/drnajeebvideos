@@ -32,6 +32,7 @@ namespace DrNajeeb.EF
             this.IpAddressFilters1 = new HashSet<IpAddressFilter>();
             this.IpAddressFilters2 = new HashSet<IpAddressFilter>();
             this.IpAddressFilters3 = new HashSet<IpAddressFilter>();
+            this.LoggedInTrackings = new HashSet<LoggedInTracking>();
             this.Subscriptions = new HashSet<Subscription>();
             this.Subscriptions1 = new HashSet<Subscription>();
             this.Subscriptions2 = new HashSet<Subscription>();
@@ -104,6 +105,7 @@ namespace DrNajeeb.EF
         public virtual ICollection<IpAddressFilter> IpAddressFilters1 { get; set; }
         public virtual ICollection<IpAddressFilter> IpAddressFilters2 { get; set; }
         public virtual ICollection<IpAddressFilter> IpAddressFilters3 { get; set; }
+        public virtual ICollection<LoggedInTracking> LoggedInTrackings { get; set; }
         public virtual ICollection<Subscription> Subscriptions { get; set; }
         public virtual ICollection<Subscription> Subscriptions1 { get; set; }
         public virtual ICollection<Subscription> Subscriptions2 { get; set; }

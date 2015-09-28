@@ -24,9 +24,14 @@
                             var isFreeUser = (response.data.isFreeUser === "True")
                             var showDownloadOption = (response.data.showDownloadOption === "True")
                             CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false, isFreeUser, showDownloadOption);
+                            saveToken(response.data.access_token);
                             return response.data.fullName;
                         });
 
+        }
+
+        var saveToken = function (token) {
+            $http.post("/api/user/SaveUserToken", { fullName: token }).then(function (response) { return response;})
         }
 
         OAuthService.changePassword = function (changePasswordModel) {

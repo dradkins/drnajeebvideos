@@ -6,7 +6,7 @@
         "ui.bootstrap",
         "LocalStorageModule",
         "toastr",
-        "jcs-autoValidate",
+        //"jcs-autoValidate",
         "facebook",
         "directive.g+signin",
         "angularFileUpload",
@@ -111,7 +111,9 @@
         .otherwise({ redirectTo: "/dashboard" })
     });
 
-    app.run(function ($rootScope, $location, $http, $q, CurrentUserService) {
+    app.run(function ($rootScope, $location, $http, $q, CurrentUserService, PoolingService) {
+
+        PoolingService.StartPooling();
 
         $rootScope.location = $location;
 
@@ -121,7 +123,7 @@
 
         $rootScope.isFreeUser = CurrentUserService.profile.isFreeUser;
 
-        $root.showDownloadOption = false;
+        $rootScope.showDownloadOption = false;
 
         $rootScope.VIDEOS = [];
 

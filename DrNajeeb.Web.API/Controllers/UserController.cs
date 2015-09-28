@@ -144,8 +144,8 @@ namespace DrNajeeb.Web.API.Controllers
                     IsPasswordReset = model.IsPasswordReset,
                     NoOfConcurentViews = model.NoOfConcurrentViews,
                     SubscriptionId = model.SubscriptionID.Value,
-                    IsFreeUser=false,
-                    SubscriptionDate=DateTime.UtcNow,
+                    IsFreeUser = false,
+                    SubscriptionDate = DateTime.UtcNow,
                 };
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -426,6 +426,66 @@ namespace DrNajeeb.Web.API.Controllers
             catch (Exception ex)
             {
                 return InternalServerError(ex);
+            }
+        }
+
+        [ActionName("SaveUserToken")]
+        [HttpPost]
+        public async Task<IHttpActionResult> SaveUserToken(SetFullNameViewModel model)
+        {
+            var userId = User.Identity.GetUserId();
+
+            _Uow._LoggedInTracking.Add(new EF.LoggedInTracking
+            {
+                DateTimeLoggedIn = DateTime.UtcNow,
+                Token = model.FullName,
+                UserId = userId
+            });
+            await _Uow.CommitAsync();
+            return Ok();
+        }
+
+        [ActionName("CheckValidity")]
+        [HttpGet]
+        public async Task<IHttpActionResult> CheckValidity(string id)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var user = await _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefaultAsync();
+
+                var loggedInUsers = _Uow._LoggedInTracking.GetAll(x => x.UserId == userId).OrderBy(x => x.DateTimeLoggedIn);
+
+                if (!loggedInUsers.Any(x => x.Token == id))
+                {
+                    var json = new
+                    {
+                        Result = false,
+                    };
+                    return Ok(json);
+                }
+
+                if (loggedInUsers.Count() > user.NoOfConcurentViews)
+                {
+                    var toDelete = await loggedInUsers.FirstAsync();
+                    _Uow._LoggedInTracking.Delete(toDelete);
+                    await _Uow.CommitAsync();
+                    var json = new
+                    {
+                        Result = true,
+                    };
+                    return Ok(json);
+                }
+
+                var jsonResult = new
+                {
+                    Result = true,
+                };
+                return Ok(jsonResult);
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
             }
         }
     }

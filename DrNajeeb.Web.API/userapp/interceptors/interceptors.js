@@ -20,7 +20,7 @@
     app.factory("addToken", addToken);
 
     //for redirecting user to login page
-    var loginRedirect = function ($q, $location) {
+    var loginRedirect = function ($q, $location, CurrentUserService) {
 
         var lastPath="/dashboard"
 
@@ -30,8 +30,7 @@
                 if ($location.path() == '/register' || $location.path() == '/free-register' || $location.path() == '/video-library') {
                     return $q.reject(response);
                 }
-                //console.log($location.path());
-                //lastPath = $location.path();
+                CurrentUserService.logout();
                 $location.path("/login");
             }
             return $q.reject(response);
@@ -48,7 +47,7 @@
 
     }
 
-    loginRedirect.$inject = ["$q", "$location"];
+    loginRedirect.$inject = ["$q", "$location", "CurrentUserService"];
     app.factory("loginRedirect", loginRedirect);
 
     //registering interceptors

@@ -70,6 +70,21 @@ namespace DrNajeeb.Web.API.Providers
             AuthenticationProperties properties = CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
+
+            var ticketString=context.Ticket.ToString();
+
+            //var accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
+
+            //var _Uow = new DrNajeeb.Data.Uow(new DrNajeeb.Data.Helpers.RepositoryProvider(new Data.Helpers.RepositoryFactories()));
+
+            //_Uow._LoggedInTracking.Add(new EF.LoggedInTracking
+            //{
+            //    DateTimeLoggedIn = DateTime.UtcNow,
+            //    Token = accessToken,
+            //    UserId = user.Id
+            //});
+            //await _Uow.CommitAsync();
+
             context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
 
@@ -79,7 +94,6 @@ namespace DrNajeeb.Web.API.Providers
             {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
             }
-
             return Task.FromResult<object>(null);
         }
 

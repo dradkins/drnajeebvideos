@@ -208,6 +208,15 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="IsFreeVideo" Type="bit" />
         </EntityType>
+        <EntityType Name="LoggedInTracking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Token" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateTimeLoggedIn" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="SupportMessages">
           <Key>
             <PropertyRef Name="Id" />
@@ -534,6 +543,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__LoggedInT__UserI__02FC7413">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="LoggedInTracking" Type="Self.LoggedInTracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoggedInTracking">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Subscript__Creat__60A75C0F">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="*" />
@@ -774,6 +795,7 @@
           <EntitySet Name="UserFavoriteVideos" EntityType="Self.UserFavoriteVideos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserVideoHistory" EntityType="Self.UserVideoHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoggedInTracking" EntityType="Self.LoggedInTracking" Schema="purgesol" store:Type="Tables" />
           <EntitySet Name="SupportMessages" EntityType="Self.SupportMessages" Schema="purgesol" store:Type="Tables" />
           <AssociationSet Name="FK__AspNetUse__Count__47DBAE45" Association="Self.FK__AspNetUse__Count__47DBAE45">
             <End Role="Countries" EntitySet="Countries" />
@@ -878,6 +900,10 @@
           <AssociationSet Name="FK__IpAddress__UserI__5FB337D6" Association="Self.FK__IpAddress__UserI__5FB337D6">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LoggedInT__UserI__02FC7413" Association="Self.FK__LoggedInT__UserI__02FC7413">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LoggedInTracking" EntitySet="LoggedInTracking" />
           </AssociationSet>
           <AssociationSet Name="FK__Subscript__Creat__60A75C0F" Association="Self.FK__Subscript__Creat__60A75C0F">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1046,6 +1072,7 @@
           <NavigationProperty Name="IpAddressFilters1" Relationship="Self.FK__IpAddress__Creat__5DCAEF64" FromRole="AspNetUsers" ToRole="IpAddressFilters" />
           <NavigationProperty Name="IpAddressFilters2" Relationship="Self.FK__IpAddress__UserI__5EBF139D" FromRole="AspNetUsers" ToRole="IpAddressFilters" />
           <NavigationProperty Name="IpAddressFilters3" Relationship="Self.FK__IpAddress__UserI__5FB337D6" FromRole="AspNetUsers" ToRole="IpAddressFilters" />
+          <NavigationProperty Name="LoggedInTrackings" Relationship="Self.FK__LoggedInT__UserI__02FC7413" FromRole="AspNetUsers" ToRole="LoggedInTracking" />
           <NavigationProperty Name="Subscriptions" Relationship="Self.FK__Subscript__Creat__60A75C0F" FromRole="AspNetUsers" ToRole="Subscriptions" />
           <NavigationProperty Name="Subscriptions1" Relationship="Self.FK__Subscript__Creat__619B8048" FromRole="AspNetUsers" ToRole="Subscriptions" />
           <NavigationProperty Name="Subscriptions2" Relationship="Self.FK__Subscript__Updat__628FA481" FromRole="AspNetUsers" ToRole="Subscriptions" />
@@ -1235,6 +1262,16 @@
           <NavigationProperty Name="CategoryVideos1" Relationship="Self.FK__CategoryV__Video__5BE2A6F2" FromRole="Videos" ToRole="CategoryVideos" />
           <NavigationProperty Name="UserFavoriteVideos" Relationship="Self.FK__UserFavor__Video__656C112C" FromRole="Videos" ToRole="UserFavoriteVideos" />
           <NavigationProperty Name="UserVideoHistories" Relationship="Self.FK__UserVideo__Video__6754599E" FromRole="Videos" ToRole="UserVideoHistory" />
+        </EntityType>
+        <EntityType Name="LoggedInTracking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateTimeLoggedIn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__LoggedInT__UserI__02FC7413" FromRole="LoggedInTracking" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="SupportMessage">
           <Key>
@@ -1492,6 +1529,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="IpAddressFilters">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LoggedInT__UserI__02FC7413">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+          <End Role="LoggedInTracking" Type="Self.LoggedInTracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoggedInTracking">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1779,6 +1828,7 @@
           <EntitySet Name="UserFavoriteVideos" EntityType="Self.UserFavoriteVideo" />
           <EntitySet Name="UserVideoHistories" EntityType="Self.UserVideoHistory" />
           <EntitySet Name="Videos" EntityType="Self.Video" />
+          <EntitySet Name="LoggedInTrackings" EntityType="Self.LoggedInTracking" />
           <EntitySet Name="SupportMessages" EntityType="Self.SupportMessage" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -1859,6 +1909,10 @@
           <AssociationSet Name="FK__IpAddress__UserI__5FB337D6" Association="Self.FK__IpAddress__UserI__5FB337D6">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="IpAddressFilters" EntitySet="IpAddressFilters" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LoggedInT__UserI__02FC7413" Association="Self.FK__LoggedInT__UserI__02FC7413">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="LoggedInTracking" EntitySet="LoggedInTrackings" />
           </AssociationSet>
           <AssociationSet Name="FK__Subscript__Creat__60A75C0F" Association="Self.FK__Subscript__Creat__60A75C0F">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -2163,6 +2217,16 @@
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="IsFreeVideo" ColumnName="IsFreeVideo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoggedInTrackings">
+            <EntityTypeMapping TypeName="DrNajeebLecturesDBModel.LoggedInTracking">
+              <MappingFragment StoreEntitySet="LoggedInTracking">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="DateTimeLoggedIn" ColumnName="DateTimeLoggedIn" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,22 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4df0735921184cb29125396ea4289591" Name="Diagram1">
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.AspNetUser" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.CategoriesInSubscription" Width="1.5" PointX="7.5" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.Category" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.CategoryVideo" Width="1.5" PointX="7.5" PointY="26" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.Country" Width="1.5" PointX="0.75" PointY="21" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.IpAddressFilter" Width="1.5" PointX="5.25" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.Subscription" Width="1.5" PointX="5.25" PointY="20.75" IsExpanded="true" />
+      <Diagram DiagramId="3e39af5a0b694cc59cd445f9feb6eec4" Name="Diagram1">
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.AspNetRole" Width="1.5" PointX="0.75" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.AspNetUser" Width="1.5" PointX="3" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.CategoriesInSubscription" Width="1.5" PointX="7.5" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.Category" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.CategoryVideo" Width="1.5" PointX="7.5" PointY="25.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.Country" Width="1.5" PointX="0.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.IpAddressFilter" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.Subscription" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DrNajeebLecturesDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.UserFavoriteVideo" Width="1.5" PointX="7.5" PointY="30.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.UserVideoHistory" Width="1.5" PointX="10.5" PointY="29.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.Video" Width="1.5" PointX="5.25" PointY="36.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.SupportMessage" Width="1.5" PointX="5.25" PointY="32.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.UserFavoriteVideo" Width="1.5" PointX="7.5" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.UserVideoHistory" Width="1.5" PointX="10.5" PointY="29.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.Video" Width="1.5" PointX="5.25" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.LoggedInTracking" Width="1.5" PointX="5.25" PointY="32.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DrNajeebLecturesDBModel.SupportMessage" Width="1.5" PointX="5.25" PointY="43.375" IsExpanded="true" />
         <AssociationConnector Association="DrNajeebLecturesDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="DrNajeebLecturesDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="DrNajeebLecturesDBModel.FK__AspNetUse__Count__47DBAE45" ManuallyRouted="false" />
@@ -40,6 +41,7 @@
         <AssociationConnector Association="DrNajeebLecturesDBModel.FK__IpAddress__Creat__5DCAEF64" ManuallyRouted="false" />
         <AssociationConnector Association="DrNajeebLecturesDBModel.FK__IpAddress__UserI__5EBF139D" ManuallyRouted="false" />
         <AssociationConnector Association="DrNajeebLecturesDBModel.FK__IpAddress__UserI__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="DrNajeebLecturesDBModel.FK__LoggedInT__UserI__02FC7413" ManuallyRouted="false" />
         <AssociationConnector Association="DrNajeebLecturesDBModel.FK__Subscript__Creat__60A75C0F" ManuallyRouted="false" />
         <AssociationConnector Association="DrNajeebLecturesDBModel.FK__Subscript__Creat__619B8048" ManuallyRouted="false" />
         <AssociationConnector Association="DrNajeebLecturesDBModel.FK__Subscript__Updat__628FA481" ManuallyRouted="false" />
