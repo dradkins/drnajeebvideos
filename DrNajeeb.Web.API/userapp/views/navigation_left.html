@@ -39,6 +39,14 @@
                         <a href="#/free-videos">
                             <i class="fa fa-file-video-o"></i>
                             <span>Free Videos</span>
+                            <span class="label label-success pull-right">Enjoy</span>
+                        </a>
+                    </li>
+                    <li class="" ng-if="$root.isFreeUser">
+                        <a href="#/packages">
+                            <i class="fa fa-thumbs-up"></i>
+                            <span>Upgrade Access</span>
+                            <span class="label label-danger pull-right">Now</span>
                         </a>
                     </li>
                     <li class="">
@@ -53,6 +61,7 @@
                             <span>Video Library</span>
                         </a>
                     </li>
+                    
                     <!--<li>
                 <a href="#/clinicalvideos">
                     <i class="fa fa-bell"></i>
@@ -66,6 +75,7 @@
                             <span>My Playlist</span>
                         </a>
                     </li>
+                    
                     <li class="">
                         <a href="#/history">
                             <i class="fa fa-history"></i>
@@ -81,12 +91,7 @@
                     <li class="nav-header hidden-sm hidden-xs">
                         Settings
                     </li>
-                    <li class="" ng-if="$root.isFreeUser">
-                        <a href="#/packages">
-                            <i class="fa fa-file-video-o"></i>
-                            <span>Update To Pro</span>
-                        </a>
-                    </li>
+                    
                     <li class="" ng-if="!$root.facebookProfilePic">
                         <a href="#/profile">
                             <i class="fa fa-user"></i>
