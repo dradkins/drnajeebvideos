@@ -59,6 +59,7 @@
             return $http.post("/api/account/externalSignin", signinModel)
                         .then(function (response) {
                             return response.data;
+                            saveToken(response.data.access_token);
                         });
         }
 
