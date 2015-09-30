@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var VideoService = function ($http) {
+    var VideoService = function ($http, $q) {
 
         var VideoService = {};
 
@@ -53,12 +53,36 @@
                    });
         };
 
+        VideoService.getVideoThumbnail = function (videoId) {
+
+            return $http.jsonp('http://vimeo.com/api/v2/video/' + videoId + '.json?callback=JSON_CALLBACK&_=' + (new Date().getTime()))
+                .success(function (r) {
+                    console.info("Success: " + r);
+                })
+                .error(function (e) {
+                    console.info("Error: " + e);
+                });
+
+
+            //var deferred = $q.defer();
+
+            //$http.jsonp('http://vimeo.com/api/v2/video/' + videoId + '.json').success(function (data) {
+            //    console.log(data);
+            //    var thumbs = data[0]['thumnail_small'];
+            //    deferred.resolve(thumbs);
+            //}).error(function (error) {
+            //    console.log(error);
+            //    deferred.reject();
+            //});
+            //return deferred.promise;
+        }
+
 
         return VideoService;
 
     }
 
-    VideoService.$inject = ["$http"];
+    VideoService.$inject = ["$http", "$q"];
     app.factory("VideoService", VideoService);
 
 }(angular.module("DrNajeebUser")));
