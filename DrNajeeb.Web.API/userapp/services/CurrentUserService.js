@@ -16,7 +16,7 @@
                 isLoggedIn: function () {
                     return this.token;
                 },
-                showDownloadOption:false,
+                showDownloadOption: false,
             };
             var localUser = localStorageService.get(USERKEY);
             if (localUser) {
@@ -60,6 +60,9 @@
         CurrentUserService.externalLogin = {
             token: null,
             name: null,
+            subscriptionId: null,
+            isFreeUser: null,
+            selectedSubscription: null,
         };
 
         CurrentUserService.clearLocal = function () {

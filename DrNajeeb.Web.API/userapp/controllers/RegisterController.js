@@ -220,6 +220,9 @@
             if (error.status === 404) {
                 CurrentUserService.externalLogin.token = $scope.facebookToken;
                 CurrentUserService.externalLogin.name = $scope.user1.name;
+                CurrentUserService.externalLogin.subscriptionId = $scope.
+                CurrentUserService.externalLogin.isFreeUser = ($location.path() == '/free-register') ? true : false;
+                CurrentUserService.externalLogin.selectedSub=scription
                 $location.path("/register-external")
             }
             else {
