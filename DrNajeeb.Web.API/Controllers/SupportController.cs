@@ -15,7 +15,6 @@ using DrNajeeb.EF;
 
 namespace DrNajeeb.Web.API.Controllers
 {
-    [Authorize]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalBearer)]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie)]
     public class SupportController : BaseController
@@ -28,6 +27,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("SupportMessage")]
         [HttpPost]
+        [Authorize]
         public async Task<IHttpActionResult> SupportMessage(SupportModel model)
         {
             try
@@ -99,6 +99,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("SupportMessageReply")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> SupportMessageReply(SupportModel model)
         {
             try
@@ -135,6 +136,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("LoadUserMessages")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> LoadUserMessages()
         {
             try
@@ -177,6 +179,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserMessages")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> GetUserMessages(string userId)
         {
             try
@@ -221,6 +224,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetContactRequestUsers")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> GetContactRequestUsers(int page = 1, int itemsPerPage = 20)
         {
             try
@@ -271,6 +275,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("SendMessageToAll")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> SendMessageToAll(SupportModel model)
         {
             try

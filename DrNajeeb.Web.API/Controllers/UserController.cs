@@ -16,7 +16,6 @@ using System.IO;
 
 namespace DrNajeeb.Web.API.Controllers
 {
-    [Authorize]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalBearer)]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie)]
     public class UserController : BaseController
@@ -43,6 +42,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetAll")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "CreatedOn", bool reverse = true, string search = null)
         {
             try
@@ -124,6 +124,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("AddUser")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> AddUser(UserModel model)
         {
             try
@@ -184,6 +185,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetLatestUsers")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> GetLatestUsers()
         {
             try
@@ -244,6 +246,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserCount")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> GetUserCount()
         {
             try
@@ -259,6 +262,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("UpdateUser")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> UpdateUser(UserModel model)
         {
             try
@@ -312,6 +316,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("DeleteUser")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> DeleteUser([FromBody]string userId)
         {
             try
@@ -349,6 +354,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("UploadProfilePic")]
         [HttpPost]
+        [Authorize]
         public async Task<IHttpActionResult> UploadProfilePic()
         {
             if (HttpContext.Current.Request.Files.AllKeys.Any())
@@ -374,6 +380,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserProfilePicture")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> GetUserProfilePicture()
         {
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
@@ -431,6 +438,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("SaveUserToken")]
         [HttpPost]
+        [Authorize]
         public async Task<IHttpActionResult> SaveUserToken(SetFullNameViewModel model)
         {
             var userId = User.Identity.GetUserId();
@@ -447,6 +455,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("CheckValidity")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> CheckValidity(string id)
         {
             try

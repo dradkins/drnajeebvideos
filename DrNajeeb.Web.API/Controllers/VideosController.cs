@@ -28,6 +28,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetAll")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "Name", bool reverse = false, string search = null)
         {
             try
@@ -98,6 +99,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetByCategoryForSorting")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetByCategoryForSorting(int id)
         {
             try
@@ -139,6 +141,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("UpdateOrder")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> UpdateOrder(List<VideoSortingModel> model)
         {
             try
@@ -170,6 +173,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("AddVideo")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> AddVideo(VideoModel model)
         {
             try
@@ -228,6 +232,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("DeleteVideo")]
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> DeleteVideo(int id)
         {
             try
@@ -261,6 +266,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("UpdateVideo")]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> UpdateVideo(VideoModel model)
         {
             try
@@ -312,6 +318,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetSingle")]
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> GetSingle(int Id)
         {
             try
@@ -344,6 +351,7 @@ namespace DrNajeeb.Web.API.Controllers
         }
 
         [ActionName("GetVideosCount")]
+        [Authorize]
         public async Task<IHttpActionResult> GetVideosCount()
         {
             try
@@ -369,6 +377,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetByCategory")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> GetByCategory(int id)
         {
             try
@@ -412,6 +421,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserVideo")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> GetUserVideo(int id)
         {
             try
@@ -483,6 +493,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("getUserNewVideo")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> GetUserNewVideo(int page = 1, int itemsPerPage = 20, string search = null)
         {
             try
@@ -567,6 +578,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("getUserFreeVideo")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> GetUserFreeVideo(int page = 1, int itemsPerPage = 20, string search = null)
         {
             try
@@ -640,6 +652,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("AddUserVideoToFavorite")]
         [HttpPost]
+        [Authorize]
         public async Task<IHttpActionResult> AddUserVideoToFavorite(UserFavoriteVideoModel model)
         {
             try
@@ -665,6 +678,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("DeleteUserVideoToFavorite")]
         [HttpDelete]
+        [Authorize]
         public async Task<IHttpActionResult> DeleteUserVideoToFavorite(int id)
         {
             try
@@ -688,6 +702,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserFavoriteVideos")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> GetUserFavoriteVideos(int page = 1, int itemsPerPage = 20, string search = null)
         {
             try
@@ -771,6 +786,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserVideosHistory")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> GetUserVideosHistory(int page = 1, int itemsPerPage = 20, string search = null)
         {
             try

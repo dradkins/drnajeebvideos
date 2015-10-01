@@ -13,7 +13,7 @@ using DrNajeeb.EF;
 
 namespace DrNajeeb.Web.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles="Admin")]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalBearer)]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie)]
     public class CategoryController : BaseController
