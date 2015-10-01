@@ -12,7 +12,7 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <div id="content-header" class="clearfix">
+                                <div id="content-header" class="clearfix homeSignUpBtn">
                                     <div class="pull-left">
                                         <!--<ol class="breadcrumb">
                                             <li><a href="">Home</a></li>
@@ -21,6 +21,16 @@
 
                                         <h1>Dashboard</h1>
                                     </div>
+                                    <!--signup button code strt-->
+                                    <div class="pull-right signUpBtnHome" ng-if="$root.isFreeUser">
+                                     <a href="#/packages"><button class="btn btn-success slideInRight animated" title="SignUp here">
+                                        <i class="fa fa-user"></i> Upgrade Access
+                                        </button>
+                                     </a>
+
+                                    </div>
+                                    <!--sign up button code closed-->
+
                                     <!--<div class="pull-right hidden-xs">
                                         <div class="xs-graph pull-left mrg-l-lg mrg-r-sm">
                                             <div class="graph-label">

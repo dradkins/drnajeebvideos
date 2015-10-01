@@ -16,7 +16,7 @@ namespace DrNajeeb.Data
 
         protected IRepositoryProvider _RepositoryProvider { get; set; }
 
-        private DrNajeebLecturesDBEntities _DbContext { get; set; }
+        private Entities _DbContext { get; set; }
 
 
         #endregion
@@ -64,7 +64,7 @@ namespace DrNajeeb.Data
 
         private void CreateDbContext()
         {
-            this._DbContext = new DrNajeebLecturesDBEntities();
+            this._DbContext = new Entities();
 
             // Do NOT enable proxied entities, else serialization fails
             _DbContext.Configuration.ProxyCreationEnabled = false;

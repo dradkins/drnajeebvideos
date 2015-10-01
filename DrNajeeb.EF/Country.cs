@@ -18,6 +18,12 @@ namespace DrNajeeb.EF
         {
             this.AspNetUsers = new HashSet<AspNetUser>();
             this.AspNetUsers1 = new HashSet<AspNetUser>();
+            this.AspNetUsers2 = new HashSet<AspNetUser>();
+            this.AspNetUsers3 = new HashSet<AspNetUser>();
+            this.AspNetUsers4 = new HashSet<AspNetUser>();
+            this.AspNetUsers5 = new HashSet<AspNetUser>();
+            this.AspNetUsers6 = new HashSet<AspNetUser>();
+            this.AspNetUsers7 = new HashSet<AspNetUser>();
         }
     
         public int Id { get; set; }
@@ -28,5 +34,11 @@ namespace DrNajeeb.EF
     
         public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
         public virtual ICollection<AspNetUser> AspNetUsers1 { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers2 { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers3 { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers4 { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers5 { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers6 { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers7 { get; set; }
     }
 }

@@ -107,7 +107,8 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="video in videos | filter: search">
-                                                        <td class="mobScreenTableDisNon">{{video.name}}</td>
+                                                        <!--class="mobScreenTableDisNon"-->
+                                                        <td style="max-width:75% !important;">{{video.name}}</td>
                                                         <td>
                                                             <a href="#/register" class="btn btn-info">
                                                                 Sign Up now

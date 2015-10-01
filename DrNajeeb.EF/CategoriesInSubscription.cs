@@ -20,7 +20,19 @@ namespace DrNajeeb.EF
     
         public virtual Category Category { get; set; }
         public virtual Category Category1 { get; set; }
+        public virtual Category Category2 { get; set; }
+        public virtual Category Category3 { get; set; }
+        public virtual Category Category4 { get; set; }
+        public virtual Category Category5 { get; set; }
+        public virtual Category Category6 { get; set; }
+        public virtual Category Category7 { get; set; }
         public virtual Subscription Subscription { get; set; }
         public virtual Subscription Subscription1 { get; set; }
+        public virtual Subscription Subscription2 { get; set; }
+        public virtual Subscription Subscription3 { get; set; }
+        public virtual Subscription Subscription4 { get; set; }
+        public virtual Subscription Subscription5 { get; set; }
+        public virtual Subscription Subscription6 { get; set; }
+        public virtual Subscription Subscription7 { get; set; }
     }
 }

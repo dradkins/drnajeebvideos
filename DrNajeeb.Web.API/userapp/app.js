@@ -10,7 +10,8 @@
         "facebook",
         "directive.g+signin",
         "angularFileUpload",
-        "LiveSearch"
+        "LiveSearch",
+        "ngIOS9UIWebViewPatch"
     ]);
 
     app.config(function ($routeProvider, FacebookProvider) {

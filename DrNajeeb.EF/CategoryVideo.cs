@@ -23,9 +23,27 @@ namespace DrNajeeb.EF
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
+        public virtual AspNetUser AspNetUser2 { get; set; }
+        public virtual AspNetUser AspNetUser3 { get; set; }
+        public virtual AspNetUser AspNetUser4 { get; set; }
+        public virtual AspNetUser AspNetUser5 { get; set; }
+        public virtual AspNetUser AspNetUser6 { get; set; }
+        public virtual AspNetUser AspNetUser7 { get; set; }
         public virtual Category Category { get; set; }
         public virtual Category Category1 { get; set; }
+        public virtual Category Category2 { get; set; }
+        public virtual Category Category3 { get; set; }
+        public virtual Category Category4 { get; set; }
+        public virtual Category Category5 { get; set; }
+        public virtual Category Category6 { get; set; }
+        public virtual Category Category7 { get; set; }
         public virtual Video Video { get; set; }
         public virtual Video Video1 { get; set; }
+        public virtual Video Video2 { get; set; }
+        public virtual Video Video3 { get; set; }
+        public virtual Video Video4 { get; set; }
+        public virtual Video Video5 { get; set; }
+        public virtual Video Video6 { get; set; }
+        public virtual Video Video7 { get; set; }
     }
 }

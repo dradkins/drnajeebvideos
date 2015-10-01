@@ -28,9 +28,9 @@
 
         var onVideo = function (data) {
             $scope.video = data;
-            $scope.videoId = "vzvd-" + $scope.video.vzaarVideoId;
-            //$scope.videoSource = $sce.trustAsResourceUrl("//player.vimeo.com/video/" + $scope.video.vzaarVideoId);
-            $scope.videoSource = $sce.trustAsResourceUrl("https://view.vzaar.com/" + $scope.video.vzaarVideoId + "/player?apiOn=true");
+            //$scope.videoId = "vzvd-" + $scope.video.vzaarVideoId;
+            $scope.videoSource = $sce.trustAsResourceUrl("//player.vimeo.com/video/" + $scope.video.vzaarVideoId);
+            //$scope.videoSource = $sce.trustAsResourceUrl("https://view.vzaar.com/" + $scope.video.vzaarVideoId + "/player?apiOn=true");
         }
 
         var onError = function (error) {

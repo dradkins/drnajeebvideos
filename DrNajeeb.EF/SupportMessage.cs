@@ -26,5 +26,11 @@ namespace DrNajeeb.EF
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }
+        public virtual AspNetUser AspNetUser2 { get; set; }
+        public virtual AspNetUser AspNetUser3 { get; set; }
+        public virtual AspNetUser AspNetUser4 { get; set; }
+        public virtual AspNetUser AspNetUser5 { get; set; }
+        public virtual AspNetUser AspNetUser6 { get; set; }
+        public virtual AspNetUser AspNetUser7 { get; set; }
     }
 }

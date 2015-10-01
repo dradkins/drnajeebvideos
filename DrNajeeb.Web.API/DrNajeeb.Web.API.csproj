@@ -308,6 +308,7 @@
     <Content Include="Content\sitecontent\css\compiled\angular.css" />
     <Content Include="Scripts\angular-auto-complete.js" />
     <Content Include="Scripts\angular-file-upload.js" />
+    <Content Include="Scripts\angular-fix.js" />
     <Content Include="Scripts\angular-google-plus.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />

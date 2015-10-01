@@ -19,6 +19,12 @@ namespace DrNajeeb.EF
         public int VideoId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual AspNetUser AspNetUser1 { get; set; }
+        public virtual AspNetUser AspNetUser2 { get; set; }
+        public virtual AspNetUser AspNetUser3 { get; set; }
         public virtual Video Video { get; set; }
+        public virtual Video Video1 { get; set; }
+        public virtual Video Video2 { get; set; }
+        public virtual Video Video3 { get; set; }
     }
 }

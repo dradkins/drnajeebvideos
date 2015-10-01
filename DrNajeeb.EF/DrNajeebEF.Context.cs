@@ -13,10 +13,10 @@ namespace DrNajeeb.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DrNajeebLecturesDBEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public DrNajeebLecturesDBEntities()
-            : base("name=DrNajeebLecturesDBEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -35,11 +35,11 @@ namespace DrNajeeb.EF
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<IpAddressFilter> IpAddressFilters { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserFavoriteVideo> UserFavoriteVideos { get; set; }
         public virtual DbSet<UserVideoHistory> UserVideoHistories { get; set; }
         public virtual DbSet<Video> Videos { get; set; }
         public virtual DbSet<LoggedInTracking> LoggedInTrackings { get; set; }
         public virtual DbSet<SupportMessage> SupportMessages { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

@@ -20,5 +20,8 @@ namespace DrNajeeb.EF
         public System.DateTime DateTimeLoggedIn { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual AspNetUser AspNetUser1 { get; set; }
+        public virtual AspNetUser AspNetUser2 { get; set; }
+        public virtual AspNetUser AspNetUser3 { get; set; }
     }
 }
