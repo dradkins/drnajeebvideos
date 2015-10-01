@@ -41,6 +41,18 @@
             console.log(error);
         }
 
+        $scope.downloadVideo = function (video) {
+            console.log(video);
+            VideoService.downloadVideo(video.vzaarVideoId)
+                    .then(function (data) {
+
+                        var link = document.createElement("a");
+                        link.download = video.name + ".mp4";
+                        link.href = data;
+                        link.click();
+                    })
+        }
+
         function init() {
             var videoId = $routeParams.videoId;
             VideoService.getVideo(videoId).then(onVideo, onError);

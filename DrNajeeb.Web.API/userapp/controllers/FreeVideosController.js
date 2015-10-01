@@ -91,6 +91,18 @@
 
         loadVideos();
 
+        $scope.downloadVideo = function (video) {
+            console.log(video);
+            VideoService.downloadVideo(video.vzaarVideoId)
+                    .then(function (data) {
+
+                        var link = document.createElement("a");
+                        link.download = video.name + ".mp4";
+                        link.href = data;
+                        link.click();
+                    })
+        }
+
     };
 
     FreeVideosController.$inject = ["$scope", "$log", "$routeParams", "$rootScope", "$location", "VideoService"];

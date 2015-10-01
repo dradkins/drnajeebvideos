@@ -4,9 +4,11 @@
     var addToken = function ($q, CurrentUserService) {
 
         var request = function (config) {
-            if (CurrentUserService.profile.isLoggedIn()) {
-                //config.headers['Authorization'] = "Bearer " + CurrentUserService.profile.token;
-                config.headers.Authorization = "Bearer " + CurrentUserService.profile.token;
+            if (config.url.indexOf("webservice.drnajeebvideos.com") == -1) {
+                if (CurrentUserService.profile.isLoggedIn()) {
+                    //config.headers['Authorization'] = "Bearer " + CurrentUserService.profile.token;
+                    config.headers.Authorization = "Bearer " + CurrentUserService.profile.token;
+                }
             }
             return $q.when(config);
         }
@@ -23,7 +25,7 @@
     //for redirecting user to login page
     var loginRedirect = function ($q, $location, CurrentUserService) {
 
-        var lastPath="/dashboard"
+        var lastPath = "/dashboard"
 
         var responseError = function (response) {
             if (response.status == 401) {

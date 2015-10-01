@@ -78,6 +78,13 @@
         }
 
 
+        VideoService.downloadVideo = function (id) {
+            return $http.get("http://webservice.drnajeebvideos.com/service.php?id=" + id)
+                .then(function (response) {
+                    return response.data;
+                })
+        }
+
         return VideoService;
 
     }
