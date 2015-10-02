@@ -169,11 +169,11 @@
         }
 
         $scope.ok = function () {
-            var re = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
-            if (re.test($scope.user.password) == false) {
-                toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
-                return false;
-            }
+            //var re = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
+            //if (re.test($scope.user.password) == false) {
+            //    toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
+            //    return false;
+            //}
             UserService.addUser($scope.user).then(function (response) {
                 toastr.info("user added successfully");
                 $modalInstance.close();
@@ -249,13 +249,13 @@
         }
 
         $scope.ok = function () {
-            if ($scope.user.password) {
-                var re = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
-                if (re.test($scope.user.password) == false) {
-                    toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
-                    return false;
-                }
-            }
+            //if ($scope.user.password) {
+            //    var re = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
+            //    if (re.test($scope.user.password) == false) {
+            //        toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
+            //        return false;
+            //    }
+            //}
             $scope.user.countryID = $scope.selectedCountry.id;
             $scope.user.subscriptionID = $scope.selectedSubscription.id;
             UserService.editUser($scope.user).then(function (response) {

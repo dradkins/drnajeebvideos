@@ -123,8 +123,7 @@
         $rootScope.FULL_NAME = CurrentUserService.profile.fullName;
 
         $rootScope.isFreeUser = CurrentUserService.profile.isFreeUser;
-
-        $rootScope.showDownloadOption = false;
+        $rootScope.showDownloadOption = CurrentUserService.profile.showDownloadOption;;
 
         $rootScope.VIDEOS = [];
 

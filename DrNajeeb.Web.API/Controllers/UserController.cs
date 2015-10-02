@@ -267,11 +267,12 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
+
                 if (!string.IsNullOrEmpty(model.Password))
                 {
-                    ApplicationUser user = await UserManager.FindByIdAsync(model.EmailAddress);
+                    ApplicationUser user = await UserManager.FindByEmailAsync(model.EmailAddress);
                     user.PasswordHash = UserManager.PasswordHasher.HashPassword(model.Password);
-                    await UserManager.UpdateSecurityStampAsync(model.EmailAddress);
+                    //await UserManager.UpdateSecurityStampAsync(model.EmailAddress);
                     IdentityResult result = await UserManager.UpdateAsync(user);
                     if (result != null && !result.Succeeded)
                     {
