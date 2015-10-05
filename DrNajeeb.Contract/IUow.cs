@@ -28,7 +28,7 @@ namespace DrNajeeb.Contract
         IRepository<UserVideoHistory> _UserVideoHistory { get; }
         IRepository<SupportMessage> _SupportMessages { get; }
         IRepository<LoggedInTracking> _LoggedInTracking { get; }
-
+        IRepository<IpAddressFilter> _IpAddressFilter { get; }
 
         #endregion
     }

@@ -168,12 +168,32 @@
             $scope.user.filteredIPs.splice(index, 1);
         }
 
+        $scope.ipAddress = "";
+
+        $scope.addIpAddress = function () {
+            if (!ValidateIPaddress($scope.ipAddress)) {
+                alert("Ip Address is not valid");
+                return false;
+            }
+            $scope.user.filteredIPs.push($scope.ipAddress);
+            $scope.ipAddress = "";
+        }
+
+        function ValidateIPaddress(ipaddress) {
+            if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {
+                return (true)
+            }
+            return (false)
+        }
+
         $scope.ok = function () {
             //var re = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/;
             //if (re.test($scope.user.password) == false) {
             //    toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
             //    return false;
             //}
+            //console.log(user);
+
             UserService.addUser($scope.user).then(function (response) {
                 toastr.info("user added successfully");
                 $modalInstance.close();
@@ -246,6 +266,24 @@
 
         $scope.removeFilterdIP = function (index) {
             $scope.user.filteredIPs.splice(index, 1);
+        }
+
+        $scope.ipAddress = "";
+
+        $scope.addIpAddress = function () {
+            if (!ValidateIPaddress($scope.ipAddress)) {
+                alert("Ip Address is not valid");
+                return false;
+            }
+            $scope.user.filteredIPs.push($scope.ipAddress);
+            $scope.ipAddress = "";
+        }
+
+        function ValidateIPaddress(ipaddress) {
+            if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {
+                return (true)
+            }
+            return (false)
         }
 
         $scope.ok = function () {

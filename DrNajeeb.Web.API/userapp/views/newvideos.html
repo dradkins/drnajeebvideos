@@ -65,9 +65,9 @@
                                                         <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
                                                             Play Now <i class="fa fa-arrow-circle-o-right"></i>
                                                         </button>
-                                                        <button class="btn btn-default" ng-click="downloadVideo(video)" title="Download Video" ng-if="$root.showDownloadOption">
+                                                        <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
                                                             <i class="fa fa-download"></i>
-                                                        </button>
+                                                        </a>
                                                         <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
                                                             <i class="fa  fa-plus"></i>
                                                         </button>

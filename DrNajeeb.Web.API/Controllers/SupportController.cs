@@ -230,14 +230,23 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var usersModelList = new List<SupportUsersModel>();
-                var users = await _Uow._SupportMessages.GetAll(x => x.Active == true && x.IsFromAdmin == false)
+                var users = _Uow._SupportMessages.GetAll(x => x.Active == true && x.IsFromAdmin == false)
+                    .OrderByDescending(x => x.MessageDatetime)
+                    .Select(x => x.AspNetUser)
+                    .Distinct();
+
+                var totalContactedUsers=await users.CountAsync();
+
+                var selectedUsers = await _Uow._SupportMessages.GetAll(x => x.Active == true && x.IsFromAdmin == false)
                     .OrderByDescending(x => x.MessageDatetime)
                     .Skip((page - 1) * itemsPerPage)
                     .Take(itemsPerPage)
                     .Select(x => x.AspNetUser)
                     .Distinct()
                     .ToListAsync();
-                foreach (var user in users)
+
+                
+                foreach (var user in selectedUsers)
                 {
                     var supportUser = new SupportUsersModel();
                     supportUser.UserId = user.Id;
@@ -248,7 +257,13 @@ namespace DrNajeeb.Web.API.Controllers
                     usersModelList.Add(supportUser);
                 }
 
-                return Ok(usersModelList);
+                var json = new
+                {
+                    data=usersModelList,
+                    count=totalContactedUsers
+                };
+
+                return Ok(json);
             }
             catch (Exception ex)
             {
@@ -301,6 +316,26 @@ namespace DrNajeeb.Web.API.Controllers
                 }
                 await _Uow.CommitAsync();
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+
+        [ActionName("GetTotalUnreadMessagesForAdmin")]
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IHttpActionResult> GetTotalUnreadMessagesForAdmin()
+        {
+            try
+            {
+                var totalUnreadMessages = await _Uow._SupportMessages
+                    .GetAll(x => x.Active == true && x.IsFromAdmin == false && x.IsRead == false)
+                    .CountAsync();
+
+                return Ok(totalUnreadMessages);
             }
             catch (Exception ex)
             {

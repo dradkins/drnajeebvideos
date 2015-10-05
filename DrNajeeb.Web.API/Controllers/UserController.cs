@@ -166,7 +166,8 @@ namespace DrNajeeb.Web.API.Controllers
                             currentUser.IpAddressFilters.Add(new EF.IpAddressFilter
                             {
                                 CreatedOn = DateTime.UtcNow,
-                                IpAddress = item
+                                IpAddress = item,
+                                UserId=currentUser.Id
                             });
                         }
                     }

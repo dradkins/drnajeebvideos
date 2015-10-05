@@ -59,6 +59,7 @@
     app.run(function ($rootScope, $location, CurrentUserService) {
         $rootScope.location = $location;
         $rootScope.USER_NAME = CurrentUserService.profile.username;
+        $rootScope.FullName = CurrentUserService.profile.fullName;
         $rootScope.LOG_OUT = function () {
             CurrentUserService.logout();
         }

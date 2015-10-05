@@ -24,9 +24,15 @@
             });
         }
 
+        function getTotalMessages() {
+            return $http.get("/api/support/getTotalUnreadMessagesForAdmin").then(function (response) {
+                return response;
+            });
+        }
+
         DashboardService.getDashboardData = function () {
 
-            return $q.all([getUsersCount(), getVideosCount(), getLatestUsers()]).then(function (results) {
+            return $q.all([getUsersCount(), getVideosCount(), getLatestUsers(), getTotalMessages()]).then(function (results) {
                 return results;
             });
         }

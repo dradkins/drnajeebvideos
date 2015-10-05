@@ -9,6 +9,7 @@
             var user = {
                 username: "",
                 token: "",
+                fullName:"",
                 isLoggedIn: function () {
                     return this.token;
                 },
@@ -18,16 +19,21 @@
                 var currentUser = angular.fromJson(localUser);
                 user.username = currentUser.username;
                 user.token = currentUser.token;
+                user.fullName = currentUser.fullName;
+
+                $rootScope.FullName = currentUser.fullName;
             }
             return user;
         }
 
         CurrentUserService.profile = initialize();
 
-        CurrentUserService.setProfile = function (username, token) {
+        CurrentUserService.setProfile = function (username, token, fullName) {
             CurrentUserService.profile.username = username;
             CurrentUserService.profile.token = token;
+            CurrentUserService.profile.fullName = fullName;
             $rootScope.USER_NAME = username;
+            $rootScope.FullName = fullName;
             localStorageService.set(USERKEY, angular.toJson(CurrentUserService.profile));
         }
 

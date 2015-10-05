@@ -33,12 +33,12 @@
 
                                             
 
-                                            <iframe ng-src="{{videoSource}}" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                            <!--<iframe ng-src="{{videoSource}}" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
 
-                                            <!--<iframe id="{{videoId}}" class="vzaar-video-player" width="720"
+                                            <iframe id="{{videoId}}" class="vzaar-video-player" width="720"
                                                     height="480" frameborder="0" webkitallowfullscreen="" type="text/html"
                                                     title="vzaar video player" ng-src="{{videoSource}}"
-                                                    name="{{videoId}}" mo="" allowtransparency="true" allowfullscreen=""></iframe>-->
+                                                    name="{{videoId}}" mo="" allowtransparency="true" allowfullscreen=""></iframe>
                                         </div>
                                     </div>
                                 </div>
@@ -113,9 +113,12 @@
                                                 <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
                                                     Remove From Playlist <i class="fa  fa-plus"></i>
                                                 </button>
-                                                <button class="btn btn-default" ng-click="downloadVideo(video)" title="Download Video" ng-if="$root.showDownloadOption">
+                                                <!--<button class="btn btn-default" ng-click="downloadVideo(video)" title="Download Video" ng-if="$root.showDownloadOption">
                                                     Download <i class="fa fa-download"></i>
-                                                </button>
+                                                </button>-->
+                                                <a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self" download="{{video.name}}.mp4">
+                                                    Download <i class="fa fa-download"></i>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>

@@ -62,6 +62,21 @@ namespace DrNajeeb.Web.API.Providers
                 return;
             }
 
+            if (user.IsFilterByIP)
+            {
+                var _Uow = new DrNajeeb.Data.Uow(new DrNajeeb.Data.Helpers.RepositoryProvider(new Data.Helpers.RepositoryFactories()));
+                var IPAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                if (string.IsNullOrEmpty(IPAddress))
+                {
+                    IPAddress = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+                }
+                if (!_Uow._IpAddressFilter.GetAll(x => x.UserId == user.Id).Any(x => x.IpAddress == IPAddress))
+                {
+                    context.SetError("invalid_ip", user.Id);
+                    return;
+                }
+            }
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,

@@ -8,7 +8,7 @@
         $scope.messages == [];
         $scope.pagingInfo = {
             page: 1,
-            itemsPerPage: 50,
+            itemsPerPage: 20,
             totalItems: 0
         };
         $scope.selectedUser = null;
@@ -101,8 +101,8 @@
         }
 
         var onUsersLoaded = function (data) {
-            console.log(data);
-            $scope.contactedUsers = data;
+            $scope.contactedUsers = data.data;
+            $scope.pagingInfo.totalItems = data.count;
         }
 
         var onUsersLoadingError = function (error) {

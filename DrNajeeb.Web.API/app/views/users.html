@@ -200,13 +200,19 @@
                                                     <div class="form-group" ng-show="user.isFilterByIP">
                                                         <label>IP Addresses</label>
                                                         <div class="well">
-                                                            <button class="btn btn-warning" ng-click="user.filteredIPs.push({})" ng-hide="user.filteredIPs.length > 0">Add New</button>
-                                                            <div class="row" ng-repeat="ip in user.filteredIPs">
-                                                                <div class="col-md-4">
-                                                                    <input type="text" class="form-control" />
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" ng-model="ipAddress" />
                                                                 </div>
-                                                                <div class="col-md-1">
-                                                                    <button class="btn btn-primary" ng-click="user.filteredIPs.push({})"><i class="fa fa-plus"></i></button>
+                                                                <div class="col-sm-6">
+                                                                    <a href="" class="btn btn-warning" ng-click="addIpAddress()">Add Ip Address</a>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <br />
+                                                            <div class="row" ng-repeat="ip in user.filteredIPs track by $index">
+                                                                <div class="col-md-4">
+                                                                    <label>{{ip}}</label>
                                                                 </div>
                                                                 <div class="col-md-1">
                                                                     <button class="btn btn-danger" ng-click="removeFilterdIP($index)"><i class="fa fa-minus"></i></button>
@@ -306,13 +312,19 @@
                                                     <div class="form-group" ng-show="user.isFilterByIP">
                                                         <label>IP Addresses</label>
                                                         <div class="well">
-                                                            <button class="btn btn-warning" ng-click="user.filteredIPs.push({})" ng-hide="user.filteredIPs.length > 0">Add New</button>
-                                                            <div class="row" ng-repeat="ip in user.filteredIPs">
-                                                                <div class="col-md-4">
-                                                                    <input type="text" class="form-control" />
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" ng-model="ipAddress" />
                                                                 </div>
-                                                                <div class="col-md-1">
-                                                                    <button class="btn btn-primary" ng-click="user.filteredIPs.push({})"><i class="fa fa-plus"></i></button>
+                                                                <div class="col-sm-6">
+                                                                    <a href="" class="btn btn-warning" ng-click="addIpAddress()">Add Ip Address</a>
+                                                                </div>
+                                                            </div>
+                                                            <br />
+                                                            <br />
+                                                            <div class="row" ng-repeat="ip in user.filteredIPs track by $index">
+                                                                <div class="col-md-4">
+                                                                    <label>{{ip}}</label>
                                                                 </div>
                                                                 <div class="col-md-1">
                                                                     <button class="btn btn-danger" ng-click="removeFilterdIP($index)"><i class="fa fa-minus"></i></button>

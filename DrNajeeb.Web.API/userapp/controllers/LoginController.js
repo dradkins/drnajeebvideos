@@ -50,6 +50,9 @@
                     allowHtml: true
                 });
             }
+            if (response.data.error == "invalid_ip") {
+                toastr.error("You are not allowed to visit website on this IP Address");
+            }
             else {
                 toastr.error(response.data.error_description);
             }

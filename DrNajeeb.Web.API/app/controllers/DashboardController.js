@@ -6,6 +6,7 @@
         $scope.dashboardData = {
             totalUsers: 0,
             totalVideos: 0,
+            totalMessages:0,
             latestUsers: []
         };
 
@@ -15,6 +16,8 @@
             $scope.dashboardData.totalUsers = response[0].data;
             $scope.dashboardData.totalVideos = response[1].data;
             $scope.dashboardData.latestUsers = response[2].data;
+            console.log(response[3]);
+            $scope.dashboardData.totalMessages = response[3].data;
         }
 
         var onError = function (error) {
@@ -130,21 +133,8 @@
             }
         }
 
-        var displayWeather = function () {
-            /* ANIMATED WEATHER */
-            var skycons = new Skycons({ "color": "#03a9f4" });
-            // on Android, a nasty hack is needed: {"resizeClear": true}
-
-            // you can add a canvas by it's ID...s
-            skycons.add("current-weather", Skycons.RAIN);
-
-            // start animation!
-            skycons.play();
-        }
-
         function init() {
             drawCharts();
-            displayWeather();
             DashboardService.getDashboardData().then(onDashboardData, onError);
         }
 
