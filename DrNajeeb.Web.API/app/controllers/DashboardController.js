@@ -11,7 +11,7 @@
         };
 
         $scope.chartLabels = [];
-        $scope.chartSeries = ["Active Users", "InActive Users", "Free Users"];
+        $scope.chartSeries = ["Active Users", "InActive Users"];
         $scope.chartData = [];
 
         $scope.search = "";
@@ -30,13 +30,13 @@
             angular.forEach(chartsData, function (item) {
 
                 $scope.chartLabels.push($filter('date')(item.day, 'mediumDate'));
-                freeUsers.push(item.freeUsers);
+                //freeUsers.push(item.freeUsers);
                 activeUsers.push(item.activeUsers);
                 inActiveUsers.push(item.inActiveUsers);
 
             });
 
-            $scope.chartData.push(freeUsers);
+            //$scope.chartData.push(freeUsers);
             $scope.chartData.push(activeUsers);
             $scope.chartData.push(inActiveUsers);
         }
