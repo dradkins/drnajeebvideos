@@ -24,6 +24,13 @@
             });
         }
 
+        function getUserChartData() {
+            return $http.get("/api/user/getUserChartData").then(function (response) {
+                console.log(response);
+                return response;
+            });
+        }
+
         function getTotalMessages() {
             return $http.get("/api/support/getTotalUnreadMessagesForAdmin").then(function (response) {
                 return response;
@@ -32,7 +39,7 @@
 
         DashboardService.getDashboardData = function () {
 
-            return $q.all([getUsersCount(), getVideosCount(), getLatestUsers(), getTotalMessages()]).then(function (results) {
+            return $q.all([getUsersCount(), getVideosCount(), getLatestUsers(), getTotalMessages(), getUserChartData()]).then(function (results) {
                 return results;
             });
         }

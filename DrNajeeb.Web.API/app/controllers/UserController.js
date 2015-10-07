@@ -256,7 +256,9 @@
             toastr.error(message, error.data.message);
         }
 
+        
         function init() {
+            console.log(user);
             CountryService.getAll().then(onCountries, onError);
             SubscriptionService.getSubscriptions().then(onSubscriptions, onError);
             RolesService.getAll().then(onRoles, onError);

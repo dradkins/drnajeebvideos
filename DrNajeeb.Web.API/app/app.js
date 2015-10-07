@@ -12,7 +12,8 @@
             "ui.sortable",
             "toastr",
             "jcs-autoValidate",
-            "LocalStorageModule"
+            "LocalStorageModule",
+            "chart.js"
         ]);
 
     app.config(function ($routeProvider) {

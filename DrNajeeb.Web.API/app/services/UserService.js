@@ -42,6 +42,13 @@
                         });
         };
 
+        UserService.getUsersCount = function () {
+            return $http.get("/api/user/getUserChartData")
+                        .then(function (response) {
+                            return response.data;
+                        });
+        };
+
         return UserService;
     }
 

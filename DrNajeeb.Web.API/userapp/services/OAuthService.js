@@ -89,6 +89,10 @@
                         });
         }
 
+        OAuthService.resetPassword = function (email) {
+            return $http.post("/api/account/forgotPassword", email);
+        }
+
         return OAuthService;
 
     }

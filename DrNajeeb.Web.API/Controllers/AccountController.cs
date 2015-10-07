@@ -24,6 +24,7 @@ using System.Net;
 using DrNajeeb.Web.API.Hubs;
 using System.Linq;
 using DrNajeeb.Contract;
+using DrNajeeb.Web.API.Helpers;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -691,6 +692,74 @@ namespace DrNajeeb.Web.API.Controllers
 
             return Ok(token);
         }
+
+
+
+
+        /****** Change Pasword ********/
+
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("ForgotPassword")]
+        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Please enter valid email address");
+                return BadRequest(ModelState);
+            }
+
+            ApplicationUser user = await UserManager.FindByNameAsync(model.Email);
+
+            //for security purpose don't show the user id
+            if (user == null)
+            {
+                return Ok();
+            }
+
+            var pwd = RandomUtil.GetRandomString();
+            string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            var result = await UserManager.ResetPasswordAsync(user.Id, code, pwd);
+            if (result.Succeeded)
+            {
+                await UserManager.SendEmailAsync(user.Id, "Password Reset", "Your password reset successfully, Please change the password when you login. New password is " + pwd);
+                return Ok();
+            }
+            return GetErrorResult(result);
+
+            //string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+            //var callbackUrl = string.Format("http://members.drnajeeblectures.com/#/reset-password/{0}/{1}", user.Id, HttpUtility.UrlEncode(code).Replace("%2f", "%252F"));
+            //await UserManager.SendEmailAsync(user.Id, "Reset your password", callbackUrl);
+
+            //return Ok();
+        }
+
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[Route("ResetPassword")]
+        //public async Task<IHttpActionResult> ResetPassword(ResetPasswordBindingModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var user = await UserManager.FindByIdAsync(model.UserId);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+        //    if (result.Succeeded)
+        //    {
+        //        return Ok();
+        //    }
+        //    return GetErrorResult(result);
+        //}
+
+
+        /******* Change Password **********/
 
         protected override void Dispose(bool disposing)
         {

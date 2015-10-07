@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -155,6 +156,26 @@ namespace DrNajeeb.Web.API.Helpers
                 sb.Append(hashBytes[i].ToString("X2"));
             }
             return sb.ToString();
+        }
+    }
+
+    public static class RandomUtil
+    {
+        /// <summary>
+        /// Get random string of 11 characters.
+        /// </summary>
+        /// <returns>Random string.</returns>
+        /// 
+        public static string GetRandomString()
+        {
+            Random rnd = new Random();
+            string characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+            StringBuilder result = new StringBuilder(8);
+            for (int i = 0; i < 8; i++)
+            {
+                result.Append(characters[rnd.Next(characters.Length)]);
+            }
+            return result.ToString();
         }
     }
 }

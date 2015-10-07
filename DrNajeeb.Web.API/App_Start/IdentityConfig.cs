@@ -25,6 +25,9 @@ namespace DrNajeeb.Web.API
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
+
+            manager.EmailService = new DrNajeeb.Web.API.Services.EmailService();
+
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {

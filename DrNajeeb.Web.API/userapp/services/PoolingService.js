@@ -4,7 +4,7 @@
 
         PoolingService = {};
 
-        var timeIntervalInSec = 7;
+        var timeIntervalInSec = 70000;
 
         function callFnOnInterval(fn, timeInterval) {
             return $interval(fn, 1000 * timeInterval);

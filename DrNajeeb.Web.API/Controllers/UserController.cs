@@ -13,6 +13,7 @@ using DrNajeeb.Web.API.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.IO;
+using System.Data.Entity.Core.Objects;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -52,7 +53,8 @@ namespace DrNajeeb.Web.API.Controllers
                 var users = _Uow._Users.GetAll(x => x.Active == true)
                     .Include(x => x.Country)
                     .Include(x => x.Subscription)
-                    .Include(x => x.AspNetRoles);
+                    .Include(x => x.AspNetRoles)
+                    .Include(x=>x.IpAddressFilters);
 
                 // searching
                 if (!string.IsNullOrWhiteSpace(search))
@@ -102,6 +104,17 @@ namespace DrNajeeb.Web.API.Controllers
                     {
                         usermodel.Subscription.Name = item.Subscription.Name;
                         usermodel.Subscription.Id = item.Subscription.Id;
+                    }
+                    if (item.IsFilterByIP)
+                    {
+                        if (item.IpAddressFilters != null)
+                        {
+                            usermodel.FilteredIPs = new List<string>();
+                            foreach (var ipAddress in item.IpAddressFilters)
+                            {
+                                usermodel.FilteredIPs.Add(ipAddress.IpAddress);
+                            }
+                        }
                     }
                     usersList.Add(usermodel);
                 }
@@ -301,7 +314,8 @@ namespace DrNajeeb.Web.API.Controllers
                             currentUser.IpAddressFilters.Add(new EF.IpAddressFilter
                             {
                                 CreatedOn = DateTime.UtcNow,
-                                IpAddress = item
+                                IpAddress = item,
+                                UserId=currentUser.Id
                             });
                         }
                     }
@@ -497,6 +511,43 @@ namespace DrNajeeb.Web.API.Controllers
             catch (Exception)
             {
                 return InternalServerError();
+            }
+        }
+
+        [ActionName("GetUserChartData")]
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IHttpActionResult> GetUserChartData()
+        {
+            try
+            {
+                //var total = new List<int>();
+                var fromDate = DateTime.UtcNow.AddDays(-7);
+
+                var total = await _Uow._Users.GetAll(x => x.CreatedOn > fromDate)
+                    .GroupBy(x => EntityFunctions.TruncateTime(x.CreatedOn))
+                    .OrderBy(x=>x.Key)
+                    .Select(x => new
+                    {
+                        ActiveUsers = x.Count(y=>y.IsActiveUSer),
+                        InActiveUsers=x.Count(y=>y.IsActiveUSer==false),
+                        FreeUsers=x.Count(y=>y.IsFreeUser.Value),
+                        Day = (DateTime)x.Key
+                    })
+                    .ToListAsync();
+
+                //var users = _Uow._Users.GetAll(x => x.CreatedOn > fromDate).GroupBy(x => EntityFunctions.TruncateTime(x.CreatedOn));
+
+                //foreach (var item in users)
+                //{
+                //    total.Add(item.Count());
+                //}
+
+                return Ok(total);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
             }
         }
     }

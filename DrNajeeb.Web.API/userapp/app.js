@@ -109,6 +109,10 @@
                 templateUrl: "/userapp/views/packages.html",
                 controller: "PackagesController"
             })
+            .when("/forgot-password", {
+                templateUrl: "/userapp/views/forgot-password.html",
+                controller: "ForgotPasswordController"
+            })
         .otherwise({ redirectTo: "/dashboard" })
     });
 
