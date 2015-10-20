@@ -106,7 +106,8 @@ namespace DrNajeeb.Web.API.Controllers
             {
                 var videosList = new List<VideoModel>();
 
-                var videos = _Uow._CategoryVideos.GetAll(x => x.CategoryId == id)
+                var videos = _Uow._CategoryVideos
+                    .GetAll(x => x.CategoryId == id)
                     .OrderBy(x => x.DisplayOrder)
                     .Include(x => x.Video)
                     .Select(x => x.Video);
@@ -387,8 +388,8 @@ namespace DrNajeeb.Web.API.Controllers
                 var videosList = new List<UserVideoModel>();
                 var videos = _Uow._CategoryVideos
                     .GetAll(x => x.CategoryId == id)
+                    .OrderBy(x=>x.DisplayOrder)
                     .Include(x => x.Video)
-                    .OrderBy(x => x.DisplayOrder)
                     .Select(x => x.Video)
                     .Include(x => x.UserFavoriteVideos);
 

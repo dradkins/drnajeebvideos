@@ -82,6 +82,37 @@
 
         /****** End user history section ********/
 
+        /************* Change name section **********/
+
+        $scope.fullName = "";
+        $scope.showNamedDiv = false;
+
+        $scope.changeName = function (form) {
+            if (form.$valid) {
+                $scope.nameForm = form;
+                console.log($scope.fullName);
+                if (!($scope.fullName) || $scope.fullName.length < 3) {
+                    toastr.warning("Name must contains at least 3 characters");
+                    return false;
+                }
+                OAuthService.setFullName({ fullName: $scope.fullName })
+                    .then(onChangeName, onChangeNameError);
+            }
+        }
+
+        var onChangeName = function (data) {
+            toastr.success("Name Changed Successfully");
+            $scope.fullName = "";
+            $scope.showNamedDiv = false;
+            $scope.nameForm.$setPristine(true);
+        }
+
+        var onChangeNameError = function (error) {
+            toastr.error("Unable to change name");
+        }
+
+        /********** End change name section ***********/
+
 
         /****** Change password section *******/
 
@@ -102,7 +133,7 @@
                 //    return false;
                 //}
                 $scope.passwordForm = form;
-                if (!($scope.changePasswordModel.newPassword) || $scope.changePasswordModel.newPassword.length < 6 ) {
+                if (!($scope.changePasswordModel.newPassword) || $scope.changePasswordModel.newPassword.length < 6) {
                     toastr.warning("Password must contains at least 6 characters");
                     return false;
                 }
@@ -253,7 +284,7 @@
             });
         })
 
-        
+
 
         loadMessages();
 

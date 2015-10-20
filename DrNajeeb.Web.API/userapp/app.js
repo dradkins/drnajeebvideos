@@ -11,7 +11,8 @@
         "directive.g+signin",
         "angularFileUpload",
         "LiveSearch",
-        "ngIOS9UIWebViewPatch"
+        "ngIOS9UIWebViewPatch",
+        //"vcRecaptcha"
     ]);
 
     app.config(function ($routeProvider, FacebookProvider) {

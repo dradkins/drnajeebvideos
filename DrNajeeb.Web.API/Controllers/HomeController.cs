@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using DrNajeeb.Web.API.Models;
+using DrNajeeb.Web.API.Helpers;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -102,6 +103,27 @@ namespace DrNajeeb.Web.API.Controllers
                     };
 
                     return View(model);
+            }
+        }
+
+
+        public async Task<FileContentResult> GetInactiveUsers(DateTime? id)
+        {
+            try
+            {
+                var startDate = new DateTime(id.Value.Year, id.Value.Month, id.Value.Day, 0, 0, 0);
+                var endDate = new DateTime(id.Value.Year, id.Value.Month, id.Value.Day, 23, 59, 59);
+
+                var inActiveUsers = await _UOW._Users
+                    .GetAll(x => x.IsActiveUSer == false && x.Active == true && x.CreatedOn > startDate && x.CreatedOn < endDate)
+                    .Select(x => x.Email)
+                    .ToListAsync();
+                var csv = string.Join(",", inActiveUsers.ToArray());
+                return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", id.Value.ToShortDateString()+".csv");
+            }
+            catch (Exception)
+            {
+                return File(new byte[10], DateTime.Now.ToShortDateString(), "text/csv");
             }
         }
     }

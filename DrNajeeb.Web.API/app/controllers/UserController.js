@@ -2,7 +2,7 @@
 
 (function (app) {
 
-    var UserController = function ($scope, $modal, $log, UserService, toastr) {
+    var UserController = function ($scope, $modal, $log, UserService, toastr, $filter) {
 
         $scope.user = {
             id: 0,
@@ -27,6 +27,8 @@
             search: '',
             totalItems: 0
         };
+
+        $scope.reportDate = new Date();
 
         $scope.addOrEditModal = function (user) {
 
@@ -86,6 +88,11 @@
             }
         }
 
+        $scope.downloadFile = function () {
+            var downloadPath = "/home/GetInactiveUsers/" + $filter('date')($scope.reportDate, "yyyy-MM-dd");
+            window.open(downloadPath, '_blank', '');
+        }
+
         var onDeleteUserError = function (error) {
             console.log(error);
             if (error.status && error.status === 404) {
@@ -116,7 +123,7 @@
         loadUsers();
     };
 
-    UserController.$inject = ["$scope", "$modal", "$log", "UserService", "toastr"];
+    UserController.$inject = ["$scope", "$modal", "$log", "UserService", "toastr", "$filter"];
 
 
 

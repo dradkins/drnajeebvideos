@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.IO;
 using System.Data.Entity.Core.Objects;
+using DrNajeeb.Web.API.Helpers;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -549,6 +550,33 @@ namespace DrNajeeb.Web.API.Controllers
             {
                 return InternalServerError(ex);
             }
+        }
+    }
+
+    public class GettingInActiveUserModel
+    {
+        public DateTime RequiredDate { get; set; }
+    }
+
+    public class FileActionResult : IHttpActionResult
+    {
+        public FileActionResult(int fileId)
+        {
+            this.FileId = fileId;
+        }
+
+        public int FileId { get; private set; }
+
+        public Task<HttpResponseMessage> ExecuteAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            response.Content = new StreamContent(File.OpenRead(@"<base path>" + FileId));
+            response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+
+            // NOTE: Here I am just setting the result on the Task and not really doing any async stuff. 
+            // But let's say you do stuff like contacting a File hosting service to get the file, then you would do 'async' stuff here.
+
+            return Task.FromResult(response);
         }
     }
 }

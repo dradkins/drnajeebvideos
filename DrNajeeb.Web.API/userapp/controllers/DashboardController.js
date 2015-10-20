@@ -8,7 +8,9 @@
         $scope.totalFavorites = 0;
         $scope.showData = false;
         $scope.totalUnreadMessages = 0;
-        $scope.userSubscription = null;
+        $scope.userSubscription = {
+            description: "Loading.."
+        };
 
         $scope.pagingInfo = {
             page: 1,
