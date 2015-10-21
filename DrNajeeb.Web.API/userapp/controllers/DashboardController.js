@@ -11,6 +11,7 @@
         $scope.userSubscription = {
             description: "Loading.."
         };
+        $scope.newFeatures = [];
 
         $scope.pagingInfo = {
             page: 1,
@@ -30,6 +31,7 @@
             $scope.favoriteVideos = data[1].data;
             $scope.totalUnreadMessages = data[2];
             $scope.userSubscription = data[3];
+            $scope.newFeatures = data[4];
         }
 
         var onError = function (error) {

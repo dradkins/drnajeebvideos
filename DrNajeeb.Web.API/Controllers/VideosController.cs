@@ -894,6 +894,7 @@ namespace DrNajeeb.Web.API.Controllers
                 videosToList.ForEach(x => videosList.Add(new UserVideoModel
                 {
                     Name = x.Name,
+                    ThumbnailURL=x.ThumbnailURL
                 }));
                 return Ok(videosList);
             }

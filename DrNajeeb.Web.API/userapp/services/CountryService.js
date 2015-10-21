@@ -14,7 +14,7 @@
         };
 
         CountryService.getCountryByIP = function (ip) {
-            return $http.get("http://ipinfo.io/"+ip)
+            return $http.get("https://freegeoip.net/json/" + ip)
                         .then(function (response) {
                             return response.data;
                         });

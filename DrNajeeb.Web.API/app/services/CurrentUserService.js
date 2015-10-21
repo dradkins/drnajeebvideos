@@ -2,9 +2,9 @@
 
     var CurrentUserService = function ($location, $rootScope, localStorageService) {
 
-        var USERKEY = "utoken";
+        var USERKEY = "adminUtoken";
         var CurrentUserService = {};
-
+        
         var initialize = function () {
             var user = {
                 username: "",

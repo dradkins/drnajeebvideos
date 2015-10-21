@@ -29,6 +29,7 @@ namespace DrNajeeb.Contract
         IRepository<SupportMessage> _SupportMessages { get; }
         IRepository<LoggedInTracking> _LoggedInTracking { get; }
         IRepository<IpAddressFilter> _IpAddressFilter { get; }
+        IRepository<NewFeature> _NewFeatures { get; }
 
         #endregion
     }

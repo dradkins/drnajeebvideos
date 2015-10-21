@@ -34,6 +34,7 @@ namespace DrNajeeb.EF
         public virtual DbSet<CategoryVideo> CategoryVideos { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<IpAddressFilter> IpAddressFilters { get; set; }
+        public virtual DbSet<NewFeature> NewFeatures { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<UserFavoriteVideo> UserFavoriteVideos { get; set; }
         public virtual DbSet<UserVideoHistory> UserVideoHistories { get; set; }

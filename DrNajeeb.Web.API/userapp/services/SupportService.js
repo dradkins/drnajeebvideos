@@ -47,6 +47,13 @@
                         });
         }
 
+        SuportService.getFeatures = function () {
+            return $http.get("/api/newFeatures/getAll")
+                        .then(function (response) {
+                            return response.data;
+                        });
+        }
+
         return SuportService;
     }
 

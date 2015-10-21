@@ -132,6 +132,15 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="NewFeatures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+        </EntityType>
         <EntityType Name="Subscriptions">
           <Key>
             <PropertyRef Name="Id" />
@@ -1531,6 +1540,18 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__NewFeatur__Creat__7A521F79">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="NewFeatures" Type="Self.NewFeatures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NewFeatures">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Subscript__Creat__3C54ED00">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Subscriptions" Type="Self.Subscriptions" Multiplicity="*" />
@@ -2270,6 +2291,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <EntitySet Name="CategoryVideos" EntityType="Self.CategoryVideos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IpAddressFilters" EntityType="Self.IpAddressFilters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewFeatures" EntityType="Self.NewFeatures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subscriptions" EntityType="Self.Subscriptions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserFavoriteVideos" EntityType="Self.UserFavoriteVideos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserVideoHistory" EntityType="Self.UserVideoHistory" Schema="dbo" store:Type="Tables" />
@@ -2717,6 +2739,10 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="LoggedInTracking" EntitySet="LoggedInTracking" />
           </AssociationSet>
+          <AssociationSet Name="FK__NewFeatur__Creat__7A521F79" Association="Self.FK__NewFeatur__Creat__7A521F79">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="NewFeatures" EntitySet="NewFeatures" />
+          </AssociationSet>
           <AssociationSet Name="FK__Subscript__Creat__3C54ED00" Association="Self.FK__Subscript__Creat__3C54ED00">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Subscriptions" EntitySet="Subscriptions" />
@@ -3122,6 +3148,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <NavigationProperty Name="LoggedInTrackings1" Relationship="Self.FK__LoggedInT__UserI__6B0FDBE9" FromRole="AspNetUsers" ToRole="LoggedInTracking" />
           <NavigationProperty Name="LoggedInTrackings2" Relationship="Self.FK__LoggedInT__UserI__6C040022" FromRole="AspNetUsers" ToRole="LoggedInTracking" />
           <NavigationProperty Name="LoggedInTrackings3" Relationship="Self.FK__LoggedInT__UserI__6CF8245B" FromRole="AspNetUsers" ToRole="LoggedInTracking" />
+          <NavigationProperty Name="NewFeatures" Relationship="Self.FK__NewFeatur__Creat__7A521F79" FromRole="AspNetUsers" ToRole="NewFeatures" />
           <NavigationProperty Name="Subscriptions" Relationship="Self.FK__Subscript__Creat__3C54ED00" FromRole="AspNetUsers" ToRole="Subscriptions" />
           <NavigationProperty Name="Subscriptions1" Relationship="Self.FK__Subscript__Creat__3D491139" FromRole="AspNetUsers" ToRole="Subscriptions" />
           <NavigationProperty Name="Subscriptions2" Relationship="Self.FK__Subscript__Creat__3E3D3572" FromRole="AspNetUsers" ToRole="Subscriptions" />
@@ -3323,6 +3350,16 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <NavigationProperty Name="AspNetUser13" Relationship="Self.FK__IpAddress__UserI__39788055" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser14" Relationship="Self.FK__IpAddress__UserI__3A6CA48E" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser15" Relationship="Self.FK__IpAddress__UserI__3B60C8C7" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="NewFeature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__NewFeatur__Creat__7A521F79" FromRole="NewFeatures" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Subscription">
           <Key>
@@ -4457,6 +4494,18 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__NewFeatur__Creat__7A521F79">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="NewFeatures" Type="Self.NewFeature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NewFeatures">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Subscript__Creat__3C54ED00">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
           <End Role="Subscriptions" Type="Self.Subscription" Multiplicity="*" />
@@ -5527,6 +5576,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <EntitySet Name="CategoryVideos" EntityType="Self.CategoryVideo" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
           <EntitySet Name="IpAddressFilters" EntityType="Self.IpAddressFilter" />
+          <EntitySet Name="NewFeatures" EntityType="Self.NewFeature" />
           <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
           <EntitySet Name="UserFavoriteVideos" EntityType="Self.UserFavoriteVideo" />
           <EntitySet Name="UserVideoHistories" EntityType="Self.UserVideoHistory" />
@@ -5845,6 +5895,10 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <AssociationSet Name="FK__LoggedInT__UserI__6CF8245B" Association="Self.FK__LoggedInT__UserI__6CF8245B">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="LoggedInTracking" EntitySet="LoggedInTrackings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewFeatur__Creat__7A521F79" Association="Self.FK__NewFeatur__Creat__7A521F79">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="NewFeatures" EntitySet="NewFeatures" />
           </AssociationSet>
           <AssociationSet Name="FK__Subscript__Creat__3C54ED00" Association="Self.FK__Subscript__Creat__3C54ED00">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -6330,6 +6384,16 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewFeatures">
+            <EntityTypeMapping TypeName="lecturesModel.NewFeature">
+              <MappingFragment StoreEntitySet="NewFeatures">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
               </MappingFragment>

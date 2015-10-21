@@ -101,12 +101,16 @@
                                             <table class="table table-hover">
                                                 <thead>
                                                     <tr class="headRow">
+                                                        <th></th>
                                                         <th>Title</th>
                                                         <th>&nbsp;</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr ng-repeat="video in videos | filter: search">
+                                                        <td>
+                                                            <img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:60px; height:50px;" />
+                                                        </td>
                                                         <!--class="mobScreenTableDisNon"-->
                                                         <td style="max-width:75% !important;">{{video.name}}</td>
                                                         <td>

@@ -50,6 +50,7 @@ namespace DrNajeeb.Data
         public IRepository<SupportMessage> _SupportMessages { get { return GetStandardRepo<SupportMessage>(); } }
         public IRepository<LoggedInTracking> _LoggedInTracking { get { return GetStandardRepo<LoggedInTracking>(); } }
         public IRepository<IpAddressFilter> _IpAddressFilter { get { return GetStandardRepo<IpAddressFilter>(); } }
+        public IRepository<NewFeature> _NewFeatures { get { return GetStandardRepo<NewFeature>(); } }
 
         #endregion
 

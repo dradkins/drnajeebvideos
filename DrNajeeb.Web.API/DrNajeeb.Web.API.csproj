@@ -247,6 +247,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\NewFeaturesController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SubscriptionController.cs" />
     <Compile Include="Controllers\SupportController.cs" />
@@ -268,6 +269,7 @@
     <Compile Include="Models\CategorySortingModel.cs" />
     <Compile Include="Models\CheckoutViewModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\FeatureViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\SubscriptionModel.cs" />
@@ -285,6 +287,7 @@
   <ItemGroup>
     <Content Include="app\controllers\CategoryVideoController.js" />
     <Content Include="app\controllers\DashboardController.js" />
+    <Content Include="app\controllers\FeaturesController.js" />
     <Content Include="app\controllers\LoginController.js" />
     <Content Include="app\controllers\NotificationsController.js" />
     <Content Include="app\controllers\SupportController.js" />
@@ -294,12 +297,14 @@
     <Content Include="app\interceptors\interceptors.js" />
     <Content Include="app\services\CurrentUserService.js" />
     <Content Include="app\services\DashboardService.js" />
+    <Content Include="app\services\FeaturesService.js" />
     <Content Include="app\services\FormEncodeService.js" />
     <Content Include="app\services\NotificationsService.js" />
     <Content Include="app\services\OAuthService.js" />
     <Content Include="app\services\SupportService.js" />
     <Content Include="app\views\categoryvideos.html" />
     <Content Include="app\views\dashboard.html" />
+    <Content Include="app\views\features.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\navigation_left.html" />
     <Content Include="app\views\navigation_upper.html" />

@@ -75,7 +75,7 @@
                 console.log(response);
                 $scope.country = response;
                 angular.forEach($scope.countries, function (c) {
-                    if (c.isO2Name === $scope.country.country) {
+                    if (c.isO2Name === $scope.country.country_code) {
                         console.log(c);
                         $scope.selectedCountry = c;
                         $scope.registerModel.countryId == c.id;

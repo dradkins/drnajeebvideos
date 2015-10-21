@@ -20,8 +20,12 @@
             return SuportService.getTotalUnreadMessages();
         }
 
+        function getNewFeatures() {
+            return SuportService.getFeatures();
+        }
+
         DashboardService.getDashboardData = function (pagingInfo) {
-            return $q.all([getNewVideos(pagingInfo), getFavoriteVideos(pagingInfo), getTotalUnreadMessages(), getPackage()]).then(function (results) {
+            return $q.all([getNewVideos(pagingInfo), getFavoriteVideos(pagingInfo), getTotalUnreadMessages(), getPackage(), getNewFeatures()]).then(function (results) {
                 return results;
             });
         }

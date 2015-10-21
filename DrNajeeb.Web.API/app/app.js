@@ -30,6 +30,10 @@
                 templateUrl: "/app/views/categories.html",
                 controller: "CategoriesController"
             })
+            .when("/features", {
+                templateUrl: "/app/views/features.html",
+                controller: "FeaturesController"
+            })
             .when("/videos", {
                 templateUrl: "/app/views/videos.html",
                 controller: "VideosController"
