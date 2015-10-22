@@ -7,7 +7,8 @@
             totalUsers: 0,
             totalVideos: 0,
             totalMessages:0,
-            latestUsers: []
+            latestUsers: [],
+            todaysActiveUsers:0,
         };
 
         $scope.chartLabels = [];
@@ -23,6 +24,9 @@
             $scope.dashboardData.totalMessages = response[3].data;
 
             var chartsData = response[4].data;
+
+            $scope.dashboardData.todaysActiveUsers = chartsData[chartsData.length - 1].activeUsers;
+
             var freeUsers = [];
             var activeUsers = [];
             var inActiveUsers = [];
@@ -42,7 +46,7 @@
         }
 
         var onError = function (error) {
-            console.log(data);
+            console.log(error);
         }
 
         $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
