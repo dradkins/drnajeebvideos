@@ -78,6 +78,7 @@ namespace DrNajeeb.EF
             this.LoggedInTrackings1 = new HashSet<LoggedInTracking>();
             this.LoggedInTrackings2 = new HashSet<LoggedInTracking>();
             this.LoggedInTrackings3 = new HashSet<LoggedInTracking>();
+            this.MessageToAlls = new HashSet<MessageToAll>();
             this.NewFeatures = new HashSet<NewFeature>();
             this.Subscriptions = new HashSet<Subscription>();
             this.Subscriptions1 = new HashSet<Subscription>();
@@ -257,6 +258,7 @@ namespace DrNajeeb.EF
         public virtual ICollection<LoggedInTracking> LoggedInTrackings1 { get; set; }
         public virtual ICollection<LoggedInTracking> LoggedInTrackings2 { get; set; }
         public virtual ICollection<LoggedInTracking> LoggedInTrackings3 { get; set; }
+        public virtual ICollection<MessageToAll> MessageToAlls { get; set; }
         public virtual ICollection<NewFeature> NewFeatures { get; set; }
         public virtual ICollection<Subscription> Subscriptions { get; set; }
         public virtual ICollection<Subscription> Subscriptions1 { get; set; }

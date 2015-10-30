@@ -110,10 +110,10 @@
             toastr.error("unable to load users at this time, please try later");
         }
 
-        var onMessageToAllSend = function () {
+        var onMessageToAllSend = function (data) {
             $scope.support.message = "";
             $scope.form.$setPristine(true);
-            toastr.info("message sent to all users successfully");
+            toastr.info("message sent to " + data + " users successfully");
             NotificationsService.sendMessageToAll($scope.support.message);
         }
 

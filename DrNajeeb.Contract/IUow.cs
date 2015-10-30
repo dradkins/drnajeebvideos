@@ -30,6 +30,8 @@ namespace DrNajeeb.Contract
         IRepository<LoggedInTracking> _LoggedInTracking { get; }
         IRepository<IpAddressFilter> _IpAddressFilter { get; }
         IRepository<NewFeature> _NewFeatures { get; }
+        IRepository<MessageToAll> _MessageToAll { get; }
+        int SendMessageToAll();
 
         #endregion
     }

@@ -12,6 +12,8 @@ namespace DrNajeeb.EF
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class Entities : DbContext
     {
@@ -34,6 +36,7 @@ namespace DrNajeeb.EF
         public virtual DbSet<CategoryVideo> CategoryVideos { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<IpAddressFilter> IpAddressFilters { get; set; }
+        public virtual DbSet<MessageToAll> MessageToAlls { get; set; }
         public virtual DbSet<NewFeature> NewFeatures { get; set; }
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<UserFavoriteVideo> UserFavoriteVideos { get; set; }
@@ -42,5 +45,10 @@ namespace DrNajeeb.EF
         public virtual DbSet<LoggedInTracking> LoggedInTrackings { get; set; }
         public virtual DbSet<SupportMessage> SupportMessages { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+    
+        public virtual int SendMessageToAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SendMessageToAll");
+        }
     }
 }

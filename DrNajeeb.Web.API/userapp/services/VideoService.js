@@ -4,6 +4,13 @@
 
         var VideoService = {};
 
+        VideoService.getVideoNotifications = function () {
+            return $http.get("/api/videos/videoNotifications")
+                   .then(function (response) {
+                       return response.data;
+                   });
+        }
+
         VideoService.getVideo = function (videoId) {
             return $http.get("/api/videos/getUserVideo/" + videoId)
                    .then(function (response) {

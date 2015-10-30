@@ -93,6 +93,9 @@
     <Compile Include="LoggedInTracking.cs">
       <DependentUpon>DrNajeebEF.tt</DependentUpon>
     </Compile>
+    <Compile Include="MessageToAll.cs">
+      <DependentUpon>DrNajeebEF.tt</DependentUpon>
+    </Compile>
     <Compile Include="NewFeature.cs">
       <DependentUpon>DrNajeebEF.tt</DependentUpon>
     </Compile>

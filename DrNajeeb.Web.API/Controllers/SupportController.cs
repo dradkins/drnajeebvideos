@@ -295,27 +295,16 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var userId = User.Identity.GetUserId();
-                var users = await _Uow._Users
-                    .GetAll(x => x.Active == true && x.Id != userId)
-                    .Select(x => x.Id)
-                    .ToListAsync();
-                foreach (var item in users)
+                _Uow._MessageToAll.Add(new MessageToAll
                 {
-                    _Uow._SupportMessages.Add(new SupportMessage
-                    {
-                        Active = true,
-                        FromUserId = userId,
-                        IsFromAdmin = true,
-                        IsFromUser = false,
-                        IsRead = false,
-                        MessageDatetime = DateTime.UtcNow,
-                        ToUserId = item,
-                        MessageText = model.Message
-                    });
-                }
+                    CreatedBy=User.Identity.GetUserId(),
+                    CreatedOn=DateTime.UtcNow,
+                    IsSendToAll=false,
+                    MesssageText=model.Message
+                });
                 await _Uow.CommitAsync();
-                return Ok();
+                var totalUsers = _Uow.SendMessageToAll();
+                return Ok(totalUsers);
             }
             catch (Exception ex)
             {

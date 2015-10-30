@@ -51,6 +51,7 @@ namespace DrNajeeb.Data
         public IRepository<LoggedInTracking> _LoggedInTracking { get { return GetStandardRepo<LoggedInTracking>(); } }
         public IRepository<IpAddressFilter> _IpAddressFilter { get { return GetStandardRepo<IpAddressFilter>(); } }
         public IRepository<NewFeature> _NewFeatures { get { return GetStandardRepo<NewFeature>(); } }
+        public IRepository<MessageToAll> _MessageToAll { get { return GetStandardRepo<MessageToAll>(); } }
 
         #endregion
 
@@ -118,5 +119,11 @@ namespace DrNajeeb.Data
         #endregion
 
         #endregion
+
+
+        public int  SendMessageToAll()
+        {
+            return _DbContext.SendMessageToAll();
+        }
     }
 }

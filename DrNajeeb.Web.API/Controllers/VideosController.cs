@@ -934,19 +934,26 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("VideoNotifications")]
         [HttpGet]
+        [Authorize]
         public async Task<IHttpActionResult> VideoNotifications()
         {
             try
             {
                 var userId = User.Identity.GetUserId();
                 var user = await _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefaultAsync();
+
+                var dateAfter = Convert.ToDateTime("10/29/2015 11:08:24 AM");
                 var videosList = new List<UserVideoModel>();
 
-                var videos = _Uow._Videos.GetAll(x => x.CreatedOn > user.CreatedOn)
-                    .Include(x => x.UserVideoHistories.Where(y => y.UserId == userId))
+                var unWatchedVideos = _Uow._Videos.GetAll(x => x.CreatedOn > dateAfter)
+                    .Include(x => x.UserVideoHistories)
+                    .Where(x=>x.UserVideoHistories.Any(y=>y.UserId==userId))
                     .Where(x => !x.UserVideoHistories.Any(y => y.Id == x.Id));
 
-                foreach (var item in videos)
+                var totalVideos = await unWatchedVideos.CountAsync();
+                var notificationVideos = await unWatchedVideos.OrderBy(x => x.CreatedOn).Take(10).ToListAsync();
+
+                foreach (var item in notificationVideos)
                 {
                     videosList.Add(new UserVideoModel
                     {
@@ -954,7 +961,7 @@ namespace DrNajeeb.Web.API.Controllers
                         Name = item.Name
                     });
                 }
-                return Ok(videosList);
+                return Ok(new {ToNotificationVideos=totalVideos, VideosList=videosList });
             }
             catch (Exception ex)
             {
