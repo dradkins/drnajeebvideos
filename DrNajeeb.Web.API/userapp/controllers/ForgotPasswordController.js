@@ -15,7 +15,7 @@
         }
 
         var onPasswordReset = function (data) {
-            toastr.success("New password emailed to you successfully, Please login with new password")
+            toastr.success("if you have an account with us then password emailed to you, Please login with new password")
             $location.path("/login");
         }
 

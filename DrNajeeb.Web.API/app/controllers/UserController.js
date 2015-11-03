@@ -13,6 +13,7 @@
             noOfConcurrentViews: null,
             isFilterByIP: false,
             isActiveUser: true,
+            isFreeUser: false,
             countryId: null,
             subscriptionId: null,
             roles: [],
@@ -27,6 +28,8 @@
             search: '',
             totalItems: 0
         };
+
+        $scope.oldUserName = "";
 
         $scope.reportDate = new Date();
 
@@ -88,9 +91,35 @@
             }
         }
 
-        $scope.downloadFile = function () {
-            var downloadPath = "/home/GetInactiveUsers/" + $filter('date')($scope.reportDate, "yyyy-MM-dd");
-            window.open(downloadPath, '_blank', '');
+        $scope.downloadFile = function (value) {
+            if (value) {
+                var downloadPath = "/home/GetInactiveUsers/" + $filter('date')($scope.reportDate, "yyyy-MM-dd");
+                window.open(downloadPath, '_blank', '');
+            }
+            else {
+                var downloadPath = "/home/GetAllInactiveUsers";
+                window.open(downloadPath, '_blank', '');
+            }
+        }
+
+        $scope.changeUserName = function (oldUserName) {
+            $scope.oldUserName = oldUserName;
+            var newName = prompt("Please enter new email address");
+            if (newName && validateEmail(newName)) {
+                UserService.UpdateUserName({ OldEmail: $scope.oldUserName, NewEmail: newName }).then(function () {
+                    loadUsers();
+                }, function (error) {
+                    toastr.error("unable to update user name");
+                })
+            }
+            else {
+                alert("Please enter valid email address");
+            }
+        }
+
+        function validateEmail(email) {
+            var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            return re.test(email);
         }
 
         var onDeleteUserError = function (error) {
@@ -214,7 +243,7 @@
 
     var EditUserController = function ($scope, $modalInstance, $filter, UserService, CountryService, SubscriptionService, RolesService, user, toastr) {
 
-        $scope.user=user;
+        $scope.user = user;
         $scope.countries = [];
         $scope.subscriptions = [];
         $scope.roles = [];
@@ -263,7 +292,7 @@
             toastr.error(message, error.data.message);
         }
 
-        
+
         function init() {
             console.log(user);
             CountryService.getAll().then(onCountries, onError);

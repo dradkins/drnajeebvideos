@@ -28,8 +28,7 @@
         };
 
         UserService.deleteUser = function (id) {
-            console.log(id);
-            return $http.post("/api/user/deleteUser",'"'+id+'"')
+            return $http.post("/api/user/deleteUser", '"' + id + '"')
                         .then(function (response) {
                             return response.data;
                         });
@@ -48,6 +47,13 @@
                             return response.data;
                         });
         };
+
+        UserService.UpdateUserName = function (data) {
+            return $http.post("/api/account/UpdateUserName", data)
+                        .then(function (response) {
+                            return response.data;
+                        });
+        }
 
         return UserService;
     }

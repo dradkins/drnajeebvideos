@@ -39,7 +39,10 @@
                                                 <input type="date" ng-model="reportDate" class="form-control" />
                                             </div>
                                             <div class="col-md-2">
-                                                <button class="btn btn-primary" ng-click="downloadFile()">Download InActive Users</button>
+                                                <button class="btn btn-primary" ng-click="downloadFile(true)">Download InActive Users</button>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button class="btn btn-primary" ng-click="downloadFile(false)">Download All InActive Users</button>
                                             </div>
                                         </div>
                                         <br />
@@ -125,6 +128,12 @@
                                                                     <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
                                                                 </span>
                                                             </a>
+                                                            <a href="" class="table-link info" ng-click="changeUserName(user.emailAddress)">
+                                                                <span class="fa-stack">
+                                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                                    <i class="fa fa-user-md fa-stack-1x fa-inverse"></i>
+                                                                </span>
+                                                            </a>
                                                             <a href="" class="table-link danger" ng-click="deleteUser(user)">
                                                                 <span class="fa-stack">
                                                                     <i class="fa fa-square fa-stack-2x"></i>
@@ -194,6 +203,15 @@
                                                         <input type="checkbox" id="isActiveUser" checked="checked" ng-model="user.isActiveUser" />
                                                         <label for="isActiveUser">
                                                             Active User
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label></label>
+                                                    <div class="checkbox-nice">
+                                                        <input type="checkbox" id="isFreeUser" checked="checked" ng-model="user.isFreeUser" />
+                                                        <label for="isFreeUser">
+                                                            Free User
                                                         </label>
                                                     </div>
                                                 </div>
@@ -306,6 +324,15 @@
                                                         <input type="checkbox" id="isActiveUser" checked="checked" ng-model="user.isActiveUser" />
                                                         <label for="isActiveUser">
                                                             Active User
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label></label>
+                                                    <div class="checkbox-nice">
+                                                        <input type="checkbox" id="isFreeUser" checked="checked" ng-model="user.isFreeUser" />
+                                                        <label for="isFreeUser">
+                                                            Free User
                                                         </label>
                                                     </div>
                                                 </div>

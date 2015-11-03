@@ -306,6 +306,7 @@ namespace DrNajeeb.Web.API.Controllers
                 currentUser.NoOfConcurentViews = model.NoOfConcurrentViews;
                 currentUser.SubscriptionId = model.SubscriptionID;
                 currentUser.UpdatedBy = User.Identity.GetUserId();
+                currentUser.IsFreeUser=model.IsFreeUser;
                 if (currentUser.IsFilterByIP)
                 {
                     if (model.FilteredIPs != null)

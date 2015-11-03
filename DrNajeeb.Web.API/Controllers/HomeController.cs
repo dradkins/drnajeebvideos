@@ -126,5 +126,22 @@ namespace DrNajeeb.Web.API.Controllers
                 return File(new byte[10], DateTime.Now.ToShortDateString(), "text/csv");
             }
         }
+
+        public async Task<FileContentResult> GetAllInactiveUsers()
+        {
+            try
+            {
+                var inActiveUsers = await _UOW._Users
+                    .GetAll(x => x.IsActiveUSer == false && x.Active == true)
+                    .Select(x => x.Email)
+                    .ToListAsync();
+                var csv = string.Join(",", inActiveUsers.ToArray());
+                return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", DateTime.Now.Ticks + ".csv");
+            }
+            catch (Exception)
+            {
+                return File(new byte[10], DateTime.Now.ToShortDateString(), "text/csv");
+            }
+        }
     }
 }

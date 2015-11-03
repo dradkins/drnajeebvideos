@@ -13,6 +13,18 @@ namespace DrNajeeb.Web.API.Models
         public string ExternalAccessToken { get; set; }
     }
 
+    public class ChangeUserNameBindingModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.EmailAddress)]
+        public string OldEmail { get; set; }
+        [Required]
+        [Display(Name = "Email")]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.EmailAddress)]
+        public string NewEmail { get; set; }
+    }
+
     public class RegisterExternalTokenBindingModel
     {
         [Required]

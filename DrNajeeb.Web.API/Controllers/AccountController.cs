@@ -693,7 +693,34 @@ namespace DrNajeeb.Web.API.Controllers
             return Ok(token);
         }
 
+        [Authorize(Roles="Admin")]
+        [Route("UpdateUserName")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateUserName(ChangeUserNameBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            var user = await UserManager.FindByEmailAsync(model.OldEmail);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.Email = model.NewEmail;
+            user.UserName = model.NewEmail;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
 
 
         /****** Change Pasword ********/

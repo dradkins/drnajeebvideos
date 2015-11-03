@@ -24,6 +24,7 @@ namespace DrNajeeb.Web.API.Models
         public int NoOfConcurrentViews { get; set; }
         public bool IsFilterByIP { get; set; }
         public bool IsActiveUser { get; set; }
+        public bool IsFreeUser { get; set; }
         public Nullable<int> CountryID { get; set; }
         public Nullable<int> SubscriptionID { get; set; }
         public List<string> Roles{get;set;}
