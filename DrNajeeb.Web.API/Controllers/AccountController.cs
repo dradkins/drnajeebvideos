@@ -273,7 +273,7 @@ namespace DrNajeeb.Web.API.Controllers
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId);
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId, Guid.NewGuid().ToString());
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else
@@ -406,7 +406,9 @@ namespace DrNajeeb.Web.API.Controllers
                 SubscriptionId = model.SubscriptionId,
                 ExpirationDate = DateTime.UtcNow.AddDays(30),
                 Active = true,
-                IsFreeUser = true
+                IsFreeUser = true,
+                IsInstitutionalAccount = false
+
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -546,7 +548,8 @@ namespace DrNajeeb.Web.API.Controllers
                     SubscriptionId = 2,
                     ExpirationDate = DateTime.UtcNow.AddDays(30),
                     Active = true,
-                    IsFreeUser = true
+                    IsFreeUser = true,
+                    IsInstitutionalAccount=false,
                 };
 
                 result = await UserManager.CreateAsync(user);
@@ -693,7 +696,7 @@ namespace DrNajeeb.Web.API.Controllers
             return Ok(token);
         }
 
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("UpdateUserName")]
         [HttpPost]
         public async Task<IHttpActionResult> UpdateUserName(ChangeUserNameBindingModel model)

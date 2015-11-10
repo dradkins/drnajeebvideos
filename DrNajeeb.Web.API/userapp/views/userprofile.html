@@ -30,13 +30,14 @@
                                         <img style="width:159px; height:159px;" ng-src="data:image/png;base64,{{$root.USER_IMAGE}}" ng-if="$root.USER_IMAGE" class="profile-img img-responsive center-block img-rounded" />
                                         <img style="width:159px; height:159px;" ng-src="/Content/images/user_frontend.png" ng-if="!$root.facebookProfilePic && !$root.USER_IMAGE" class="profile-img img-responsive center-block img-rounded" />
                                         <img style="width:159px; height:159px;" ng-src="{{$root.facebookProfilePic}}" ng-if="$root.facebookProfilePic" class="profile-img img-responsive center-block img-rounded" />
-                                        
+
                                         <div class="profile-since">
                                             {{$root.FULL_NAME}}
                                         </div>
 
 
-                                        <div ng-if="!$root.facebookProfilePic">
+                                        <div ng-if="!$root.facebookProfilePic && !isinstitutionalaccount">
+
                                             <div class="profile-details" ng-show="showPasswordDiv">
                                                 <h4 class="text-center">Change Password</h4>
                                                 <form name="changePasswordForm" ng-submit="changePassword(changePasswordForm)">

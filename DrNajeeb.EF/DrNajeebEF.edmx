@@ -75,6 +75,7 @@
           <Property Name="ExpirationDate" Type="datetime" />
           <Property Name="ProfilePicture" Type="nvarchar(max)" />
           <Property Name="IsFreeUser" Type="bit" />
+          <Property Name="IsInstitutionalAccount" Type="bit" />
         </EntityType>
         <EntityType Name="CategoriesInSubscription">
           <Key>
@@ -3082,6 +3083,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
           <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsFreeUser" Type="Boolean" />
+          <Property Name="IsInstitutionalAccount" Type="Boolean" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="Country" Relationship="Self.FK__AspNetUse__Count__592635D8" FromRole="AspNetUsers" ToRole="Countries" />
@@ -6383,6 +6385,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
                 <ScalarProperty Name="IsFreeUser" ColumnName="IsFreeUser" />
+                <ScalarProperty Name="IsInstitutionalAccount" ColumnName="IsInstitutionalAccount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

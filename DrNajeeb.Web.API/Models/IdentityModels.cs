@@ -30,6 +30,7 @@ namespace DrNajeeb.Web.API.Models
         public bool Active { get; set; }
         public Nullable<bool> IsFreeUser { get; set; }
         public string ProfilePicture { get; set; }
+        public Nullable<bool> IsInstitutionalAccount { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

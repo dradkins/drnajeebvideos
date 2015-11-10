@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="03731fc1607a48628de469bd58d682cf" Name="Diagram1">
+      <Diagram DiagramId="183e1ad90b3644478cb35aa069fe9aa0" Name="Diagram1">
         <EntityTypeShape EntityType="lecturesModel.AspNetRole" Width="1.5" PointX="0.75" PointY="33.75" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.AspNetUser" Width="1.5" PointX="3" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.AspNetUser" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.CategoriesInSubscription" Width="1.5" PointX="7.5" PointY="32.375" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.Category" Width="1.5" PointX="5.25" PointY="14.875" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.CategoryVideo" Width="1.5" PointX="7.5" PointY="41.75" IsExpanded="true" />
@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="lecturesModel.NewFeature" Width="1.5" PointX="5.25" PointY="33.875" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.Subscription" Width="1.5" PointX="5.25" PointY="44.5" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.UserFavoriteVideo" Width="1.5" PointX="7.5" PointY="49.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.UserVideoHistory" Width="1.5" PointX="10.5" PointY="49.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.UserVideoHistory" Width="1.5" PointX="10.5" PointY="49.5" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.Video" Width="1.5" PointX="5.25" PointY="63.625" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.LoggedInTracking" Width="1.5" PointX="5.25" PointY="55.375" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.SupportMessage" Width="1.5" PointX="5.25" PointY="58.625" IsExpanded="true" />

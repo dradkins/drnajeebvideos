@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var UserProfileController = function ($scope, $location, $log, $rootScope, OAuthService, toastr, VideoService, SuportService, FileUploader, CurrentUserService, NotificationsService) {
+    var UserProfileController = function ($scope, $location, $log, $rootScope, OAuthService, toastr, VideoService, SuportService, FileUploader, CurrentUserService, NotificationsService, UsersService) {
 
         /****** User history section ********/
 
@@ -12,6 +12,17 @@
             search: '',
             totalItems: 0
         };
+
+        $scope.isinstitutionalaccount = true;
+
+        var init = function () {
+            UsersService.isInstitutionalAccount().then(function (data) {
+                $scope.isinstitutionalaccount = data;
+            }, function (err) {
+                console.log(err);
+            })
+        }
+        init();
 
         $scope.search = function () {
             $scope.pagingInfo.page = 1;
@@ -303,7 +314,7 @@
         }
     };
 
-    UserProfileController.$inject = ["$scope", "$location", "$log", "$rootScope", "OAuthService", "toastr", "VideoService", "SuportService", "FileUploader", "CurrentUserService", "NotificationsService"];
+    UserProfileController.$inject = ["$scope", "$location", "$log", "$rootScope", "OAuthService", "toastr", "VideoService", "SuportService", "FileUploader", "CurrentUserService", "NotificationsService", "UsersService"];
     app.controller("UserProfileController", UserProfileController);
 
 }(angular.module("DrNajeebUser")));

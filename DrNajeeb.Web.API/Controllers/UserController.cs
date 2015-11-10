@@ -161,6 +161,7 @@ namespace DrNajeeb.Web.API.Controllers
                     SubscriptionId = model.SubscriptionID.Value,
                     IsFreeUser = false,
                     SubscriptionDate = DateTime.UtcNow,
+                    IsInstitutionalAccount = model.IsInstitutionalAccount,
                 };
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -552,11 +553,39 @@ namespace DrNajeeb.Web.API.Controllers
                 return InternalServerError(ex);
             }
         }
-    }
 
-    public class GettingInActiveUserModel
-    {
-        public DateTime RequiredDate { get; set; }
+        [ActionName("CheckInstitutionalUser")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> CheckInstitutionalUser()
+        {
+            try
+            {
+                var userId=User.Identity.GetUserId();
+                bool isInstitutionalAccount = await _Uow._Users.GetAll(x => x.Id == userId).Select(x => x.IsInstitutionalAccount).FirstOrDefaultAsync() ?? false;
+                return Ok(isInstitutionalAccount);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [ActionName("IsUserLoggedIn")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> IsUserLoggedIn(string id)
+        {
+            try
+            {
+                bool value = _Uow._LoggedInTracking.GetAll(x => x.Token == id).Any();
+                return Ok(value);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 
     public class FileActionResult : IHttpActionResult

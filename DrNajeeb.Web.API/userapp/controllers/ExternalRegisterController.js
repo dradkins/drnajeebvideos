@@ -7,7 +7,7 @@
             token:null,
             provider:"Facebook",
             fullName: null,
-            countryId: null,
+            countryId: 418,
         }
         $scope.countries = [];
 

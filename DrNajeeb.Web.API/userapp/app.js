@@ -104,7 +104,7 @@
             })
             .when("/free-videos", {
                 templateUrl: "/userapp/views/free-videos.html",
-                controller:"FreeVideosController"
+                controller: "FreeVideosController"
             })
             .when("/packages", {
                 templateUrl: "/userapp/views/packages.html",
@@ -119,7 +119,19 @@
 
     app.run(function ($rootScope, $location, $http, $q, CurrentUserService, PoolingService) {
 
-        PoolingService.StartPooling();
+        //PoolingService.StartPooling();
+
+        var checkUserLogin = function () {
+            $http.get("/api/user/isUserLoggedIn?id=" + CurrentUserService.profile.guid).then(function (response) {
+                if (!response.data) {
+                    CurrentUserService.logout();
+                    window.location.reload(true);
+                };
+            }, function (err) {
+                console.log(err);
+            })
+        }
+        checkUserLogin();
 
         $rootScope.location = $location;
 

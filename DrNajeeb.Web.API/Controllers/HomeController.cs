@@ -135,7 +135,7 @@ namespace DrNajeeb.Web.API.Controllers
                     .GetAll(x => x.IsActiveUSer == false && x.Active == true)
                     .Select(x => x.Email)
                     .ToListAsync();
-                var csv = string.Join(",", inActiveUsers.ToArray());
+                var csv = string.Join(Environment.NewLine, inActiveUsers.ToArray());
                 return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", DateTime.Now.Ticks + ".csv");
             }
             catch (Exception)

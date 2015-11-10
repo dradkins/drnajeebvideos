@@ -23,8 +23,8 @@
                             console.log(response);
                             var isFreeUser = (response.data.isFreeUser === "True")
                             var showDownloadOption = (response.data.showDownloadOption === "True")
-                            CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false, isFreeUser, showDownloadOption);
-                            saveToken(response.data.access_token);
+                            CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false, isFreeUser, showDownloadOption, response.data.guid);
+                            //saveToken(response.data.access_token);
                             return response.data.fullName;
                         });
 

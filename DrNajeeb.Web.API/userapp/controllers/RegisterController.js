@@ -7,7 +7,7 @@
             password: null,
             confirmPassword: null,
             fullName: null,
-            countryId: null,
+            countryId: 418,
             subscriptionId: null,
             isFreeUser: false
         }
@@ -30,7 +30,7 @@
                     toastr.warning("Password and confirm password not matched.");
                     return false;
                 }
-                $scope.registerModel.countryId = $scope.selectedCountry.id;
+                //$scope.registerModel.countryId = $scope.selectedCountry.id;
                 $scope.registerModel.subscriptionId = $scope.selectedSubscription.id;
                 if ($location.path() == '/free-register') {
                     $scope.registerModel.isFreeUser = true;
@@ -70,19 +70,19 @@
         }
 
         var onIpAddress = function (data) {
-            console.log(data);
-            CountryService.getCountryByIP(data).then(function (response) {
-                console.log(response);
-                $scope.country = response;
-                angular.forEach($scope.countries, function (c) {
-                    if (c.isO2Name === $scope.country.country_code) {
-                        console.log(c);
-                        $scope.selectedCountry = c;
-                        $scope.registerModel.countryId == c.id;
-                        return false;
-                    }
-                })
-            })
+            //console.log(data);
+            //CountryService.getCountryByIP(data).then(function (response) {
+            //    console.log(response);
+            //    $scope.country = response;
+            //    angular.forEach($scope.countries, function (c) {
+            //        if (c.isO2Name === $scope.country.country_code) {
+            //            console.log(c);
+            //            $scope.selectedCountry = c;
+            //            $scope.registerModel.countryId == c.id;
+            //            return false;
+            //        }
+            //    })
+            //})
         }
 
         var onSubscriptions = function (data) {

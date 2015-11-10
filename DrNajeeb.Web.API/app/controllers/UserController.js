@@ -17,7 +17,8 @@
             countryId: null,
             subscriptionId: null,
             roles: [],
-            filteredIPs: []
+            filteredIPs: [],
+            isInstitutionalAccount:false,
         };
 
         $scope.pagingInfo = {

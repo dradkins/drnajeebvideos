@@ -26,11 +26,13 @@
             $rootScope.$broadcast('newVideoUploaded', { videoId: videoId, name: name });
         };
 
-        //notificationHub.client.logout = function () {
-        //    CurrentUserService.logout();
-        //    alert("You have been logged out from your account. Someone else is using your account.")
-        //    location.reload(true);
-        //};
+        notificationHub.client.logout = function (guid) {
+            if (CurrentUserService.profile.guid == guid) {
+                CurrentUserService.logout();
+                alert("You have been logged out from your account. Someone else is using your account.")
+                location.reload(true);
+            }
+        };
 
 
         return NotificationsService;

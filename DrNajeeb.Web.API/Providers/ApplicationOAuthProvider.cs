@@ -12,6 +12,7 @@ using Microsoft.Owin.Security.OAuth;
 using DrNajeeb.Web.API.Models;
 using DrNajeeb.Web.API.Hubs;
 using Microsoft.AspNet.SignalR;
+using System.Data.Entity;
 
 namespace DrNajeeb.Web.API.Providers
 {
@@ -32,20 +33,6 @@ namespace DrNajeeb.Web.API.Providers
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
-            //var hub = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-            //hub.Clients.All.logout(context.UserName);
-
-            //var users = NotificationHub._connections.GetConnections(context.UserName);
-
-            //if (users.Count() > 0)
-            //{
-            //    var hub = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
-            //    foreach (var connectionId in users)
-            //    {
-            //        hub.Clients.Client(connectionId).logout();
-            //    }
-            //}
-
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
@@ -62,9 +49,10 @@ namespace DrNajeeb.Web.API.Providers
                 return;
             }
 
+            var _Uow = new DrNajeeb.Data.Uow(new DrNajeeb.Data.Helpers.RepositoryProvider(new Data.Helpers.RepositoryFactories()));
+
             if (user.IsFilterByIP)
             {
-                var _Uow = new DrNajeeb.Data.Uow(new DrNajeeb.Data.Helpers.RepositoryProvider(new Data.Helpers.RepositoryFactories()));
                 var IPAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
                 if (string.IsNullOrEmpty(IPAddress))
                 {
@@ -77,16 +65,45 @@ namespace DrNajeeb.Web.API.Providers
                 }
             }
 
+            /******* Concurrent Views Checking **********/
+
+            var userLogins = await _Uow._LoggedInTracking
+                .GetAll(x => x.UserId == user.Id)
+                .OrderBy(x => x.DateTimeLoggedIn)
+                .ToListAsync();
+            string guid = Guid.NewGuid().ToString();
+            if (userLogins != null)
+            {
+                if (userLogins.Count == user.NoOfConcurentViews)
+                {
+                    var firstUser = userLogins.FirstOrDefault();
+                    var hub = GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+                    hub.Clients.All.logOut(firstUser.Token);
+                    _Uow._LoggedInTracking.Delete(firstUser);
+                    await _Uow.CommitAsync();
+                }
+            }
+
+            _Uow._LoggedInTracking.Add(new EF.LoggedInTracking
+            {
+                DateTimeLoggedIn = DateTime.Now,
+                Token = guid,
+                UserId = user.Id
+            });
+            await _Uow.CommitAsync();
+
+            /****** End Concurrent Views Checking *********/
+
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
                OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId);
+            AuthenticationProperties properties = CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId, guid);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
 
-            var ticketString=context.Ticket.ToString();
+            //var ticketString = context.Ticket.ToString();
 
             //var accessToken = Startup.OAuthOptions.AccessTokenFormat.Protect(ticket);
 
@@ -138,7 +155,7 @@ namespace DrNajeeb.Web.API.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, string fullName, bool isFreeUser, int subId)
+        public static AuthenticationProperties CreateProperties(string userName, string fullName, bool isFreeUser, int subId, string guid)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
@@ -146,6 +163,7 @@ namespace DrNajeeb.Web.API.Providers
                 {"fullName", fullName},
                 {"isFreeUser", (isFreeUser)?"True":"False"},
                 {"showDownloadOption", (subId==1)?"True":"False"},
+                {"guid", guid},
             };
             return new AuthenticationProperties(data);
         }

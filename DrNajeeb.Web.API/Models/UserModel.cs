@@ -32,6 +32,7 @@ namespace DrNajeeb.Web.API.Models
         public List<RoleModel> RolesModel { get; set; }
         public CountryModel Country { get; set; }
         public SubscriptionModel Subscription { get; set; }
+        public bool IsInstitutionalAccount { get; set; }
 
     }
 }
