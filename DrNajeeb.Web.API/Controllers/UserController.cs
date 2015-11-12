@@ -308,6 +308,7 @@ namespace DrNajeeb.Web.API.Controllers
                 currentUser.SubscriptionId = model.SubscriptionID;
                 currentUser.UpdatedBy = User.Identity.GetUserId();
                 currentUser.IsFreeUser=model.IsFreeUser;
+                currentUser.IsInstitutionalAccount = model.IsInstitutionalAccount;
                 if (currentUser.IsFilterByIP)
                 {
                     if (model.FilteredIPs != null)
