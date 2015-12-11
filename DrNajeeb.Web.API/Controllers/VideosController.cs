@@ -458,6 +458,7 @@ namespace DrNajeeb.Web.API.Controllers
                 videosModel.ReleaseYear = video.ReleaseYear;
                 videosModel.VzaarVideoId = video.StandardVideoId;
                 videosModel.ThumbnailURL = video.ThumbnailURL;
+                videosModel.Description = video.Description;
                 if (video.UserFavoriteVideos != null && video.UserFavoriteVideos.Count > 0)
                 {
                     videosModel.IsFavoriteVideo = video.UserFavoriteVideos.Any(x => x.VideoId == id && x.UserId == userId);

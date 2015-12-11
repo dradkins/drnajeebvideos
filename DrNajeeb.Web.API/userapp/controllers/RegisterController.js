@@ -102,7 +102,7 @@
                         $scope.subscriptions.push(item);
                     }
                 })
-                $scope.selectedSubscription = $scope.subscriptions[0];
+                //$scope.selectedSubscription = $scope.subscriptions[0];
             }
         }
 
