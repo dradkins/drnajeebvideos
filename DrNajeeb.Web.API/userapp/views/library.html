@@ -10,7 +10,7 @@
                         <!-- End Before Adding Main Content -->
 
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 ipad2Res">
                                 <div class="main-box feed">
                                     <header class="main-box-header clearfix">
                                         <h2 class="pull-left">Categories</h2>
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 ipad2Res">
                                 <div class="main-box clearfix">
                                     <header class="main-box-header clearfix">
                                         <h2 class="pull-left">Videos in {{selectedCategory.name}}</h2>
@@ -62,7 +62,7 @@
                                                         <td class="mobScreenTableDisNon"><p ng-click="showVideo(video)" title="Watch Now">{{video.name}}</p></td>
                                                         <td class="mobScreenTableDisNon">{{video.duration}} min.</td>
                                                         <td ng-if="$root.isFreeUser">
-                                                            <a href="#/packages" class="btn btn-primary">
+                                                            <a href="#!packages" class="btn btn-primary">
                                                                 <!--<i class="fa fa-signal">-->Signup Now<!--</i>-->
                                                             </a>
                                                         </td>

@@ -1,6 +1,6 @@
 ﻿<header class="navbar" id="header-navbar">
     <div class="container">
-        <a href="#/dashboard" id="logo" class="navbar-brand">
+        <a href="#!dashboard" id="logo" class="navbar-brand">
             <img src="/Content/images/logo.png" alt="" class="normal-logo logo-white" />
         </a>
 
@@ -30,14 +30,14 @@
                             </li>
                             <li class="item-header">You have {{totalNotifications}} new messages</li>
                             <li class="item" ng-repeat="notification in notifications">
-                                <a href="#/support">
+                                <a href="#!support">
                                     <i class="fa fa-comment"></i>
                                     <span class="content">{{notification}}</span>
                                     <!--<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>-->
                                 </a>
                             </li>
                             <li class="item-footer">
-                                <a href="#/support">
+                                <a href="#!support">
                                     Show all messages
                                 </a>
                             </li>
@@ -57,14 +57,14 @@
                             </li>
                             <li class="item-header">There are {{totalNewVideos}} new videos uploaded</li>
                             <li class="item" ng-repeat="vn in videoNotifications">
-                                <a href="#/video/{{vn.id}}">
+                                <a href="#!video/{{vn.id}}">
                                     <i class="fa fa-comment"></i>
                                     <span class="content">{{vn.name}}</span>
                                     <!--<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>-->
                                 </a>
                             </li>
                             <li class="item-footer">
-                                <a href="#/support">
+                                <a href="#!support">
                                     Show all messages
                                 </a>
                             </li>
@@ -136,7 +136,7 @@
                             <span class="hidden-xs">{{$root.FULL_NAME}}</span> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li ng-if="!$root.facebookProfilePic"><a href="#/profile"><i class="fa fa-user"></i>Profile</a></li>
+                            <li ng-if="!$root.facebookProfilePic"><a href="#!profile"><i class="fa fa-user"></i>Profile</a></li>
                             <!-- <li><a href=""><i class="fa fa-cog"></i>Settings</a></li>
                             <li><a href=""><i class="fa fa-envelope-o"></i>Messages</a></li> -->
                             <li><a href="" ng-click="LOG_OUT()"><i class="fa fa-power-off"></i>Logout</a></li>

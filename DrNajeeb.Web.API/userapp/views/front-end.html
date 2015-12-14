@@ -3,9 +3,14 @@
     
     <header class="navbar" id="header-navbar">
         <div class="container">
-            <a href="#/dashboard" id="logo" class="navbar-brand">
+            <a href="#!dashboard" id="logo" class="navbar-brand">
                 <img src="/Content/images/logo.png" alt="" class="normal-logo logo-white" />
             </a>
+            <!--mobile view signup btn code strt-->
+            <div class="signUpTopBtnDiv">
+                <a href="#!register" class="btn btn-success">Sign up Now</a>
+            </div>
+            <!--mobile view sign up btn code closed-->
 
             <div class="clearfix">
                 <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
@@ -35,13 +40,13 @@
                         <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                             <ul class="nav nav-pills nav-stacked">
                                 <li>
-                                    <a href="#/video-library">
+                                    <a href="#!video-library">
                                         <i class="fa fa-film"></i>
                                         <span>Video Library</span>
                                     </a>
                                 </li>
                                 <li class="">
-                                    <a href="#/register">
+                                    <a href="#!register">
                                         <i class="fa fa-sign-in"></i>
                                         <span>Sign Up</span>
                                     </a>
@@ -114,7 +119,7 @@
                                                         <!--class="mobScreenTableDisNon"-->
                                                         <td style="max-width:75% !important;">{{video.name}}</td>
                                                         <td>
-                                                            <a href="#/register" class="btn btn-info">
+                                                            <a href="#!register" class="btn btn-info">
                                                                 Sign up Now
                                                             </a>
                                                         </td>

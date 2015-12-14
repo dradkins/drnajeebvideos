@@ -13,9 +13,12 @@
         "LiveSearch",
         "ngIOS9UIWebViewPatch",
         //"vcRecaptcha"
+        "ngDisqus"
     ]);
 
-    app.config(function ($routeProvider, FacebookProvider) {
+    app.config(function ($routeProvider, $locationProvider, $disqusProvider, FacebookProvider) {
+
+        $disqusProvider.setShortname("drnajeeblecture");
 
         var myAppId = '168728473460376';
 
@@ -115,6 +118,8 @@
                 controller: "ForgotPasswordController"
             })
         .otherwise({ redirectTo: "/dashboard" })
+
+        $locationProvider.html5Mode(false).hashPrefix("!");
     });
 
     app.run(function ($rootScope, $location, $http, $q, CurrentUserService, PoolingService) {
