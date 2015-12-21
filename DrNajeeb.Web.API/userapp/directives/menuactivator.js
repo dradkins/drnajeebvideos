@@ -37,6 +37,14 @@
     activeMenu.$injector = ["$location"];
     app.directive("activeMenu", activeMenu);
 
+    //app.filter("nl2br", function ($filter, $sce) {
+    //    return function (data) {
+    //        if (!data) return data;
+    //        var htmlCode = data.replace(/\n\r?/g, '<br />');
+    //        return $sce.trustAsHtml(htmlCode);
+    //    };
+    //});
+
 }(angular.module("DrNajeebUser")));
 
 //return myApp.directive('mainMenu', function() {

@@ -343,8 +343,11 @@
     <Content Include="userapp\controllers\FrontEndController.js" />
     <Content Include="userapp\controllers\NotificationsController.js" />
     <Content Include="userapp\controllers\PackagesController.js" />
+    <Content Include="userapp\controllers\UserHistoryController.js" />
+    <Content Include="userapp\directives\disqus.js" />
     <Content Include="userapp\directives\menuHider.js" />
     <Content Include="userapp\directives\messagesScroller.js" />
+    <Content Include="userapp\directives\readMore.js" />
     <Content Include="userapp\directives\vimeoEmbed.js" />
     <Content Include="userapp\services\NotificationsService.js" />
     <Content Include="userapp\services\PoolingService.js" />

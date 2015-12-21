@@ -13,12 +13,9 @@
         "LiveSearch",
         "ngIOS9UIWebViewPatch",
         //"vcRecaptcha"
-        "ngDisqus"
     ]);
 
-    app.config(function ($routeProvider, $locationProvider, $disqusProvider, FacebookProvider) {
-
-        $disqusProvider.setShortname("drnajeeblecture");
+    app.config(function ($routeProvider, $locationProvider, FacebookProvider) {
 
         var myAppId = '168728473460376';
 

@@ -7,7 +7,7 @@
 
         $scope.pagingInfo = {
             page: 1,
-            itemsPerPage: 10,
+            itemsPerPage: 100,
             totalItems: 0
         };
 
