@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var LibraryController = function ($scope, $log, $routeParams, $location, LibraryService, VideoService) {
+    var LibraryController = function ($scope, $log, $routeParams, $location, LibraryService, VideoService, $timeout) {
 
         $scope.categories = [];
         $scope.videos = [];
@@ -44,6 +44,10 @@
         var onCategoryVideos = function (data) {
             $scope.videos = null;
             $scope.videos = data;
+            angular.forEach($scope.videos, function (video) {
+                video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
+                $scope.$apply();
+            })
         }
 
         var onCategories = function (data) {
@@ -77,11 +81,17 @@
                     })
         }
 
+        $scope.getThumbnailURL = function (videoId) {
+            return VideoService.getVideoThumbnail(videoId).then(function (data) {
+                return data;
+            })
+        }
+
         init();
 
     };
 
-    LibraryController.$inject = ["$scope", "$log", "$routeParams", "$location", "LibraryService", "VideoService"];
+    LibraryController.$inject = ["$scope", "$log", "$routeParams", "$location", "LibraryService", "VideoService", "$timeout"];
     app.controller("LibraryController", LibraryController);
 
 }(angular.module("DrNajeebUser")));

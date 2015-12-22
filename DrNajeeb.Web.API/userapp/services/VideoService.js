@@ -62,13 +62,18 @@
 
         VideoService.getVideoThumbnail = function (videoId) {
 
-            return $http.jsonp('http://vimeo.com/api/v2/video/' + videoId + '.json?callback=JSON_CALLBACK&_=' + (new Date().getTime()))
-                .success(function (r) {
-                    console.info("Success: " + r);
-                })
-                .error(function (e) {
-                    console.info("Error: " + e);
-                });
+            return $http.get("https://api.vimeo.com/videos/" + videoId + "/pictures?access_token=f2ef11bc8f72e6653d3043cbe243bcb0").then(function (data) {
+                var link = data.data.data[0].sizes[0].link;
+                return link;
+            });
+
+            //return $http.jsonp('http://vimeo.com/api/v2/video/' + videoId + '.json?callback=JSON_CALLBACK&_=' + (new Date().getTime()))
+            //    .success(function (r) {
+            //        console.info("Success: " + r);
+            //    })
+            //    .error(function (e) {
+            //        console.info("Error: " + e);
+            //    });
 
 
             //var deferred = $q.defer();

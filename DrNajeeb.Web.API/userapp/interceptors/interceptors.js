@@ -4,10 +4,12 @@
     var addToken = function ($q, CurrentUserService) {
 
         var request = function (config) {
-            if (config.url.indexOf("webservice.drnajeebvideos.com") == -1) {
-                if (CurrentUserService.profile.isLoggedIn()) {
-                    //config.headers['Authorization'] = "Bearer " + CurrentUserService.profile.token;
-                    config.headers.Authorization = "Bearer " + CurrentUserService.profile.token;
+            if (config.url.indexOf("api.vimeo.com") == -1) {
+                if (config.url.indexOf("webservice.drnajeebvideos.com") == -1) {
+                    if (CurrentUserService.profile.isLoggedIn()) {
+                        //config.headers['Authorization'] = "Bearer " + CurrentUserService.profile.token;
+                        config.headers.Authorization = "Bearer " + CurrentUserService.profile.token;
+                    }
                 }
             }
             return $q.when(config);

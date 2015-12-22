@@ -10,9 +10,19 @@
             loadVideos(cat);
         }
 
+        $scope.getThumbnailURL = function (videoId) {
+            return VideoService.getVideoThumbnail(videoId).then(function (data) {
+                return data;
+            })
+        }
+
         var onCategoryVideos = function (data) {
             $scope.videos = null;
             $scope.videos = data;
+            angular.forEach($scope.videos, function (video) {
+                video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
+                $scope.$apply();
+            })
         }
 
         var onCategories = function (data) {

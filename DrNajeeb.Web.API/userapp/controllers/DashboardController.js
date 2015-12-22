@@ -27,11 +27,21 @@
         var onDashboardData = function (data) {
             $scope.totalVideos = data[0].count;
             $scope.newVideos = data[0].data;
+            angular.forEach($scope.newVideos, function (video) {
+                video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
+                $scope.$apply();
+            })
             $scope.totalFavorites = data[1].count;
             $scope.favoriteVideos = data[1].data;
             $scope.totalUnreadMessages = data[2];
             $scope.userSubscription = data[3];
             $scope.newFeatures = data[4];
+        }
+
+        $scope.getThumbnailURL = function (videoId) {
+            return VideoService.getVideoThumbnail(videoId).then(function (data) {
+                return data;
+            })
         }
 
         var onError = function (error) {

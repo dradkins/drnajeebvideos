@@ -45,6 +45,12 @@
             VideoService.removeFromFavorites(video.id).then(onFavoritesRemove, onError);
         }
 
+        $scope.getThumbnailURL = function (videoId) {
+            return VideoService.getVideoThumbnail(videoId).then(function (data) {
+                return data;
+            })
+        }
+
         var onFavoritesAdd = function (data) {
             angular.forEach($scope.videos, function (vid) {
                 if (vid.id == data) {
@@ -65,6 +71,10 @@
 
         var onVideos = function (data) {
             $scope.videos = data.data;
+            angular.forEach($scope.videos, function (video) {
+                video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
+                $scope.$apply();
+            })
             $scope.pagingInfo.totalItems = data.count;
         }
 

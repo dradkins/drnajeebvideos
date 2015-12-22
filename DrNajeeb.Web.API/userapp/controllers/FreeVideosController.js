@@ -59,6 +59,10 @@
 
         var onVideos = function (data) {
             $scope.videos = data.data;
+            angular.forEach($scope.videos, function (video) {
+                video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
+                $scope.$apply();
+            })
             //angular.forEach($scope.videos, function (video) {
             //    video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
             //})
@@ -79,11 +83,14 @@
         }
 
         $scope.getThumbnailURL = function (videoId) {
-            console.log("Called");
             return VideoService.getVideoThumbnail(videoId).then(function (data) {
-                console.log(data);
                 return data;
-            });
+            })
+            //console.log("Called");
+            //return VideoService.getVideoThumbnail(videoId).then(function (data) {
+            //    console.log(data);
+            //    return data;
+            //});
             //$.getJSON('http://www.vimeo.com/api/v2/video/' + vimeoVideoID + '.json?callback=?', {format: "json"}, function(data) {
             //    $(".thumbs").attr('src', data[0].thumbnail_large);
             //});
