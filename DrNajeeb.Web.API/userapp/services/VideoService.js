@@ -91,10 +91,14 @@
 
 
         VideoService.downloadVideo = function (id) {
-            return $http.get("http://webservice.drnajeebvideos.com/service.php?id=" + id)
-                .then(function (response) {
-                    return response.data;
-                })
+            return $http.get("https://api.vimeo.com/videos/" + id + "?access_token=f2ef11bc8f72e6653d3043cbe243bcb0").then(function (data) {
+                var link = data.data.download[0].link;
+                return link;
+            });
+            //return $http.get("http://webservice.drnajeebvideos.com/service.php?id=" + id)
+            //    .then(function (response) {
+            //        return response.data;
+            //    })
         }
 
         return VideoService;
