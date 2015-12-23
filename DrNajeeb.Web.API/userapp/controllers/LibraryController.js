@@ -43,10 +43,8 @@
 
         var onCategoryVideos = function (data) {
             $scope.videos = null;
-            $scope.videos = data;
-            angular.forEach($scope.videos, function (video) {
-                video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
-                $scope.$apply();
+            VideoService.getVideoThumbnails(data).then(function (v) {
+                $scope.videos = v;
             })
         }
 

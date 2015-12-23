@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var DashboardController = function ($scope, $location, CurrentUserService, DashboardService) {
+    var DashboardController = function ($scope, $location, CurrentUserService, DashboardService, VideoService) {
 
         $scope.favoriteVideos = [];
         $scope.newVideos = [];
@@ -26,10 +26,9 @@
 
         var onDashboardData = function (data) {
             $scope.totalVideos = data[0].count;
-            $scope.newVideos = data[0].data;
-            angular.forEach($scope.newVideos, function (video) {
-                video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
-                $scope.$apply();
+            //$scope.newVideos = data[0].data;
+            VideoService.getVideoThumbnails(data[0].data).then(function (v) {
+                $scope.newVideos = v;
             })
             $scope.totalFavorites = data[1].count;
             $scope.favoriteVideos = data[1].data;
@@ -62,7 +61,7 @@
 
     };
 
-    DashboardController.$inject = ["$scope", "$location", "CurrentUserService", "DashboardService"];
+    DashboardController.$inject = ["$scope", "$location", "CurrentUserService", "DashboardService", "VideoService"];
     app.controller("DashboardController", DashboardController);
 
 }(angular.module("DrNajeebUser")));

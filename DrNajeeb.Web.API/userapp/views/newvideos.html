@@ -29,94 +29,99 @@
                                 </header>
 
                                 <div class="main-box-body clearfix">
-                                    <div class="table-responsive clearfix">
-                                        <table class="table table-hover">
-                                            <thead>
-                                                <tr class="headRow">
-                                                    <th></th>
-                                                    <th>Title</th>
-                                                    <th>Duration</th>
-                                                    <th>Category</th>
-                                                    <th>&nbsp;</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr ng-repeat="video in videos | filter: pagingInfo.search">
-                                                    <td>
-                                                        <a href="" ng-click="showVideo(video)" title="Watch Now">
-                                                            <img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:60px; height:50px;" />
-                                                        </a>
-                                                    </td>
-                                                    <td class="mobScreenTableDisNon">
-                                                        <p ng-click="showVideo(video)" title="Watch Now">{{video.name}}</p>
-                                                    </td>
-                                                    <td class="mobScreenTableDisNon">{{video.duration}} min.</td>
-                                                    <td class="mobScreenTableDisNon">
-                                                        <span ng-repeat="cat in video.categories">
-                                                            {{cat.name}}<br />
-                                                        </span>
-                                                    </td>
-                                                    <td ng-if="$root.isFreeUser">
-                                                        <a href="#!packages" class="btn btn-primary">
-                                                            <!--<i class="fa fa-signal">-->Signup Now<!--</i>-->
-                                                        </a>
-                                                    </td>
-                                                    <td class="mobScreenTableDisNon" ng-if="!$root.isFreeUser">
-                                                        <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
-                                                            Play Now <i class="fa fa-arrow-circle-o-right"></i>
-                                                        </button>
-                                                        <button class="btn btn-default" ng-click="downloadVideo(video)" title="Download Video" ng-if="$root.showDownloadOption">
-                                                            <i class="fa fa-download"></i>
-                                                        </button>
-                                                        <!--<a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self">
-                                                            <i class="fa fa-download"></i>
-                                                        </a>-->
-                                                        <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
-                                                            <i class="fa  fa-plus"></i>
-                                                        </button>
-                                                        <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
-                                                            <i class="fa  fa-plus"></i>
-                                                        </button>
-                                                    </td>
-                                                    <td class="mobScreenTable" ng-if="!$root.isFreeUser">
-                                                        <div class="mobScreenDiv" style="width:100%;">
-                                                            <div class="row">
-                                                                <p ng-click="showVideo(video)" title="Watch Now" style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">
-                                                                    {{video.name}}
-                                                                    <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span>
-                                                                </p>
-                                                                <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
-                                                                    <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
-                                                                        <i class="fa  fa-plus"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
-                                                                        <i class="fa  fa-plus"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
-                                                                        <i class="fa fa-arrow-circle-o-right"></i>
-                                                                    </button>
+                                    <div ng-show="videos.length <= 0">
+                                        Loading Videos. Please Wait...
+                                    </div>
+                                    <div ng-show="videos.length > 0">
+                                        <div class="table-responsive clearfix">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr class="headRow">
+                                                        <th></th>
+                                                        <th>Title</th>
+                                                        <th>Duration</th>
+                                                        <th>Category</th>
+                                                        <th>&nbsp;</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="video in videos | filter: pagingInfo.search">
+                                                        <td>
+                                                            <a href="" ng-click="showVideo(video)" title="Watch Now">
+                                                                <img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:60px; height:50px;" />
+                                                            </a>
+                                                        </td>
+                                                        <td class="mobScreenTableDisNon">
+                                                            <p ng-click="showVideo(video)" title="Watch Now">{{video.name}}</p>
+                                                        </td>
+                                                        <td class="mobScreenTableDisNon">{{video.duration}} min.</td>
+                                                        <td class="mobScreenTableDisNon">
+                                                            <span ng-repeat="cat in video.categories">
+                                                                {{cat.name}}<br />
+                                                            </span>
+                                                        </td>
+                                                        <td ng-if="$root.isFreeUser">
+                                                            <a href="#!packages" class="btn btn-primary">
+                                                                <!--<i class="fa fa-signal">-->Signup Now<!--</i>-->
+                                                            </a>
+                                                        </td>
+                                                        <td class="mobScreenTableDisNon" ng-if="!$root.isFreeUser">
+                                                            <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
+                                                                Play Now <i class="fa fa-arrow-circle-o-right"></i>
+                                                            </button>
+                                                            <button class="btn btn-default" ng-click="downloadVideo(video)" title="Download Video" ng-if="$root.showDownloadOption">
+                                                                <i class="fa fa-download"></i>
+                                                            </button>
+                                                            <!--<a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self">
+                                                                <i class="fa fa-download"></i>
+                                                            </a>-->
+                                                            <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
+                                                                <i class="fa  fa-plus"></i>
+                                                            </button>
+                                                            <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
+                                                                <i class="fa  fa-plus"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td class="mobScreenTable" ng-if="!$root.isFreeUser">
+                                                            <div class="mobScreenDiv" style="width:100%;">
+                                                                <div class="row">
+                                                                    <p ng-click="showVideo(video)" title="Watch Now" style="margin: 8px 0px;" class="col-xs-8 col-lg-8 col-md-8 col-sm-8 ng-binding lrgFont">
+                                                                        {{video.name}}
+                                                                        <span class="minFont"><i class="fa fa-clock-o"></i>{{video.duration}} min.</span>
+                                                                    </p>
+                                                                    <div class="col-xs-4 col-lg-4 col-md-4 col-sm-4" style="padding:0px;    margin: 8px 0px;">
+                                                                        <button class="btn btn-success" ng-click="addToFavorites(video)" title="Add To Playlist" ng-if="!video.isFavoriteVideo">
+                                                                            <i class="fa  fa-plus"></i>
+                                                                        </button>
+                                                                        <button class="btn btn-danger" ng-click="removeFromFavorites(video)" title="Remove From Playlist" ng-if="video.isFavoriteVideo">
+                                                                            <i class="fa  fa-plus"></i>
+                                                                        </button>
+                                                                        <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
+                                                                            <i class="fa fa-arrow-circle-o-right"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <pagination total-items="pagingInfo.totalItems"
+                                                    ng-model="pagingInfo.page"
+                                                    max-size="4"
+                                                    boundary-links="true"
+                                                    rotate="false"
+                                                    class="pagination-sm pull-right"
+                                                    ng-change="selectPage(pagingInfo.page)"
+                                                    items-per-page="pagingInfo.itemsPerPage"
+                                                    previous-text="&lsaquo;"
+                                                    next-text="&rsaquo;"
+                                                    first-text="&laquo;"
+                                                    last-text="&raquo;"
+                                                    num-pages="numPages">
+                                        </pagination>
                                     </div>
-                                    <pagination total-items="pagingInfo.totalItems"
-                                                ng-model="pagingInfo.page"
-                                                max-size="4"
-                                                boundary-links="true"
-                                                rotate="false"
-                                                class="pagination-sm pull-right"
-                                                ng-change="selectPage(pagingInfo.page)"
-                                                items-per-page="pagingInfo.itemsPerPage"
-                                                previous-text="&lsaquo;"
-                                                next-text="&rsaquo;"
-                                                first-text="&laquo;"
-                                                last-text="&raquo;"
-                                                num-pages="numPages">
-                                    </pagination>
                                 </div>
                             </div>
                         </div>

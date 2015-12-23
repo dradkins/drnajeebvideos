@@ -66,39 +66,35 @@
                 var link = data.data.data[0].sizes[0].link;
                 return link;
             });
-
-            //return $http.jsonp('http://vimeo.com/api/v2/video/' + videoId + '.json?callback=JSON_CALLBACK&_=' + (new Date().getTime()))
-            //    .success(function (r) {
-            //        console.info("Success: " + r);
-            //    })
-            //    .error(function (e) {
-            //        console.info("Error: " + e);
-            //    });
-
-
-            //var deferred = $q.defer();
-
-            //$http.jsonp('http://vimeo.com/api/v2/video/' + videoId + '.json').success(function (data) {
-            //    console.log(data);
-            //    var thumbs = data[0]['thumnail_small'];
-            //    deferred.resolve(thumbs);
-            //}).error(function (error) {
-            //    console.log(error);
-            //    deferred.reject();
-            //});
-            //return deferred.promise;
         }
 
+        function loadImage(video) {
+            return $http.get("https://api.vimeo.com/videos/" + video.vzaarVideoId + "/pictures?access_token=f2ef11bc8f72e6653d3043cbe243bcb0").then(function (data) {
+                video.thumbnailURL = data.data.data[0].sizes[0].link;
+                return video;
+            });
+        }
+
+        VideoService.getVideoThumbnails = function (videos) {
+            var promises = [];
+            var returnVideos = [];
+            angular.forEach(videos, function (video) {
+                promises.push(loadImage(video));
+            })
+
+            return $q.all(promises).then(function (results) {
+                angular.forEach(results, function (video) {
+                    returnVideos.push(video);
+                });
+                return returnVideos;
+            });
+        }
 
         VideoService.downloadVideo = function (id) {
             return $http.get("https://api.vimeo.com/videos/" + id + "?access_token=f2ef11bc8f72e6653d3043cbe243bcb0").then(function (data) {
                 var link = data.data.download[0].link;
                 return link;
             });
-            //return $http.get("http://webservice.drnajeebvideos.com/service.php?id=" + id)
-            //    .then(function (response) {
-            //        return response.data;
-            //    })
         }
 
         return VideoService;

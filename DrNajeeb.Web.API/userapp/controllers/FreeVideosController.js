@@ -58,10 +58,9 @@
         }
 
         var onVideos = function (data) {
-            $scope.videos = data.data;
-            angular.forEach($scope.videos, function (video) {
-                video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
-                $scope.$apply();
+            //$scope.videos = data.data;
+            VideoService.getVideoThumbnails(data.data).then(function (v) {
+                $scope.videos = v;
             })
             //angular.forEach($scope.videos, function (video) {
             //    video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
