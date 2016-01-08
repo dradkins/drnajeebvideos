@@ -68,6 +68,12 @@
             });
         }
 
+        VideoService.getVimeoVideoDetails = function (id) {
+            return $http.get("https://api.vimeo.com/videos/" + id + "?access_token=f2ef11bc8f72e6653d3043cbe243bcb0").then(function (data) {
+                return data.data;
+            });
+        }
+
         function loadImage(video) {
             return $http.get("https://api.vimeo.com/videos/" + video.vzaarVideoId + "/pictures?access_token=f2ef11bc8f72e6653d3043cbe243bcb0").then(function (data) {
                 video.thumbnailURL = data.data.data[0].sizes[0].link;

@@ -29,10 +29,45 @@
 
         var onVideo = function (data) {
             $scope.video = data;
-            //$scope.videoId = "vzvd-" + $scope.video.vzaarVideoId;
+            //VideoService.getVimeoVideoDetails(data.vzaarVideoId).then(function (vd) {
+            //    $scope.video = data;
+            //    setUpPlayer(vd);
+            //}, function (err) {
+            //    console.log(err);
+            //    toastr.error("Unable to load video at this time");
+            //})
+            $scope.videoId = "vzvd-" + $scope.video.vzaarVideoId;
             $scope.videoSource = $sce.trustAsResourceUrl("//player.vimeo.com/video/" + $scope.video.vzaarVideoId);
             //$scope.videoSource = $sce.trustAsResourceUrl("https://view.vzaar.com/" + $scope.video.vzaarVideoId + "/player?apiOn=true");
         }
+
+        //var setUpPlayer = function (vd) {
+        //    var bitrates = {
+        //        mp4: [
+        //          ['Start', vd.files[0].link_secure],
+        //          ['360p', vd.files[0].link_secure],
+        //          ['720p', vd.files[1].link_secure]
+        //        ]
+        //    };
+        //    // Then we set our player settings
+        //    var settings = {
+        //        nav: true,
+        //        bitrates: bitrates,
+        //        delayToFade: 3000,
+        //        width: 640,
+        //        height: 360,
+        //        skin: 's5',
+        //        sharing: true,
+        //        poster: vd.pictures.sizes[vd.pictures.sizes.length-1].link,
+        //        displayStreams: true
+        //    };
+        //    // Reference to the wrapper div (unique id)
+        //    var element = 'rmpPlayer';
+        //    // Create an object based on RadiantMP constructor
+        //    var rmp = new RadiantMP(element);
+        //    // Initialization ... test your page and done!
+        //    rmp.init(settings);
+        //}
 
         var onError = function (error) {
             if (error.status == 400) {

@@ -73,11 +73,11 @@ $(function($) {
 		$('#page-wrapper').toggleClass('nav-small');
 	});
 	
-	$(window).smartresize(function(){
-		if ($( document ).width() <= 991) {
-			$('#page-wrapper').removeClass('nav-small');
-		}
-	});
+	//$(window).smartresize(function(){
+	//	if ($( document ).width() <= 991) {
+	//		$('#page-wrapper').removeClass('nav-small');
+	//	}
+	//});
 	
 	$('.mobile-search').click(function(e) {
 		e.preventDefault();
