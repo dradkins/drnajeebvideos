@@ -312,6 +312,7 @@
     <Content Include="Content\images\checkmark-blue.png" />
     <Content Include="Content\images\user_frontend_mini.png" />
     <Content Include="Content\images\user_mini.jpg" />
+    <Content Include="Content\player.css" />
     <Content Include="Content\sitecontent\css\compiled\angular.css" />
     <Content Include="Scripts\angular-auto-complete.js" />
     <Content Include="Scripts\angular-disqus.js" />
@@ -336,6 +337,7 @@
     <Content Include="Scripts\charts.js\Chart.Radar.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
+    <Content Include="Scripts\player.js" />
     <Content Include="Scripts\scroll\jquery.mCustomScrollbar.js" />
     <Content Include="Scripts\scroll\jquery.mCustomScrollbar.min.css" />
     <Content Include="userapp\controllers\ForgotPasswordController.js" />

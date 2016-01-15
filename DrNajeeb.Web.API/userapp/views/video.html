@@ -32,14 +32,19 @@
                                         <div class="embed-responsive embed-responsive-16by9">
 
 
-                                            <!--<div id="rmpPlayer"></div>-->
-                                            <iframe id="vimeoFrame" ng-src="{{videoSource}}" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                            <!--<video id="drVideo" class="video-js vjs-default-skin" width="840" height="475"
+                                                   controls preload="none" ng-attr-poster="{{posterLink}}" ng-src="{{videoLink}}">
+                                                <source ng-src="{{videoLink}}" type='video/mp4' />
+                                            </video>-->
 
+                                            <div id="rmPlayer" style="width:100%;"></div>
+                                            <!--<iframe id="vimeoFrame" ng-src="{{videoSource}}" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
                                             <!-- <iframe id="{{videoId}}" class="vzaar-video-player" width="720"
-                                                    height="480" frameborder="0" webkitallowfullscreen="" type="text/html"
-                                                    title="vzaar video player" ng-src="{{videoSource}}"
-                                                    name="{{videoId}}" mo="" allowtransparency="true" allowfullscreen=""></iframe>
- -->                                        </div>
+                                                                                               height="480" frameborder="0" webkitallowfullscreen="" type="text/html"
+                                                                                               title="vzaar video player" ng-src="{{videoSource}}"
+                                                                                               name="{{videoId}}" mo="" allowtransparency="true" allowfullscreen=""></iframe>
+                                            -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>

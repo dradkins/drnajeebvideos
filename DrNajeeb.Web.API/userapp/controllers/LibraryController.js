@@ -43,9 +43,16 @@
 
         var onCategoryVideos = function (data) {
             $scope.videos = null;
-            VideoService.getVideoThumbnails(data).then(function (v) {
-                $scope.videos = v;
+            $scope.videos = data;
+            angular.forEach($scope.videos, function (v) {
+                v.thumbnailURL = "";
+                VideoService.getVideoThumbnail(v.vzaarVideoId).then(function (t) {
+                    v.thumbnailURL = t;
+                })
             })
+            //VideoService.getVideoThumbnails(data).then(function (v) {
+            //    $scope.videos = v;
+            //})
         }
 
         var onCategories = function (data) {
@@ -71,10 +78,10 @@
             console.log(video);
             VideoService.downloadVideo(video.vzaarVideoId)
                     .then(function (data) {
-
                         var link = document.createElement("a");
                         link.download = video.name + ".mp4";
                         link.href = data;
+                        document.body.appendChild(link);
                         link.click();
                     })
         }
