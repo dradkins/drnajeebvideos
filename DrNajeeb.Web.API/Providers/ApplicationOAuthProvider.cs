@@ -162,7 +162,7 @@ namespace DrNajeeb.Web.API.Providers
                 { "userName", userName },
                 {"fullName", fullName},
                 {"isFreeUser", (isFreeUser)?"True":"False"},
-                {"showDownloadOption", (subId==1)?"True":"False"},
+                {"showDownloadOption", (subId==1 || subId==3 || subId==6)?"True":"False"},
                 {"guid", guid},
             };
             return new AuthenticationProperties(data);

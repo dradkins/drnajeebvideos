@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var FrontEndController = function ($scope, LibraryService) {
+    var FrontEndController = function ($scope, LibraryService, VideoService) {
 
         $scope.categories = [];
         $scope.videos = [];
@@ -19,9 +19,11 @@
         var onCategoryVideos = function (data) {
             $scope.videos = null;
             $scope.videos = data;
-            angular.forEach($scope.videos, function (video) {
-                video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
-                $scope.$apply();
+            angular.forEach($scope.videos, function (v) {
+                v.thumbnailURL = "";
+                VideoService.getVideoThumbnail(v.vzaarVideoId).then(function (t) {
+                    v.thumbnailURL = t;
+                })
             })
         }
 
@@ -47,7 +49,7 @@
 
     };
 
-    FrontEndController.$inject = ["$scope", "LibraryService"];
+    FrontEndController.$inject = ["$scope", "LibraryService", "VideoService"];
     app.controller("FrontEndController", FrontEndController);
 
 }(angular.module("DrNajeebUser")));
