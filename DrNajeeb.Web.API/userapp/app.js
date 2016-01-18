@@ -6,13 +6,15 @@
         "ui.bootstrap",
         "LocalStorageModule",
         "toastr",
-        //"jcs-autoValidate",
         "facebook",
         "directive.g+signin",
         "angularFileUpload",
         "LiveSearch",
         "ngIOS9UIWebViewPatch",
-        //"vcRecaptcha"
+        "ngSanitize",
+        "com.2fdevs.videogular",
+        "com.2fdevs.videogular.plugins.controls",
+        "th.co.softever.videogular.plugins.quality"
     ]);
 
     app.config(function ($routeProvider, $locationProvider, FacebookProvider) {

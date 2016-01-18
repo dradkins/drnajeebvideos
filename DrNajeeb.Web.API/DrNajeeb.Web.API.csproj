@@ -314,6 +314,7 @@
     <Content Include="Content\images\user_mini.jpg" />
     <Content Include="Content\player.css" />
     <Content Include="Content\sitecontent\css\compiled\angular.css" />
+    <Content Include="Content\vg-quality.css" />
     <Content Include="Scripts\angular-auto-complete.js" />
     <Content Include="Scripts\angular-disqus.js" />
     <Content Include="Scripts\angular-file-upload.js" />
@@ -340,6 +341,7 @@
     <Content Include="Scripts\player.js" />
     <Content Include="Scripts\scroll\jquery.mCustomScrollbar.js" />
     <Content Include="Scripts\scroll\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Scripts\vg-quality.js" />
     <Content Include="userapp\controllers\ForgotPasswordController.js" />
     <Content Include="userapp\controllers\FreeVideosController.js" />
     <Content Include="userapp\controllers\FrontEndController.js" />

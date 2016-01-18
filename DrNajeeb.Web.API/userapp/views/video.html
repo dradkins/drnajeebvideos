@@ -37,7 +37,31 @@
                                                 <source ng-src="{{videoLink}}" type='video/mp4' />
                                             </video>-->
 
-                                            <div id="rmPlayer" style="width:100%;"></div>
+
+                                            <videogular vg-theme="config.theme.url" style="position:initial;">
+                                                <vg-media vg-src="config.sources"
+                                                          vg-tracks="config.tracks">
+                                                </vg-media>
+
+                                                <vg-controls vg-autohide="config.plugins.controls.autoHide" vg-autohide-time="config.plugins.controls.autoHideTime">
+                                                    <vg-play-pause-button></vg-play-pause-button>
+                                                    <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                                                    <vg-scrub-bar>
+                                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                                    </vg-scrub-bar>
+                                                    <vg-time-display>{{ timeLeft | date:'mm:ss':'+0000' }}</vg-time-display>
+                                                    <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                                                    <vg-volume>
+                                                        <vg-mute-button></vg-mute-button>
+                                                        <vg-volume-bar></vg-volume-bar>
+                                                    </vg-volume>
+                                                    <vg-quality quality-sources="config.qualitySources" default-quality="currentQualitySource"></vg-quality>
+                                                    <vg-playback-button></vg-playback-button>
+                                                    <vg-fullscreen-button></vg-fullscreen-button>
+                                                </vg-controls>
+                                            </videogular>
+
+                                            <!--<div id="rmPlayer" style="width:100%;"></div>-->
                                             <!--<iframe id="vimeoFrame" ng-src="{{videoSource}}" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
                                             <!-- <iframe id="{{videoId}}" class="vzaar-video-player" width="720"
                                                                                                height="480" frameborder="0" webkitallowfullscreen="" type="text/html"
