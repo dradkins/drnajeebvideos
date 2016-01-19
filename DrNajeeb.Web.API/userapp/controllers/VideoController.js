@@ -43,99 +43,74 @@
             //$scope.videoSource = $sce.trustAsResourceUrl("https://view.vzaar.com/" + $scope.video.vzaarVideoId + "/player?apiOn=true");
         }
 
-        $scope.config;
-        $scope.currentQualitySource;
+        //$scope.config;
+        //$scope.currentQualitySource;
+        //$scope.videoLoaded = false;
 
         var setUpPlayer = function (vd) {
 
+            //$scope.config = {
+            //    preload: "none",
+            //    sources: [
+            //        { src: $sce.trustAsResourceUrl(vd.files[0].link_secure), type: "video/mp4" },
+            //    ],
+            //    //theme: {
+            //    //    url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
+            //    //},
+            //    qualitySources: [
+            //          {
+            //              name: '720p',
+            //              sources: [
+            //                { src: $sce.trustAsResourceUrl(vd.files[1].link_secure), type: "video/mp4" }
+            //              ],
+            //              dashIndex: 3
+            //          },
+            //          {
+            //              name: '360p',
+            //              sources: [
+            //                { src: $sce.trustAsResourceUrl(vd.files[0].link_secure), type: "video/mp4" }
+            //              ],
+            //              dashIndex: 2
+            //          },
+            //    ],
+            //    plugins: {
+            //        controls: {
+            //            autoHide: true,
+            //            autoHideTime: 5000
+            //        },
+            //        poster: vd.pictures.sizes[vd.pictures.sizes.length - 1].link
+            //    }
+            //};
 
 
-            $scope.config = {
-                preload: "none",
-                sources: [
-                    { src: $sce.trustAsResourceUrl(vd.files[0].link_secure), type: "video/mp4" },
-                ],
-                theme: {
-                    url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
-                },
-                qualitySources: [
-                      {
-                          name: '720p',
-                          sources: [
-                            { src: $sce.trustAsResourceUrl(vd.files[1].link_secure), type: "video/mp4" }
-                          ],
-                          dashIndex: 3
-                      },
-                      {
-                          name: '360p',
-                          sources: [
-                            { src: $sce.trustAsResourceUrl(vd.files[0].link_secure), type: "video/mp4" }
-                          ],
-                          dashIndex: 2
-                      },
-                ],
-                plugins: {
-                    controls: {
-                        autoHide: true,
-                        autoHideTime: 5000
-                    }
-                }
+            //$scope.currentQualitySource = $scope.config.qualitySources[0];
+            //$scope.videoLoaded = true;
+
+
+            var bitrates = {
+                mp4: [
+                  ['Start', vd.files[0].link_secure],
+                  ['360p', vd.files[0].link_secure],
+                  ['720p', vd.files[1].link_secure]
+                ]
             };
-
-
-            $scope.currentQualitySource = $scope.config.qualitySources[0];
-
-
-
-
-
-
-            //$scope.videoLink = $sce.trustAsResourceUrl(vd.files[0].link_secure);
-            //$scope.posterLink = vd.pictures.sizes[vd.pictures.sizes.length - 1].link;
-            //console.log($scope.videoId);
-            //var vID = $scope.videoId;
-            //console.log(angular.element(document.querySelector("#" + vID + "")));
-            //videojs("drVideo", {
-            //    "aspectRatio": "840:475",
-            //    "playbackRates": [1, 1.5, 2]
-            //}, function () {
-            //    myPlayer = this;
-            //});
-
-
-            //var bitrates = {
-            //    mp4: [
-            //      ['Start', vd.files[0].link_secure],
-            //      ['360p', vd.files[0].link_secure],
-            //      ['720p', vd.files[1].link_secure]
-            //    ]
-            //};
-            //var settings = {
-            //    nav: true,
-            //    bitrates: bitrates,
-            //    delayToFade: 3000,
-            //    width: 840,
-            //    height: 475,
-            //    skin: 's5',
-            //    sharing: false,
-            //    poster: vd.pictures.sizes[vd.pictures.sizes.length-1].link,
-            //    displayStreams: true
-            //};
-            //var element = 'rmPlayer';
-            //myPlayer = new RadiantMP(element);
-            //myPlayer.init(settings);
+            var settings = {
+                nav: true,
+                bitrates: bitrates,
+                delayToFade: 3000,
+                width: 840,
+                height: 475,
+                skin: 's5',
+                sharing: false,
+                poster: vd.pictures.sizes[vd.pictures.sizes.length-1].link,
+                displayStreams: true
+            };
+            var element = 'rmPlayer';
+            myPlayer = new RadiantMP(element);
+            myPlayer.init(settings);
         }
 
-        var myPlayer;
-        $scope.$on('$destroy', function () {
-            console.log("Calling");
-            console.log(myPlayer);
-            // Destroy the object if it exists
-            if ((myPlayer !== undefined) && (myPlayer !== null)) {
-                delete ObjCell;
-                console.log("Disposing");
-            }
-        });
+
 
         var onError = function (error) {
             if (error.status == 400) {

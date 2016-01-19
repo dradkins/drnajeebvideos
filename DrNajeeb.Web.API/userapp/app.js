@@ -11,10 +11,13 @@
         "angularFileUpload",
         "LiveSearch",
         "ngIOS9UIWebViewPatch",
-        "ngSanitize",
-        "com.2fdevs.videogular",
-        "com.2fdevs.videogular.plugins.controls",
-        "th.co.softever.videogular.plugins.quality"
+        //"ngSanitize",
+        //"com.2fdevs.videogular",
+        //"com.2fdevs.videogular.plugins.controls",
+        //"com.2fdevs.videogular.plugins.overlayplay",
+        //"com.2fdevs.videogular.plugins.poster",
+        //"th.co.softever.videogular.plugins.quality",
+        //"com.2fdevs.videogular.plugins.buffering"
     ]);
 
     app.config(function ($routeProvider, $locationProvider, FacebookProvider) {

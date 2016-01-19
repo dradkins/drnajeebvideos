@@ -37,8 +37,10 @@
                                                 <source ng-src="{{videoLink}}" type='video/mp4' />
                                             </video>-->
 
-
-                                            <videogular vg-theme="config.theme.url" style="position:initial;">
+                                            <!--<div class="text-center" ng-if="!videoLoaded">
+                                                <span>Loading Video! Please Wait....</span>
+                                            </div>
+                                            <videogular vg-theme="config.theme.url" style="position:absolute;" ng-if="videoLoaded">
                                                 <vg-media vg-src="config.sources"
                                                           vg-tracks="config.tracks">
                                                 </vg-media>
@@ -59,9 +61,13 @@
                                                     <vg-playback-button></vg-playback-button>
                                                     <vg-fullscreen-button></vg-fullscreen-button>
                                                 </vg-controls>
-                                            </videogular>
 
-                                            <!--<div id="rmPlayer" style="width:100%;"></div>-->
+                                                <vg-overlay-play></vg-overlay-play>
+                                                <vg-buffering></vg-buffering>
+                                                <vg-poster vg-url='config.plugins.poster'></vg-poster>
+                                            </videogular>-->
+
+                                            <div id="rmPlayer" style="width:100%;"></div>
                                             <!--<iframe id="vimeoFrame" ng-src="{{videoSource}}" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
                                             <!-- <iframe id="{{videoId}}" class="vzaar-video-player" width="720"
                                                                                                height="480" frameborder="0" webkitallowfullscreen="" type="text/html"
