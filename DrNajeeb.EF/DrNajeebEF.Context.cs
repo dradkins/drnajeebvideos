@@ -41,6 +41,7 @@ namespace DrNajeeb.EF
         public virtual DbSet<Subscription> Subscriptions { get; set; }
         public virtual DbSet<UserFavoriteVideo> UserFavoriteVideos { get; set; }
         public virtual DbSet<UserVideoHistory> UserVideoHistories { get; set; }
+        public virtual DbSet<VideoDownloadhistory> VideoDownloadhistories { get; set; }
         public virtual DbSet<Video> Videos { get; set; }
         public virtual DbSet<LoggedInTracking> LoggedInTrackings { get; set; }
         public virtual DbSet<SupportMessage> SupportMessages { get; set; }

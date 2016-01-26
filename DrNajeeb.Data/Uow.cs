@@ -52,6 +52,7 @@ namespace DrNajeeb.Data
         public IRepository<IpAddressFilter> _IpAddressFilter { get { return GetStandardRepo<IpAddressFilter>(); } }
         public IRepository<NewFeature> _NewFeatures { get { return GetStandardRepo<NewFeature>(); } }
         public IRepository<MessageToAll> _MessageToAll { get { return GetStandardRepo<MessageToAll>(); } }
+        public IRepository<VideoDownloadhistory> _VideoDownloadhistory { get { return GetStandardRepo<VideoDownloadhistory>(); } }
 
         #endregion
 

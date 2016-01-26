@@ -31,6 +31,8 @@ namespace DrNajeeb.Contract
         IRepository<IpAddressFilter> _IpAddressFilter { get; }
         IRepository<NewFeature> _NewFeatures { get; }
         IRepository<MessageToAll> _MessageToAll { get; }
+        IRepository<VideoDownloadhistory> _VideoDownloadhistory { get; }
+
         int SendMessageToAll();
 
         #endregion

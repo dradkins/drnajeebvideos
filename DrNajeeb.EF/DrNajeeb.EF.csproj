@@ -118,6 +118,9 @@
     <Compile Include="Video.cs">
       <DependentUpon>DrNajeebEF.tt</DependentUpon>
     </Compile>
+    <Compile Include="VideoDownloadhistory.cs">
+      <DependentUpon>DrNajeebEF.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

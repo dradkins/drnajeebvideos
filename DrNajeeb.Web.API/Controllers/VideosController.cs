@@ -970,5 +970,28 @@ namespace DrNajeeb.Web.API.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [ActionName("SaveDownloadStats")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> SaveDownloadStats(int id)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                _Uow._VideoDownloadhistory.Add(new VideoDownloadhistory
+                {
+                    DateTimeDownloaded = DateTime.UtcNow,
+                    UserId = userId,
+                    VideoId = id
+                });
+                await _Uow.CommitAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

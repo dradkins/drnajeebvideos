@@ -103,6 +103,13 @@
             });
         }
 
+        VideoService.saveDownloadStats = function (videoId) {
+            return $http.get("/api/videos/saveDownloadStats/", { params: { id: videoId } })
+                   .then(function (response) {
+                       return response.data;
+                   });
+        }
+
         return VideoService;
 
     }

@@ -112,6 +112,7 @@ namespace DrNajeeb.EF
             this.UserVideoHistories1 = new HashSet<UserVideoHistory>();
             this.UserVideoHistories2 = new HashSet<UserVideoHistory>();
             this.UserVideoHistories3 = new HashSet<UserVideoHistory>();
+            this.VideoDownloadhistories = new HashSet<VideoDownloadhistory>();
             this.Videos = new HashSet<Video>();
             this.Videos1 = new HashSet<Video>();
             this.Videos2 = new HashSet<Video>();
@@ -293,6 +294,7 @@ namespace DrNajeeb.EF
         public virtual ICollection<UserVideoHistory> UserVideoHistories1 { get; set; }
         public virtual ICollection<UserVideoHistory> UserVideoHistories2 { get; set; }
         public virtual ICollection<UserVideoHistory> UserVideoHistories3 { get; set; }
+        public virtual ICollection<VideoDownloadhistory> VideoDownloadhistories { get; set; }
         public virtual ICollection<Video> Videos { get; set; }
         public virtual ICollection<Video> Videos1 { get; set; }
         public virtual ICollection<Video> Videos2 { get; set; }

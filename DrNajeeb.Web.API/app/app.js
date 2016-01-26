@@ -58,6 +58,26 @@
                 templateUrl: "/app/views/CategoryVideos.html",
                 controller: "CategoryVideoController"
             })
+            .when("/most-watched-videos", {
+                templateUrl: "/app/views/most_watched_videos.html",
+                controller: "MostWatchedVideosController"
+            })
+            .when("/video-download-stats", {
+                templateUrl: "/app/views/video_download_stats.html",
+                controller: "VideoDownloadStatsController"
+            })
+            .when("/downloads/:userId", {
+                templateUrl: "/app/views/user_video_download_stats.html",
+                controller: "UserVideoDownloadStatsController"
+            })
+            .when("/user-stats", {
+                templateUrl: "/app/views/user_stats.html",
+                controller: "UserStatsController"
+            })
+            .when("/revenue", {
+                templateUrl: "/app/views/revenue.html",
+                controller: "RevenueController"
+            })
         .otherwise({ redirectTo: "/dashboard" })
     });
 

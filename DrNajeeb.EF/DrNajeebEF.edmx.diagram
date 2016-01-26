@@ -4,24 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="183e1ad90b3644478cb35aa069fe9aa0" Name="Diagram1">
-        <EntityTypeShape EntityType="lecturesModel.AspNetRole" Width="1.5" PointX="0.75" PointY="33.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.AspNetUser" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.CategoriesInSubscription" Width="1.5" PointX="7.5" PointY="32.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.Category" Width="1.5" PointX="5.25" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.CategoryVideo" Width="1.5" PointX="7.5" PointY="41.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.Country" Width="1.5" PointX="0.75" PointY="36.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.IpAddressFilter" Width="1.5" PointX="5.25" PointY="25.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.MessageToAll" Width="1.5" PointX="5.25" PointY="30.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.NewFeature" Width="1.5" PointX="5.25" PointY="33.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.Subscription" Width="1.5" PointX="5.25" PointY="44.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.UserFavoriteVideo" Width="1.5" PointX="7.5" PointY="49.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.UserVideoHistory" Width="1.5" PointX="10.5" PointY="49.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.Video" Width="1.5" PointX="5.25" PointY="63.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.LoggedInTracking" Width="1.5" PointX="5.25" PointY="55.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.SupportMessage" Width="1.5" PointX="5.25" PointY="58.625" IsExpanded="true" />
+      <Diagram DiagramId="8f7d9ad310c6484f9de47396a43da236" Name="Diagram1">
+        <EntityTypeShape EntityType="lecturesModel.AspNetRole" Width="1.5" PointX="0.75" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.AspNetUser" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.CategoriesInSubscription" Width="1.5" PointX="7.5" PointY="34" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.Category" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.CategoryVideo" Width="1.5" PointX="7.5" PointY="45" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.Country" Width="1.5" PointX="0.75" PointY="38.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.IpAddressFilter" Width="1.5" PointX="5.25" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.MessageToAll" Width="1.5" PointX="5.25" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.NewFeature" Width="1.5" PointX="5.25" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.Subscription" Width="1.5" PointX="5.25" PointY="46.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.UserFavoriteVideo" Width="1.5" PointX="7.5" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.UserVideoHistory" Width="1.5" PointX="10.5" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.VideoDownloadhistory" Width="1.5" PointX="10.5" PointY="49.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.Video" Width="1.5" PointX="5.25" PointY="68.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.LoggedInTracking" Width="1.5" PointX="5.25" PointY="59.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.SupportMessage" Width="1.5" PointX="5.25" PointY="63.125" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="lecturesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
@@ -135,6 +136,7 @@
         <AssociationConnector Association="lecturesModel.FK__UserVideo__UserI__542C7691" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.FK__UserVideo__UserI__55209ACA" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.FK__UserVideo__UserI__5614BF03" ManuallyRouted="false" />
+        <AssociationConnector Association="lecturesModel.FK__VideoDown__UserI__1F83A428" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.FK__Videos__CreatedB__5AD97420" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.FK__Videos__CreatedB__5BCD9859" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.FK__Videos__CreatedB__5CC1BC92" ManuallyRouted="false" />
@@ -191,6 +193,7 @@
         <AssociationConnector Association="lecturesModel.FK__UserVideo__Video__57FD0775" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.FK__UserVideo__Video__58F12BAE" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.FK__UserVideo__Video__59E54FE7" ManuallyRouted="false" />
+        <AssociationConnector Association="lecturesModel.FK__VideoDown__Video__1E8F7FEF" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

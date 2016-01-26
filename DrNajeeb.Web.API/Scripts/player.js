@@ -275,7 +275,14 @@
         },
         m = function (b) {
             if ("undefined" != typeof b) {
-                var c = a.getComputedStyle(b).width || 0;
+                var c;
+                if (b.currentStyle) {
+                    c = b.currentStyle.width;
+                } else if (a.getComputedStyle) {
+                    c = a.getComputedStyle(b, null).getPropertyValue("width");
+                }
+                //var c = a.getComputedStyle(b).width || 0;
+                console.log(typeof c);
                 return c.indexOf("px") > -1 && (c = c.replace("px", "")), parseFloat(c)
             }
             return null

@@ -92,6 +92,7 @@
 
         $scope.downloadVideo = function (video) {
             console.log(video);
+            VideoService.saveDownloadStats(video.id).then(function (data) { console.log(data); }, function (err) { console.log(err); });
             VideoService.downloadVideo(video.vzaarVideoId)
                     .then(function (data) {
 

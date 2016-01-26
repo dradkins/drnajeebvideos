@@ -75,20 +75,20 @@ namespace DrNajeeb.Web.API.Controllers
                     _UOW._Users.Update(user);
                     await _UOW.CommitAsync();
 
-                    var model=new ConfirmCheckoutViewModel()
+                    var model = new ConfirmCheckoutViewModel()
                     {
-                        Result="SUCCESS",
-                        Message="congratulations! Your account is activated successfully",
+                        Result = "SUCCESS",
+                        Message = "congratulations! Your account is activated successfully",
                     };
 
                     return View(model);
                 }
                 else
                 {
-                    var model=new ConfirmCheckoutViewModel()
+                    var model = new ConfirmCheckoutViewModel()
                     {
-                        Result="NOT FOUND",
-                        Message="Please contact the admin for further assistant",
+                        Result = "NOT FOUND",
+                        Message = "Please contact the admin for further assistant",
                     };
 
                     return View(model);
@@ -96,13 +96,13 @@ namespace DrNajeeb.Web.API.Controllers
             }
             else
             {
-                var model=new ConfirmCheckoutViewModel()
+                var model = new ConfirmCheckoutViewModel()
                     {
-                        Result="ERROR",
-                        Message="Unable to verify your payment",
+                        Result = "ERROR",
+                        Message = "Unable to verify your payment",
                     };
 
-                    return View(model);
+                return View(model);
             }
         }
 
@@ -119,7 +119,7 @@ namespace DrNajeeb.Web.API.Controllers
                     .Select(x => x.Email)
                     .ToListAsync();
                 var csv = string.Join(",", inActiveUsers.ToArray());
-                return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", id.Value.ToShortDateString()+".csv");
+                return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", id.Value.ToShortDateString() + ".csv");
             }
             catch (Exception)
             {
@@ -136,6 +136,40 @@ namespace DrNajeeb.Web.API.Controllers
                     .Select(x => x.Email)
                     .ToListAsync();
                 var csv = string.Join(Environment.NewLine, inActiveUsers.ToArray());
+                return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", DateTime.Now.Ticks + ".csv");
+            }
+            catch (Exception)
+            {
+                return File(new byte[10], DateTime.Now.ToShortDateString(), "text/csv");
+            }
+        }
+
+        public async Task<FileContentResult> GetAllAtiveUsers()
+        {
+            try
+            {
+                var inActiveUsers = await _UOW._Users
+                    .GetAll(x => x.IsActiveUSer == true && x.Active == true)
+                    .Select(x => x.Email)
+                    .ToListAsync();
+                var csv = string.Join(Environment.NewLine, inActiveUsers.ToArray());
+                return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", DateTime.Now.Ticks + ".csv");
+            }
+            catch (Exception)
+            {
+                return File(new byte[10], DateTime.Now.ToShortDateString(), "text/csv");
+            }
+        }
+
+        public async Task<FileContentResult> GetUsersEmails(DateTime fromDate, DateTime toDate, bool isActive)
+        {
+            try
+            {
+                var users = await _UOW._Users
+                    .GetAll(x => x.IsActiveUSer == isActive && x.Active == true && x.CreatedOn >= fromDate && x.CreatedOn <= toDate)
+                    .Select(x => x.Email)
+                    .ToListAsync();
+                var csv = string.Join(Environment.NewLine, users.ToArray());
                 return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", DateTime.Now.Ticks + ".csv");
             }
             catch (Exception)
