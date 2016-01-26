@@ -5,34 +5,14 @@
         $scope.pagingInfo = {
             page: 1,
             itemsPerPage: 20,
-            search: '',
-            totalItems: 0,
-            fromDate: new Date(),
-            toDate: new Date()
         };
 
         $scope.users = [];
-
-        $scope.search = function () {
-            $scope.pagingInfo.page = 1;
-            loadUsers();
-        };
 
         $scope.selectPage = function (page) {
             $scope.pagingInfo.page = page;
             loadUsers();
         };
-
-        $scope.downloadFile = function (value) {
-            if (value) {
-                var downloadPath = "/home/GetInactiveUsers/" + $filter('date')($scope.reportDate, "yyyy-MM-dd");
-                window.open(downloadPath, '_blank', '');
-            }
-            else {
-                var downloadPath = "/home/GetAllInactiveUsers";
-                window.open(downloadPath, '_blank', '');
-            }
-        }
 
         var onUsers = function (data) {
             $scope.users = null;
@@ -49,6 +29,8 @@
         var loadUsers = function () {
             ReportsService.getMostActiveUsers($scope.pagingInfo).then(onUsers, onError);
         }
+
+        loadUsers();
 
     };
 

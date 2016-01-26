@@ -17,4 +17,12 @@ namespace DrNajeeb.Web.API.Models
         public Nullable<int> TimeDurationInDays { get; set; }
         public string GatewayId { get; set; }
     }
+
+    class SubscriptionRevenueViewModel
+    {
+        public string SubscriptionName { get; set; }
+        public int TotalUsers { get; set; }
+        public int SubscriptionId { get; set; }
+        public double Amount { get; set; }
+    }
 }

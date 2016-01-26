@@ -78,6 +78,18 @@
                 templateUrl: "/app/views/revenue.html",
                 controller: "RevenueController"
             })
+            .when("/most-active-users", {
+                templateUrl: "/app/views/most_active_users.html",
+                controller: "MostActiveUsersController"
+            })
+            .when("/ghost-users", {
+                templateUrl: "/app/views/ghost_users.html",
+                controller: "GhostUsersController"
+            })
+            .when("/user-activities/:userId", {
+                templateUrl: "/app/views/user_activities.html",
+                controller: "UserActivityController"
+            })
         .otherwise({ redirectTo: "/dashboard" })
     });
 

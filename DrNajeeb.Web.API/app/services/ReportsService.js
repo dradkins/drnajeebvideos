@@ -41,6 +41,28 @@
                         });
         };
 
+        ReportsService.getMostActiveUsers = function (pagingInfo) {
+            return $http.get("/api/reports/getMostActiveUsers", { params: pagingInfo })
+                        .then(function (response) {
+                            return response.data;
+                        });
+        };
+
+        ReportsService.getGhostUsers = function (pagingInfo) {
+            return $http.get("/api/reports/getGhostUsers", { params: pagingInfo })
+                        .then(function (response) {
+                            return response.data;
+                        });
+        };
+
+        ReportsService.getUserActivityReport = function (pagingInfo) {
+            return $http.get("/api/reports/getUserActivityReport", { params: pagingInfo })
+                        .then(function (response) {
+                            return response.data;
+                        });
+        };
+        
+        
         return ReportsService;
     }
 

@@ -290,12 +290,14 @@
     <Content Include="app\controllers\CategoryVideoController.js" />
     <Content Include="app\controllers\DashboardController.js" />
     <Content Include="app\controllers\FeaturesController.js" />
+    <Content Include="app\controllers\GhostUsersController.js" />
     <Content Include="app\controllers\LoginController.js" />
     <Content Include="app\controllers\MostActiveUsersController.js" />
     <Content Include="app\controllers\MostWatchedVideosController.js" />
     <Content Include="app\controllers\NotificationsController.js" />
     <Content Include="app\controllers\RevenueController.js" />
     <Content Include="app\controllers\SupportController.js" />
+    <Content Include="app\controllers\UserActivityController.js" />
     <Content Include="app\controllers\UserStatsController.js" />
     <Content Include="app\controllers\UserVideoDownloadStatsController.js" />
     <Content Include="app\controllers\VideoDownloadStatsController.js" />
@@ -314,6 +316,7 @@
     <Content Include="app\views\categoryvideos.html" />
     <Content Include="app\views\dashboard.html" />
     <Content Include="app\views\features.html" />
+    <Content Include="app\views\ghost_users.html" />
     <Content Include="app\views\login.html" />
     <Content Include="app\views\most_active_users.html" />
     <Content Include="app\views\most_watched_videos.html" />
@@ -321,6 +324,7 @@
     <Content Include="app\views\navigation_upper.html" />
     <Content Include="app\views\revenue.html" />
     <Content Include="app\views\support.html" />
+    <Content Include="app\views\user_activities.html" />
     <Content Include="app\views\user_stats.html" />
     <Content Include="app\views\user_video_download_stats.html" />
     <Content Include="app\views\video_download_stats.html" />
