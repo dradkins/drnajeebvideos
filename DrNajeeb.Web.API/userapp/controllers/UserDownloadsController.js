@@ -1,7 +1,6 @@
 ﻿(function (app) {
 
-    var NewVideosController = function ($scope, $log, $routeParams, $rootScope, $location, VideoService) {
-
+    var UserDownloadsController = function ($scope, $location, VideoService) {
 
         $scope.videos = [];
 
@@ -37,56 +36,24 @@
             $location.path('/video/' + video.id);
         }
 
-        $scope.addToFavorites = function (video) {
-            VideoService.addToFavorites(video.id).then(onFavoritesAdd, onError);
-        }
-
-        $scope.removeFromFavorites = function (video) {
-            VideoService.removeFromFavorites(video.id).then(onFavoritesRemove, onError);
-        }
-
-        $scope.getThumbnailURL = function (videoId) {
-            return VideoService.getVideoThumbnail(videoId).then(function (data) {
-                return data;
-            })
-        }
-
-        var onFavoritesAdd = function (data) {
-            angular.forEach($scope.videos, function (vid) {
-                if (vid.id == data) {
-                    vid.isFavoriteVideo = true;
-                    return false;
-                }
-            })
-        }
-
-        var onFavoritesRemove = function (data) {
-            angular.forEach($scope.videos, function (vid) {
-                if (vid.id == data) {
-                    vid.isFavoriteVideo = false;
-                    return false;
-                }
-            })
-        }
-
         var onVideos = function (data) {
-            //$scope.videos = data.data;
-            VideoService.getVideoThumbnails(data.data).then(function (v) {
-                $scope.videos = v;
+            $scope.videos = null;
+            $scope.videos = data.data;
+            angular.forEach($scope.videos, function (v) {
+                v.thumbnailURL = "";
+                VideoService.getVideoThumbnail(v.vzaarVideoId).then(function (t) {
+                    v.thumbnailURL = t;
+                })
             })
             $scope.pagingInfo.totalItems = data.count;
         }
 
         var loadVideos = function (cat) {
-            if ($routeParams.searchTerm) {
-                $scope.pagingInfo.search = $routeParams.searchTerm;
-                $rootScope.SEARCH_TERM = "";
-            }
-            VideoService.getNewVideos($scope.pagingInfo).then(onVideos, onError);
+            VideoService.getDownloadedVideos($scope.pagingInfo).then(onVideos, onError);
         }
 
         var onError = function (error) {
-            $log.info("Error in NewVideosController");
+            $log.info("Error in UserDownloadsController");
             $log.error(error);
         }
 
@@ -119,7 +86,7 @@
 
     };
 
-    NewVideosController.$inject = ["$scope", "$log", "$routeParams", "$rootScope", "$location", "VideoService"];
-    app.controller("NewVideosController", NewVideosController);
+    UserDownloadsController.$inject = ["$scope", "$location", "VideoService"];
+    app.controller("UserDownloadsController", UserDownloadsController);
 
 }(angular.module("DrNajeebUser")));

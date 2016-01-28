@@ -66,16 +66,28 @@
         }
 
         $scope.downloadVideo = function (video) {
-            console.log(video);
-            VideoService.saveDownloadStats(video.id).then(function (data) { console.log(data); }, function (err) { console.log(err); });
-            VideoService.downloadVideo(video.vzaarVideoId)
-                    .then(function (data) {
+            VideoService.getVideoTotalDownloads(video.id).then(function (data) {
+                if (data == 3) {
+                    toastr.info("Unable to download video because your maximum limit for this video download is reached.")
+                }
+                else {
+                    VideoService.saveDownloadStats(video.id).then(function (data) {
+                        console.log(data);
+                    }, function (err) {
+                        console.log(err);
+                    });
+                    VideoService.downloadVideo(video.vzaarVideoId).then(function (data) {
                         var link = document.createElement("a");
                         link.download = video.name + ".mp4";
                         link.href = data;
                         document.body.appendChild(link);
                         link.click();
                     })
+                }
+
+            }, function (err) {
+                console.log(err);
+            })
         }
 
         loadVideos();

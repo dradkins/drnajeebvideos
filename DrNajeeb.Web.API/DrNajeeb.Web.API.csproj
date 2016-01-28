@@ -381,6 +381,7 @@
     <Content Include="userapp\controllers\FrontEndController.js" />
     <Content Include="userapp\controllers\NotificationsController.js" />
     <Content Include="userapp\controllers\PackagesController.js" />
+    <Content Include="userapp\controllers\UserDownloadsController.js" />
     <Content Include="userapp\controllers\UserHistoryController.js" />
     <Content Include="userapp\directives\disqus.js" />
     <Content Include="userapp\directives\menuHider.js" />
@@ -3056,6 +3057,7 @@
     <Content Include="userapp\views\userclinicalvideos.html" />
     <Content Include="userapp\views\userdashboard.html" />
     <Content Include="userapp\views\newvideos.html" />
+    <Content Include="userapp\views\userdownloads.html" />
     <Content Include="userapp\views\userprofile.html" />
     <Content Include="userapp\views\userfavorites.html" />
     <Content Include="userapp\views\video.html" />

@@ -271,6 +271,7 @@ namespace DrNajeeb.Web.API.Controllers
                             }
                         }
                     }
+                    usermodel.TotalVideosDownloaded = await _Uow._VideoDownloadhistory.CountAsync(x => x.UserId == item.Id);
                     usersList.Add(usermodel);
                 }
 
@@ -337,33 +338,63 @@ namespace DrNajeeb.Web.API.Controllers
 
         [HttpGet]
         [ActionName("GetMostActiveUsers")]
-        public async Task<IHttpActionResult> GetMostAactiveUsers(int page = 1, int itemsPerPage = 20)
+        public async Task<IHttpActionResult> GetMostAactiveUsers(int page = 1, int itemsPerPage = 20, string sortBy = "WatchedVideos")
         {
             try
             {
-
-                var mostActiveUsers = _Uow._Users.GetAll(x => x.Active == true && x.IsActiveUSer == true)
-                    .OrderByDescending(x => x.UserVideoHistories.Count)
-                    .ThenByDescending(x => x.VideoDownloadhistories.Count)
-                    .ThenByDescending(x => x.UserFavoriteVideos.Count)
-                    .Select(x => new
-                    {
-                        TotalVideosWatched = x.UserVideoHistories.Count,
-                        TotalVideosDownloaded = x.VideoDownloadhistories.Count,
-                        TotalFavoritesVideos = x.UserFavoriteVideos.Count,
-                        UserName = x.UserName
-                    });
-
+                IQueryable<MostActiveUsersViewModel> mostActiveUsers = null;
+                if (sortBy == "WatchedVideos")
+                {
+                    mostActiveUsers = _Uow._Users.GetAll(x => x.Active == true && x.IsActiveUSer == true)
+                       .OrderByDescending(x => x.UserVideoHistories.Count)
+                       .ThenByDescending(x => x.VideoDownloadhistories.Count)
+                       .ThenByDescending(x => x.UserFavoriteVideos.Count)
+                       .Select(x => new MostActiveUsersViewModel
+                       {
+                           TotalVideosWatched = x.UserVideoHistories.Count,
+                           TotalVideosDownloaded = x.VideoDownloadhistories.Count,
+                           TotalFavoritesVideos = x.UserFavoriteVideos.Count,
+                           UserName = x.UserName
+                       });
+                }
+                else if (sortBy == "DownloadedVideos")
+                {
+                    mostActiveUsers = _Uow._Users.GetAll(x => x.Active == true && x.IsActiveUSer == true)
+                        .OrderByDescending(x => x.VideoDownloadhistories.Count)
+                       .ThenByDescending(x => x.UserVideoHistories.Count)
+                       .ThenByDescending(x => x.UserFavoriteVideos.Count)
+                       .Select(x => new MostActiveUsersViewModel
+                       {
+                           TotalVideosWatched = x.UserVideoHistories.Count,
+                           TotalVideosDownloaded = x.VideoDownloadhistories.Count,
+                           TotalFavoritesVideos = x.UserFavoriteVideos.Count,
+                           UserName = x.UserName
+                       });
+                }
+                else if (sortBy == "FavoriteVideos")
+                {
+                    mostActiveUsers = _Uow._Users.GetAll(x => x.Active == true && x.IsActiveUSer == true)
+                        .OrderByDescending(x => x.UserFavoriteVideos.Count)
+                        .ThenByDescending(x => x.VideoDownloadhistories.Count)
+                       .ThenByDescending(x => x.UserVideoHistories.Count)
+                       .Select(x => new MostActiveUsersViewModel
+                       {
+                           TotalVideosWatched = x.UserVideoHistories.Count,
+                           TotalVideosDownloaded = x.VideoDownloadhistories.Count,
+                           TotalFavoritesVideos = x.UserFavoriteVideos.Count,
+                           UserName = x.UserName
+                       });
+                }
                 var totalUsers = await mostActiveUsers.CountAsync();
 
                 // paging
                 var usersPaged = mostActiveUsers.Skip((page - 1) * itemsPerPage).Take(itemsPerPage);
 
-                List<object> usersList = new List<object>();
+                List<MostActiveUsersViewModel> usersList = new List<MostActiveUsersViewModel>();
 
                 foreach (var item in usersPaged)
                 {
-                    usersList.Add(new
+                    usersList.Add(new MostActiveUsersViewModel
                     {
                         TotalVideosWatched = item.TotalVideosWatched,
                         TotalVideosDownloaded = item.TotalVideosDownloaded,

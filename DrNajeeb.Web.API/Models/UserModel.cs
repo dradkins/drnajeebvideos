@@ -33,6 +33,7 @@ namespace DrNajeeb.Web.API.Models
         public CountryModel Country { get; set; }
         public SubscriptionModel Subscription { get; set; }
         public bool IsInstitutionalAccount { get; set; }
+        public int TotalVideosDownloaded { get; set; }
 
     }
 }

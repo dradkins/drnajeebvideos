@@ -24,4 +24,12 @@ namespace DrNajeeb.Web.API.Models
         public string VideoName { get; set; }
         public DateTime DateTimeDownload { get; set; }
     }
+
+    public class MostActiveUsersViewModel
+    {
+        public int TotalVideosWatched { get; set; }
+        public int TotalVideosDownloaded  { get; set; }
+        public int TotalFavoritesVideos { get; set; }
+        public string UserName  { get; set; }
+    }
 }

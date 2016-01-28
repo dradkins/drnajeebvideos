@@ -5,12 +5,24 @@
         $scope.pagingInfo = {
             page: 1,
             itemsPerPage: 20,
+            sortBy: 'WatchedVideos'
         };
 
         $scope.users = [];
 
         $scope.selectPage = function (page) {
             $scope.pagingInfo.page = page;
+            loadUsers();
+        };
+
+        $scope.sort = function (sortBy) {
+            if (sortBy === $scope.pagingInfo.sortBy) {
+                $scope.pagingInfo.reverse = !$scope.pagingInfo.reverse;
+            } else {
+                $scope.pagingInfo.sortBy = sortBy;
+                $scope.pagingInfo.reverse = false;
+            }
+            $scope.pagingInfo.page = 1;
             loadUsers();
         };
 

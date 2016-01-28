@@ -110,6 +110,20 @@
                    });
         }
 
+        VideoService.getDownloadedVideos = function (pagingInfo) {
+            return $http.get("/api/videos/getUserDownloadedVideos/", { params: pagingInfo })
+                   .then(function (response) {
+                       return response.data;
+                   });
+        };
+        
+        VideoService.getVideoTotalDownloads = function (pagingInfo) {
+            return $http.get("/api/videos/GetVideoTotalDownloads/", { params: pagingInfo })
+                   .then(function (response) {
+                       return response.data;
+                   });
+        };
+
         return VideoService;
 
     }

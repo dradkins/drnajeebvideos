@@ -14,37 +14,9 @@
                                 <div class="main-box clearfix">
                                     <header class="main-box-header clearfix">
                                         <h2 class="pull-left">Most Active Users</h2>
-
-                                        <!--<div class="filter-block pull-right">
-                                            <div class="pull-left">
-                                                <form class="form-inline" ng-submit="search()" role="form">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control input-sm" ng-model="pagingInfo.search" placeholder="Search...">
-                                                        <button type="submit" class="btn btn-info btn-sm">
-                                                            <i class="fa fa-search fa-lg"></i> Search
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>-->
                                     </header>
 
                                     <div class="main-box-body clearfix">
-
-                                        <!--<div class="col-md-12">
-                                            <div class="col-md-4">
-                                                <input type="date" ng-model="pagingInfo.fromDate" class="form-control" />
-                                            </div>
-                                            <div class="col-md-4">
-                                                <input type="date" ng-model="pagingInfo.toDate" class="form-control" />
-                                            </div>
-                                            <div class="col-md-2">
-                                                <button class="btn btn-primary" ng-click="getUsers()">Get Users</button>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <button class="btn btn-primary" ng-click="downloadFile(true)">Download List (CSV)</button>
-                                            </div>
-                                        </div>-->
                                         <br />
                                         <div class="clearfix"></div>
                                         <br />
@@ -53,26 +25,23 @@
                                                 <thead>
                                                     <tr>
                                                         <th>
-                                                                User Name
+                                                            User Name
                                                         </th>
                                                         <th>
+                                                            <a href="" ng-click="sort('WatchedVideos')">
                                                                 Total Videos Watched
+                                                            </a>
                                                         </th>
                                                         <th>
+                                                            <a href="" ng-click="sort('DownloadedVideos')">
                                                                 Total Videos Downloaded
+                                                            </a>
                                                         </th>
                                                         <th>
+                                                            <a href="" ng-click="sort('FavoriteVideos')">
                                                                 Total Favorites Videos
+                                                            </a>
                                                         </th>
-                                                        <!--<th>
-                                                                Active User
-                                                        </th>
-                                                        <th>
-                                                                Country
-                                                        </th>
-                                                        <th>
-                                                                Subscription
-                                                        </th>-->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -89,15 +58,6 @@
                                                         <td>
                                                             {{user.totalFavoritesVideos}}
                                                         </td>
-                                                        <!--<td>
-                                                            {{user.noOfConcurrentViews}}
-                                                        </td>
-                                                        <td>
-                                                            <img class="img-rounded" ng-src='data:image/jpeg;base64, {{user.country.flagImage}}' width="40" height="20" />
-                                                        </td>
-                                                        <td>
-                                                            {{user.subscription.name}}
-                                                        </td>-->
                                                     </tr>
                                                 </tbody>
                                             </table>

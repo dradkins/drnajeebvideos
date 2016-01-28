@@ -119,6 +119,11 @@
                 templateUrl: "/userapp/views/forgot-password.html",
                 controller: "ForgotPasswordController"
             })
+            .when("/my-downloads", {
+                templateUrl: "/userapp/views/userdownloads.html",
+                controller: "UserDownloadsController"
+            })
+        
         .otherwise({ redirectTo: "/dashboard" })
 
         $locationProvider.html5Mode(false).hashPrefix("!");

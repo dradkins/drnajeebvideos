@@ -786,6 +786,99 @@ namespace DrNajeeb.Web.API.Controllers
 
         }
 
+        [ActionName("GetUserDownloadedVideos")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetUserDownloadedVideos(int page = 1, int itemsPerPage = 20, string search = null)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
+                var videosList = new List<UserVideoModel>();
+
+                var videos = _Uow._VideoDownloadhistory.GetAll(x => x.UserId == userId)
+                    .Include(x => x.Video)
+                    .Select(x => x.Video)
+                    .Include(x => x.CategoryVideos)
+                    .Include(x => x.CategoryVideos.Select(y => y.Category));
+
+                // searching
+                if (!string.IsNullOrWhiteSpace(search))
+                {
+                    search = search.ToLower();
+                    videos = videos.Where(x =>
+                        x.Name.ToLower().Contains(search) ||
+                        x.Description.ToLower().Contains(search));
+                }
+
+                videos = videos.OrderBy("DateLive");
+
+                int totalVideos = 0;
+                totalVideos = await videos.CountAsync();
+
+                // paging
+                var videosPaged = await videos.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToListAsync();
+
+                videosPaged.ForEach(x =>
+                {
+                    var uvm = new UserVideoModel();
+                    uvm.BackgroundColor = x.BackgroundColor;
+                    uvm.DateLive = x.DateLive;
+                    uvm.Duration = x.Duration;
+                    uvm.Id = x.Id;
+                    uvm.Name = x.Name;
+                    uvm.ReleaseYear = x.ReleaseYear;
+                    uvm.VzaarVideoId = x.StandardVideoId;
+                    uvm.ThumbnailURL = x.ThumbnailURL;
+                    if (x.CategoryVideos != null && x.CategoryVideos.Count > 0)
+                    {
+                        x.CategoryVideos.ToList().ForEach(y =>
+                        {
+                            uvm.Categories.Add(new UserCategoryModel
+                            {
+                                Id = y.Category.Id,
+                                Name = y.Category.Name
+                            });
+                        });
+                    }
+                    videosList.Add(uvm);
+                });
+
+                // json result
+                var json = new
+                {
+                    count = totalVideos,
+                    data = videosList,
+                };
+
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+        }
+
+        [ActionName("GetVideoTotalDownloads")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetVideoTotalDownloads(int id)
+        {
+            try
+            {
+                var userId=User.Identity.GetUserId();
+                var totalDownloads = await _Uow._VideoDownloadhistory.CountAsync(x => x.VideoId == id && x.UserId == userId);
+                return Ok(totalDownloads);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+        }
+
         [ActionName("GetUserVideosHistory")]
         [HttpGet]
         [Authorize]
