@@ -9,6 +9,30 @@
         $scope.videoLink = "";
         $scope.posterLink = "";
 
+        var watchedVideoId = null;
+        var lastSeekTime = 0;
+
+
+        //for saving current state of video
+        $scope.$on('$destroy', function () {
+
+            var currentVideoTime = mediaPlayer.getCurrentTime();
+            var videoDuration = mediaPlayer.getDuration();
+
+            if (videoDuration && currentVideoTime != 0) {
+                if (currentVideoTime != videoDuration) {
+                    VideoService.saveVideoTime({ watchedVideoId: watchedVideoId, currentTime: currentVideoTime }).then(function (data) {
+                        console.log('Saved Successfully');
+                    }, function (err) {
+                        console.log('Unable to save current time');
+                    });
+                }
+            }
+
+            console.log(mediaPlayer.getCurrentTime());
+            console.log('page changed');
+        });
+
         $scope.addToFavorites = function (video) {
             VideoService.addToFavorites(video.id).then(onFavoritesAdd, onError);
         }
@@ -34,6 +58,8 @@
             VideoService.getVimeoVideoDetails(data.vzaarVideoId).then(function (vd) {
                 $scope.video = data;
                 //$scope.videoId = "vzvd" + $scope.video.vzaarVideoId;
+                watchedVideoId = data.watchedVideoId;
+                lastSeekTime = data.lastSeekTime;
                 setUpPlayer(vd);
             }, function (err) {
                 console.log(err);
@@ -43,49 +69,9 @@
             //$scope.videoSource = $sce.trustAsResourceUrl("https://view.vzaar.com/" + $scope.video.vzaarVideoId + "/player?apiOn=true");
         }
 
-        //$scope.config;
-        //$scope.currentQualitySource;
-        //$scope.videoLoaded = false;
+        var mediaPlayer;
 
         var setUpPlayer = function (vd) {
-
-            //$scope.config = {
-            //    preload: "none",
-            //    sources: [
-            //        { src: $sce.trustAsResourceUrl(vd.files[0].link_secure), type: "video/mp4" },
-            //    ],
-            //    //theme: {
-            //    //    url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
-            //    //},
-            //    qualitySources: [
-            //          {
-            //              name: '720p',
-            //              sources: [
-            //                { src: $sce.trustAsResourceUrl(vd.files[1].link_secure), type: "video/mp4" }
-            //              ],
-            //              dashIndex: 3
-            //          },
-            //          {
-            //              name: '360p',
-            //              sources: [
-            //                { src: $sce.trustAsResourceUrl(vd.files[0].link_secure), type: "video/mp4" }
-            //              ],
-            //              dashIndex: 2
-            //          },
-            //    ],
-            //    plugins: {
-            //        controls: {
-            //            autoHide: true,
-            //            autoHideTime: 5000
-            //        },
-            //        poster: vd.pictures.sizes[vd.pictures.sizes.length - 1].link
-            //    }
-            //};
-
-
-            //$scope.currentQualitySource = $scope.config.qualitySources[0];
-            //$scope.videoLoaded = true;
-
 
             var bitrates = {
                 mp4: [
@@ -102,15 +88,27 @@
                 height: 475,
                 skin: 's5',
                 sharing: false,
-                poster: vd.pictures.sizes[vd.pictures.sizes.length-1].link,
+                poster: vd.pictures.sizes[vd.pictures.sizes.length - 1].link,
                 displayStreams: true
             };
             var element = 'rmPlayer';
-            myPlayer = new RadiantMP(element);
-            myPlayer.init(settings);
+            mediaPlayer = new RadiantMP(element);
+            mediaPlayer.init(settings);
+
+            var rmpContainer = document.getElementById(element);
+            rmpContainer.addEventListener('ready', playerReady);
         }
 
 
+        var playerReady = function () {
+            console.log("Player is ready");
+            if (lastSeekTime != 0) {
+                if (confirm("Start video from where you last left it..?")) {
+                    mediaPlayer.play();
+                    mediaPlayer.seekTo(lastSeekTime)
+                }
+            }
+        }
 
         var onError = function (error) {
             if (error.status == 400) {
@@ -146,14 +144,6 @@
         }
 
         function init() {
-            //if (window.localStorage) {
-            //    if (!localStorage.getItem('firstLoad')) {
-            //        localStorage['firstLoad'] = true;
-            //        window.location.reload();
-            //    }
-            //    else
-            //        localStorage.removeItem('firstLoad');
-            //}
             var videoId = $routeParams.videoId;
             VideoService.getVideo(videoId).then(onVideo, onError);
             setTimeout(window.scrollTo(0, 0), 100);

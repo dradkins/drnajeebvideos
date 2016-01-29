@@ -124,6 +124,13 @@
                    });
         };
 
+        VideoService.saveVideoTime = function (vd) {
+            return $http.post("/api/videos/saveVideoTime/", vd)
+                   .then(function (response) {
+                       return response.data;
+                   });
+        }
+        
         return VideoService;
 
     }

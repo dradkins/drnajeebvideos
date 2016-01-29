@@ -477,6 +477,16 @@ namespace DrNajeeb.Web.API.Controllers
                 }
 
 
+                var lastWatched = await _Uow._UserVideoHistory
+                    .GetAll(x => x.VideoId == id && x.UserId == userId)
+                    .OrderByDescending(x => x.WatchDateTime)
+                    .FirstOrDefaultAsync();
+
+                if (lastWatched != null)
+                {
+                    videosModel.LastSeekTime = lastWatched.LastSeekTime.GetValueOrDefault();
+                }
+
                 //add video to user history
                 var userHistory = new UserVideoHistory();
                 userHistory.UserId = userId;
@@ -485,7 +495,32 @@ namespace DrNajeeb.Web.API.Controllers
                 _Uow._UserVideoHistory.Add(userHistory);
                 await _Uow.CommitAsync();
 
+                videosModel.WatchedVideoId = userHistory.Id;
+
                 return Ok(videosModel);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [ActionName("SaveVideoTime")]
+        [HttpPost]
+        [Authorize]
+        public async Task<IHttpActionResult> SaveVideoTime(SaveVideoTimeViewModel model)
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var video = await _Uow._UserVideoHistory.GetAsync(x => x.Id == model.WatchedVideoId && x.UserId == userId);
+                if (video != null)
+                {
+                    video.LastSeekTime = model.CurrentTime;
+                    _Uow._UserVideoHistory.Update(video);
+                    await _Uow.CommitAsync();
+                }
+                return Ok();
             }
             catch (Exception ex)
             {

@@ -30,6 +30,8 @@ namespace DrNajeeb.Web.API.Models
         public string ThumbnailURL { get; set; }
         public bool IsFavoriteVideo { get; set; }
         public List<UserCategoryModel> Categories { get; set; }
+        public int WatchedVideoId { get; set; }
+        public int LastSeekTime { get; set; }
     }
 
     public class UserFavoriteVideoModel
@@ -54,5 +56,11 @@ namespace DrNajeeb.Web.API.Models
         public bool IsFromAdmin { get; set; }
         public bool IsFromUser { get; set; }
         public string ReplierName { get; set; }
+    }
+
+    public class SaveVideoTimeViewModel
+    {
+        public int WatchedVideoId { get; set; }
+        public int CurrentTime { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace DrNajeeb.EF
         public System.DateTime WatchDateTime { get; set; }
         public string UserId { get; set; }
         public int VideoId { get; set; }
+        public Nullable<int> LastSeekTime { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }

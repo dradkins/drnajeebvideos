@@ -202,6 +202,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <Property Name="WatchDateTime" Type="datetime" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
           <Property Name="VideoId" Type="int" Nullable="false" />
+          <Property Name="LastSeekTime" Type="int" />
         </EntityType>
         <EntityType Name="VideoDownloadhistory">
           <Key>
@@ -3522,6 +3523,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <Property Name="WatchDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="VideoId" Type="Int32" Nullable="false" />
+          <Property Name="LastSeekTime" Type="Int32" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK__UserVideo__UserI__53385258" FromRole="UserVideoHistory" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser1" Relationship="Self.FK__UserVideo__UserI__542C7691" FromRole="UserVideoHistory" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser2" Relationship="Self.FK__UserVideo__UserI__55209ACA" FromRole="UserVideoHistory" ToRole="AspNetUsers" />
@@ -6596,6 +6598,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
                 <ScalarProperty Name="WatchDateTime" ColumnName="WatchDateTime" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+                <ScalarProperty Name="LastSeekTime" ColumnName="LastSeekTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

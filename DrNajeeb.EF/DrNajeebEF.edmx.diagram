@@ -4,25 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8f7d9ad310c6484f9de47396a43da236" Name="Diagram1">
-        <EntityTypeShape EntityType="lecturesModel.AspNetRole" Width="1.5" PointX="0.75" PointY="35.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+      <Diagram DiagramId="45960875554e44358eb8c4e867388992" Name="Diagram1">
+        <EntityTypeShape EntityType="lecturesModel.AspNetRole" Width="1.5" PointX="0.75" PointY="35.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.AspNetUser" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.CategoriesInSubscription" Width="1.5" PointX="7.5" PointY="34" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.Category" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.CategoryVideo" Width="1.5" PointX="7.5" PointY="45" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.Country" Width="1.5" PointX="0.75" PointY="38.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.IpAddressFilter" Width="1.5" PointX="5.25" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.MessageToAll" Width="1.5" PointX="5.25" PointY="32.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.AspNetUser" Width="1.5" PointX="3" PointY="22.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.CategoriesInSubscription" Width="1.5" PointX="7.5" PointY="34.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.Category" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.CategoryVideo" Width="1.5" PointX="7.5" PointY="45.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.Country" Width="1.5" PointX="0.75" PointY="38.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.IpAddressFilter" Width="1.5" PointX="5.25" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.MessageToAll" Width="1.5" PointX="5.25" PointY="32.625" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.NewFeature" Width="1.5" PointX="5.25" PointY="35.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.Subscription" Width="1.5" PointX="5.25" PointY="46.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.UserFavoriteVideo" Width="1.5" PointX="7.5" PointY="52.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.Subscription" Width="1.5" PointX="5.25" PointY="46.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.UserFavoriteVideo" Width="1.5" PointX="7.5" PointY="53" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.UserVideoHistory" Width="1.5" PointX="10.5" PointY="52.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.VideoDownloadhistory" Width="1.5" PointX="10.5" PointY="49.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.Video" Width="1.5" PointX="5.25" PointY="68.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.LoggedInTracking" Width="1.5" PointX="5.25" PointY="59.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="lecturesModel.SupportMessage" Width="1.5" PointX="5.25" PointY="63.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.VideoDownloadhistory" Width="1.5" PointX="10.5" PointY="49.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.Video" Width="1.5" PointX="5.25" PointY="68.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.LoggedInTracking" Width="1.5" PointX="5.25" PointY="60.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="lecturesModel.SupportMessage" Width="1.5" PointX="5.25" PointY="63.5" IsExpanded="true" />
         <EntityTypeShape EntityType="lecturesModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="lecturesModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="lecturesModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
