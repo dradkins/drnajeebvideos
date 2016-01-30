@@ -27,13 +27,13 @@ namespace DrNajeeb.Web.API.Controllers
 
         [HttpGet]
         [ActionName("GetMostWatchedVideos")]
-        public async Task<IHttpActionResult> GetMostWatchedVideos(int page = 1, int itemsPerPage = 20, string search = null)
+        public async Task<IHttpActionResult> GetMostWatchedVideos(DateTime dateFrom, DateTime dateTo, int page = 1, int itemsPerPage = 20, string search = null)
         {
             try
             {
                 var videosList = new List<MostWatchedVideoReportModel>();
 
-                var videos = _Uow._UserVideoHistory.GetAll()
+                var videos = _Uow._UserVideoHistory.GetAll(x => x.WatchDateTime >= dateFrom && x.WatchDateTime <= dateTo)
                     .Include(x => x.Video)
                     .GroupBy(x => x.VideoId)
                     .OrderByDescending(x => x.Count())
@@ -354,7 +354,8 @@ namespace DrNajeeb.Web.API.Controllers
                            TotalVideosWatched = x.UserVideoHistories.Count,
                            TotalVideosDownloaded = x.VideoDownloadhistories.Count,
                            TotalFavoritesVideos = x.UserFavoriteVideos.Count,
-                           UserName = x.UserName
+                           UserName = x.UserName,
+                           UserId = x.Id
                        });
                 }
                 else if (sortBy == "DownloadedVideos")
@@ -368,7 +369,8 @@ namespace DrNajeeb.Web.API.Controllers
                            TotalVideosWatched = x.UserVideoHistories.Count,
                            TotalVideosDownloaded = x.VideoDownloadhistories.Count,
                            TotalFavoritesVideos = x.UserFavoriteVideos.Count,
-                           UserName = x.UserName
+                           UserName = x.UserName,
+                           UserId = x.Id
                        });
                 }
                 else if (sortBy == "FavoriteVideos")
@@ -382,7 +384,8 @@ namespace DrNajeeb.Web.API.Controllers
                            TotalVideosWatched = x.UserVideoHistories.Count,
                            TotalVideosDownloaded = x.VideoDownloadhistories.Count,
                            TotalFavoritesVideos = x.UserFavoriteVideos.Count,
-                           UserName = x.UserName
+                           UserName = x.UserName,
+                           UserId = x.Id
                        });
                 }
                 var totalUsers = await mostActiveUsers.CountAsync();
@@ -399,7 +402,8 @@ namespace DrNajeeb.Web.API.Controllers
                         TotalVideosWatched = item.TotalVideosWatched,
                         TotalVideosDownloaded = item.TotalVideosDownloaded,
                         TotalFavoritesVideos = item.TotalFavoritesVideos,
-                        UserName = item.UserName
+                        UserName = item.UserName,
+                        UserId = item.UserId
                     });
                 }
 

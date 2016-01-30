@@ -31,5 +31,6 @@ namespace DrNajeeb.Web.API.Models
         public int TotalVideosDownloaded  { get; set; }
         public int TotalFavoritesVideos { get; set; }
         public string UserName  { get; set; }
+        public string UserId { get; set; }
     }
 }

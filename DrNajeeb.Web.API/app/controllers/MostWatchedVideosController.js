@@ -8,7 +8,9 @@
             page: 1,
             itemsPerPage: 20,
             search: '',
-            totalItems: 0
+            totalItems: 0,
+            dateTo:new Date(),
+            dateFrom: new Date(new Date() - (24 * 60 * 60 * 1000)),
         };
 
         $scope.videos = [];
@@ -22,6 +24,10 @@
             $scope.pagingInfo.page = page;
             loadVideos();
         };
+
+        $scope.getReport = function () {
+            loadVideos();
+        }
 
         var onError = function (error) {
             console.info("Error in MostWatchedVideosController");

@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var VideoController = function ($scope, $routeParams, $sce, VideoService, toastr, localStorageService) {
+    var VideoController = function ($scope, $routeParams, $sce, VideoService, toastr, localStorageService, $confirm) {
 
         $scope.video = null;
         $scope.videoId = null;
@@ -103,10 +103,14 @@
         var playerReady = function () {
             console.log("Player is ready");
             if (lastSeekTime != 0) {
-                if (confirm("Start video from where you last left it..?")) {
-                    mediaPlayer.play();
-                    mediaPlayer.seekTo(lastSeekTime)
-                }
+                $confirm({ text: 'Start video from where you last left it..?', title: 'Resume Video', ok: 'Resume', cancel: 'Start Over' })
+                    .then(function () {
+                        mediaPlayer.play();
+                        mediaPlayer.seekTo(lastSeekTime)
+                    });
+                //if (confirm("Start video from where you last left it..?")) {
+
+                //}
             }
         }
 
@@ -153,7 +157,7 @@
 
     };
 
-    VideoController.$inject = ["$scope", "$routeParams", "$sce", "VideoService", "toastr", "localStorageService"];
+    VideoController.$inject = ["$scope", "$routeParams", "$sce", "VideoService", "toastr", "localStorageService", "$confirm"];
     app.controller("VideoController", VideoController);
 
 }(angular.module("DrNajeebUser")));

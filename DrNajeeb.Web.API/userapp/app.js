@@ -11,6 +11,7 @@
         "angularFileUpload",
         "LiveSearch",
         "ngIOS9UIWebViewPatch",
+        "angular-confirm"
         //"ngSanitize",
         //"com.2fdevs.videogular",
         //"com.2fdevs.videogular.plugins.controls",

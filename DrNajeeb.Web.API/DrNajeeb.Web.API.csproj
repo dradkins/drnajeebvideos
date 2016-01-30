@@ -338,6 +338,7 @@
     <Content Include="Content\vg-quality.css" />
     <Content Include="Content\videogular.css" />
     <Content Include="Scripts\angular-auto-complete.js" />
+    <Content Include="Scripts\angular-confirm.js" />
     <Content Include="Scripts\angular-disqus.js" />
     <Content Include="Scripts\angular-file-upload.js" />
     <Content Include="Scripts\angular-fix.js" />
