@@ -361,7 +361,7 @@ namespace DrNajeeb.Web.API.Controllers
                 var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
                 if (_User.IsFreeUser != null && _User.IsFreeUser.Value)
                 {
-                    var videosCount = await _Uow._Videos.CountAsync(x => x.Active == true&&x.IsFreeVideo.Value);
+                    var videosCount = await _Uow._Videos.CountAsync(x => x.Active == true && x.IsFreeVideo.Value);
                     return Ok(videosCount);
                 }
 
@@ -388,7 +388,7 @@ namespace DrNajeeb.Web.API.Controllers
                 var videosList = new List<UserVideoModel>();
                 var videos = _Uow._CategoryVideos
                     .GetAll(x => x.CategoryId == id)
-                    .OrderBy(x=>x.DisplayOrder)
+                    .OrderBy(x => x.DisplayOrder)
                     .Include(x => x.Video)
                     .Select(x => x.Video)
                     .Include(x => x.UserFavoriteVideos);
@@ -459,6 +459,7 @@ namespace DrNajeeb.Web.API.Controllers
                 videosModel.VzaarVideoId = video.StandardVideoId;
                 videosModel.ThumbnailURL = video.ThumbnailURL;
                 videosModel.Description = video.Description;
+                videosModel.TotalViews = await _Uow._UserVideoHistory.CountAsync(x => x.VideoId == video.Id);
                 if (video.UserFavoriteVideos != null && video.UserFavoriteVideos.Count > 0)
                 {
                     videosModel.IsFavoriteVideo = video.UserFavoriteVideos.Any(x => x.VideoId == id && x.UserId == userId);
@@ -624,7 +625,7 @@ namespace DrNajeeb.Web.API.Controllers
                 var _User = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault();
                 var videosList = new List<UserVideoModel>();
 
-                var videos = _Uow._Videos.GetAll(x => x.Active == true && x.IsFreeVideo==true)
+                var videos = _Uow._Videos.GetAll(x => x.Active == true && x.IsFreeVideo == true)
                     .Include(x => x.UserFavoriteVideos)
                     .Include(x => x.CategoryVideos)
                     .Include(x => x.CategoryVideos.Select(y => y.Category));
@@ -903,7 +904,7 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var userId=User.Identity.GetUserId();
+                var userId = User.Identity.GetUserId();
                 var totalDownloads = await _Uow._VideoDownloadhistory.CountAsync(x => x.VideoId == id && x.UserId == userId);
                 return Ok(totalDownloads);
             }
@@ -1023,8 +1024,8 @@ namespace DrNajeeb.Web.API.Controllers
                 videosToList.ForEach(x => videosList.Add(new UserVideoModel
                 {
                     Name = x.Name,
-                    ThumbnailURL=x.ThumbnailURL,
-                    VzaarVideoId=x.StandardVideoId
+                    ThumbnailURL = x.ThumbnailURL,
+                    VzaarVideoId = x.StandardVideoId
                 }));
                 return Ok(videosList);
             }
@@ -1077,7 +1078,7 @@ namespace DrNajeeb.Web.API.Controllers
 
                 var unWatchedVideos = _Uow._Videos.GetAll(x => x.CreatedOn > dateAfter)
                     .Include(x => x.UserVideoHistories)
-                    .Where(x=>x.UserVideoHistories.Any(y=>y.UserId==userId))
+                    .Where(x => x.UserVideoHistories.Any(y => y.UserId == userId))
                     .Where(x => !x.UserVideoHistories.Any(y => y.Id == x.Id));
 
                 var totalVideos = await unWatchedVideos.CountAsync();
@@ -1091,7 +1092,7 @@ namespace DrNajeeb.Web.API.Controllers
                         Name = item.Name
                     });
                 }
-                return Ok(new {ToNotificationVideos=totalVideos, VideosList=videosList });
+                return Ok(new { ToNotificationVideos = totalVideos, VideosList = videosList });
             }
             catch (Exception ex)
             {
@@ -1115,6 +1116,134 @@ namespace DrNajeeb.Web.API.Controllers
                 });
                 await _Uow.CommitAsync();
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [ActionName("GetWeeklyTopVideos")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetWeeklyTopVideos()
+        {
+            try
+            {
+                var videosList = new List<UserVideoModel>();
+                var minDate = DateTime.UtcNow.AddDays(-7);
+
+                var videos = await _Uow._Videos.GetAll(x => x.Active == true)
+                    .Include(x => x.UserVideoHistories)
+                    .Select(x => new
+                    {
+                        video = x,
+                        totalViews = x.UserVideoHistories.Count(y => y.WatchDateTime <= DateTime.UtcNow && y.WatchDateTime >= minDate)
+                    })
+                    .OrderByDescending(x => x.totalViews)
+                    .Select(x => x.video)
+                    .Include(x => x.CategoryVideos)
+                    .Include(x=>x.CategoryVideos.Select(y=>y.Category))
+                    .Take(5)
+                    .ToListAsync();
+
+                videos.ForEach(x =>
+                {
+                    var uvm = new UserVideoModel();
+                    uvm.BackgroundColor = x.BackgroundColor;
+                    uvm.DateLive = x.DateLive;
+                    uvm.Duration = x.Duration;
+                    uvm.Id = x.Id;
+                    uvm.Name = x.Name;
+                    uvm.ReleaseYear = x.ReleaseYear;
+                    uvm.VzaarVideoId = x.StandardVideoId;
+                    uvm.ThumbnailURL = x.ThumbnailURL;
+                    if (x.CategoryVideos != null && x.CategoryVideos.Count > 0)
+                    {
+                        x.CategoryVideos.ToList().ForEach(y =>
+                        {
+                            uvm.Categories.Add(new UserCategoryModel
+                            {
+                                Id = y.Category.Id,
+                                Name = y.Category.Name
+                            });
+                        });
+                    }
+                    videosList.Add(uvm);
+                });
+
+                // json result
+                var json = new
+                {
+                    count = 5,
+                    data = videosList,
+                };
+
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+
+        [ActionName("GetAllTimeTopVideos")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetAllTimeTopVideos()
+        {
+            try
+            {
+                var videosList = new List<UserVideoModel>();
+
+                var videos = await _Uow._Videos.GetAll(x => x.Active == true)
+                    .Include(x => x.UserVideoHistories)
+                    .Select(x => new
+                    {
+                        video = x,
+                        totalViews = x.UserVideoHistories.Count
+                    })
+                    .OrderByDescending(x => x.totalViews)
+                    .Select(x => x.video)
+                    .Include(x=>x.CategoryVideos)
+                    .Include(x => x.CategoryVideos.Select(y => y.Category))
+                    .Take(5)
+                    .ToListAsync();
+
+                videos.ForEach(x =>
+                {
+                    var uvm = new UserVideoModel();
+                    uvm.BackgroundColor = x.BackgroundColor;
+                    uvm.DateLive = x.DateLive;
+                    uvm.Duration = x.Duration;
+                    uvm.Id = x.Id;
+                    uvm.Name = x.Name;
+                    uvm.ReleaseYear = x.ReleaseYear;
+                    uvm.VzaarVideoId = x.StandardVideoId;
+                    uvm.ThumbnailURL = x.ThumbnailURL;
+                    if (x.CategoryVideos != null && x.CategoryVideos.Count > 0)
+                    {
+                        x.CategoryVideos.ToList().ForEach(y =>
+                        {
+                            uvm.Categories.Add(new UserCategoryModel
+                            {
+                                Id = y.Category.Id,
+                                Name = y.Category.Name
+                            });
+                        });
+                    }
+                    videosList.Add(uvm);
+                });
+
+                // json result
+                var json = new
+                {
+                    count = 5,
+                    data = videosList,
+                };
+
+                return Ok(json);
             }
             catch (Exception ex)
             {

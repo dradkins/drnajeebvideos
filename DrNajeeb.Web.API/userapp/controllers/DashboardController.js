@@ -4,6 +4,8 @@
 
         $scope.favoriteVideos = [];
         $scope.newVideos = [];
+        $scope.weeklyVideos = [];
+        $scope.allTimeVideos = [];
         $scope.totalVideos = 0;
         $scope.totalFavorites = 0;
         $scope.showData = false;
@@ -26,15 +28,36 @@
 
         var onDashboardData = function (data) {
             $scope.totalVideos = data[0].count;
-            //$scope.newVideos = data[0].data;
-            VideoService.getVideoThumbnails(data[0].data).then(function (v) {
-                $scope.newVideos = v;
+            $scope.newVideos = data[0].data;
+            angular.forEach($scope.newVideos, function (v) {
+                v.thumbnailURL = "";
+                VideoService.getVideoThumbnail(v.vzaarVideoId).then(function (t) {
+                    v.thumbnailURL = t;
+                })
             })
             $scope.totalFavorites = data[1].count;
             $scope.favoriteVideos = data[1].data;
             $scope.totalUnreadMessages = data[2];
             $scope.userSubscription = data[3];
             $scope.newFeatures = data[4];
+
+            //weekly videos
+            $scope.weeklyVideos = data[5].data;
+            angular.forEach($scope.weeklyVideos, function (v) {
+                v.thumbnailURL = "";
+                VideoService.getVideoThumbnail(v.vzaarVideoId).then(function (t) {
+                    v.thumbnailURL = t;
+                })
+            })
+
+            //all time videos
+            $scope.allTimeVideos = data[6].data;
+            angular.forEach($scope.allTimeVideos, function (v) {
+                v.thumbnailURL = "";
+                VideoService.getVideoThumbnail(v.vzaarVideoId).then(function (t) {
+                    v.thumbnailURL = t;
+                })
+            })
         }
 
         $scope.getThumbnailURL = function (videoId) {

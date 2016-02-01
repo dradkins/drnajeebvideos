@@ -39,13 +39,13 @@ namespace DrNajeeb.Web.API.Services
             //msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(html, null, MediaTypeNames.Text.Html));
 
             SmtpClient smtp = new SmtpClient();
-            smtp.Host = "mail.ps-demo.com";
-            smtp.Port = 25;
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
             smtp.Credentials = new NetworkCredential(emailAddress, password);
             smtp.Timeout = 20000;
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(emailAddress, password);
-            smtp.Credentials = credentials;
-            //smtp.EnableSsl = true;
+            //System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(emailAddress, password);
+            //smtp.Credentials = credentials;
+            smtp.EnableSsl = true;
             smtp.Send(msg);
         }
     }

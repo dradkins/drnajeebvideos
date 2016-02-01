@@ -116,7 +116,7 @@
                        return response.data;
                    });
         };
-        
+
         VideoService.getVideoTotalDownloads = function (pagingInfo) {
             return $http.get("/api/videos/GetVideoTotalDownloads/", { params: pagingInfo })
                    .then(function (response) {
@@ -130,7 +130,21 @@
                        return response.data;
                    });
         }
-        
+
+        VideoService.getWeeklyTopVideos = function () {
+            return $http.get("/api/videos/getWeeklyTopVideos")
+                   .then(function (response) {
+                       return response.data;
+                   });
+        };
+
+        VideoService.getAllTimeTopVideos = function () {
+            return $http.get("/api/videos/getAllTimeTopVideos")
+                   .then(function (response) {
+                       return response.data;
+                   });
+        };
+
         return VideoService;
 
     }

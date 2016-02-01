@@ -32,6 +32,7 @@ namespace DrNajeeb.Web.API.Models
         public List<UserCategoryModel> Categories { get; set; }
         public int WatchedVideoId { get; set; }
         public int LastSeekTime { get; set; }
+        public int TotalViews { get; set; }
     }
 
     public class UserFavoriteVideoModel

@@ -31,42 +31,6 @@
                                         <!-- 16:9 aspect ratio -->
                                         <div class="embed-responsive embed-responsive-16by9">
 
-
-                                            <!--<video id="drVideo" class="video-js vjs-default-skin" width="840" height="475"
-                                                   controls preload="none" ng-attr-poster="{{posterLink}}" ng-src="{{videoLink}}">
-                                                <source ng-src="{{videoLink}}" type='video/mp4' />
-                                            </video>-->
-
-                                            <!--<div class="text-center" ng-if="!videoLoaded">
-                                                <span>Loading Video! Please Wait....</span>
-                                            </div>
-                                            <videogular vg-theme="config.theme.url" style="position:absolute;" ng-if="videoLoaded">
-                                                <vg-media vg-src="config.sources"
-                                                          vg-tracks="config.tracks">
-                                                </vg-media>
-
-                                                <vg-controls vg-autohide="config.plugins.controls.autoHide" vg-autohide-time="config.plugins.controls.autoHideTime">
-                                                    <vg-play-pause-button></vg-play-pause-button>
-                                                    <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
-                                                    <vg-scrub-bar>
-                                                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                                    </vg-scrub-bar>
-                                                    <vg-time-display>{{ timeLeft | date:'mm:ss':'+0000' }}</vg-time-display>
-                                                    <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
-                                                    <vg-volume>
-                                                        <vg-mute-button></vg-mute-button>
-                                                        <vg-volume-bar></vg-volume-bar>
-                                                    </vg-volume>
-                                                    <vg-quality quality-sources="config.qualitySources" default-quality="currentQualitySource"></vg-quality>
-                                                    <vg-playback-button></vg-playback-button>
-                                                    <vg-fullscreen-button></vg-fullscreen-button>
-                                                </vg-controls>
-
-                                                <vg-overlay-play></vg-overlay-play>
-                                                <vg-buffering></vg-buffering>
-                                                <vg-poster vg-url='config.plugins.poster'></vg-poster>
-                                            </videogular>-->
-
                                             <div id="rmPlayer" style="width:100%;"></div>
                                             <!--<iframe id="vimeoFrame" ng-src="{{videoSource}}" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
                                             <!-- <iframe id="{{videoId}}" class="vzaar-video-player" width="720"
@@ -95,6 +59,19 @@
                                                 <div class="title">
                                                     <p class="titleFont">
                                                         {{video.name}}
+                                                    </p>
+                                                </div>
+                                            </li>
+
+                                            <li class="clearfix">
+                                                <div class="title">
+                                                    <b>
+                                                        Last 6 Month Views
+                                                    </b>
+                                                </div>
+                                                <div class="title">
+                                                    <p class="titleFont">
+                                                        {{video.totalViews}}
                                                     </p>
                                                 </div>
                                             </li>

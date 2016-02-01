@@ -24,8 +24,17 @@
             return SuportService.getFeatures();
         }
 
+
+        function getWeeklyTopVideos() {
+            return VideoService.getWeeklyTopVideos();
+        }
+
+        function getAllTimeTopVideos() {
+            return VideoService.getAllTimeTopVideos();
+        }
+
         DashboardService.getDashboardData = function (pagingInfo) {
-            return $q.all([getNewVideos(pagingInfo), getFavoriteVideos(pagingInfo), getTotalUnreadMessages(), getPackage(), getNewFeatures()]).then(function (results) {
+            return $q.all([getNewVideos(pagingInfo), getFavoriteVideos(pagingInfo), getTotalUnreadMessages(), getPackage(), getNewFeatures(), getWeeklyTopVideos(), getAllTimeTopVideos()]).then(function (results) {
                 return results;
             });
         }
