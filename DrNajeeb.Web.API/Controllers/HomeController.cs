@@ -33,24 +33,24 @@ namespace DrNajeeb.Web.API.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Checkout(string id)
-        {
-            var user = await _UOW._Users.GetAll(x => x.Id == id)
-                        .Include(x => x.Country)
-                        .FirstOrDefaultAsync();
+        //public async Task<ActionResult> Checkout(string id)
+        //{
+        //    var user = await _UOW._Users.GetAll(x => x.Id == id)
+        //                .Include(x => x.Country)
+        //                .FirstOrDefaultAsync();
 
-            if (user == null)
-            {
-                return HttpNotFound("user not found");
-            }
+        //    if (user == null)
+        //    {
+        //        return HttpNotFound("user not found");
+        //    }
 
-            CheckoutViewModel model = new CheckoutViewModel();
-            model.EmailAddress = user.Email;
-            model.FullName = user.FullName;
-            model.Country = user.Country.Name;
-            ViewBag.Title = "Checkout";
-            return View(model);
-        }
+        //    CheckoutViewModel model = new CheckoutViewModel();
+        //    model.EmailAddress = user.Email;
+        //    model.FullName = user.FullName;
+        //    model.Country = user.Country.Name;
+        //    ViewBag.Title = "Checkout";
+        //    return View(model);
+        //}
 
         public async Task<ActionResult> CompleteCheckout(
             string order_number = "",

@@ -749,7 +749,7 @@ namespace DrNajeeb.Web.API.Controllers
                 return Ok();
             }
 
-            var pwd = RandomUtil.GetRandomString();
+            var pwd = RandomUtil.GetRandomNumberPassword(8);
             string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
             var result = await UserManager.ResetPasswordAsync(user.Id, code, pwd);
             if (result.Succeeded)

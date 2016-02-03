@@ -94,9 +94,9 @@
                 templateUrl: "/userapp/views/free-register.html",
                 controller: "RegisterController"
             })
-            .when("/checkout", {
-                templateUrl: "/userapp/views/checkout.html",
-            })
+            //.when("/checkout", {
+            //    templateUrl: "/userapp/views/checkout.html",
+            //})
             .when("/register-external", {
                 templateUrl: "/userapp/views/register-external.html",
                 controller: "ExternalRegisterController"

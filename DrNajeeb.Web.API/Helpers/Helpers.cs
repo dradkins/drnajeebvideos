@@ -166,12 +166,24 @@ namespace DrNajeeb.Web.API.Helpers
         /// </summary>
         /// <returns>Random string.</returns>
         /// 
-        public static string GetRandomString()
+        public static string GetRandomString(int length)
         {
             Random rnd = new Random();
             string characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-            StringBuilder result = new StringBuilder(8);
-            for (int i = 0; i < 8; i++)
+            StringBuilder result = new StringBuilder(length);
+            for (int i = 0; i < length; i++)
+            {
+                result.Append(characters[rnd.Next(characters.Length)]);
+            }
+            return result.ToString();
+        }
+
+        public static string GetRandomNumberPassword(int length)
+        {
+            Random rnd = new Random();
+            string characters = "0123456789";
+            StringBuilder result = new StringBuilder(length);
+            for (int i = 0; i < length; i++)
             {
                 result.Append(characters[rnd.Next(characters.Length)]);
             }
