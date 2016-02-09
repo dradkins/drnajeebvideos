@@ -55,7 +55,7 @@ namespace DrNajeeb.Web.API.Controllers
                     .Include(x => x.Country)
                     .Include(x => x.Subscription)
                     .Include(x => x.AspNetRoles)
-                    .Include(x=>x.IpAddressFilters);
+                    .Include(x => x.IpAddressFilters);
 
                 // searching
                 if (!string.IsNullOrWhiteSpace(search))
@@ -182,7 +182,7 @@ namespace DrNajeeb.Web.API.Controllers
                             {
                                 CreatedOn = DateTime.UtcNow,
                                 IpAddress = item,
-                                UserId=currentUser.Id
+                                UserId = currentUser.Id
                             });
                         }
                     }
@@ -307,7 +307,7 @@ namespace DrNajeeb.Web.API.Controllers
                 currentUser.NoOfConcurentViews = model.NoOfConcurrentViews;
                 currentUser.SubscriptionId = model.SubscriptionID;
                 currentUser.UpdatedBy = User.Identity.GetUserId();
-                currentUser.IsFreeUser=model.IsFreeUser;
+                currentUser.IsFreeUser = model.IsFreeUser;
                 currentUser.IsInstitutionalAccount = model.IsInstitutionalAccount;
                 if (currentUser.IsFilterByIP)
                 {
@@ -319,7 +319,7 @@ namespace DrNajeeb.Web.API.Controllers
                             {
                                 CreatedOn = DateTime.UtcNow,
                                 IpAddress = item,
-                                UserId=currentUser.Id
+                                UserId = currentUser.Id
                             });
                         }
                     }
@@ -530,12 +530,12 @@ namespace DrNajeeb.Web.API.Controllers
 
                 var total = await _Uow._Users.GetAll(x => x.CreatedOn > fromDate)
                     .GroupBy(x => EntityFunctions.TruncateTime(x.CreatedOn))
-                    .OrderBy(x=>x.Key)
+                    .OrderBy(x => x.Key)
                     .Select(x => new
                     {
-                        ActiveUsers = x.Count(y=>y.IsActiveUSer),
-                        InActiveUsers=x.Count(y=>y.IsActiveUSer==false),
-                        FreeUsers=x.Count(y=>y.IsFreeUser.Value),
+                        ActiveUsers = x.Count(y => y.IsActiveUSer),
+                        InActiveUsers = x.Count(y => y.IsActiveUSer == false),
+                        FreeUsers = x.Count(y => y.IsFreeUser.Value),
                         Day = (DateTime)x.Key
                     })
                     .ToListAsync();
@@ -562,7 +562,7 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var userId=User.Identity.GetUserId();
+                var userId = User.Identity.GetUserId();
                 bool isInstitutionalAccount = await _Uow._Users.GetAll(x => x.Id == userId).Select(x => x.IsInstitutionalAccount).FirstOrDefaultAsync() ?? false;
                 return Ok(isInstitutionalAccount);
             }
@@ -581,6 +581,31 @@ namespace DrNajeeb.Web.API.Controllers
             {
                 bool value = _Uow._LoggedInTracking.GetAll(x => x.Token == id).Any();
                 return Ok(value);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+
+        [ActionName("GetLastLogintime")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetLastLogintime()
+        {
+            try
+            {
+                var userId=User.Identity.GetUserId();
+                var lastLoginTime = await _Uow._LoggedInTracking.GetAll(x => x.UserId == userId).OrderByDescending(x => x.DateTimeLoggedIn).FirstOrDefaultAsync();
+                if (lastLoginTime == null)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return Ok(lastLoginTime.DateTimeLoggedIn);
+                }
             }
             catch (Exception ex)
             {

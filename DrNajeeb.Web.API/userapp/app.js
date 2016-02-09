@@ -62,6 +62,10 @@
                 templateUrl: "/userapp/views/video.html",
                 controller: "VideoController"
             })
+            .when("/video/:videoId/:seekTime", {
+                templateUrl: "/userapp/views/video.html",
+                controller: "VideoController"
+            })
             .when("/profile", {
                 templateUrl: "/userapp/views/userprofile.html",
                 controller: "UserProfileController"
@@ -171,8 +175,11 @@
         var isImageGet = false;
 
         $rootScope.LOG_OUT = function () {
-            CurrentUserService.logout();
-            window.location.reload();
+            $location.path('/login');
+            setTimeout(function () {
+                CurrentUserService.logout();
+                window.location.reload();
+            }, 3000)
         }
         $rootScope.SEARCH_TERM = "";
         $rootScope.facebookProfilePic = CurrentUserService.profile.profilePic;

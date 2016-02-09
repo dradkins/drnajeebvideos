@@ -3,13 +3,11 @@
         <a href="#!dashboard" id="logo" class="navbar-brand">
             <img src="/Content/images/logo.png" alt="" class="normal-logo logo-white" />
         </a>
-
         <div class="clearfix">
             <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="fa fa-bars"></span>
             </button>
-
             <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs" ng-controller="NotificationsController">
                 <ul class="nav navbar-nav pull-left">
                     <li>
@@ -43,7 +41,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="dropdown hidden-xs">
                         <a class="btn dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-video-camera"></i>
@@ -70,6 +67,11 @@
                             </li>
                         </ul>
                     </li>
+                    <!--<li>
+                        <a href="">
+                            Last Login : {{lastLoginTime | date:'medium'}}
+                        </a>
+                    </li>-->
                     <!--<li class="dropdown hidden-xs">
                         <a class="btn dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
@@ -104,14 +106,12 @@
                     </li> -->
                 </ul>
             </div>
-
             <div class="nav-no-collapse pull-right" id="header-nav">
                 <ul class="nav navbar-nav pull-right">
                     <li class="mobile-search" search-bar>
                         <a class="btn">
                             <i class="fa fa-search"></i>
                         </a>
-
                         <div class="drowdown-search">
                             <form name="video-search-form" ng-submit="SEARC_VIDEO()">
                                 <div class="form-group">
@@ -125,7 +125,6 @@
                                 </div>
                             </form>
                         </div>
-
                     </li>
                     <li class="dropdown profile-dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown">

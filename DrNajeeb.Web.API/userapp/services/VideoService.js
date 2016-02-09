@@ -4,6 +4,8 @@
 
         var VideoService = {};
 
+        VideoService.lastWatchedChecked = false;
+
         VideoService.getVideoNotifications = function () {
             return $http.get("/api/videos/videoNotifications")
                    .then(function (response) {
@@ -117,8 +119,8 @@
                    });
         };
 
-        VideoService.getVideoTotalDownloads = function (pagingInfo) {
-            return $http.get("/api/videos/GetVideoTotalDownloads/", { params: pagingInfo })
+        VideoService.getVideoTotalDownloads = function (vId) {
+            return $http.get("/api/videos/GetVideoTotalDownloads/", { params: { id: vId } })
                    .then(function (response) {
                        return response.data;
                    });
@@ -140,6 +142,14 @@
 
         VideoService.getAllTimeTopVideos = function () {
             return $http.get("/api/videos/getAllTimeTopVideos")
+                   .then(function (response) {
+                       return response.data;
+                   });
+        };
+
+
+        VideoService.getLastWatchedVideo = function () {
+            return $http.get("/api/videos/getLastWatchedVideo")
                    .then(function (response) {
                        return response.data;
                    });

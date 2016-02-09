@@ -1250,5 +1250,38 @@ namespace DrNajeeb.Web.API.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [ActionName("GetLastWatchedVideo")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetLastWatchedVideo()
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
+                var lastWatchedVideo = await _Uow._UserVideoHistory.GetAll(x => x.UserId == userId)
+                    .OrderByDescending(x => x.WatchDateTime)
+                    .Include(x => x.Video)
+                    .FirstOrDefaultAsync();
+
+                if (lastWatchedVideo == null)
+                {
+                    return NotFound();
+                }
+
+                var json = new
+                {
+                    videoId=lastWatchedVideo.VideoId,
+                    name=lastWatchedVideo.Video.Name,
+                    lastSeekTime=lastWatchedVideo.LastSeekTime.GetValueOrDefault()
+                };
+
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

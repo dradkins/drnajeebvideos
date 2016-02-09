@@ -11,6 +11,7 @@
 
         var watchedVideoId = null;
         var lastSeekTime = 0;
+        var urlResume = false;
 
 
         //for saving current state of video
@@ -103,27 +104,33 @@
         var playerReady = function () {
             console.log("Player is ready");
             if (lastSeekTime != 0) {
-                bootbox.confirm({
-                    title: 'Resume Video',
-                    message: 'Start video from where you last left it..?',
-                    backdrop:true,
-                    buttons: {
-                        'cancel': {
-                            label: 'Start Over',
-                            className: 'btn-default'
+                if (!urlResume) {
+                    bootbox.confirm({
+                        title: 'Resume Video',
+                        message: 'Start video from where you last left it..?',
+                        backdrop: true,
+                        buttons: {
+                            'cancel': {
+                                label: 'Start Over',
+                                className: 'btn-default'
+                            },
+                            'confirm': {
+                                label: 'Resume',
+                                className: 'btn-info'
+                            }
                         },
-                        'confirm': {
-                            label: 'Resume',
-                            className: 'btn-info'
+                        callback: function (result) {
+                            if (result) {
+                                mediaPlayer.play();
+                                mediaPlayer.seekTo(lastSeekTime)
+                            }
                         }
-                    },
-                    callback: function (result) {
-                        if (result) {
-                            mediaPlayer.play();
-                            mediaPlayer.seekTo(lastSeekTime)
-                        }
-                    }
-                });
+                    });
+                }
+                else {
+                    mediaPlayer.play();
+                    mediaPlayer.seekTo(lastSeekTime)
+                }
             }
         }
 
@@ -136,32 +143,36 @@
         }
 
         $scope.downloadVideo = function (video) {
-            VideoService.getVideoTotalDownloads(video.id).then(function (data) {
-                if (data == 3) {
-                    toastr.info("Unable to download video because your maximum limit for this video download is reached.")
-                }
-                else {
-                    VideoService.saveDownloadStats(video.id).then(function (data) {
-                        console.log(data);
-                    }, function (err) {
-                        console.log(err);
-                    });
-                    VideoService.downloadVideo(video.vzaarVideoId).then(function (data) {
-                        var link = document.createElement("a");
-                        link.download = video.name + ".mp4";
-                        link.href = data;
-                        document.body.appendChild(link);
-                        link.click();
-                    })
-                }
-
+            //VideoService.getVideoTotalDownloads(video.id).then(function (data) {
+            //    if (data == 2) {
+            //        toastr.info("The video reached the maximum download limit. Please contact customer support for assistance.")
+            //    }
+            //    else {
+            VideoService.saveDownloadStats(video.id).then(function (data) {
+                console.log(data);
             }, function (err) {
                 console.log(err);
+            });
+            VideoService.downloadVideo(video.vzaarVideoId).then(function (data) {
+                var link = document.createElement("a");
+                link.download = video.name + ".mp4";
+                link.href = data;
+                document.body.appendChild(link);
+                link.click();
             })
+            //    }
+
+            //}, function (err) {
+            //    console.log(err);
+            //})
         }
 
         function init() {
             var videoId = $routeParams.videoId;
+            if ($routeParams.seekTime) {
+                lastSeekTime = $routeParams.seekTime;
+                urlResume = true;
+            }
             VideoService.getVideo(videoId).then(onVideo, onError);
             setTimeout(window.scrollTo(0, 0), 100);
             window.scrollTo(0, 0);

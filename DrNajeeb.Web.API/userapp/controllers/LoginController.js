@@ -26,8 +26,8 @@
         }
 
         $scope.setFullName = function (form) {
-                OAuthService.setFullName({ fullName: $scope.fullName })
-                    .then(onNameEnterSuccess, onError);
+            OAuthService.setFullName({ fullName: $scope.fullName })
+                .then(onNameEnterSuccess, onError);
         }
 
         var onLogin = function (data) {

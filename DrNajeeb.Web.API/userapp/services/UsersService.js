@@ -13,6 +13,13 @@
                         });
         };
 
+        UsersService.lastLoginTime = function () {
+            return $http.get("/api/user/GetLastLogintime")
+                        .then(function (response) {
+                            return response.data;
+                        });
+        };
+
         return UsersService;
     }
 

@@ -75,28 +75,28 @@
         }
 
         $scope.downloadVideo = function (video) {
-            VideoService.getVideoTotalDownloads(video.id).then(function (data) {
-                if (data == 3) {
-                    toastr.info("Unable to download video because your maximum limit for this video download is reached.")
-                }
-                else {
-                    VideoService.saveDownloadStats(video.id).then(function (data) {
-                        console.log(data);
-                    }, function (err) {
-                        console.log(err);
-                    });
-                    VideoService.downloadVideo(video.vzaarVideoId).then(function (data) {
-                        var link = document.createElement("a");
-                        link.download = video.name + ".mp4";
-                        link.href = data;
-                        document.body.appendChild(link);
-                        link.click();
-                    })
-                }
-
+            //VideoService.getVideoTotalDownloads(video.id).then(function (data) {
+            //    if (data == 2) {
+            //        toastr.info("The video reached the maximum download limit. Please contact customer support for assistance.")
+            //    }
+            //    else {
+            VideoService.saveDownloadStats(video.id).then(function (data) {
+                console.log(data);
             }, function (err) {
                 console.log(err);
+            });
+            VideoService.downloadVideo(video.vzaarVideoId).then(function (data) {
+                var link = document.createElement("a");
+                link.download = video.name + ".mp4";
+                link.href = data;
+                document.body.appendChild(link);
+                link.click();
             })
+            //    }
+
+            //}, function (err) {
+            //    console.log(err);
+            //})
         }
 
         $scope.getThumbnailURL = function (videoId) {
