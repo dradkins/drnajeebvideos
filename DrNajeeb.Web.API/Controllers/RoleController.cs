@@ -35,7 +35,7 @@ namespace DrNajeeb.Web.API.Controllers
                     Name = x.Name
                 });
 
-                await LogHelpers.SaveLog(_Uow, "View All Roles", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View All Roles", User.Identity.GetUserId());
                 return Ok(json);
             }
             catch (Exception ex)

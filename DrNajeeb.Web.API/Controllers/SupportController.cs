@@ -221,7 +221,7 @@ namespace DrNajeeb.Web.API.Controllers
 
                 await _Uow.CommitAsync();
 
-                await LogHelpers.SaveLog(_Uow, "View All Messages Of " + user.UserName, User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View All Messages Of " + user.UserName, User.Identity.GetUserId());
 
                 return Ok(messagesList);
             }
@@ -272,7 +272,7 @@ namespace DrNajeeb.Web.API.Controllers
                     count = totalContactedUsers
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View All Contacted Users", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View All Contacted Users", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -338,7 +338,7 @@ namespace DrNajeeb.Web.API.Controllers
                     .GetAll(x => x.Active == true && x.IsFromAdmin == false && x.IsRead == false)
                     .CountAsync();
 
-                await LogHelpers.SaveLog(_Uow, "Check Total Unread Messages", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "Check Total Unread Messages", User.Identity.GetUserId());
 
                 return Ok(totalUnreadMessages);
             }

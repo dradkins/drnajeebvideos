@@ -73,7 +73,7 @@ namespace DrNajeeb.Web.API.Controllers
                     data = subscriptionList
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View All Subscription", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View All Subscription", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -195,7 +195,7 @@ namespace DrNajeeb.Web.API.Controllers
                 model.StartDate = subscription.StartDate;
                 model.TimeDuration = subscription.TimeDuration;
 
-                await LogHelpers.SaveLog(_Uow, "View Single Subscription "+subscription.Name, User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View Single Subscription "+subscription.Name, User.Identity.GetUserId());
 
                 return Ok(model);
             }

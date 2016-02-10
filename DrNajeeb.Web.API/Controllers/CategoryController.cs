@@ -50,7 +50,7 @@ namespace DrNajeeb.Web.API.Controllers
                 // paging
                 var categoriesPaged = categories.Skip((page - 1) * itemsPerPage).Take(itemsPerPage);
 
-                await LogHelpers.SaveLog(_Uow, "View Categories", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View Categories", User.Identity.GetUserId());
 
                 // json result
                 var json = new
@@ -213,7 +213,7 @@ namespace DrNajeeb.Web.API.Controllers
                 model.SeoName = category.SEOName;
 
                 var userId = User.Identity.GetUserId();
-                await LogHelpers.SaveLog(_Uow, "View Category " + category.Name, userId);
+                //await LogHelpers.SaveLog(_Uow, "View Category " + category.Name, userId);
 
                 return Ok(model);
             }

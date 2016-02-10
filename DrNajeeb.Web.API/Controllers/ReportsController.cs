@@ -79,7 +79,7 @@ namespace DrNajeeb.Web.API.Controllers
                     data = videosList,
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View Most Watched Videos Report", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View Most Watched Videos Report", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -141,7 +141,7 @@ namespace DrNajeeb.Web.API.Controllers
                     data = videosList,
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View Video Download Stats Report", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View Video Download Stats Report", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -195,7 +195,7 @@ namespace DrNajeeb.Web.API.Controllers
                     userName = user
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View User Video Download Stats Report", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View User Video Download Stats Report", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -290,7 +290,7 @@ namespace DrNajeeb.Web.API.Controllers
                     data = usersList,
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View User Stats Report", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View User Stats Report", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -338,7 +338,7 @@ namespace DrNajeeb.Web.API.Controllers
                     totalRevenue = modelList.Sum(x => x.Amount)
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View Revenue Report", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View Revenue Report", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -425,7 +425,7 @@ namespace DrNajeeb.Web.API.Controllers
                     data = usersList,
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View Most Active Users Report", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View Most Active Users Report", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -531,7 +531,7 @@ namespace DrNajeeb.Web.API.Controllers
                         data = users,
                     };
 
-                    await LogHelpers.SaveLog(_Uow, "View Ghost Users Report", User.Identity.GetUserId());
+                    //await LogHelpers.SaveLog(_Uow, "View Ghost Users Report", User.Identity.GetUserId());
 
                     return Ok(json);
                 }
@@ -583,7 +583,7 @@ namespace DrNajeeb.Web.API.Controllers
                     userName = userName
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View User Activity Report of " + userName, User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View User Activity Report of " + userName, User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -622,7 +622,7 @@ namespace DrNajeeb.Web.API.Controllers
                     userName = userName
                 };
 
-                await LogHelpers.SaveLog(_Uow, "View Manager Activity Report of " + userName, User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View Manager Activity Report of " + userName, User.Identity.GetUserId());
 
                 return Ok(json);
             }

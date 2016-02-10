@@ -127,7 +127,7 @@ namespace DrNajeeb.Web.API.Controllers
                     data = usersList,
                 };
 
-                await LogHelpers.SaveLog(_Uow, "Check All  Users", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "Check All  Users", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -265,7 +265,7 @@ namespace DrNajeeb.Web.API.Controllers
                     usersList.Add(usermodel);
                 }
 
-                await LogHelpers.SaveLog(_Uow, "Check Latest Users", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "Check Latest Users", User.Identity.GetUserId());
 
                 return Ok(usersList);
             }
@@ -284,7 +284,7 @@ namespace DrNajeeb.Web.API.Controllers
             {
                 var totalUsers = await _Uow._Users.CountAsync(x => x.Active == true);
 
-                await LogHelpers.SaveLog(_Uow, "Get Total USers Count", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "Get Total USers Count", User.Identity.GetUserId());
 
                 return Ok(totalUsers);
             }
@@ -569,7 +569,7 @@ namespace DrNajeeb.Web.API.Controllers
                 //    total.Add(item.Count());
                 //}
 
-                await LogHelpers.SaveLog(_Uow, "View User Chart Data", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View User Chart Data", User.Identity.GetUserId());
 
                 return Ok(total);
             }

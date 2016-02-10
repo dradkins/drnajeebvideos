@@ -89,7 +89,7 @@ namespace DrNajeeb.Web.API.Controllers
                     data = videosList,
                 };
 
-                await LogHelpers.SaveLog(_Uow, "Check All Videos", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "Check All Videos", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -134,7 +134,7 @@ namespace DrNajeeb.Web.API.Controllers
                     videosList.Add(model);
                 }
 
-                await LogHelpers.SaveLog(_Uow, "Get Videos Of Category For Sorting", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "Get Videos Of Category For Sorting", User.Identity.GetUserId());
 
                 return Ok(videosList);
             }
@@ -170,7 +170,7 @@ namespace DrNajeeb.Web.API.Controllers
                 }
                 await _Uow.CommitAsync();
 
-                await LogHelpers.SaveLog(_Uow, "Update Soring Of Videos", User.Identity.GetUserId());
+                await LogHelpers.SaveLog(_Uow, "Update Sorting Order Of Videos", User.Identity.GetUserId());
 
                 return Ok();
             }
@@ -358,7 +358,7 @@ namespace DrNajeeb.Web.API.Controllers
                 model.StandardVideoId = video.StandardVideoId;
                 model.FastVideoId = video.StandardVideoId;
 
-                await LogHelpers.SaveLog(_Uow, "Check Single Video : " + video.Name, User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "Check Single Video : " + video.Name, User.Identity.GetUserId());
 
                 return Ok(model);
             }

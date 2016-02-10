@@ -92,7 +92,7 @@ namespace DrNajeeb.Web.API.Controllers
                     });
                 });
 
-                await LogHelpers.SaveLog(_Uow, "View All Features", User.Identity.GetUserId());
+                //await LogHelpers.SaveLog(_Uow, "View All Features", User.Identity.GetUserId());
 
                 return Ok(features);
             }
