@@ -5,7 +5,7 @@
 
         var request = function (config) {
 
-            if (CurrentUserService.profile.isLoggedIn) {
+            if (CurrentUserService.profile.isLoggedIn()) {
                 config.headers.Authorization = "Bearer " + CurrentUserService.profile.token;
             }
             return $q.when(config);

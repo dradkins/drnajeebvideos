@@ -29,6 +29,8 @@ namespace DrNajeeb.Web.API.Controllers
             try
             {
                 var roles = await _Uow._Roles.GetAll().ToListAsync();
+                var admin = roles.FirstOrDefault(x => x.Name == "Admin");
+                roles.Remove(admin);
                 var json = roles.Select(x => new
                 {
                     Id = x.Id,
