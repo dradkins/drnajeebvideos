@@ -7,10 +7,12 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Data.Entity;
+using DrNajeeb.Web.API.Helpers;
+using Microsoft.AspNet.Identity;
 
 namespace DrNajeeb.Web.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalBearer)]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie)]
     public class RoleController : BaseController
@@ -32,6 +34,8 @@ namespace DrNajeeb.Web.API.Controllers
                     Id = x.Id,
                     Name = x.Name
                 });
+
+                await LogHelpers.SaveLog(_Uow, "View All Roles", User.Identity.GetUserId());
                 return Ok(json);
             }
             catch (Exception ex)

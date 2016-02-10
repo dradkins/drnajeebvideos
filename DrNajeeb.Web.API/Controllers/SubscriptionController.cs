@@ -11,10 +11,11 @@ using System.Web.Http;
 using System.Data.Entity;
 using System.Linq.Dynamic;
 using Microsoft.AspNet.Identity;
+using DrNajeeb.Web.API.Helpers;
 
 namespace DrNajeeb.Web.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalBearer)]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie)]
     public class SubscriptionController : BaseController
@@ -72,6 +73,8 @@ namespace DrNajeeb.Web.API.Controllers
                     data = subscriptionList
                 };
 
+                await LogHelpers.SaveLog(_Uow, "View All Subscription", User.Identity.GetUserId());
+
                 return Ok(json);
             }
             catch (Exception ex)
@@ -98,8 +101,9 @@ namespace DrNajeeb.Web.API.Controllers
                 subscription.TimeDuration = model.TimeDurationInDays;
                 subscription.Active = true;
                 subscription.CreatedOn = DateTime.UtcNow;
+                subscription.CreatedBy = User.Identity.GetUserId();
 
-                //todo : add useid in createdby
+                await LogHelpers.SaveLog(_Uow, "Create Subscription " + subscription.Name, User.Identity.GetUserId());
 
                 _Uow._Subscription.Add(subscription);
                 await _Uow.CommitAsync();
@@ -125,9 +129,10 @@ namespace DrNajeeb.Web.API.Controllers
 
                 subscription.Active = false;
                 subscription.UpdatedOn = DateTime.Now;
+                subscription.UpdatedBy = User.Identity.GetUserId();
                 _Uow._Subscription.Update(subscription);
 
-                //todo : add useid in updatedby
+                await LogHelpers.SaveLog(_Uow, "Delete Subscription " + subscription.Name, User.Identity.GetUserId());
 
                 await _Uow.CommitAsync();
                 return Ok();
@@ -153,11 +158,13 @@ namespace DrNajeeb.Web.API.Controllers
                 subscription.Price = model.Price ?? 0;
                 subscription.StartDate = model.StartDate;
                 subscription.TimeDuration = model.TimeDurationInDays;
-
-                //todo : add useid in updatedby
+                subscription.UpdatedBy = User.Identity.GetUserId();
 
                 _Uow._Subscription.Update(subscription);
                 await _Uow.CommitAsync();
+
+                await LogHelpers.SaveLog(_Uow, "Update Subscription " + subscription.Name, User.Identity.GetUserId());
+
                 return Ok();
             }
             catch (Exception ex)
@@ -187,6 +194,9 @@ namespace DrNajeeb.Web.API.Controllers
                 model.Price = subscription.Price;
                 model.StartDate = subscription.StartDate;
                 model.TimeDuration = subscription.TimeDuration;
+
+                await LogHelpers.SaveLog(_Uow, "View Single Subscription "+subscription.Name, User.Identity.GetUserId());
+
                 return Ok(model);
             }
             catch (Exception ex)
@@ -194,6 +204,9 @@ namespace DrNajeeb.Web.API.Controllers
                 return InternalServerError(ex);
             }
         }
+
+
+
 
         [ActionName("GetSubscriptionsForUser")]
         [HttpGet]

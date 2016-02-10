@@ -10,10 +10,12 @@ using System.Web.Http;
 using System.Linq.Dynamic;
 using System.Data.Entity;
 using DrNajeeb.EF;
+using DrNajeeb.Web.API.Helpers;
+using Microsoft.AspNet.Identity;
 
 namespace DrNajeeb.Web.API.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalBearer)]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie)]
     public class CategoryController : BaseController
@@ -25,7 +27,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetAll")]
         [HttpGet]
-        public IHttpActionResult GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "DisplayOrder", bool reverse = false, string search = null)
+        public async Task<IHttpActionResult> GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "DisplayOrder", bool reverse = false, string search = null)
         {
             try
             {
@@ -47,6 +49,8 @@ namespace DrNajeeb.Web.API.Controllers
 
                 // paging
                 var categoriesPaged = categories.Skip((page - 1) * itemsPerPage).Take(itemsPerPage);
+
+                await LogHelpers.SaveLog(_Uow, "View Categories", User.Identity.GetUserId());
 
                 // json result
                 var json = new
@@ -70,19 +74,21 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
+                var userId = User.Identity.GetUserId();
                 var category = new DrNajeeb.EF.Category();
                 category.Name = model.Name;
                 category.IsShowOnFrontPage = model.IsShowOnFrontPage ?? false;
                 category.SEOName = Helpers.URLHelpers.URLFriendly(model.Name);
                 category.CreatedOn = DateTime.UtcNow;
+                category.CreatedBy = userId;
                 category.Active = true;
                 var maxValue = await _Uow._Categories.GetAll(x => x.Active == true).OrderByDescending(x => x.DisplayOrder).FirstOrDefaultAsync();
                 category.DisplayOrder = (maxValue != null) ? maxValue.DisplayOrder + 1 : 1;
 
-                //todo : add useid in createdby
-                //todo : set seo name like QA site
                 //todo : set and save category url
                 //set display order of categories
+
+                await LogHelpers.SaveLog(_Uow, "Add Category " + model.Name, userId);
 
                 _Uow._Categories.Add(category);
                 await _Uow.CommitAsync();
@@ -100,6 +106,7 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
+                var userId = User.Identity.GetUserId();
                 var category = await _Uow._Categories.GetByIdAsync(id);
                 if (category == null)
                 {
@@ -108,7 +115,10 @@ namespace DrNajeeb.Web.API.Controllers
 
                 category.Active = false;
                 category.UpdatedOn = DateTime.Now;
+                category.UpdatedBy = userId;
                 _Uow._Categories.Update(category);
+
+                await LogHelpers.SaveLog(_Uow, "Delete Category " + category.Name, userId);
 
                 //todo : add useid in updatedby
 
@@ -127,15 +137,20 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
+                var userId = User.Identity.GetUserId();
                 var category = await _Uow._Categories.GetByIdAsync(model.Id);
                 category.Name = model.Name;
                 category.IsShowOnFrontPage = model.IsShowOnFrontPage ?? false;
                 category.SEOName = Helpers.URLHelpers.URLFriendly(model.Name);
                 category.UpdatedOn = DateTime.Now;
+                category.UpdatedBy = userId;
 
                 //todo : add useid in updatedby
 
                 _Uow._Categories.Update(category);
+
+                await LogHelpers.SaveLog(_Uow, "Update Category " + category.Name, userId);
+
                 await _Uow.CommitAsync();
                 return Ok();
             }
@@ -151,12 +166,13 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var categories=_Uow._Categories.GetAll(x=>x.Active==true);
+                var userId = User.Identity.GetUserId();
+                var categories = _Uow._Categories.GetAll(x => x.Active == true);
 
                 foreach (var item in model)
                 {
                     var displayOrder = item.LocationNo + 1;
-                    var category = await categories.FirstOrDefaultAsync(x=>x.Id==item.CategoryId);
+                    var category = await categories.FirstOrDefaultAsync(x => x.Id == item.CategoryId);
                     if (category != null)
                     {
                         if (category.DisplayOrder != displayOrder)
@@ -166,6 +182,7 @@ namespace DrNajeeb.Web.API.Controllers
                         }
                     }
                 }
+                await LogHelpers.SaveLog(_Uow, "Update Categories Order", userId);
                 await _Uow.CommitAsync();
                 return Ok();
             }
@@ -194,6 +211,10 @@ namespace DrNajeeb.Web.API.Controllers
                 model.Name = category.Name;
                 model.IsShowOnFrontPage = category.IsShowOnFrontPage;
                 model.SeoName = category.SEOName;
+
+                var userId = User.Identity.GetUserId();
+                await LogHelpers.SaveLog(_Uow, "View Category " + category.Name, userId);
+
                 return Ok(model);
             }
             catch (Exception ex)

@@ -55,6 +55,13 @@
                         });
         }
 
+        UserService.getManagers = function () {
+            return $http.get("/api/user/getManagers")
+                        .then(function (response) {
+                            return response.data;
+                        });
+        };
+
         return UserService;
     }
 

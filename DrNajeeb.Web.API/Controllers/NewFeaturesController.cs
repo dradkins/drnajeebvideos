@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using DrNajeeb.Web.API.Helpers;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -25,18 +26,22 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("AddFeature")]
         [HttpPost]
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> AddFeature(FeatureViewModel model)
         {
             try
             {
+                var userId = User.Identity.GetUserId();
                 var feature = new NewFeature();
-                feature.CreatedBy = User.Identity.GetUserId();
+                feature.CreatedBy = userId;
                 feature.CreatedOn = DateTime.UtcNow;
                 feature.Title = model.Title;
                 _Uow._NewFeatures.Add(feature);
                 await _Uow.CommitAsync();
                 model.Id = feature.Id;
+
+                await LogHelpers.SaveLog(_Uow, "Add Feature " + model.Title, userId);
+
                 return Ok(model);
             }
             catch (Exception ex)
@@ -47,12 +52,19 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("DeleteFeature")]
         [HttpDelete]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> DeleteFeature(int id)
         {
             try
             {
-                await _Uow._NewFeatures.DeleteAsync(id);
+                var feature = await _Uow._NewFeatures.GetByIdAsync(id);
+                if (feature == null)
+                {
+                    return NotFound();
+                }
+                _Uow._NewFeatures.Delete(feature);
+
+                await LogHelpers.SaveLog(_Uow, "Delete Feature "+feature.Title, User.Identity.GetUserId());
                 await _Uow.CommitAsync();
                 return Ok();
             }
@@ -79,6 +91,9 @@ namespace DrNajeeb.Web.API.Controllers
                         Title=x.Title
                     });
                 });
+
+                await LogHelpers.SaveLog(_Uow, "View All Features", User.Identity.GetUserId());
+
                 return Ok(features);
             }
             catch (Exception ex)

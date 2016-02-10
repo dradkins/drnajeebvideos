@@ -696,7 +696,7 @@ namespace DrNajeeb.Web.API.Controllers
             return Ok(token);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         [Route("UpdateUserName")]
         [HttpPost]
         public async Task<IHttpActionResult> UpdateUserName(ChangeUserNameBindingModel model)
@@ -721,6 +721,8 @@ namespace DrNajeeb.Web.API.Controllers
             {
                 return GetErrorResult(result);
             }
+
+            await LogHelpers.SaveLog(_Uow, "Update user name from " + model.OldEmail + " to " + model.NewEmail, User.Identity.GetUserId());
 
             return Ok();
         }

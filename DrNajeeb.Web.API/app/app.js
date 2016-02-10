@@ -90,6 +90,14 @@
                 templateUrl: "/app/views/user_activities.html",
                 controller: "UserActivityController"
             })
+            .when("/managers", {
+                templateUrl: "/app/views/managers.html",
+                controller: "ManagersController"
+            })
+            .when("/manager-activities/:userId", {
+                templateUrl: "/app/views/manager_activities.html",
+                controller: "ManagerActivitiesController"
+            })
         .otherwise({ redirectTo: "/dashboard" })
     });
 

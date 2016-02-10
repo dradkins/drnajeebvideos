@@ -12,6 +12,7 @@ using DrNajeeb.Web.API.Models;
 using System.Net.Mail;
 using System.Text;
 using DrNajeeb.EF;
+using DrNajeeb.Web.API.Helpers;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -99,7 +100,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("SupportMessageReply")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> SupportMessageReply(SupportModel model)
         {
             try
@@ -125,6 +126,8 @@ namespace DrNajeeb.Web.API.Controllers
                 messageModel.IsRead = message.IsRead.GetValueOrDefault();
                 messageModel.MessageDateTime = message.MessageDatetime.GetValueOrDefault();
                 messageModel.MessageText = message.MessageText;
+
+                await LogHelpers.SaveLog(_Uow, "Reply To Message. Reply : " + model.Message, User.Identity.GetUserId());
 
                 return Ok(messageModel);
             }
@@ -179,11 +182,14 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserMessages")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> GetUserMessages(string userId)
         {
             try
             {
+
+                var user = await _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefaultAsync();
+
                 var messagesList = new List<UserMessagesModel>();
 
                 var messages = await _Uow._SupportMessages
@@ -214,6 +220,9 @@ namespace DrNajeeb.Web.API.Controllers
                 }
 
                 await _Uow.CommitAsync();
+
+                await LogHelpers.SaveLog(_Uow, "View All Messages Of " + user.UserName, User.Identity.GetUserId());
+
                 return Ok(messagesList);
             }
             catch (Exception ex)
@@ -224,7 +233,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetContactRequestUsers")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> GetContactRequestUsers(int page = 1, int itemsPerPage = 20)
         {
             try
@@ -235,7 +244,7 @@ namespace DrNajeeb.Web.API.Controllers
                     .Select(x => x.AspNetUser)
                     .Distinct();
 
-                var totalContactedUsers=await users.CountAsync();
+                var totalContactedUsers = await users.CountAsync();
 
                 var selectedUsers = await _Uow._SupportMessages.GetAll(x => x.Active == true && x.IsFromAdmin == false)
                     .OrderByDescending(x => x.MessageDatetime)
@@ -245,7 +254,7 @@ namespace DrNajeeb.Web.API.Controllers
                     .Distinct()
                     .ToListAsync();
 
-                
+
                 foreach (var user in selectedUsers)
                 {
                     var supportUser = new SupportUsersModel();
@@ -259,9 +268,11 @@ namespace DrNajeeb.Web.API.Controllers
 
                 var json = new
                 {
-                    data=usersModelList,
-                    count=totalContactedUsers
+                    data = usersModelList,
+                    count = totalContactedUsers
                 };
+
+                await LogHelpers.SaveLog(_Uow, "View All Contacted Users", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -290,20 +301,23 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("SendMessageToAll")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> SendMessageToAll(SupportModel model)
         {
             try
             {
                 _Uow._MessageToAll.Add(new MessageToAll
                 {
-                    CreatedBy=User.Identity.GetUserId(),
-                    CreatedOn=DateTime.UtcNow,
-                    IsSendToAll=false,
-                    MesssageText=model.Message
+                    CreatedBy = User.Identity.GetUserId(),
+                    CreatedOn = DateTime.UtcNow,
+                    IsSendToAll = false,
+                    MesssageText = model.Message
                 });
                 await _Uow.CommitAsync();
                 var totalUsers = _Uow.SendMessageToAll();
+
+                await LogHelpers.SaveLog(_Uow, "Send Message To All. Message : " + model.Message, User.Identity.GetUserId());
+
                 return Ok(totalUsers);
             }
             catch (Exception ex)
@@ -315,7 +329,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetTotalUnreadMessagesForAdmin")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> GetTotalUnreadMessagesForAdmin()
         {
             try
@@ -323,6 +337,8 @@ namespace DrNajeeb.Web.API.Controllers
                 var totalUnreadMessages = await _Uow._SupportMessages
                     .GetAll(x => x.Active == true && x.IsFromAdmin == false && x.IsRead == false)
                     .CountAsync();
+
+                await LogHelpers.SaveLog(_Uow, "Check Total Unread Messages", User.Identity.GetUserId());
 
                 return Ok(totalUnreadMessages);
             }

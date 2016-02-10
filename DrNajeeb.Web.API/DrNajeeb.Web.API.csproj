@@ -16,7 +16,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -292,6 +293,8 @@
     <Content Include="app\controllers\FeaturesController.js" />
     <Content Include="app\controllers\GhostUsersController.js" />
     <Content Include="app\controllers\LoginController.js" />
+    <Content Include="app\controllers\ManagerActivitiesController.js" />
+    <Content Include="app\controllers\ManagersController.js" />
     <Content Include="app\controllers\MostActiveUsersController.js" />
     <Content Include="app\controllers\MostWatchedVideosController.js" />
     <Content Include="app\controllers\NotificationsController.js" />
@@ -318,6 +321,8 @@
     <Content Include="app\views\features.html" />
     <Content Include="app\views\ghost_users.html" />
     <Content Include="app\views\login.html" />
+    <Content Include="app\views\managers.html" />
+    <Content Include="app\views\manager_activities.html" />
     <Content Include="app\views\most_active_users.html" />
     <Content Include="app\views\most_watched_videos.html" />
     <Content Include="app\views\navigation_left.html" />
@@ -3149,7 +3154,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>6373</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44300/</IISUrl>
+          <IISUrl>http://localhost:6373/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

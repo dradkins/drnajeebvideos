@@ -133,6 +133,15 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
         </EntityType>
+        <EntityType Name="ManagerLogs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventDateTime" Type="datetime" Nullable="false" />
+          <Property Name="EventDetails" Type="nvarchar(max)" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
         <EntityType Name="MessageToAll">
           <Key>
             <PropertyRef Name="Id" />
@@ -1561,6 +1570,18 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ManagerLo__UserI__3E082B48">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="ManagerLogs" Type="Self.ManagerLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ManagerLogs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__MessageTo__Creat__0B7CAB7B">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="MessageToAll" Type="Self.MessageToAll" Multiplicity="*" />
@@ -2349,6 +2370,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <EntitySet Name="CategoryVideos" EntityType="Self.CategoryVideos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IpAddressFilters" EntityType="Self.IpAddressFilters" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ManagerLogs" EntityType="Self.ManagerLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MessageToAll" EntityType="Self.MessageToAll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewFeatures" EntityType="Self.NewFeatures" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subscriptions" EntityType="Self.Subscriptions" Schema="dbo" store:Type="Tables" />
@@ -2799,6 +2821,10 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="LoggedInTracking" EntitySet="LoggedInTracking" />
           </AssociationSet>
+          <AssociationSet Name="FK__ManagerLo__UserI__3E082B48" Association="Self.FK__ManagerLo__UserI__3E082B48">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ManagerLogs" EntitySet="ManagerLogs" />
+          </AssociationSet>
           <AssociationSet Name="FK__MessageTo__Creat__0B7CAB7B" Association="Self.FK__MessageTo__Creat__0B7CAB7B">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="MessageToAll" EntitySet="MessageToAll" />
@@ -3221,6 +3247,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <NavigationProperty Name="LoggedInTrackings1" Relationship="Self.FK__LoggedInT__UserI__6B0FDBE9" FromRole="AspNetUsers" ToRole="LoggedInTracking" />
           <NavigationProperty Name="LoggedInTrackings2" Relationship="Self.FK__LoggedInT__UserI__6C040022" FromRole="AspNetUsers" ToRole="LoggedInTracking" />
           <NavigationProperty Name="LoggedInTrackings3" Relationship="Self.FK__LoggedInT__UserI__6CF8245B" FromRole="AspNetUsers" ToRole="LoggedInTracking" />
+          <NavigationProperty Name="ManagerLogs" Relationship="Self.FK__ManagerLo__UserI__3E082B48" FromRole="AspNetUsers" ToRole="ManagerLogs" />
           <NavigationProperty Name="MessageToAlls" Relationship="Self.FK__MessageTo__Creat__0B7CAB7B" FromRole="AspNetUsers" ToRole="MessageToAll" />
           <NavigationProperty Name="NewFeatures" Relationship="Self.FK__NewFeatur__Creat__7A521F79" FromRole="AspNetUsers" ToRole="NewFeatures" />
           <NavigationProperty Name="Subscriptions" Relationship="Self.FK__Subscript__Creat__3C54ED00" FromRole="AspNetUsers" ToRole="Subscriptions" />
@@ -3425,6 +3452,16 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <NavigationProperty Name="AspNetUser13" Relationship="Self.FK__IpAddress__UserI__39788055" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser14" Relationship="Self.FK__IpAddress__UserI__3A6CA48E" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser15" Relationship="Self.FK__IpAddress__UserI__3B60C8C7" FromRole="IpAddressFilters" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="ManagerLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__ManagerLo__UserI__3E082B48" FromRole="ManagerLogs" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="MessageToAll">
           <Key>
@@ -4593,6 +4630,18 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ManagerLo__UserI__3E082B48">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="ManagerLogs" Type="Self.ManagerLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ManagerLogs">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__MessageTo__Creat__0B7CAB7B">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
           <End Role="MessageToAll" Type="Self.MessageToAll" Multiplicity="*" />
@@ -5711,6 +5760,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <EntitySet Name="CategoryVideos" EntityType="Self.CategoryVideo" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
           <EntitySet Name="IpAddressFilters" EntityType="Self.IpAddressFilter" />
+          <EntitySet Name="ManagerLogs" EntityType="Self.ManagerLog" />
           <EntitySet Name="MessageToAlls" EntityType="Self.MessageToAll" />
           <EntitySet Name="NewFeatures" EntityType="Self.NewFeature" />
           <EntitySet Name="Subscriptions" EntityType="Self.Subscription" />
@@ -6032,6 +6082,10 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <AssociationSet Name="FK__LoggedInT__UserI__6CF8245B" Association="Self.FK__LoggedInT__UserI__6CF8245B">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="LoggedInTracking" EntitySet="LoggedInTrackings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ManagerLo__UserI__3E082B48" Association="Self.FK__ManagerLo__UserI__3E082B48">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="ManagerLogs" EntitySet="ManagerLogs" />
           </AssociationSet>
           <AssociationSet Name="FK__MessageTo__Creat__0B7CAB7B" Association="Self.FK__MessageTo__Creat__0B7CAB7B">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -6537,6 +6591,16 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
                 <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ManagerLogs">
+            <EntityTypeMapping TypeName="lecturesModel.ManagerLog">
+              <MappingFragment StoreEntitySet="ManagerLogs">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="EventDateTime" ColumnName="EventDateTime" />
+                <ScalarProperty Name="EventDetails" ColumnName="EventDetails" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

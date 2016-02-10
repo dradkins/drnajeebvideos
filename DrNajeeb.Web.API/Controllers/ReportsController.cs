@@ -12,10 +12,12 @@ using System.Threading.Tasks;
 using DrNajeeb.Web.API.Models;
 using System.Linq.Dynamic;
 using System.Data.Entity.Core.Objects;
+using DrNajeeb.Web.API.Helpers;
+using Microsoft.AspNet.Identity;
 
 namespace DrNajeeb.Web.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,Manager")]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalBearer)]
     [HostAuthentication(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ApplicationCookie)]
     public class ReportsController : BaseController
@@ -77,6 +79,8 @@ namespace DrNajeeb.Web.API.Controllers
                     data = videosList,
                 };
 
+                await LogHelpers.SaveLog(_Uow, "View Most Watched Videos Report", User.Identity.GetUserId());
+
                 return Ok(json);
             }
             catch (Exception ex)
@@ -137,6 +141,8 @@ namespace DrNajeeb.Web.API.Controllers
                     data = videosList,
                 };
 
+                await LogHelpers.SaveLog(_Uow, "View Video Download Stats Report", User.Identity.GetUserId());
+
                 return Ok(json);
             }
             catch (Exception ex)
@@ -188,6 +194,8 @@ namespace DrNajeeb.Web.API.Controllers
                     data = videosList,
                     userName = user
                 };
+
+                await LogHelpers.SaveLog(_Uow, "View User Video Download Stats Report", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -282,6 +290,8 @@ namespace DrNajeeb.Web.API.Controllers
                     data = usersList,
                 };
 
+                await LogHelpers.SaveLog(_Uow, "View User Stats Report", User.Identity.GetUserId());
+
                 return Ok(json);
             }
             catch (Exception ex)
@@ -327,6 +337,8 @@ namespace DrNajeeb.Web.API.Controllers
                     subscriptions = modelList,
                     totalRevenue = modelList.Sum(x => x.Amount)
                 };
+
+                await LogHelpers.SaveLog(_Uow, "View Revenue Report", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -412,6 +424,8 @@ namespace DrNajeeb.Web.API.Controllers
                     count = totalUsers,
                     data = usersList,
                 };
+
+                await LogHelpers.SaveLog(_Uow, "View Most Active Users Report", User.Identity.GetUserId());
 
                 return Ok(json);
             }
@@ -517,6 +531,8 @@ namespace DrNajeeb.Web.API.Controllers
                         data = users,
                     };
 
+                    await LogHelpers.SaveLog(_Uow, "View Ghost Users Report", User.Identity.GetUserId());
+
                     return Ok(json);
                 }
             }
@@ -567,6 +583,8 @@ namespace DrNajeeb.Web.API.Controllers
                     userName = userName
                 };
 
+                await LogHelpers.SaveLog(_Uow, "View User Activity Report of " + userName, User.Identity.GetUserId());
+
                 return Ok(json);
             }
             catch (Exception ex)
@@ -574,6 +592,46 @@ namespace DrNajeeb.Web.API.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [ActionName("GetManagerActivityReport")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IHttpActionResult> GetManagerActivityReport(string userId, int page = 1, int itemsPerPage = 20)
+        {
+            try
+            {
+                List<UserActivityLogModel> userActivity = new List<UserActivityLogModel>();
+
+                var managerActivities = _Uow._ManagerLog.GetAll(x=>x.UserId==userId);
+
+                foreach (var item in managerActivities)
+                {
+                    userActivity.Add(new UserActivityLogModel
+                    {
+                        ActionName = item.EventDetails,
+                        DateTimeAction = item.EventDateTime,
+                    });
+                }
+
+                var activities = userActivity.OrderBy(x => x.DateTimeAction);
+                var userName = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault().UserName;
+
+                var json = new
+                {
+                    data = activities,
+                    userName = userName
+                };
+
+                await LogHelpers.SaveLog(_Uow, "View Manager Activity Report of " + userName, User.Identity.GetUserId());
+
+                return Ok(json);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
 
         class UserActivityLogModel
         {

@@ -44,7 +44,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetAll")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "CreatedOn", bool reverse = true, string search = null)
         {
             try
@@ -127,6 +127,8 @@ namespace DrNajeeb.Web.API.Controllers
                     data = usersList,
                 };
 
+                await LogHelpers.SaveLog(_Uow, "Check All  Users", User.Identity.GetUserId());
+
                 return Ok(json);
             }
             catch (Exception ex)
@@ -138,7 +140,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("AddUser")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> AddUser(UserModel model)
         {
             try
@@ -170,6 +172,14 @@ namespace DrNajeeb.Web.API.Controllers
                 {
                     return GetErrorResult(result);
                 }
+
+                result = await UserManager.AddToRolesAsync(user.Id, model.Roles.ToArray());
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+
+
                 var currentUser = await _Uow._Users.GetAll(x => x.Id == user.Id).FirstOrDefaultAsync();
 
                 if (currentUser.IsFilterByIP)
@@ -191,6 +201,9 @@ namespace DrNajeeb.Web.API.Controllers
 
                 _Uow._Users.Update(currentUser);
                 await _Uow.CommitAsync();
+
+                await LogHelpers.SaveLog(_Uow, "Add User : " + currentUser.UserName, User.Identity.GetUserId());
+
                 return Ok();
             }
             catch (Exception ex)
@@ -201,7 +214,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetLatestUsers")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> GetLatestUsers()
         {
             try
@@ -252,6 +265,8 @@ namespace DrNajeeb.Web.API.Controllers
                     usersList.Add(usermodel);
                 }
 
+                await LogHelpers.SaveLog(_Uow, "Check Latest Users", User.Identity.GetUserId());
+
                 return Ok(usersList);
             }
             catch (Exception ex)
@@ -262,12 +277,15 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserCount")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> GetUserCount()
         {
             try
             {
                 var totalUsers = await _Uow._Users.CountAsync(x => x.Active == true);
+
+                await LogHelpers.SaveLog(_Uow, "Get Total USers Count", User.Identity.GetUserId());
+
                 return Ok(totalUsers);
             }
             catch (Exception ex)
@@ -278,7 +296,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("UpdateUser")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> UpdateUser(UserModel model)
         {
             try
@@ -326,6 +344,8 @@ namespace DrNajeeb.Web.API.Controllers
                 }
                 _Uow._Users.Update(currentUser);
                 await _Uow.CommitAsync();
+
+                await LogHelpers.SaveLog(_Uow, "Update User : " + currentUser.UserName, User.Identity.GetUserId());
                 return Ok();
             }
             catch (Exception ex)
@@ -336,7 +356,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("DeleteUser")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> DeleteUser([FromBody]string userId)
         {
             try
@@ -351,6 +371,8 @@ namespace DrNajeeb.Web.API.Controllers
                 user.UpdatedOn = DateTime.UtcNow;
                 _Uow._Users.Update(user);
                 await _Uow.CommitAsync();
+
+                await LogHelpers.SaveLog(_Uow, "Delete User : " + user.UserName, User.Identity.GetUserId());
                 return Ok();
             }
             catch (Exception ex)
@@ -520,7 +542,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetUserChartData")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> GetUserChartData()
         {
             try
@@ -546,6 +568,8 @@ namespace DrNajeeb.Web.API.Controllers
                 //{
                 //    total.Add(item.Count());
                 //}
+
+                await LogHelpers.SaveLog(_Uow, "View User Chart Data", User.Identity.GetUserId());
 
                 return Ok(total);
             }
@@ -596,7 +620,7 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
-                var userId=User.Identity.GetUserId();
+                var userId = User.Identity.GetUserId();
                 var lastLoginTime = await _Uow._LoggedInTracking.GetAll(x => x.UserId == userId).OrderByDescending(x => x.DateTimeLoggedIn).FirstOrDefaultAsync();
                 if (lastLoginTime == null)
                 {
@@ -612,6 +636,43 @@ namespace DrNajeeb.Web.API.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [ActionName("GetManagers")]
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IHttpActionResult> GetManagers()
+        {
+            try
+            {
+                var managers = await _Uow._Roles.GetAll(x => x.Name == "Manager")
+                    .Include(x => x.AspNetUsers)
+                    .Select(x => x.AspNetUsers)
+                    .ToListAsync();
+
+                var usersList = new List<UserModel>();
+
+                foreach (var parent in managers)
+                {
+                    foreach (var item in parent)
+                    {
+                        var usermodel = new UserModel();
+                        usermodel.EmailAddress = item.Email;
+                        usermodel.FullName = item.FullName;
+                        usermodel.Id = item.Id;
+                        usersList.Add(usermodel);
+                    }
+                }
+
+                await LogHelpers.SaveLog(_Uow, "Get All Managers", User.Identity.GetUserId());
+
+                return Ok(usersList);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
     }
 
     public class FileActionResult : IHttpActionResult

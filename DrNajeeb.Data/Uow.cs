@@ -53,6 +53,7 @@ namespace DrNajeeb.Data
         public IRepository<NewFeature> _NewFeatures { get { return GetStandardRepo<NewFeature>(); } }
         public IRepository<MessageToAll> _MessageToAll { get { return GetStandardRepo<MessageToAll>(); } }
         public IRepository<VideoDownloadhistory> _VideoDownloadhistory { get { return GetStandardRepo<VideoDownloadhistory>(); } }
+        public IRepository<ManagerLog> _ManagerLog { get { return GetStandardRepo<ManagerLog>(); } }
 
         #endregion
 

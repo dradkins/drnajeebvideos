@@ -1,9 +1,11 @@
-﻿using System;
+﻿using DrNajeeb.Contract;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace DrNajeeb.Web.API.Helpers
@@ -188,6 +190,21 @@ namespace DrNajeeb.Web.API.Helpers
                 result.Append(characters[rnd.Next(characters.Length)]);
             }
             return result.ToString();
+        }
+    }
+
+    public static class LogHelpers
+    {
+        public static async Task SaveLog(IUow uow, string message, string userId)
+        {
+            uow._ManagerLog.Add(new EF.ManagerLog
+            {
+                EventDateTime = DateTime.UtcNow,
+                EventDetails = message,
+                UserId=userId
+            });
+
+            await uow.CommitAsync();
         }
     }
 }

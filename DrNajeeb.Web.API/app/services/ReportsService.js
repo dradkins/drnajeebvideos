@@ -61,6 +61,13 @@
                             return response.data;
                         });
         };
+
+        ReportsService.getManagerActivityReport = function (pagingInfo) {
+            return $http.get("/api/reports/getManagerActivityReport", { params: pagingInfo })
+                        .then(function (response) {
+                            return response.data;
+                        });
+        };
         
         
         return ReportsService;

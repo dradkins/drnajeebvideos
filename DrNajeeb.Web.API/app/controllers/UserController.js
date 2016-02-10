@@ -229,7 +229,7 @@
             //    toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
             //    return false;
             //}
-            //console.log(user);
+            console.log($scope.user);
 
             UserService.addUser($scope.user).then(function (response) {
                 toastr.info("user added successfully");

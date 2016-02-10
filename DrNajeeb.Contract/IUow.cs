@@ -32,6 +32,7 @@ namespace DrNajeeb.Contract
         IRepository<NewFeature> _NewFeatures { get; }
         IRepository<MessageToAll> _MessageToAll { get; }
         IRepository<VideoDownloadhistory> _VideoDownloadhistory { get; }
+        IRepository<ManagerLog> _ManagerLog { get; }
 
         int SendMessageToAll();
 

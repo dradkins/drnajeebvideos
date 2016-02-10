@@ -11,6 +11,7 @@ using DrNajeeb.Web.API.Models;
 using System.Threading.Tasks;
 using DrNajeeb.EF;
 using Microsoft.AspNet.Identity;
+using DrNajeeb.Web.API.Helpers;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -28,7 +29,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetAll")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> GetAll(int page = 1, int itemsPerPage = 20, string sortBy = "Name", bool reverse = false, string search = null)
         {
             try
@@ -88,6 +89,8 @@ namespace DrNajeeb.Web.API.Controllers
                     data = videosList,
                 };
 
+                await LogHelpers.SaveLog(_Uow, "Check All Videos", User.Identity.GetUserId());
+
                 return Ok(json);
             }
             catch (Exception ex)
@@ -99,8 +102,8 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetByCategoryForSorting")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public IHttpActionResult GetByCategoryForSorting(int id)
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IHttpActionResult> GetByCategoryForSorting(int id)
         {
             try
             {
@@ -131,6 +134,8 @@ namespace DrNajeeb.Web.API.Controllers
                     videosList.Add(model);
                 }
 
+                await LogHelpers.SaveLog(_Uow, "Get Videos Of Category For Sorting", User.Identity.GetUserId());
+
                 return Ok(videosList);
             }
             catch (Exception ex)
@@ -142,7 +147,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("UpdateOrder")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> UpdateOrder(List<VideoSortingModel> model)
         {
             try
@@ -164,6 +169,9 @@ namespace DrNajeeb.Web.API.Controllers
                     }
                 }
                 await _Uow.CommitAsync();
+
+                await LogHelpers.SaveLog(_Uow, "Update Soring Of Videos", User.Identity.GetUserId());
+
                 return Ok();
             }
             catch (Exception ex)
@@ -174,7 +182,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("AddVideo")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> AddVideo(VideoModel model)
         {
             try
@@ -223,6 +231,9 @@ namespace DrNajeeb.Web.API.Controllers
                     Id = video.Id,
                     Name = video.Name
                 };
+
+                await LogHelpers.SaveLog(_Uow, "Add Video : "+video.Name, User.Identity.GetUserId());
+
                 return Ok(json);
             }
             catch (Exception ex)
@@ -233,7 +244,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("DeleteVideo")]
         [HttpDelete]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> DeleteVideo(int id)
         {
             try
@@ -253,8 +264,9 @@ namespace DrNajeeb.Web.API.Controllers
                 {
                     _Uow._CategoryVideos.Delete(item);
                 }
+                video.UpdatedBy = User.Identity.GetUserId();
 
-                //todo : add useid in updatedby
+                await LogHelpers.SaveLog(_Uow, "Delete Video : " + video.Name, User.Identity.GetUserId());
 
                 await _Uow.CommitAsync();
                 return Ok();
@@ -267,7 +279,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("UpdateVideo")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> UpdateVideo(VideoModel model)
         {
             try
@@ -304,11 +316,13 @@ namespace DrNajeeb.Web.API.Controllers
                 {
                     _Uow._CategoryVideos.Delete(item);
                 }
-
-                //todo : add useid in updatedby
+                video.UpdatedBy = User.Identity.GetUserId();
 
                 _Uow._Videos.Update(video);
                 await _Uow.CommitAsync();
+
+                await LogHelpers.SaveLog(_Uow, "Update Video : " + video.Name, User.Identity.GetUserId());
+
                 return Ok();
             }
             catch (Exception ex)
@@ -319,7 +333,7 @@ namespace DrNajeeb.Web.API.Controllers
 
         [ActionName("GetSingle")]
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IHttpActionResult> GetSingle(int Id)
         {
             try
@@ -343,6 +357,9 @@ namespace DrNajeeb.Web.API.Controllers
                 model.IsEnabled = video.IsEnabled;
                 model.StandardVideoId = video.StandardVideoId;
                 model.FastVideoId = video.StandardVideoId;
+
+                await LogHelpers.SaveLog(_Uow, "Check Single Video : " + video.Name, User.Identity.GetUserId());
+
                 return Ok(model);
             }
             catch (Exception ex)
