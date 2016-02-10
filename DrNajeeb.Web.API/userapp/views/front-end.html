@@ -1,6 +1,6 @@
 ﻿<!-- Before Adding Main Content -->
 <div id="theme-wrapper">
-    
+
     <header class="navbar" id="header-navbar">
         <div class="container">
             <a href="#!dashboard" id="logo" class="navbar-brand">
@@ -11,13 +11,11 @@
                 <a href="#!register" class="btn btn-success">Sign up Now</a>
             </div>
             <!--mobile view sign up btn code closed-->
-
             <div class="clearfix">
                 <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="fa fa-exchange"></span>
                 </button>
-
                 <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
                     <ul class="nav navbar-nav pull-left">
                         <li>
@@ -30,10 +28,8 @@
             </div>
         </div>
     </header>
-
     <div id="page-wrapper" class="container">
         <div class="row">
-
             <div id="nav-col">
                 <section id="col-left" class="col-left-nano">
                     <div id="col-left-inner" class="col-left-nano-content">
@@ -57,30 +53,25 @@
                 </section>
                 <div id="nav-col-submenu"></div>
             </div>
-
             <div id="content-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- End Before Adding Main Content -->
-
                         <div class="row">
                             <div class="col-lg-12">
                                 <!--<ol class="breadcrumb">
                                     <li><a href="">Home</a></li>
                                     <li class="active"><span>Video Library</span></li>
                                 </ol>-->
-
                                 <h1>Video Library</h1>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                                 <div class="main-box feed">
                                     <header class="main-box-header clearfix">
                                         <h2 class="pull-left">Categories</h2>
                                     </header>
-
                                     <div class="main-box-body clearfix">
                                         <div class="table-responsive">
                                             <div class="list-group" style="overflow:hidden">
@@ -94,13 +85,21 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                 <div class="main-box clearfix">
                                     <header class="main-box-header clearfix">
                                         <h2 class="pull-left">Videos in {{selectedCategory.name}}</h2>
+                                        <div class="filter-block pull-right">
+                                            <div class="pull-left">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control input-sm" ng-model="search" placeholder="Search...">
+                                                    <button type="submit" class="btn btn-info btn-sm">
+                                                        <i class="fa fa-search fa-lg"></i> Search
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </header>
-
                                     <div class="main-box-body clearfix">
                                         <div class="table-responsive clearfix">
                                             <table class="table table-hover">
@@ -131,11 +130,9 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- After Adding Main Content -->
                     </div>
                 </div>
-
                 <footer id="footer-bar" class="row">
                     <p id="footer-copyright" class="col-xs-12">
                         Copyright &copy; 2015 Dr. Najeeb Lectures. All Rights Reserved.

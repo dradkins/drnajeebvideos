@@ -5,6 +5,8 @@
         $scope.categories = [];
         $scope.videos = [];
         $scope.selectedCategory = null;
+        $scope.search = '';
+
 
         $scope.categorySelected = function (cat) {
             loadVideos(cat);
