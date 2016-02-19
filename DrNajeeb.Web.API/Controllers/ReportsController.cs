@@ -613,7 +613,7 @@ namespace DrNajeeb.Web.API.Controllers
                     });
                 }
 
-                var activities = userActivity.OrderBy(x => x.DateTimeAction);
+                var activities = userActivity.OrderByDescending(x => x.DateTimeAction);
                 var userName = _Uow._Users.GetAll(x => x.Id == userId).FirstOrDefault().UserName;
 
                 var json = new

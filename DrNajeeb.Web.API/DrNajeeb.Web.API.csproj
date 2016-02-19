@@ -395,6 +395,7 @@
     <Content Include="userapp\directives\messagesScroller.js" />
     <Content Include="userapp\directives\readMore.js" />
     <Content Include="userapp\directives\vimeoEmbed.js" />
+    <Content Include="userapp\services\LibraryController.js" />
     <Content Include="userapp\services\NotificationsService.js" />
     <Content Include="userapp\services\PoolingService.js" />
     <Content Include="userapp\services\UsersService.js" />

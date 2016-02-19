@@ -58,14 +58,23 @@
         }
 
         var onVideos = function (data) {
-            //$scope.videos = data.data;
-            VideoService.getVideoThumbnails(data.data).then(function (v) {
-                $scope.videos = v;
+            $scope.videos = null;
+            $scope.videos = data.data;
+            angular.forEach($scope.videos, function (v) {
+                v.thumbnailURL = "";
+                VideoService.getVideoThumbnail(v.vzaarVideoId).then(function (t) {
+                    v.thumbnailURL = t;
+                })
             })
+            $scope.pagingInfo.totalItems = data.count;
+            //$scope.videos = data.data;
+            //VideoService.getVideoThumbnails(data.data).then(function (v) {
+            //    $scope.videos = v;
+            //})
             //angular.forEach($scope.videos, function (video) {
             //    video.thumbnailURL = $scope.getThumbnailURL(video.vzaarVideoId);
             //})
-            $scope.pagingInfo.totalItems = data.count;
+            //$scope.pagingInfo.totalItems = data.count;
         }
 
         var loadVideos = function (cat) {

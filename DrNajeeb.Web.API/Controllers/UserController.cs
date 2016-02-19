@@ -161,7 +161,7 @@ namespace DrNajeeb.Web.API.Controllers
                     IsPasswordReset = model.IsPasswordReset,
                     NoOfConcurentViews = model.NoOfConcurrentViews,
                     SubscriptionId = model.SubscriptionID.Value,
-                    IsFreeUser = false,
+                    IsFreeUser = model.IsFreeUser,
                     SubscriptionDate = DateTime.UtcNow,
                     IsInstitutionalAccount = model.IsInstitutionalAccount,
                 };
@@ -655,11 +655,14 @@ namespace DrNajeeb.Web.API.Controllers
                 {
                     foreach (var item in parent)
                     {
-                        var usermodel = new UserModel();
-                        usermodel.EmailAddress = item.Email;
-                        usermodel.FullName = item.FullName;
-                        usermodel.Id = item.Id;
-                        usersList.Add(usermodel);
+                        if (item.Active)
+                        {
+                            var usermodel = new UserModel();
+                            usermodel.EmailAddress = item.Email;
+                            usermodel.FullName = item.FullName;
+                            usermodel.Id = item.Id;
+                            usersList.Add(usermodel);
+                        }
                     }
                 }
 

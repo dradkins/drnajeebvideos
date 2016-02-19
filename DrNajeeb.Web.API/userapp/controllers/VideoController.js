@@ -1,6 +1,6 @@
 ﻿(function (app) {
 
-    var VideoController = function ($scope, $routeParams, $sce, VideoService, toastr, localStorageService) {
+    var VideoController = function ($scope, $routeParams, $sce, $location, VideoService, toastr, localStorageService) {
 
         $scope.video = null;
         $scope.videoId = null;
@@ -136,8 +136,9 @@
 
         var onError = function (error) {
             if (error.status == 400) {
-                toastr.error("you are not allowed to view this video")
-                window.history.back();
+                toastr.error("you are not allowed to view this video. please purchase a package to view this video.")
+                $location.path("/packages");
+                //window.history.back();
             }
             console.log(error);
         }
@@ -181,7 +182,7 @@
 
     };
 
-    VideoController.$inject = ["$scope", "$routeParams", "$sce", "VideoService", "toastr", "localStorageService"];
+    VideoController.$inject = ["$scope", "$routeParams", "$sce", "$location", "VideoService", "toastr", "localStorageService"];
     app.controller("VideoController", VideoController);
 
 }(angular.module("DrNajeebUser")));

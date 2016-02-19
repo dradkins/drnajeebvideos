@@ -12,7 +12,7 @@
                         <div class="col-md-12 col-xs-12">
                             <div class="main-box clearfix">
                                 <header class="main-box-header clearfix">
-                                    <h2 class="pull-left">New Videos</h2>
+                                    <h2 class="pull-left">Free Videos</h2>
 
                                     <div class="filter-block pull-right">
                                         <div class="pull-left">
@@ -48,7 +48,7 @@
                                                     <tr ng-repeat="video in videos | filter: pagingInfo.search">
                                                         <td>
                                                             <a href="" ng-click="showVideo(video)" title="Watch Now">
-                                                                <img class="img-rounded" ng-src="getThumbnailURL(video.vzaarVideoId)" style="width:60px; height:50px;" />
+                                                                <img class="img-rounded" ng-src="{{video.thumbnailURL}}" style="width:60px; height:50px;" />
                                                             </a>
                                                         </td>
                                                         <td class="mobScreenTableDisNon"><p ng-click="showVideo(video)" title="Watch Now">{{video.name}}</p></td>
@@ -62,7 +62,7 @@
                                                             <button class="btn btn-info" ng-click="showVideo(video)" title="Watch Now">
                                                                 Play Now <i class="fa fa-arrow-circle-o-right"></i>
                                                             </button>
-                                                            <button class="btn btn-default" ng-click="downloadVideo(video)" title="Download Video" ng-if="$root.showDownloadOption">
+                                                            <button class="btn btn-default" ng-click="downloadVideo(video)" title="Download Video" >
                                                                 <i class="fa fa-download"></i>
                                                             </button>
                                                             <!--<a href="http://view.vzaar.com/{{video.vzaarVideoId}}/download" class="btn btn-default" target="_self">

@@ -17,7 +17,15 @@
         $scope.selectedPackage = null;
         $scope.subscriptions = [];
         $scope.selectedSubscription = null;
+        $scope.freeRegister = false;
 
+        var checkFreeRegister = function () {
+            if ($location.path() == '/free-register') {
+                $scope.freeRegister = true;
+            }
+        }
+
+        checkFreeRegister();
 
         $scope.register = function (form) {
             if (form.$valid) {
@@ -26,13 +34,17 @@
                 //    toastr.warning("Password must contain at least one upper case letter, one lower case letter and one number and minimum 6 characters long.");
                 //    return false;
                 //}
-                if ($scope.registerModel.password !== $scope.registerModel.confirmPassword) {
-                    toastr.warning("Password and confirm password not matched.");
-                    return false;
+                if ($location.path() != '/free-register') {
+                    if ($scope.registerModel.password !== $scope.registerModel.confirmPassword) {
+                        toastr.warning("Password and confirm password not matched.");
+                        return false;
+                    }
                 }
                 //$scope.registerModel.countryId = $scope.selectedCountry.id;
                 $scope.registerModel.subscriptionId = $scope.selectedSubscription.id;
                 if ($location.path() == '/free-register') {
+                    $scope.registerModel.confirmPassword = $scope.registerModel.password;
+                    $scope.registerModel.fullName = "Free User";
                     $scope.registerModel.isFreeUser = true;
                 }
                 OAuthService.register($scope.registerModel)
@@ -86,11 +98,13 @@
         }
 
         var onSubscriptions = function (data) {
+            console.log(data);
             if ($location.path() == '/free-register') {
                 $scope.subscriptions = data;
                 angular.forEach($scope.subscriptions, function (item) {
-                    if (item.name == "Free Subscription") {
+                    if (item.name == "FREE TRIAL") {
                         $scope.selectedSubscription = item;
+                        console.log($scope.selectedSubscription);
                         return false;
                     }
                 })
@@ -98,7 +112,7 @@
             }
             else {
                 angular.forEach(data, function (item) {
-                    if (item.name != "Free Subscription") {
+                    if (item.name != "FREE TRIAL") {
                         $scope.subscriptions.push(item);
                     }
                 })
@@ -126,146 +140,146 @@
         /****** Facebook Region **********/
 
         // Define user empty data :/
-        //$scope.user1 = {};
+        $scope.user1 = {};
 
-        //// Defining user logged status
-        //$scope.logged = false;
+        // Defining user logged status
+        $scope.logged = false;
 
-        //// And some fancy flags to display messages upon user status change
-        //$scope.byebye = false;
-        //$scope.salutation = false;
+        // And some fancy flags to display messages upon user status change
+        $scope.byebye = false;
+        $scope.salutation = false;
 
-        ///**
-        // * Watch for Facebook to be ready.
-        // * There's also the event that could be used
-        // */
-        //$scope.$watch(
-        //  function () {
-        //      return Facebook.isReady();
-        //  },
-        //  function (newVal) {
-        //      if (newVal)
-        //          $scope.facebookReady = true;
-        //  }
-        //);
+        /**
+         * Watch for Facebook to be ready.
+         * There's also the event that could be used
+         */
+        $scope.$watch(
+          function () {
+              return Facebook.isReady();
+          },
+          function (newVal) {
+              if (newVal)
+                  $scope.facebookReady = true;
+          }
+        );
 
-        //var userIsConnected = false;
+        var userIsConnected = false;
 
-        //Facebook.getLoginStatus(function (response) {
-        //    if (response.status == 'connected') {
-        //        userIsConnected = true;
-        //    }
-        //});
+        Facebook.getLoginStatus(function (response) {
+            if (response.status == 'connected') {
+                userIsConnected = true;
+            }
+        });
 
-        ///**
-        // * IntentLogin
-        // */
-        //$scope.IntentLogin = function () {
-        //    if (!userIsConnected) {
-        //        $scope.login1();
-        //    }
-        //    else {
-        //        $scope.me();
-        //    }
-        //};
+        /**
+         * IntentLogin
+         */
+        $scope.IntentLogin = function () {
+            if (!userIsConnected) {
+                $scope.login1();
+            }
+            else {
+                $scope.me();
+            }
+        };
 
-        ///**
-        // * Login
-        // */
-        //$scope.login1 = function () {
-        //    Facebook.login(function (response) {
-        //        console.log("In Login");
-        //        console.log(response);
-        //        if (response.status == 'connected') {
-        //            $scope.logged = true;
-        //            $scope.me();
-        //        }
+        /**
+         * Login
+         */
+        $scope.login1 = function () {
+            Facebook.login(function (response) {
+                console.log("In Login");
+                console.log(response);
+                if (response.status == 'connected') {
+                    $scope.logged = true;
+                    $scope.me();
+                }
 
-        //    }, {
-        //        scope: 'email, user_likes',
-        //        return_scopes: true
-        //    });
-        //};
+            }, {
+                scope: 'email, user_likes',
+                return_scopes: true
+            });
+        };
 
-        ///**
-        // * me 
-        // */
-        //$scope.me = function () {
-        //    Facebook.api('/me', { fields: "id,name,picture,email" }, function (response) {
-        //        /**
-        //         * Using $scope.$apply since this happens outside angular framework.
-        //         */
-        //        $rootScope.facebookProfilePic = response.picture.data.url;
-        //        $scope.$apply(function () {
-        //            $scope.user1 = response;
-        //            var data = {
-        //                token: $scope.facebookToken,
-        //                provider: "Facebook"
-        //            };
-        //            OAuthService.loginExternal(data).then(onExternalLogin, onExternalLoginError);
-        //        });
+        /**
+         * me 
+         */
+        $scope.me = function () {
+            Facebook.api('/me', { fields: "id,name,picture,email" }, function (response) {
+                /**
+                 * Using $scope.$apply since this happens outside angular framework.
+                 */
+                $rootScope.facebookProfilePic = response.picture.data.url;
+                $scope.$apply(function () {
+                    $scope.user1 = response;
+                    var data = {
+                        token: $scope.facebookToken,
+                        provider: "Facebook"
+                    };
+                    OAuthService.loginExternal(data).then(onExternalLogin, onExternalLoginError);
+                });
 
-        //    });
-        //};
+            });
+        };
 
 
-        //var onExternalLogin = function (data) {
-        //    CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true);
-        //    toastr.success("Welcome " + data.fullName);
-        //    $location.path("/dashboard");
-        //}
+        var onExternalLogin = function (data) {
+            CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true);
+            toastr.success("Welcome " + data.fullName);
+            $location.path("/dashboard");
+        }
 
-        //var onExternalLoginError = function (error) {
-        //    console.log(error);
-        //    if (error.status === 404) {
-        //        CurrentUserService.externalLogin.token = $scope.facebookToken;
-        //        CurrentUserService.externalLogin.name = $scope.user1.name;
-        //        CurrentUserService.externalLogin.subscriptionId = $scope.
-        //        CurrentUserService.externalLogin.isFreeUser = ($location.path() == '/free-register') ? true : false;
-        //        CurrentUserService.externalLogin.selectedSub=scription
-        //        $location.path("/register-external")
-        //    }
-        //    else {
-        //        toastr.error("Unable to login with facebook, Please use a local account.")
-        //    }
-        //}
+        var onExternalLoginError = function (error) {
+            console.log(error);
+            if (error.status === 404) {
+                CurrentUserService.externalLogin.token = $scope.facebookToken;
+                CurrentUserService.externalLogin.name = $scope.user1.name;
+                CurrentUserService.externalLogin.subscriptionId = $scope.
+                CurrentUserService.externalLogin.isFreeUser = ($location.path() == '/free-register') ? true : false;
+                CurrentUserService.externalLogin.selectedSub = scription
+                $location.path("/register-external")
+            }
+            else {
+                toastr.error("Unable to login with facebook, Please use a local account.")
+            }
+        }
 
-        ///**
-        // * Logout
-        // */
-        //$scope.logout = function () {
-        //    Facebook.logout(function () {
-        //        $scope.$apply(function () {
-        //            $scope.user1 = {};
-        //            $scope.logged = false;
-        //        });
-        //    });
-        //}
+        /**
+         * Logout
+         */
+        $scope.logout = function () {
+            Facebook.logout(function () {
+                $scope.$apply(function () {
+                    $scope.user1 = {};
+                    $scope.logged = false;
+                });
+            });
+        }
 
-        ///**
-        // * Taking approach of Events :D
-        // */
-        //$scope.$on('Facebook:statusChange', function (ev, data) {
-        //    console.log('Status: ', data);
-        //    if (data.status == 'connected') {
-        //        console.log("Connected");
-        //        $scope.$apply(function () {
-        //            $scope.salutation = true;
-        //            $scope.byebye = false;
-        //            $scope.facebookToken = data.authResponse.accessToken;
-        //        });
-        //    } else {
-        //        $scope.$apply(function () {
-        //            $scope.salutation = false;
-        //            $scope.byebye = true;
+        /**
+         * Taking approach of Events :D
+         */
+        $scope.$on('Facebook:statusChange', function (ev, data) {
+            console.log('Status: ', data);
+            if (data.status == 'connected') {
+                console.log("Connected");
+                $scope.$apply(function () {
+                    $scope.salutation = true;
+                    $scope.byebye = false;
+                    $scope.facebookToken = data.authResponse.accessToken;
+                });
+            } else {
+                $scope.$apply(function () {
+                    $scope.salutation = false;
+                    $scope.byebye = true;
 
-        //            // Dismiss byebye message after two seconds
-        //            $timeout(function () {
-        //                $scope.byebye = false;
-        //            }, 2000)
-        //        });
-        //    }
-        //});
+                    // Dismiss byebye message after two seconds
+                    $timeout(function () {
+                        $scope.byebye = false;
+                    }, 2000)
+                });
+            }
+        });
 
         /****** End Facebook Region ********/
         init();

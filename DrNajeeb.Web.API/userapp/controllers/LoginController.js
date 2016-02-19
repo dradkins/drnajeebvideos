@@ -92,148 +92,148 @@
         //init();
 
         // Define user empty data :/
-        //$scope.user1 = {};
+        $scope.user1 = {};
 
-        //// Defining user logged status
-        //$scope.logged = false;
+        // Defining user logged status
+        $scope.logged = false;
 
-        //// And some fancy flags to display messages upon user status change
-        //$scope.byebye = false;
-        //$scope.salutation = false;
+        // And some fancy flags to display messages upon user status change
+        $scope.byebye = false;
+        $scope.salutation = false;
 
-        ///**
-        // * Watch for Facebook to be ready.
-        // * There's also the event that could be used
-        // */
-        //$scope.$watch(
-        //  function () {
-        //      return Facebook.isReady();
-        //  },
-        //  function (newVal) {
-        //      if (newVal)
-        //          $scope.facebookReady = true;
-        //  }
-        //);
+        /**
+         * Watch for Facebook to be ready.
+         * There's also the event that could be used
+         */
+        $scope.$watch(
+          function () {
+              return Facebook.isReady();
+          },
+          function (newVal) {
+              if (newVal)
+                  $scope.facebookReady = true;
+          }
+        );
 
-        //var userIsConnected = false;
+        var userIsConnected = false;
 
-        //Facebook.getLoginStatus(function (response) {
-        //    if (response.status == 'connected') {
-        //        userIsConnected = true;
-        //    }
-        //});
+        Facebook.getLoginStatus(function (response) {
+            if (response.status == 'connected') {
+                userIsConnected = true;
+            }
+        });
 
-        ///**
-        // * IntentLogin
-        // */
-        //$scope.IntentLogin = function () {
-        //    if (!userIsConnected) {
-        //        $scope.login1();
-        //    }
-        //    else {
-        //        $scope.me();
-        //    }
-        //};
+        /**
+         * IntentLogin
+         */
+        $scope.IntentLogin = function () {
+            if (!userIsConnected) {
+                $scope.login1();
+            }
+            else {
+                $scope.me();
+            }
+        };
 
-        ///**
-        // * Login
-        // */
-        //$scope.login1 = function () {
-        //    Facebook.login(function (response) {
-        //        if (response.status == 'connected') {
-        //            $scope.logged = true;
-        //            $scope.me();
-        //        }
+        /**
+         * Login
+         */
+        $scope.login1 = function () {
+            Facebook.login(function (response) {
+                if (response.status == 'connected') {
+                    $scope.logged = true;
+                    $scope.me();
+                }
 
-        //    }, {
-        //        scope: 'email, user_likes',
-        //        return_scopes: true
-        //    });
-        //};
+            }, {
+                scope: 'email, user_likes',
+                return_scopes: true
+            });
+        };
 
-        ///**
-        // * me 
-        // */
-        //$scope.me = function () {
-        //    Facebook.api('/me', { fields: "id,name,picture,email" }, function (response) {
-        //        /**
-        //         * Using $scope.$apply since this happens outside angular framework.
-        //         */
-        //        $rootScope.facebookProfilePic = response.picture.data.url;
-        //        $scope.$apply(function () {
-        //            $scope.user1 = response;
-        //            var data = {
-        //                token: $scope.facebookToken,
-        //                provider: "Facebook"
-        //            };
-        //            OAuthService.loginExternal(data).then(onExternalLogin, onExternalLoginError);
-        //        });
+        /**
+         * me 
+         */
+        $scope.me = function () {
+            Facebook.api('/me', { fields: "id,name,picture,email" }, function (response) {
+                /**
+                 * Using $scope.$apply since this happens outside angular framework.
+                 */
+                $rootScope.facebookProfilePic = response.picture.data.url;
+                $scope.$apply(function () {
+                    $scope.user1 = response;
+                    var data = {
+                        token: $scope.facebookToken,
+                        provider: "Facebook"
+                    };
+                    OAuthService.loginExternal(data).then(onExternalLogin, onExternalLoginError);
+                });
 
-        //    });
-        //};
+            });
+        };
 
 
-        //var onExternalLogin = function (data) {
-        //    CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true, data.isFreeUser, data.showDownloadOption);
-        //    toastr.success("Welcome " + data.fullName);
-        //    $location.path("/dashboard");
-        //}
+        var onExternalLogin = function (data) {
+            CurrentUserService.setProfile(data.userName, data.access_token, data.fullName, $scope.user1.picture.data.url, true, data.isFreeUser, data.showDownloadOption);
+            toastr.success("Welcome " + data.fullName);
+            $location.path("/dashboard");
+        }
 
-        //var onExternalLoginError = function (error) {
-        //    if (error.status === 404) {
-        //        CurrentUserService.externalLogin.token = $scope.facebookToken;
-        //        CurrentUserService.externalLogin.name = $scope.user1.name;
-        //        CurrentUserService.externalLogin.email = $scope.user1.email;
-        //        $location.path("/register-external")
-        //    }
-        //    if (error.status === 403) {
-        //        //toastr.error("Payment not made yet please click <a style=\"color:blue\" href=\"/home/checkout/" + response.data.error_description + "\">here</a> to make payement", "", {
-        //        //    allowHtml: true
-        //        //});
-        //        console.log(error);
-        //        toastr.error("Payment not made yet.")
-        //    }
-        //    else {
-        //        toastr.error("Unable to login with facebook, Please use a local account.")
-        //    }
-        //}
+        var onExternalLoginError = function (error) {
+            if (error.status === 404) {
+                CurrentUserService.externalLogin.token = $scope.facebookToken;
+                CurrentUserService.externalLogin.name = $scope.user1.name;
+                CurrentUserService.externalLogin.email = $scope.user1.email;
+                $location.path("/register-external")
+            }
+            if (error.status === 403) {
+                //toastr.error("Payment not made yet please click <a style=\"color:blue\" href=\"/home/checkout/" + response.data.error_description + "\">here</a> to make payement", "", {
+                //    allowHtml: true
+                //});
+                console.log(error);
+                toastr.error("Payment not made yet.")
+            }
+            else {
+                toastr.error("Unable to login with facebook, Please use a local account.")
+            }
+        }
 
-        ///**
-        // * Logout
-        // */
-        //$scope.logout = function () {
-        //    Facebook.logout(function () {
-        //        $scope.$apply(function () {
-        //            $scope.user1 = {};
-        //            $scope.logged = false;
-        //        });
-        //    });
-        //}
+        /**
+         * Logout
+         */
+        $scope.logout = function () {
+            Facebook.logout(function () {
+                $scope.$apply(function () {
+                    $scope.user1 = {};
+                    $scope.logged = false;
+                });
+            });
+        }
 
-        ///**
-        // * Taking approach of Events :D
-        // */
-        //$scope.$on('Facebook:statusChange', function (ev, data) {
-        //    console.log('Status: ', data);
-        //    if (data.status == 'connected') {
-        //        console.log("Connected");
-        //        $scope.$apply(function () {
-        //            $scope.salutation = true;
-        //            $scope.byebye = false;
-        //            $scope.facebookToken = data.authResponse.accessToken;
-        //        });
-        //    } else {
-        //        $scope.$apply(function () {
-        //            $scope.salutation = false;
-        //            $scope.byebye = true;
+        /**
+         * Taking approach of Events :D
+         */
+        $scope.$on('Facebook:statusChange', function (ev, data) {
+            console.log('Status: ', data);
+            if (data.status == 'connected') {
+                console.log("Connected");
+                $scope.$apply(function () {
+                    $scope.salutation = true;
+                    $scope.byebye = false;
+                    $scope.facebookToken = data.authResponse.accessToken;
+                });
+            } else {
+                $scope.$apply(function () {
+                    $scope.salutation = false;
+                    $scope.byebye = true;
 
-        //            // Dismiss byebye message after two seconds
-        //            $timeout(function () {
-        //                $scope.byebye = false;
-        //            }, 2000)
-        //        });
-        //    }
-        //});
+                    // Dismiss byebye message after two seconds
+                    $timeout(function () {
+                        $scope.byebye = false;
+                    }, 2000)
+                });
+            }
+        });
     }
 
 
