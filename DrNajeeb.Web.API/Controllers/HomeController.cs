@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using DrNajeeb.Web.API.Models;
 using DrNajeeb.Web.API.Helpers;
+using DrNajeeb.EF;
 
 namespace DrNajeeb.Web.API.Controllers
 {
@@ -161,14 +162,25 @@ namespace DrNajeeb.Web.API.Controllers
             }
         }
 
-        public async Task<FileContentResult> GetUsersEmails(DateTime fromDate, DateTime toDate, bool isActive)
+        public async Task<FileContentResult> GetUsersEmails(DateTime fromDate, DateTime toDate, bool isActive, bool isFreeUser)
         {
             try
             {
-                var users = await _UOW._Users
-                    .GetAll(x => x.IsActiveUSer == isActive && x.Active == true && x.CreatedOn >= fromDate && x.CreatedOn <= toDate)
-                    .Select(x => x.Email)
-                    .ToListAsync();
+                IList<string> users;
+                if(!isFreeUser){
+                    users = await _UOW._Users
+                           .GetAll(x => x.IsActiveUSer == isActive && x.Active == true && x.CreatedOn >= fromDate && x.CreatedOn <= toDate)
+                           .Select(x => x.Email)
+                           .ToListAsync();
+                }
+
+                else{
+                    users = await _UOW._Users
+                           .GetAll(x => x.Active == true && x.IsFreeUser==true && x.CreatedOn >= fromDate && x.CreatedOn <= toDate)
+                           .Select(x => x.Email)
+                           .ToListAsync();
+                }
+                    
                 var csv = string.Join(Environment.NewLine, users.ToArray());
                 return File(new System.Text.UTF8Encoding().GetBytes(csv), "text/csv", DateTime.Now.Ticks + ".csv");
             }

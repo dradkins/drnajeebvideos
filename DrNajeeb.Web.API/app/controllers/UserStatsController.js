@@ -10,6 +10,7 @@
             search: '',
             totalItems: 0,
             isActiveUser: true,
+            isFreeUser: false,
             sortBy: 'createdOn',
             reverse: true,
             dateTo: new Date(),
@@ -33,11 +34,22 @@
             loadUsers();
         }
 
+        $scope.sort = function (sortBy) {
+            if ($scope.pagingInfo.sortBy == sortBy) {
+                $scope.pagingInfo.reverse = !$scope.pagingInfo.reverse;
+            }
+            else{
+                $scope.pagingInfo.sortBy = sortBy;
+            }
+            loadUsers();
+        }
+
         $scope.downloadFile = function () {
             var fromDate = $filter('date')($scope.pagingInfo.dateFrom, "yyyy-MM-dd");;
             var toDate = $filter('date')($scope.pagingInfo.dateTo, "yyyy-MM-dd");;
             var isActive = $scope.pagingInfo.isActiveUser;
-            var downloadPath = "/home/GetUsersEmails?fromDate=" + fromDate + "&toDate=" + toDate + "&isActive=" + isActive;
+            var isFreeUser = $scope.pagingInfo.isFreeUser;
+            var downloadPath = "/home/GetUsersEmails?fromDate=" + fromDate + "&toDate=" + toDate + "&isActive=" + isActive + "&isFreeUser=" + isFreeUser;
             window.open(downloadPath, '_blank', '');
         }
 

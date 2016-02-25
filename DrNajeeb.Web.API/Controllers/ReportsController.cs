@@ -207,17 +207,30 @@ namespace DrNajeeb.Web.API.Controllers
 
         [HttpGet]
         [ActionName("GetUsersStatsReport")]
-        public async Task<IHttpActionResult> GetUsersStatsReport(DateTime dateFrom, DateTime dateTo, int page = 1, int itemsPerPage = 20, string sortBy = "CreatedOn", bool reverse = true, string search = null, bool isActiveUser = true)
+        public async Task<IHttpActionResult> GetUsersStatsReport(DateTime dateFrom, DateTime dateTo, int page = 1, int itemsPerPage = 20, string sortBy = "CreatedOn", bool reverse = true, string search = null, bool isActiveUser = true, bool isFreeUser = false)
         {
             try
             {
                 var usersList = new List<UserModel>();
 
-                var users = _Uow._Users.GetAll(x => x.Active == true && x.CreatedOn >= dateFrom && x.CreatedOn <= dateTo && x.IsActiveUSer == isActiveUser)
+                IQueryable<AspNetUser> users;
+
+                if (!isFreeUser)
+                {
+                    users = _Uow._Users.GetAll(x => x.Active == true && x.CreatedOn >= dateFrom && x.CreatedOn <= dateTo && x.IsActiveUSer == isActiveUser)
+                        .Include(x => x.Country)
+                        .Include(x => x.Subscription)
+                        .Include(x => x.AspNetRoles)
+                        .Include(x => x.IpAddressFilters);
+                }
+                else
+                {
+                    users = _Uow._Users.GetAll(x => x.Active == true && x.CreatedOn >= dateFrom && x.CreatedOn <= dateTo && x.IsFreeUser.Value)
                     .Include(x => x.Country)
                     .Include(x => x.Subscription)
                     .Include(x => x.AspNetRoles)
                     .Include(x => x.IpAddressFilters);
+                }
 
                 // searching
                 if (!string.IsNullOrWhiteSpace(search))
@@ -602,7 +615,7 @@ namespace DrNajeeb.Web.API.Controllers
             {
                 List<UserActivityLogModel> userActivity = new List<UserActivityLogModel>();
 
-                var managerActivities = _Uow._ManagerLog.GetAll(x=>x.UserId==userId);
+                var managerActivities = _Uow._ManagerLog.GetAll(x => x.UserId == userId);
 
                 foreach (var item in managerActivities)
                 {
