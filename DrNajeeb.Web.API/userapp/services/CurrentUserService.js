@@ -18,6 +18,7 @@
                 },
                 showDownloadOption: false,
                 guid: "",
+                isAccountExpire:false
             };
             var localUser = localStorageService.get(USERKEY);
             if (localUser) {
@@ -30,13 +31,14 @@
                 user.isFreeUser = currentUser.isFreeUser;
                 user.showDownloadOption = currentUser.showDownloadOption;
                 user.guid = currentUser.guid
+                user.isAccountExpire = currentUser.isAccountExpire
             }
             return user;
         }
 
         CurrentUserService.profile = initialize();
 
-        CurrentUserService.setProfile = function (username, token, fullName, profilePic, isSocialMediaLogin, isFreeUser, showDownloadOption, guid) {
+        CurrentUserService.setProfile = function (username, token, fullName, profilePic, isSocialMediaLogin, isFreeUser, showDownloadOption, guid, isAccountExpire) {
             CurrentUserService.profile.username = username;
             CurrentUserService.profile.token = token;
             CurrentUserService.profile.fullName = fullName;
@@ -45,6 +47,7 @@
             CurrentUserService.profile.isFreeUser = isFreeUser;
             CurrentUserService.profile.showDownloadOption = showDownloadOption;
             CurrentUserService.profile.guid = guid;
+            CurrentUserService.profile.isAccountExpire = isAccountExpire;
             $rootScope.USER_NAME = username;
             $rootScope.FULL_NAME = fullName;
             $rootScope.facebookProfilePic = profilePic;

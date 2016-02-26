@@ -36,6 +36,11 @@
                 $scope.setFullName();
                 return false;
             }
+            else if (CurrentUserService.profile.isAccountExpire) {
+                toastr.error("your account expires");
+                $location.path("/packages");
+                return false;
+            }
             toastr.success("Welcome " + data);
             loginRedirect.redirectPostLogin();
             $rootScope.updateUserImage();
@@ -58,7 +63,7 @@
             }
             else if (response.data.error == "account_expire") {
                 toastr.error(response.data.error_description);
-                $location.path("packages");
+                $location.path("/packages");
             }
             else {
                 toastr.error(response.data.error_description);

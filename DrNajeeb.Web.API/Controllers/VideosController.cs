@@ -454,6 +454,7 @@ namespace DrNajeeb.Web.API.Controllers
                     .Include(x => x.UserFavoriteVideos)
                     .FirstOrDefaultAsync();
 
+            
                 if (video == null)
                 {
                     return NotFound();
@@ -465,6 +466,11 @@ namespace DrNajeeb.Web.API.Controllers
                     {
                         return BadRequest();
                     }
+                }
+
+                if (_User.ExpirationDate != null && _User.ExpirationDate < DateTime.UtcNow)
+                {
+                    return BadRequest();
                 }
 
                 videosModel.BackgroundColor = video.BackgroundColor;
@@ -571,7 +577,7 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
-                videos = videos.OrderBy("DateLive descending");
+                videos = videos.OrderBy("DateLive");
 
                 int totalVideos = 0;
                 totalVideos = await videos.CountAsync();
@@ -656,7 +662,7 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
-                videos = videos.OrderBy("DateLive");
+                videos = videos.OrderBy("FreeVideoOrder");
 
                 int totalVideos = 0;
                 totalVideos = await videos.CountAsync();

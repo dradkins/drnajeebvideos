@@ -273,7 +273,14 @@ namespace DrNajeeb.Web.API.Controllers
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
-                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId, Guid.NewGuid().ToString());
+                bool isAccountExpire = false;
+
+                if (user.ExpirationDate != null && DateTime.UtcNow >= user.ExpirationDate.GetValueOrDefault())
+                {
+                    isAccountExpire = true;
+                }
+
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId, Guid.NewGuid().ToString(), isAccountExpire);
                 Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
             }
             else

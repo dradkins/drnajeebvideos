@@ -22,8 +22,9 @@
                         .then(function (response) {
                             console.log(response);
                             var isFreeUser = (response.data.isFreeUser === "True")
+                            var isAccountExpire = (response.data.isAccountExpire === "True")
                             var showDownloadOption = (response.data.showDownloadOption === "True")
-                            CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false, isFreeUser, showDownloadOption, response.data.guid);
+                            CurrentUserService.setProfile(username, response.data.access_token, response.data.fullName, null, false, isFreeUser, showDownloadOption, response.data.guid, isAccountExpire);
                             //saveToken(response.data.access_token);
                             return response.data.fullName;
                         });
@@ -84,8 +85,9 @@
                             var fullName = fullNameModel.fullName;
                             var freeUser = CurrentUserService.profile.isFreeUser;
                             var showDownloadOption = CurrentUserService.profile.showDownloadOption;
+                            var isAccountExpire = CurrentUserService.profile.isAccountExpire;
                             CurrentUserService.clearLocal();
-                            CurrentUserService.setProfile(uname, atoken, fullName, null, false, freeUser, showDownloadOption);
+                            CurrentUserService.setProfile(uname, atoken, fullName, null, false, freeUser, showDownloadOption, isAccountExpire);
                         });
         }
 

@@ -49,10 +49,11 @@ namespace DrNajeeb.Web.API.Providers
                 return;
             }
 
-            if (DateTime.UtcNow >= user.ExpirationDate.GetValueOrDefault())
+            bool isAccountExpire = false;
+
+            if (user.ExpirationDate != null && DateTime.UtcNow >= user.ExpirationDate.GetValueOrDefault())
             {
-                context.SetError("account_expire", "Your account expires. Please upgrade your account to access the panel");
-                return;
+                isAccountExpire = true;
             }
 
             var _Uow = new DrNajeeb.Data.Uow(new DrNajeeb.Data.Helpers.RepositoryProvider(new Data.Helpers.RepositoryFactories()));
@@ -105,7 +106,7 @@ namespace DrNajeeb.Web.API.Providers
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
                 CookieAuthenticationDefaults.AuthenticationType);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId, guid);
+            AuthenticationProperties properties = CreateProperties(user.UserName, user.FullName, user.IsFreeUser.Value, user.SubscriptionId, guid, isAccountExpire);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
 
@@ -161,13 +162,14 @@ namespace DrNajeeb.Web.API.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, string fullName, bool isFreeUser, int subId, string guid)
+        public static AuthenticationProperties CreateProperties(string userName, string fullName, bool isFreeUser, int subId, string guid, bool isAccountExpire)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", userName },
                 {"fullName", fullName},
                 {"isFreeUser", (isFreeUser)?"True":"False"},
+                {"isAccountExpire", (isAccountExpire)?"True":"False"},
                 {"showDownloadOption", (subId==1 || subId==3 || subId==6)?"True":"False"},
                 {"guid", guid},
             };

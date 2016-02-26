@@ -136,7 +136,7 @@
 
         var onError = function (error) {
             if (error.status == 400) {
-                toastr.error("you are not allowed to view this video. please purchase a package to view this video.")
+                toastr.error("you are not allowed to view this video or your account is expired. please purchase a package to view this video.")
                 $location.path("/packages");
                 //window.history.back();
             }
