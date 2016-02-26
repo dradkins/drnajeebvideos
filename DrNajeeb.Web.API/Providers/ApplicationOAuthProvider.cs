@@ -49,6 +49,12 @@ namespace DrNajeeb.Web.API.Providers
                 return;
             }
 
+            if (DateTime.UtcNow >= user.ExpirationDate.GetValueOrDefault())
+            {
+                context.SetError("account_expire", "Your account expires. Please upgrade your account to access the panel");
+                return;
+            }
+
             var _Uow = new DrNajeeb.Data.Uow(new DrNajeeb.Data.Helpers.RepositoryProvider(new Data.Helpers.RepositoryFactories()));
 
             if (user.IsFilterByIP)

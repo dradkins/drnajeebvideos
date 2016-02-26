@@ -53,8 +53,12 @@
                     allowHtml: true
                 });
             }
-            if (response.data.error == "invalid_ip") {
+            else if (response.data.error == "invalid_ip") {
                 toastr.error("You are not allowed to visit website on this IP Address");
+            }
+            else if (response.data.error == "account_expire") {
+                toastr.error(response.data.error_description);
+                $location.path("packages");
             }
             else {
                 toastr.error(response.data.error_description);
