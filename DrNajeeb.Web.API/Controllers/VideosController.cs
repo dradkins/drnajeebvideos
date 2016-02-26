@@ -468,7 +468,7 @@ namespace DrNajeeb.Web.API.Controllers
                     }
                 }
 
-                if (_User.ExpirationDate != null && _User.ExpirationDate < DateTime.UtcNow)
+                if (_User.ExpirationDate != null && _User.ExpirationDate < DateTime.UtcNow && _User.IsFreeUser.Value)
                 {
                     return BadRequest();
                 }
@@ -577,7 +577,7 @@ namespace DrNajeeb.Web.API.Controllers
                         x.Description.ToLower().Contains(search));
                 }
 
-                videos = videos.OrderBy("DateLive");
+                videos = videos.OrderBy("CreatedOn descending");
 
                 int totalVideos = 0;
                 totalVideos = await videos.CountAsync();

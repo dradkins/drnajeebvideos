@@ -275,7 +275,7 @@ namespace DrNajeeb.Web.API.Controllers
 
                 bool isAccountExpire = false;
 
-                if (user.ExpirationDate != null && DateTime.UtcNow >= user.ExpirationDate.GetValueOrDefault())
+                if (user.ExpirationDate != null && DateTime.UtcNow >= user.ExpirationDate.GetValueOrDefault() && user.IsFreeUser.Value)
                 {
                     isAccountExpire = true;
                 }
