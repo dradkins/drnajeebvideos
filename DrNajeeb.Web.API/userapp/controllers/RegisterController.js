@@ -1,6 +1,6 @@
 ﻿(function (module) {
 
-    var RegisterController = function ($scope, $timeout, $location, $rootScope, Facebook, OAuthService, CurrentUserService, CountryService, SuportService, toastr) {
+    var RegisterController = function ($scope, $timeout, $location, $rootScope, Facebook, OAuthService, CurrentUserService, CountryService, SuportService, toastr, loginRedirect) {
 
         $scope.registerModel = {
             email: null,
@@ -58,7 +58,12 @@
         var onRegister = function (data) {
             toastr.success("Registered successfully, Please login with your email and password.");
             if ($location.path() == '/free-register') {
-                $location.path("/login");
+                OAuthService.login($scope.registerModel.email, $scope.registerModel.password).then(function (data) {
+                    toastr.success("Welcome " + data);
+                    loginRedirect.redirectPostLogin();
+                    $rootScope.updateUserImage();
+                })
+                //$location.path("/login");
                 return false;
             }
             else {
@@ -285,7 +290,7 @@
         init();
     }
 
-    RegisterController.$inject = ["$scope", "$timeout", "$location", "$rootScope", "Facebook", "OAuthService", "CurrentUserService", "CountryService", "SuportService", "toastr"];
+    RegisterController.$inject = ["$scope", "$timeout", "$location", "$rootScope", "Facebook", "OAuthService", "CurrentUserService", "CountryService", "SuportService", "toastr", "loginRedirect"];
     module.controller("RegisterController", RegisterController);
 
 }(angular.module("DrNajeebUser")));
