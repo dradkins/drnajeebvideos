@@ -42,6 +42,10 @@
         };
 
         var redirectPostLogin = function () {
+            if (CurrentUserService.profile.isFreeUser) {
+                $location.path("/free-videos");
+                return;
+            }
             $location.path(lastPath);
         }
 

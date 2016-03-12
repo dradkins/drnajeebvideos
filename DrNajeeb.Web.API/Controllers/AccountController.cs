@@ -395,6 +395,8 @@ namespace DrNajeeb.Web.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            var subscription = await _Uow._Subscription.GetByIdAsync(model.SubscriptionId);
+
             var user = new ApplicationUser()
             {
                 UserName = model.Email,
@@ -411,7 +413,7 @@ namespace DrNajeeb.Web.API.Controllers
                 NoOfConcurentViews = 1,
                 SubscriptionDate = DateTime.UtcNow,
                 SubscriptionId = model.SubscriptionId,
-                ExpirationDate = DateTime.UtcNow.AddDays(30),
+                ExpirationDate = DateTime.UtcNow.AddDays(subscription.TimeDuration.GetValueOrDefault()),
                 Active = true,
                 IsFreeUser = true,
                 IsInstitutionalAccount = false
@@ -536,6 +538,7 @@ namespace DrNajeeb.Web.API.Controllers
             }
             else
             {
+                var subscription = await _Uow._Subscription.GetByIdAsync(2);
                 user = new ApplicationUser()
                 {
                     Id = Guid.NewGuid().ToString(),
@@ -553,10 +556,10 @@ namespace DrNajeeb.Web.API.Controllers
                     NoOfConcurentViews = 1,
                     SubscriptionDate = DateTime.UtcNow,
                     SubscriptionId = 2,
-                    ExpirationDate = DateTime.UtcNow.AddDays(30),
+                    ExpirationDate = DateTime.UtcNow.AddDays(subscription.TimeDuration.GetValueOrDefault()),
                     Active = true,
                     IsFreeUser = true,
-                    IsInstitutionalAccount=false,
+                    IsInstitutionalAccount = false,
                 };
 
                 result = await UserManager.CreateAsync(user);

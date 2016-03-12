@@ -145,6 +145,7 @@ namespace DrNajeeb.Web.API.Controllers
         {
             try
             {
+                var subscription=await _Uow._Subscription.GetByIdAsync(model.SubscriptionID.GetValueOrDefault());
                 var user = new ApplicationUser()
                 {
                     UserName = model.EmailAddress,
@@ -164,6 +165,7 @@ namespace DrNajeeb.Web.API.Controllers
                     IsFreeUser = model.IsFreeUser,
                     SubscriptionDate = DateTime.UtcNow,
                     IsInstitutionalAccount = model.IsInstitutionalAccount,
+                    ExpirationDate=(subscription==null)?DateTime.UtcNow.AddDays(30):DateTime.UtcNow.AddDays(subscription.TimeDuration.GetValueOrDefault())
                 };
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -313,6 +315,7 @@ namespace DrNajeeb.Web.API.Controllers
                         return GetErrorResult(result);
                     }
                 }
+                var subscription=await _Uow._Subscription.GetByIdAsync(model.SubscriptionID.GetValueOrDefault());
                 var currentUser = await _Uow._Users.GetAll(x => x.Email == model.EmailAddress).FirstOrDefaultAsync();
                 currentUser.CountryId = model.CountryID;
                 currentUser.UpdatedOn = DateTime.UtcNow;
@@ -327,6 +330,7 @@ namespace DrNajeeb.Web.API.Controllers
                 currentUser.UpdatedBy = User.Identity.GetUserId();
                 currentUser.IsFreeUser = model.IsFreeUser;
                 currentUser.IsInstitutionalAccount = model.IsInstitutionalAccount;
+                currentUser.ExpirationDate = (subscription == null) ? DateTime.UtcNow.AddDays(30) : DateTime.UtcNow.AddDays(subscription.TimeDuration.GetValueOrDefault());
                 if (currentUser.IsFilterByIP)
                 {
                     if (model.FilteredIPs != null)
