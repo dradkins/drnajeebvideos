@@ -250,6 +250,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
           <Property Name="IsFreeVideo" Type="bit" />
+          <Property Name="FreeVideoOrder" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LoggedInTracking">
           <Key>
@@ -3609,6 +3610,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="IsFreeVideo" Type="Boolean" />
+          <Property Name="FreeVideoOrder" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK__Videos__CreatedB__5AD97420" FromRole="Videos" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser1" Relationship="Self.FK__Videos__CreatedB__5BCD9859" FromRole="Videos" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUser2" Relationship="Self.FK__Videos__CreatedB__5CC1BC92" FromRole="Videos" ToRole="AspNetUsers" />
@@ -6703,6 +6705,7 @@ warning 6002: The table/view '974524_lectures.dbo.sysdiagrams' does not have a p
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="IsFreeVideo" ColumnName="IsFreeVideo" />
+                <ScalarProperty Name="FreeVideoOrder" ColumnName="FreeVideoOrder" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

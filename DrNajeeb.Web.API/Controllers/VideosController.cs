@@ -1306,5 +1306,83 @@ namespace DrNajeeb.Web.API.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [ActionName("UpdateFreeVideosOrder")]
+        [HttpPost]
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IHttpActionResult> UpdateFreeVideosOrder(List<VideoSortingModel> model)
+        {
+            try
+            {
+                var freeVideos = _Uow._Videos.GetAll(x => x.Active == true && x.IsFreeVideo == true);
+                foreach (var item in model)
+                {
+                    var displayOrder = item.LocationNo + 1;
+                    var video = await freeVideos.FirstOrDefaultAsync(x => x.Id == item.VideoId);
+                    if (video != null)
+                    {
+                        if (video.FreeVideoOrder == null || video.FreeVideoOrder != displayOrder)
+                        {
+                            video.FreeVideoOrder = displayOrder;
+                            _Uow._Videos.Update(video);
+                        }
+                    }
+                }
+                await _Uow.CommitAsync();
+
+                await LogHelpers.SaveLog(_Uow, "Update Free Video Sorting Order Of Videos", User.Identity.GetUserId());
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+
+        [ActionName("GetFreeVideosForSorting")]
+        [HttpGet]
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IHttpActionResult> GetFreeVideosForSorting()
+        {
+            try
+            {
+                var videosList = new List<VideoModel>();
+
+                var videos = await _Uow._Videos
+                    .GetAll(x => x.IsFreeVideo == true)
+                    .OrderBy(x => x.FreeVideoOrder)
+                    .ToListAsync();
+
+                foreach (var video in videos)
+                {
+                    var model = new VideoModel();
+                    model.Id = video.Id;
+                    model.Name = video.Name;
+                    model.Description = video.Description;
+                    model.Duration = video.Duration;
+                    model.ReleaseYear = video.ReleaseYear;
+                    if (video.DateLive != null)
+                    {
+                        model.DateLive = video.DateLive;
+                    }
+                    model.BackgroundColor = video.BackgroundColor;
+                    model.IsEnabled = video.IsEnabled;
+                    model.StandardVideoId = video.StandardVideoId;
+                    model.FastVideoId = video.StandardVideoId;
+                    videosList.Add(model);
+                }
+
+                //await LogHelpers.SaveLog(_Uow, "Get Videos Of Category For Sorting", User.Identity.GetUserId());
+
+                return Ok(videosList);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+        }
     }
 }

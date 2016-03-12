@@ -59,6 +59,7 @@ namespace DrNajeeb.EF
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<bool> IsFreeVideo { get; set; }
+        public int FreeVideoOrder { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual AspNetUser AspNetUser1 { get; set; }

@@ -131,25 +131,23 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DrNajeebEF.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="DrNajeebEF.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DrNajeebEF.edmx</DependentUpon>
+      <LastGenOutput>DrNajeebEF.Context.cs</LastGenOutput>
+    </None>
     <None Include="DrNajeebEF.edmx.diagram">
       <DependentUpon>DrNajeebEF.edmx</DependentUpon>
+    </None>
+    <None Include="DrNajeebEF.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DrNajeebEF.edmx</DependentUpon>
+      <LastGenOutput>DrNajeebEF.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DrNajeebEF.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DrNajeebEF.edmx</DependentUpon>
-      <LastGenOutput>DrNajeebEF.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DrNajeebEF.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DrNajeebEF.edmx</DependentUpon>
-      <LastGenOutput>DrNajeebEF.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
