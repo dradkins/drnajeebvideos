@@ -56,7 +56,6 @@
         }
 
         var onRegister = function (data) {
-            toastr.success("Registered successfully, Please login with your email and password.");
             if ($location.path() == '/free-register') {
                 OAuthService.login($scope.registerModel.email, $scope.registerModel.password).then(function (data) {
                     toastr.success("Welcome " + data);
